@@ -5,9 +5,12 @@ class UssdController < ApplicationController
   # where all USSD messages are routed to
   def inbound
     session_id = params["sessionId"]
+    if params["text"].present?
+      text = params["text"].split('*')[-1]
+    end
     # if in cache, respond with the right message
     if (to_store = Rails.cache.read(session_id))
-      res = gen_response(to_store[:state], params["text"])
+      res = gen_response(to_store[:state], text)
       new_store = to_store.merge(res)
       Rails.cache.write(session_id, new_store)
       if new_store[:state] == 5
