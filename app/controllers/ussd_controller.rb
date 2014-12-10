@@ -5,7 +5,6 @@ class UssdController < ApplicationController
   # where all USSD messages are routed to
   def inbound
     session_id = params["sessionId"]
-    debugger
     # if in cache, respond with the right message
     if (to_store = Rails.cache.read(session_id))
       res = gen_response(to_store[:state], params["text"])
@@ -26,8 +25,9 @@ class UssdController < ApplicationController
     # else if not in cache, write to cache, give it a state of 0 and respond with message
     else
       to_store = {session_id: session_id, state: 0, phone_number: params['phoneNumber']}
-      Rails.cache.write(session_id, to_store)
       res = gen_response(0)
+      new_store = to_store.merge(res)
+      Rails.cache.write(session_id, new_store)
     end
     render text: res[:msg]
   end

@@ -1,0 +1,9 @@
+o: ActiveSupport::Cache::Entry:@value{
+:session_idI"3:ET:
+statei:phone_numberI"+16506448199;T:msgI"^CON Which commodity do you grow? 
+1. Coffee 
+2. Tea 
+3. Cabbage 
+4. Mangoes 
+5. Bananas 
+;F:warehouse_numberi:@created_atf1418200737.9949498:@expires_in0
