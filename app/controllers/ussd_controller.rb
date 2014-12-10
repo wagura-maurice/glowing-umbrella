@@ -28,7 +28,7 @@ class UssdController < ApplicationController
       Rails.cache.write(session_id, to_store)
       res = gen_response(0)
     end
-
+    render plain: res['msg']
   end
 
 
