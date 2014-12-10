@@ -1402,3 +1402,196 @@ Started GET "/assets/vipi.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
 
 
 Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:21:24 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (27.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199"}
+Completed 500 Internal Server Error in 17ms
+
+ArgumentError (wrong number of arguments(0 for 1)):
+  app/controllers/ussd_controller.rb:12:in `merge'
+  app/controllers/ussd_controller.rb:12:in `inbound'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/_source.erb (0.9ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (3.9ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (30.7ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:21:49 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199"}
+Completed 500 Internal Server Error in 7ms
+
+ActionView::MissingTemplate (Missing template ussd/inbound, application/inbound with {:locale=>[:en], :formats=>[:html, :text, :js, :css, :ics, :csv, :png, :jpeg, :gif, :bmp, :tiff, :mpeg, :xml, :rss, :atom, :yaml, :multipart_form, :url_encoded_form, :json, :pdf, :zip], :handlers=>[:erb, :builder, :raw, :ruby, :jbuilder, :coffee]}. Searched in:
+  * "/Users/alkarim/Desktop/app/Egranary/app/views"
+):
+  app/controllers/ussd_controller.rb:32:in `inbound'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/missing_template.erb within rescues/layout (0.8ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:23:44 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 8ms (Views: 5.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:24:18 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 87448ms (Views: 2.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:26:43 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 4604ms (Views: 1.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:26:58 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 2062ms (Views: 1.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:27:05 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 1626ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:27:29 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199", "text"=>"1"}
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:27:48 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 46049ms (Views: 19.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:28:43 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 59413ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:29:48 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 15596ms (Views: 2.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:30:10 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199", "text"=>"2"}
+  Rendered text template (0.5ms)
+Completed 200 OK in 3467ms (Views: 2.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:30:18 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199", "text"=>"50"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 1482ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:30:24 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199", "text"=>"5"}
+Completed 500 Internal Server Error in 1415ms
+
+NoMethodError (undefined method `msg' for #<UssdController:0x007fcd17b66bd8>):
+  app/controllers/ussd_controller.rb:68:in `gen_response'
+  app/controllers/ussd_controller.rb:11:in `inbound'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.6ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.8ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.7ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (66.4ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:30:59 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199", "text"=>"5"}
+  [1m[35mUser Load (30.6ms)[0m  SELECT "users".* FROM "users" WHERE "users"."username" = 'modedemo' ORDER BY "users"."id" ASC LIMIT 1
+Completed 500 Internal Server Error in 2388ms
+
+ActiveRecord::UnknownAttributeError (unknown attribute: user):
+  app/controllers/ussd_controller.rb:16:in `inbound'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.2ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.4ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.4ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (16.3ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:32:11 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 1638ms (Views: 13.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:32:21 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"2", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 1415ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:32:26 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"2", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 857ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:32:34 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"2", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 1359ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:32:41 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"2", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 1598ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:32:47 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"2", "phoneNumber"=>"+16506448199", "text"=>"50"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 945ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 00:32:53 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"2", "phoneNumber"=>"+16506448199", "text"=>"5"}
+  [1m[35mUser Load (1.7ms)[0m  SELECT "users".* FROM "users" WHERE "users"."username" = 'modedemo' ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (35.0ms)[0m  INSERT INTO "farmer_inputs" ("commodity_grade", "commodity_number", "created_at", "phone_number", "quantity", "session_id", "state", "updated_at", "user_id", "warehouse_number") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"  [["commodity_grade", 5], ["commodity_number", 1], ["created_at", Wed, 10 Dec 2014 08:33:02 UTC +00:00], ["phone_number", "+16506448199"], ["quantity", 50.0], ["session_id", "2"], ["state", 5], ["updated_at", Wed, 10 Dec 2014 08:33:02 UTC +00:00], ["user_id", "3d664c5c-3ead-4ec2-9ca9-267085355d24"], ["warehouse_number", 1]]
+  [1m[36m (4.9ms)[0m  [1mCOMMIT[0m
+  Rendered text template (0.2ms)
+Completed 200 OK in 10924ms (Views: 1.3ms | ActiveRecord: 46.6ms)

@@ -5,21 +5,21 @@ class UssdController < ApplicationController
   # where all USSD messages are routed to
   def inbound
     session_id = params["sessionId"]
-
+    debugger
     # if in cache, respond with the right message
     if (to_store = Rails.cache.read(session_id))
-      res = gen_response(0, params["text"])
-      new_store = to_store.merge.res
+      res = gen_response(to_store[:state], params["text"])
+      new_store = to_store.merge(res)
       Rails.cache.write(session_id, new_store)
-      if new_store['state'] == 5
+      if new_store[:state] == 5
         superuser = User.where(username: 'modedemo').first
-        FarmerInput.create(warehouse_number: new_store['warehouse_number'],
-                           commodity_number: new_store['commodity_number'],
-                           quantity: new_store['quantity'],
-                           commodity_grade: new_store['grade'],
-                           phone_number: new_store['phone_number'],
-                           session_id: new_store['session_id'],
-                           state: new_store['state'],
+        FarmerInput.create(warehouse_number: new_store[:warehouse_number],
+                           commodity_number: new_store[:commodity_number],
+                           quantity: new_store[:quantity],
+                           commodity_grade: new_store[:grade],
+                           phone_number: new_store[:phone_number],
+                           session_id: new_store[:session_id],
+                           state: new_store[:state],
                            user: superuser)
       end
     # else if not in cache, write to cache, give it a state of 0 and respond with message
@@ -28,7 +28,7 @@ class UssdController < ApplicationController
       Rails.cache.write(session_id, to_store)
       res = gen_response(0)
     end
-    render plain: res['msg']
+    render text: res[:msg]
   end
 
 
@@ -65,7 +65,7 @@ class UssdController < ApplicationController
     when 4
       grade = text.to_i
       if valid_commodity_grades.include? grade
-        msg "END Thanks for logging your farm output. We will notify buyers promptly \n"
+        msg = "END Thanks for logging your farm output. We will notify buyers promptly \n"
         ret = {msg: msg, state: 5, grade: grade}
       else
         msg = "CON Invalid grade, please try again \n" + get_commodity_grade
