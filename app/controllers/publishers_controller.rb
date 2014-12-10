@@ -3,24 +3,11 @@ class PublishersController < ApplicationController
 	require 'send_messages'
 
 	def index
-		publisher = current_user.publisher
-		return if publisher.nil?
-		@channel = publisher.channels.first
-
-		if @channel && @channel.messages.length > 0
-			#@messages = @channel.messages
-		end
+		@inputs = current_user.farmer_inputs
 	end
 
 	def blast
-		publisher = current_user.publisher
-		@channel = publisher.channels.first
-
-		#@channel.subscribers.each do |subscriber|
-			#Message.create(channel: @channel, direction: "outgoing", to: subscriber.phone_number, from: publisher.user.phone_number, content: message_content["message"], time: Time.now)
-			#send_message(subscriber.phone_number, params["message"])
-		#end
-		to = @channel.subscribers.pluck(:phone_number)
+		to = current_user.farmer_inputs.pluck(:phone_number).uniq
 		SendMessages.send(to, 'Jiunga', params["message"])
 		redirect_to :controller => :publishers, :action => :index
 	end

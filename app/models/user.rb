@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
 	belongs_to :publisher
 	belongs_to :subscriber
+	has_many :farmer_inputs
 
 	#def full_name
     #	return [first_name, last_name].join(" ")
