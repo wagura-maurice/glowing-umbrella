@@ -1595,3 +1595,304 @@ Processing by UssdController#inbound as */*
   [1m[36m (4.9ms)[0m  [1mCOMMIT[0m
   Rendered text template (0.2ms)
 Completed 200 OK in 10924ms (Views: 1.3ms | ActiveRecord: 46.6ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:24:18 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (23.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1121313", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 82ms (Views: 21.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:24:21 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1121313", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 3ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:24:24 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1121313", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:24:27 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1121313", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:24:30 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"1121313", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  [1m[35mUser Load (32.8ms)[0m  SELECT "users".* FROM "users" WHERE "users"."username" = 'modedemo' ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (34.0ms)[0m  INSERT INTO "farmer_inputs" ("commodity_grade", "commodity_number", "created_at", "phone_number", "quantity", "session_id", "state", "updated_at", "user_id", "warehouse_number") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"  [["commodity_grade", 1], ["commodity_number", 1], ["created_at", Wed, 10 Dec 2014 19:24:31 UTC +00:00], ["phone_number", "+16506448199"], ["quantity", 1.0], ["session_id", "1121313"], ["state", 5], ["updated_at", Wed, 10 Dec 2014 19:24:31 UTC +00:00], ["user_id", "3d664c5c-3ead-4ec2-9ca9-267085355d24"], ["warehouse_number", 1]]
+  [1m[36m (2.7ms)[0m  [1mCOMMIT[0m
+  Rendered text template (0.3ms)
+Completed 200 OK in 363ms (Views: 1.4ms | ActiveRecord: 74.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:24:54 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"11213134", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 5ms (Views: 0.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:24:56 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"11213134", "phoneNumber"=>"+16506448199", "text"=>"3"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:25:03 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"11213134", "phoneNumber"=>"+16506448199", "text"=>"2"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 4ms (Views: 0.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:25:07 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"11213134", "phoneNumber"=>"+16506448199", "text"=>"600"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:25:17 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"11213134", "phoneNumber"=>"+16506448199", "text"=>"5"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users" WHERE "users"."username" = 'modedemo' ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "farmer_inputs" ("commodity_grade", "commodity_number", "created_at", "phone_number", "quantity", "session_id", "state", "updated_at", "user_id", "warehouse_number") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"  [["commodity_grade", 5], ["commodity_number", 2], ["created_at", Wed, 10 Dec 2014 19:25:17 UTC +00:00], ["phone_number", "+16506448199"], ["quantity", 600.0], ["session_id", "11213134"], ["state", 5], ["updated_at", Wed, 10 Dec 2014 19:25:17 UTC +00:00], ["user_id", "3d664c5c-3ead-4ec2-9ca9-267085355d24"], ["warehouse_number", 3]]
+  [1m[36m (5.7ms)[0m  [1mCOMMIT[0m
+  Rendered text template (0.1ms)
+Completed 200 OK in 16ms (Views: 1.0ms | ActiveRecord: 7.3ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:26:31 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"112131345", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 6ms (Views: 0.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:26:36 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"112131345", "phoneNumber"=>"+16506448199", "text"=>"3"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 2ms (Views: 0.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:26:46 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"112131345", "phoneNumber"=>"+16506448199", "text"=>"3*5"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 3ms (Views: 0.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:26:51 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"112131345", "phoneNumber"=>"+16506448199", "text"=>"3*5*400"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for 127.0.0.1 at 2014-12-10 11:26:57 -0800
+Processing by UssdController#inbound as */*
+  Parameters: {"sessionId"=>"112131345", "phoneNumber"=>"+16506448199", "text"=>"3*5*400*2"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users" WHERE "users"."username" = 'modedemo' ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "farmer_inputs" ("commodity_grade", "commodity_number", "created_at", "phone_number", "quantity", "session_id", "state", "updated_at", "user_id", "warehouse_number") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"  [["commodity_grade", 2], ["commodity_number", 5], ["created_at", Wed, 10 Dec 2014 19:26:57 UTC +00:00], ["phone_number", "+16506448199"], ["quantity", 400.0], ["session_id", "112131345"], ["state", 5], ["updated_at", Wed, 10 Dec 2014 19:26:57 UTC +00:00], ["user_id", "3d664c5c-3ead-4ec2-9ca9-267085355d24"], ["warehouse_number", 3]]
+  [1m[36m (6.1ms)[0m  [1mCOMMIT[0m
+  Rendered text template (0.1ms)
+Completed 200 OK in 13ms (Views: 0.7ms | ActiveRecord: 7.2ms)
+
+
+Started GET "/api/users/status.json" for 127.0.0.1 at 2014-12-10 11:30:46 -0800
+
+ActionController::RoutingError (No route matches [GET] "/api/users/status.json"):
+  actionpack (4.0.8) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  actionpack (4.0.8) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  railties (4.0.8) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.0.8) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.0.8) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.0.8) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.0.8) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.0.8) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  actionpack (4.0.8) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  rack (1.5.2) lib/rack/methodoverride.rb:21:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  rack (1.5.2) lib/rack/runtime.rb:17:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  activesupport (4.0.8) lib/active_support/cache/strategy/local_cache.rb:83:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  rack (1.5.2) lib/rack/lock.rb:17:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  actionpack (4.0.8) lib/action_dispatch/middleware/static.rb:64:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  rack (1.5.2) lib/rack/sendfile.rb:112:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  railties (4.0.8) lib/rails/engine.rb:511:in `call'
+  railties (4.0.8) lib/rails/application.rb:97:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  rack (1.5.2) lib/rack/content_length.rb:14:in `call'
+  puma (2.9.0) lib/puma/server.rb:490:in `handle_request'
+  puma (2.9.0) lib/puma/server.rb:361:in `process_client'
+  puma (2.9.0) lib/puma/server.rb:254:in `block in run'
+  puma (2.9.0) lib/puma/thread_pool.rb:92:in `call'
+  puma (2.9.0) lib/puma/thread_pool.rb:92:in `block in spawn_thread'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/routes/_route.html.erb (4.6ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/routes/_table.html.erb (22.4ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-4.0.8/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (132.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2014-12-10 11:41:03 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (12.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by HomeController#index as HTML
+  Rendered home/index.html.erb within layouts/application (4.2ms)
+  Rendered layouts/_navbar.html.erb (0.8ms)
+  Rendered layouts/_alerts.html.erb (1.6ms)
+Completed 200 OK in 632ms (Views: 618.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-12-10 11:41:03 -0800
+
+
+Started GET "/assets/api.css?body=1" for 127.0.0.1 at 2014-12-10 11:41:03 -0800
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2014-12-10 11:41:03 -0800
+
+
+Started GET "/assets/missed_calls.css?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/publishers.css?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/read_messages.css?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/user.css?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/ussd.css?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/vipi.css?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/api.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/missed_calls.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/publishers.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/read_messages.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/user.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/ussd.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/vipi.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-12-10 11:41:04 -0800
+
+
+Started GET "/login" for 127.0.0.1 at 2014-12-10 11:41:07 -0800
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.8ms)
+  Rendered layouts/_navbar.html.erb (0.5ms)
+  Rendered layouts/_alerts.html.erb (1.3ms)
+Completed 200 OK in 16ms (Views: 14.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/sessions" for 127.0.0.1 at 2014-12-10 11:41:09 -0800
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"H9E0XNBpDJ9slzVeZ2e4mD1Qj/cmDFXyYKE39wVwvz8=", "phone_number_or_username"=>"modedemo", "password"=>"[FILTERED]", "commit"=>"Login"}
+Unpermitted parameters: utf8, authenticity_token, commit
+Unpermitted parameters: utf8, authenticity_token, commit
+  [1m[35mUser Load (23.7ms)[0m  SELECT "users".* FROM "users" WHERE (username = 'modedemo' OR phone_number = 'modedemo') ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT "users".* FROM "users" WHERE (username = 'modedemo' OR phone_number = 'modedemo') ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mSQL (21.4ms)[0m  UPDATE "users" SET "failed_logins_count" = 1 WHERE "users"."id" = '3d664c5c-3ead-4ec2-9ca9-267085355d24'
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."username" = 'modedemo' LIMIT 1[0m
+Redirected to http://localhost:3000/login
+Completed 302 Found in 326ms (ActiveRecord: 48.6ms)
+
+
+Started GET "/login" for 127.0.0.1 at 2014-12-10 11:41:09 -0800
+Processing by SessionsController#new as HTML
+  Rendered sessions/new.html.erb within layouts/application (1.8ms)
+  Rendered layouts/_navbar.html.erb (0.2ms)
+  Rendered layouts/_alerts.html.erb (0.2ms)
+Completed 200 OK in 13ms (Views: 11.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/sessions" for 127.0.0.1 at 2014-12-10 11:41:14 -0800
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"H9E0XNBpDJ9slzVeZ2e4mD1Qj/cmDFXyYKE39wVwvz8=", "phone_number_or_username"=>"modedemo", "password"=>"[FILTERED]", "commit"=>"Login"}
+Unpermitted parameters: utf8, authenticity_token, commit
+Unpermitted parameters: utf8, authenticity_token, commit
+  [1m[35mUser Load (0.8ms)[0m  SELECT "users".* FROM "users" WHERE (username = 'modedemo' OR phone_number = 'modedemo') ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mSQL (1.2ms)[0m  [1mUPDATE "users" SET "last_login_at" = '2014-12-10 19:41:14.801111' WHERE "users"."id" = '3d664c5c-3ead-4ec2-9ca9-267085355d24'[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE "users" SET "last_login_from_ip_address" = '127.0.0.1' WHERE "users"."id" = '3d664c5c-3ead-4ec2-9ca9-267085355d24'
+  [1m[36mSQL (0.9ms)[0m  [1mUPDATE "users" SET "failed_logins_count" = 0 WHERE "users"."id" = '3d664c5c-3ead-4ec2-9ca9-267085355d24'[0m
+Redirected to http://localhost:3000/app
+  [1m[35mSQL (0.7ms)[0m  UPDATE "users" SET "last_activity_at" = '2014-12-10 19:41:14.808954' WHERE "users"."id" = '3d664c5c-3ead-4ec2-9ca9-267085355d24'
+Completed 302 Found in 182ms (ActiveRecord: 4.0ms)
+
+
+Started GET "/app" for 127.0.0.1 at 2014-12-10 11:41:14 -0800
+Processing by PublishersController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = '3d664c5c-3ead-4ec2-9ca9-267085355d24' LIMIT 1[0m
+  [1m[35mFarmerInput Load (22.9ms)[0m  SELECT "farmer_inputs".* FROM "farmer_inputs" WHERE "farmer_inputs"."user_id" = $1  [["user_id", "3d664c5c-3ead-4ec2-9ca9-267085355d24"]]
+  Rendered publishers/index.html.erb within layouts/application (35.3ms)
+  Rendered layouts/_navbar.html.erb (0.3ms)
+  Rendered layouts/_alerts.html.erb (0.2ms)
+  [1m[36mSQL (0.6ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2014-12-10 19:41:14.962437' WHERE "users"."id" = '3d664c5c-3ead-4ec2-9ca9-267085355d24'[0m
+Completed 200 OK in 80ms (Views: 22.3ms | ActiveRecord: 26.4ms)
