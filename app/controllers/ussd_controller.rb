@@ -12,6 +12,7 @@ class UssdController < ApplicationController
       new_store = to_store.merge(res)
       Rails.cache.write(session_id, new_store)
       if new_store[:state] == 5
+        # Give the farmer input a user
         superuser = User.where(username: 'modedemo').first
         FarmerInput.create(warehouse_number: new_store[:warehouse_number],
                            commodity_number: new_store[:commodity_number],
