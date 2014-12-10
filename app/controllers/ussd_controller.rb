@@ -66,7 +66,7 @@ class UssdController < ApplicationController
       grade = text.to_i
       if valid_commodity_grades.include? grade
         msg "END Thanks for logging your farm output. We will notify buyers promptly \n"
-        ret {msg: msg, state: 5, grade: grade}
+        ret = {msg: msg, state: 5, grade: grade}
       else
         msg = "CON Invalid grade, please try again \n" + get_commodity_grade
         ret = {msg: msg, state: 4}

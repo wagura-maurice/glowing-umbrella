@@ -1316,3 +1316,89 @@ Started GET "/assets/vipi.js?body=1" for 127.0.0.1 at 2014-12-09 23:41:37 -0800
 
 
 Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-12-09 23:41:37 -0800
+
+
+Started GET "/app" for 127.0.0.1 at 2014-12-09 23:56:52 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (26.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PublishersController#index as HTML
+  [1m[35mUser Load (38.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = '3d664c5c-3ead-4ec2-9ca9-267085355d24' LIMIT 1
+  Rendered publishers/index.html.erb within layouts/application (4.6ms)
+  Rendered layouts/_navbar.html.erb (1.0ms)
+  Rendered layouts/_alerts.html.erb (0.9ms)
+  [1m[36mSQL (27.0ms)[0m  [1mUPDATE "users" SET "last_activity_at" = '2014-12-10 07:56:52.717537' WHERE "users"."id" = '3d664c5c-3ead-4ec2-9ca9-267085355d24'[0m
+Completed 200 OK in 433ms (Views: 194.0ms | ActiveRecord: 67.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2014-12-09 23:56:52 -0800
+
+
+Started GET "/assets/bootstrap.css?body=1" for 127.0.0.1 at 2014-12-09 23:56:52 -0800
+
+
+Started GET "/assets/api.css?body=1" for 127.0.0.1 at 2014-12-09 23:56:52 -0800
+
+
+Started GET "/assets/missed_calls.css?body=1" for 127.0.0.1 at 2014-12-09 23:56:52 -0800
+
+
+Started GET "/assets/publishers.css?body=1" for 127.0.0.1 at 2014-12-09 23:56:52 -0800
+
+
+Started GET "/assets/home.css?body=1" for 127.0.0.1 at 2014-12-09 23:56:52 -0800
+
+
+Started GET "/assets/read_messages.css?body=1" for 127.0.0.1 at 2014-12-09 23:56:52 -0800
+
+
+Started GET "/assets/sessions.css?body=1" for 127.0.0.1 at 2014-12-09 23:56:52 -0800
+
+
+Started GET "/assets/user.css?body=1" for 127.0.0.1 at 2014-12-09 23:56:52 -0800
+
+
+Started GET "/assets/ussd.css?body=1" for 127.0.0.1 at 2014-12-09 23:56:52 -0800
+
+
+Started GET "/assets/vipi.css?body=1" for 127.0.0.1 at 2014-12-09 23:56:52 -0800
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:52 -0800
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
+
+
+Started GET "/assets/turbolinks.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
+
+
+Started GET "/assets/api.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
+
+
+Started GET "/assets/bootstrap.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
+
+
+Started GET "/assets/home.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
+
+
+Started GET "/assets/missed_calls.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
+
+
+Started GET "/assets/publishers.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
+
+
+Started GET "/assets/read_messages.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
+
+
+Started GET "/assets/sessions.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
+
+
+Started GET "/assets/user.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
+
+
+Started GET "/assets/ussd.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
+
+
+Started GET "/assets/vipi.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2014-12-09 23:56:53 -0800
