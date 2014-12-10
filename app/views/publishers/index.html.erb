@@ -1,0 +1,52 @@
+<h1>Send Messages</h1>
+<% if @channel %>
+	<h3><%= @channel.name %>: <%= @channel.phone_number %></h3>
+	<%= form_tag blast_path, method: :post do %>
+		<fieldset>
+			<div class="form-group">
+		    	<label for="login-credentials">Message</label>
+		    	<%= text_area_tag :message, nil, class: "form-control", placeholder: "Enter your message", maxlength: 160 %>
+		    </div>
+		    <div>
+		    	<%= submit_tag 'Send', class: "btn btn-primary" %>
+		    </div>
+		</fieldset>
+	<% end %>
+	<h5>Subscribers</h5>
+	<p>Total: <%= @channel.subscribers.count %> subscribers</p>
+	<ul>
+	<% @channel.subscribers.each do |s| %>
+		<li><%= s.phone_number %></li>
+	<% end %>
+	</ul>
+<% else %>
+	<p>You currently don't have any phone numbers, please contact us as <%= mail_to "hello@jiunga.com" %> to purchase a phone number that your followers can flash</p>
+<% end %>
+<br /> <br />
+<% if false %>
+	<h1>History</h1>
+	<% if @messages  %>
+		<div class="table-responsive">
+		  <table class="table table-hover">
+		    <thead>
+		    	<tr>
+			    	<th>From</th>
+			    	<th>Message</th>
+			    	<th>Time</th>
+		    	</tr>
+		    </thead>
+		   	<tbody>
+		   		<% @messages.each do |msg| %>
+			   		<tr>
+			   			<td><%= msg.from %></td>
+			   			<td><%= msg.content %></td>
+			   			<td><%= msg.time.strftime "%I:%M:%S %p, %b %e" %></td>
+					</tr>
+			   	<% end %>
+		   	</tbody>
+		  </table>
+		</div>	
+	<% else %>
+		<p>Your outbox is currently empty</p>
+	<% end %>
+<% end %>

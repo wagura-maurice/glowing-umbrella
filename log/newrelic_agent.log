@@ -1,0 +1,232 @@
+# Logfile created on 2014-12-09 21:57:58 -0800 by logger.rb/31641
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Starting the New Relic agent in "development" environment.
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Reading configuration from config/newrelic.yml
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : New Relic Agent Developer Mode enabled.
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Environment: development
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Dispatcher: mongrel
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Application: My Application
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] WARN : Agent configured not to send data in this environment.
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Installing ActiveRecord 4 instrumentation
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Installing Curb instrumentation
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Installing Dalli Memcache instrumentation
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Installing Net instrumentation
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Installing deferred Rack instrumentation
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Installing Rack::Builder middleware instrumentation
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Installing Rails 3+ middleware instrumentation
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Installing Rails 4 Controller instrumentation
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Installing Rails 4 view instrumentation
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Installing Rails 4 Error instrumentation
+[12/09/14 21:57:58 -0800 Al-Karims-MacBook-Air.local (2168)] INFO : Finished instrumentation
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Starting the New Relic agent in "development" environment.
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Reading configuration from config/newrelic.yml
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : New Relic Agent Developer Mode enabled.
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Environment: development
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Dispatcher: mongrel
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Application: My Application
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] WARN : Agent configured not to send data in this environment.
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Installing ActiveRecord 4 instrumentation
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Installing Curb instrumentation
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Installing Dalli Memcache instrumentation
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Installing Net instrumentation
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Installing deferred Rack instrumentation
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Installing Rack::Builder middleware instrumentation
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Installing Rails 3+ middleware instrumentation
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Installing Rails 4 Controller instrumentation
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Installing Rails 4 view instrumentation
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Installing Rails 4 Error instrumentation
+[12/09/14 21:58:23 -0800 Al-Karims-MacBook-Air.local (2186)] INFO : Finished instrumentation
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Starting the New Relic agent in "development" environment.
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Reading configuration from config/newrelic.yml
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : New Relic Agent Developer Mode enabled.
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Environment: development
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Dispatcher: mongrel
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Application: My Application
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] WARN : Agent configured not to send data in this environment.
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Installing ActiveRecord 4 instrumentation
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Installing Curb instrumentation
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Installing Dalli Memcache instrumentation
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Installing Net instrumentation
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Installing deferred Rack instrumentation
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Installing Rack::Builder middleware instrumentation
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Installing Rails 3+ middleware instrumentation
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Installing Rails 4 Controller instrumentation
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Installing Rails 4 view instrumentation
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Installing Rails 4 Error instrumentation
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Finished instrumentation
+[12/09/14 21:59:22 -0800 Al-Karims-MacBook-Air.local (2225)] INFO : Doing deferred dependency-detection before Rack startup
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Starting the New Relic agent in "development" environment.
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Reading configuration from config/newrelic.yml
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : New Relic Agent Developer Mode enabled.
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Environment: development
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : No known dispatcher detected.
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Application: My Application
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] WARN : Agent configured not to send data in this environment.
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Installing ActiveRecord 4 instrumentation
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Installing Curb instrumentation
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Installing Dalli Memcache instrumentation
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Installing Net instrumentation
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Installing deferred Rack instrumentation
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Installing Rack::Builder middleware instrumentation
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Installing Rails 3+ middleware instrumentation
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Installing Rails 4 Controller instrumentation
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Installing Rails 4 view instrumentation
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Installing Rails 4 Error instrumentation
+[12/09/14 22:08:02 -0800 Al-Karims-MacBook-Air.local (2443)] INFO : Finished instrumentation
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Starting the New Relic agent in "development" environment.
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Reading configuration from config/newrelic.yml
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : New Relic Agent Developer Mode enabled.
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Environment: development
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : No known dispatcher detected.
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Application: My Application
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] WARN : Agent configured not to send data in this environment.
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Installing ActiveRecord 4 instrumentation
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Installing Curb instrumentation
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Installing Dalli Memcache instrumentation
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Installing Net instrumentation
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Installing deferred Rack instrumentation
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Installing Rack::Builder middleware instrumentation
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Installing Rails 3+ middleware instrumentation
+[12/09/14 23:24:37 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Installing Rails 4 Controller instrumentation
+[12/09/14 23:24:38 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Installing Rails 4 view instrumentation
+[12/09/14 23:24:38 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Installing Rails 4 Error instrumentation
+[12/09/14 23:24:38 -0800 Al-Karims-MacBook-Air.local (4724)] INFO : Finished instrumentation
+[12/09/14 23:26:20 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Starting the New Relic agent in "development" environment.
+[12/09/14 23:26:20 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[12/09/14 23:26:20 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Reading configuration from config/newrelic.yml
+[12/09/14 23:26:20 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : New Relic Agent Developer Mode enabled.
+[12/09/14 23:26:20 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Environment: development
+[12/09/14 23:26:20 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : No known dispatcher detected.
+[12/09/14 23:26:20 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Application: My Application
+[12/09/14 23:26:20 -0800 Al-Karims-MacBook-Air.local (4778)] WARN : Agent configured not to send data in this environment.
+[12/09/14 23:26:21 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Installing ActiveRecord 4 instrumentation
+[12/09/14 23:26:21 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Installing Curb instrumentation
+[12/09/14 23:26:21 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Installing Dalli Memcache instrumentation
+[12/09/14 23:26:21 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Installing Net instrumentation
+[12/09/14 23:26:21 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Installing deferred Rack instrumentation
+[12/09/14 23:26:21 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Installing Rack::Builder middleware instrumentation
+[12/09/14 23:26:21 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Installing Rails 3+ middleware instrumentation
+[12/09/14 23:26:21 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Installing Rails 4 Controller instrumentation
+[12/09/14 23:26:21 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Installing Rails 4 view instrumentation
+[12/09/14 23:26:21 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Installing Rails 4 Error instrumentation
+[12/09/14 23:26:21 -0800 Al-Karims-MacBook-Air.local (4778)] INFO : Finished instrumentation
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Starting the New Relic agent in "development" environment.
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Reading configuration from config/newrelic.yml
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : New Relic Agent Developer Mode enabled.
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Environment: development
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : No known dispatcher detected.
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Application: My Application
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] WARN : Agent configured not to send data in this environment.
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Installing ActiveRecord 4 instrumentation
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Installing Curb instrumentation
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Installing Dalli Memcache instrumentation
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Installing Net instrumentation
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Installing deferred Rack instrumentation
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Installing Rack::Builder middleware instrumentation
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Installing Rails 3+ middleware instrumentation
+[12/09/14 23:26:37 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Installing Rails 4 Controller instrumentation
+[12/09/14 23:26:38 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Installing Rails 4 view instrumentation
+[12/09/14 23:26:38 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Installing Rails 4 Error instrumentation
+[12/09/14 23:26:38 -0800 Al-Karims-MacBook-Air.local (4793)] INFO : Finished instrumentation
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Starting the New Relic agent in "development" environment.
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Reading configuration from config/newrelic.yml
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : New Relic Agent Developer Mode enabled.
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Environment: development
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : No known dispatcher detected.
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Application: My Application
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] WARN : Agent configured not to send data in this environment.
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Installing ActiveRecord 4 instrumentation
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Installing Curb instrumentation
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Installing Dalli Memcache instrumentation
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Installing Net instrumentation
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Installing deferred Rack instrumentation
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Installing Rack::Builder middleware instrumentation
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Installing Rails 3+ middleware instrumentation
+[12/09/14 23:31:14 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Installing Rails 4 Controller instrumentation
+[12/09/14 23:31:15 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Installing Rails 4 view instrumentation
+[12/09/14 23:31:15 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Installing Rails 4 Error instrumentation
+[12/09/14 23:31:15 -0800 Al-Karims-MacBook-Air.local (4962)] INFO : Finished instrumentation
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Starting the New Relic agent in "development" environment.
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Reading configuration from config/newrelic.yml
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : New Relic Agent Developer Mode enabled.
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Environment: development
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : No known dispatcher detected.
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Application: My Application
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] WARN : Agent configured not to send data in this environment.
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Installing ActiveRecord 4 instrumentation
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Installing Curb instrumentation
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Installing Dalli Memcache instrumentation
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Installing Net instrumentation
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Installing deferred Rack instrumentation
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Installing Rack::Builder middleware instrumentation
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Installing Rails 3+ middleware instrumentation
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Installing Rails 4 Controller instrumentation
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Installing Rails 4 view instrumentation
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Installing Rails 4 Error instrumentation
+[12/09/14 23:31:31 -0800 Al-Karims-MacBook-Air.local (4976)] INFO : Finished instrumentation
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Starting the New Relic agent in "development" environment.
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Reading configuration from config/newrelic.yml
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : New Relic Agent Developer Mode enabled.
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Environment: development
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : No known dispatcher detected.
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Application: My Application
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] WARN : Agent configured not to send data in this environment.
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Installing ActiveRecord 4 instrumentation
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Installing Curb instrumentation
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Installing Dalli Memcache instrumentation
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Installing Net instrumentation
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Installing deferred Rack instrumentation
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Installing Rack::Builder middleware instrumentation
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Installing Rails 3+ middleware instrumentation
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Installing Rails 4 Controller instrumentation
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Installing Rails 4 view instrumentation
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Installing Rails 4 Error instrumentation
+[12/09/14 23:36:07 -0800 Al-Karims-MacBook-Air.local (5122)] INFO : Finished instrumentation
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Starting the New Relic agent in "development" environment.
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Reading configuration from config/newrelic.yml
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : New Relic Agent Developer Mode enabled.
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Environment: development
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Dispatcher: mongrel
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Application: My Application
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] WARN : Agent configured not to send data in this environment.
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Installing ActiveRecord 4 instrumentation
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Installing Curb instrumentation
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Installing Dalli Memcache instrumentation
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Installing Net instrumentation
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Installing deferred Rack instrumentation
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Installing Rack::Builder middleware instrumentation
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Installing Rails 3+ middleware instrumentation
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Installing Rails 4 Controller instrumentation
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Installing Rails 4 view instrumentation
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Installing Rails 4 Error instrumentation
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Finished instrumentation
+[12/09/14 23:37:42 -0800 Al-Karims-MacBook-Air.local (5175)] INFO : Doing deferred dependency-detection before Rack startup
+[12/09/14 23:40:47 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Starting the New Relic agent in "development" environment.
+[12/09/14 23:40:47 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : To prevent agent startup add a NEWRELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[12/09/14 23:40:47 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Reading configuration from config/newrelic.yml
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : New Relic Agent Developer Mode enabled.
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Environment: development
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Dispatcher: mongrel
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Application: My Application
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] WARN : Agent configured not to send data in this environment.
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Installing ActiveRecord 4 instrumentation
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Installing Curb instrumentation
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Installing Dalli Memcache instrumentation
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Installing Net instrumentation
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Installing deferred Rack instrumentation
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Installing Rack::Builder middleware instrumentation
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Installing Rails 3+ middleware instrumentation
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Installing Rails 4 Controller instrumentation
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Installing Rails 4 view instrumentation
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Installing Rails 4 Error instrumentation
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Finished instrumentation
+[12/09/14 23:40:48 -0800 Al-Karims-MacBook-Air.local (5298)] INFO : Doing deferred dependency-detection before Rack startup
