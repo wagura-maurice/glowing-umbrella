@@ -14,6 +14,7 @@ gem 'activeresource', '~>4.0.0.beta1'
 gem 'rails-observers', '~>0.1.1'
 
 gem 'safe_attributes'
+gem 'responders', '~> 2.0'
 
 # Use postgresql as the database for Active Record
 gem 'pg'

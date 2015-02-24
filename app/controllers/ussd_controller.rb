@@ -12,7 +12,6 @@ class UssdController < ApplicationController
       
       # if its the last step of the session, check the type of session
       if Form.is_last_question?(form_session)
-        debugger
         response_valid = Form.expensive_response_valid(session_id, get_ussd_response)
 
         if response_valid
