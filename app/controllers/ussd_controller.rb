@@ -9,7 +9,7 @@ class UssdController < ApplicationController
   def inbound2
     # If a session exists, continue it
     if session_exists?
-      
+      last_question = false
       # if its the last step of the session, check the type of session
       if Form.is_last_question?(form_session)
         response_valid = Form.expensive_response_valid(session_id, get_ussd_response)
@@ -29,6 +29,7 @@ class UssdController < ApplicationController
           # otherwise show the form end message
           else
             res = Form.respond_to_form(session_id, get_ussd_response)
+            last_question = true
           end
 
         else
@@ -60,7 +61,6 @@ class UssdController < ApplicationController
         res = Form.respond_to_form(session_id)
       end
     end
-    last_question = Form.is_last_question?(form_session)
     render text: format_response(res, !last_question)
   end
 

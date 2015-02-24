@@ -3,7 +3,6 @@ class Farmer < ActiveRecord::Base
   has_many :rice_reports
 
   def self.new_farmer(session)
-    debugger
     f = Farmer.new
     f.first_name = session[:first_name]
     f.last_name = session[:last_name]

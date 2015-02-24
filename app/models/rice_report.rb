@@ -2,7 +2,6 @@ class RiceReport < ActiveRecord::Base
   belongs_to :farmer
 
   def self.new_report(session)
-    debugger
     r = RiceReport.new
     r.acres_planted = session[:acres_of_rice].to_f
     r.kg_of_seed_planted = session[:kg_of_rice_seed].to_f

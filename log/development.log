@@ -6678,3 +6678,603 @@ Processing by UssdController#inbound2 as */*
   [1m[35mFarmer Load (0.3ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448199"]]
   Rendered text template (0.1ms)
 Completed 200 OK in 2900ms (Views: 0.9ms | ActiveRecord: 6.9ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:05:12 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (24.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  [1m[35mFarmer Exists (11.4ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448199"]]
+  [1m[36mFarmer Load (0.8ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448199"]]
+  Rendered text template (0.4ms)
+Completed 200 OK in 954ms (Views: 251.1ms | ActiveRecord: 141.9ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:05:18 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 14ms (Views: 2.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:05:20 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 15ms (Views: 1.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:05:20 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 14ms (Views: 2.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:05:21 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 14ms (Views: 2.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:05:21 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 12ms (Views: 2.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:05:22 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  [1m[35mFarmer Load (1.1ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448199"]]
+  [1m[36m (1.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (7.5ms)[0m  INSERT INTO "maize_reports" ("acres_planted", "kg_of_seed_planted", "maize_type", "grade", "bags_to_sell", "kg_to_sell", "farmer_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["acres_planted", 1.0], ["kg_of_seed_planted", 1.0], ["maize_type", "white"], ["grade", "1"], ["bags_to_sell", 1.0], ["kg_to_sell", 1.0], ["farmer_id", 6], ["created_at", "2015-02-24 18:05:28.261157"], ["updated_at", "2015-02-24 18:05:28.261157"]]
+  [1m[36m (9.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (1.2ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448199"]]
+  [1m[36mCACHE (0.4ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448199"]]
+  Rendered text template (0.3ms)
+Completed 200 OK in 39781ms (Views: 1.9ms | ActiveRecord: 26.2ms)
+  [1m[35mFarmer Load (10.8ms)[0m  SELECT "farmers".* FROM "farmers"
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (6.5ms)[0m  DELETE FROM "farmers" WHERE "farmers"."id" = $1  [["id", 6]]
+  [1m[36m (11.5ms)[0m  [1mCOMMIT[0m
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:06:20 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  [1m[35mFarmer Exists (0.5ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448199"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 14ms (Views: 1.4ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:06:24 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 6ms (Views: 2.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:06:24 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 5ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:06:25 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 6ms (Views: 1.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:06:31 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 9ms (Views: 1.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:06:32 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 5ms (Views: 1.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:06:38 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"nairobi"}
+  Rendered text template (0.4ms)
+Completed 200 OK in 8ms (Views: 1.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:06:39 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"nairobi"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 7ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:06:41 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"nairobi"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 5ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 10:06:45 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:36:30 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  [1m[36m (2.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (9.0ms)[0m  INSERT INTO "farmers" ("first_name", "last_name", "phone_number", "national_id_number", "association", "county", "country", "crops", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"  [["first_name", "1"], ["last_name", "1"], ["phone_number", "+16506448199"], ["national_id_number", "1"], ["association", "true"], ["county", "nairobi"], ["country", "Kenya"], ["crops", "{maize,rice}"], ["created_at", "2015-02-24 20:36:35.860625"], ["updated_at", "2015-02-24 20:36:35.860625"]]
+  [1m[36m (14.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (24.9ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448199"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448199"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 5280ms (Views: 1.4ms | ActiveRecord: 50.5ms)
+  [1m[35mFarmer Load (1.9ms)[0m  SELECT "farmers".* FROM "farmers"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  DELETE FROM "farmers" WHERE "farmers"."id" = $1  [["id", 7]]
+  [1m[36m (6.0ms)[0m  [1mCOMMIT[0m
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:37:26 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (23.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  [1m[35mFarmer Exists (10.7ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448199"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 274ms (Views: 77.7ms | ActiveRecord: 13.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:37:30 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 4ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:37:31 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 5ms (Views: 0.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:37:32 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:37:33 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 5ms (Views: 0.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:37:33 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:37:39 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"nairobi"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 5ms (Views: 0.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:37:39 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"nairobi"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 5ms (Views: 0.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:37:43 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 4ms (Views: 0.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:37:58 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "farmers" ("first_name", "last_name", "phone_number", "national_id_number", "association", "county", "country", "crops", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"  [["first_name", "1"], ["last_name", "1"], ["phone_number", "+16506448199"], ["national_id_number", "1"], ["association", "true"], ["county", "nairobi"], ["country", "Kenya"], ["crops", "{maize,rice}"], ["created_at", "2015-02-24 20:38:23.423338"], ["updated_at", "2015-02-24 20:38:23.423338"]]
+  [1m[36m (3.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.3ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448199"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448199"]]
+  Rendered text template (0.4ms)
+Completed 200 OK in 24499ms (Views: 5.1ms | ActiveRecord: 27.4ms)
+  [1m[35mFarmer Load (0.6ms)[0m  SELECT "farmers".* FROM "farmers"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  DELETE FROM "farmers" WHERE "farmers"."id" = $1  [["id", 8]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:38:30 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  [1m[35mFarmer Exists (0.3ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448199"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 73ms (Views: 4.0ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:38:31 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:38:32 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 8ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:38:32 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:38:33 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 9ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:38:34 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 6ms (Views: 1.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:38:39 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 5ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:38:39 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:38:40 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 5ms (Views: 2.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:38:43 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  [1m[36mFarmer Load (0.3ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448199"]]
+  Rendered text template (0.4ms)
+Completed 200 OK in 151415ms (Views: 2.3ms | ActiveRecord: 2.4ms)
+  [1m[35mFarmer Load (0.5ms)[0m  SELECT "farmers".* FROM "farmers"
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:41:31 -0800
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  [1m[35mFarmer Exists (2.4ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448199"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 114ms (Views: 17.7ms | ActiveRecord: 4.4ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:41:34 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 4ms (Views: 0.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:41:34 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 5ms (Views: 1.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:41:35 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 4ms (Views: 0.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:41:36 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:41:39 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 4ms (Views: 0.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:41:40 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 4ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:41:43 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 3ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:41:44 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "farmers" ("first_name", "last_name", "phone_number", "national_id_number", "association", "county", "country", "crops", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"  [["first_name", "1"], ["last_name", "1"], ["phone_number", "+16506448199"], ["national_id_number", "1"], ["association", "true"], ["county", "nairobi"], ["country", "Kenya"], ["crops", "{maize,rice}"], ["created_at", "2015-02-24 20:41:52.037707"], ["updated_at", "2015-02-24 20:41:52.037707"]]
+  [1m[36m (2.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.5ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448199"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448199"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 7790ms (Views: 1.1ms | ActiveRecord: 7.6ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:41:56 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.4ms)
+Completed 200 OK in 67ms (Views: 2.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:41:57 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 6ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:41:58 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 7ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:41:59 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:00 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (67.9ms)
+Completed 200 OK in 75ms (Views: 69.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:01 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  [1m[35mFarmer Load (0.7ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448199"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.2ms)[0m  INSERT INTO "maize_reports" ("acres_planted", "kg_of_seed_planted", "maize_type", "grade", "bags_to_sell", "kg_to_sell", "farmer_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["acres_planted", 1.0], ["kg_of_seed_planted", 1.0], ["maize_type", "white"], ["grade", "1"], ["bags_to_sell", 1.0], ["kg_to_sell", 1.0], ["farmer_id", 9], ["created_at", "2015-02-24 20:42:03.345889"], ["updated_at", "2015-02-24 20:42:03.345889"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448199"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448199"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 2315ms (Views: 1.3ms | ActiveRecord: 6.3ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:07 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:07 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 6ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:08 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 8ms (Views: 1.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:08 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:09 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 8ms (Views: 1.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:10 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.4ms)
+Completed 200 OK in 7ms (Views: 2.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:11 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 6ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:12 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"1121311", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  [1m[35mFarmer Load (0.6ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448199"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (3.1ms)[0m  INSERT INTO "rice_reports" ("acres_planted", "kg_of_seed_planted", "kg_stored", "rice_type", "grain_type", "aroma_type", "bags_to_sell", "kg_to_sell", "farmer_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"  [["acres_planted", 1.0], ["kg_of_seed_planted", 1.0], ["kg_stored", 1.0], ["rice_type", "paddy"], ["grain_type", "long"], ["aroma_type", "aromatic"], ["bags_to_sell", 1.0], ["kg_to_sell", 1.0], ["farmer_id", 9], ["created_at", "2015-02-24 20:42:14.165366"], ["updated_at", "2015-02-24 20:42:14.165366"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.3ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448199"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 1727ms (Views: 1.0ms | ActiveRecord: 7.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:23 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  [1m[36mFarmer Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1[0m  [["phone_number", "+16506448199"]]
+  [1m[35mFarmer Load (0.3ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448199"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 12ms (Views: 1.5ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:24 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 7ms (Views: 1.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:25 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 7ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:25 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 5ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:26 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:26 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 7ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:27 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  [1m[36mFarmer Load (0.4ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448199"]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "maize_reports" ("acres_planted", "kg_of_seed_planted", "maize_type", "grade", "bags_to_sell", "kg_to_sell", "farmer_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["acres_planted", 1.0], ["kg_of_seed_planted", 1.0], ["maize_type", "white"], ["grade", "1"], ["bags_to_sell", 1.0], ["kg_to_sell", 1.0], ["farmer_id", 9], ["created_at", "2015-02-24 20:42:29.036410"], ["updated_at", "2015-02-24 20:42:29.036410"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mFarmer Load (0.3ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448199"]]
+  [1m[35mCACHE (0.1ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448199"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 1427ms (Views: 1.3ms | ActiveRecord: 1.9ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:30 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 5ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:31 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 7ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:31 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:32 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 6ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:32 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:33 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:34 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 73ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-02-24 12:42:34 -0800
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213112", "phoneNumber"=>"+16506448199", "text"=>"1*nairobi*1"}
+  [1m[36mFarmer Load (0.4ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448199"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "rice_reports" ("acres_planted", "kg_of_seed_planted", "kg_stored", "rice_type", "grain_type", "aroma_type", "bags_to_sell", "kg_to_sell", "farmer_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING "id"[0m  [["acres_planted", 1.0], ["kg_of_seed_planted", 1.0], ["kg_stored", 1.0], ["rice_type", "paddy"], ["grain_type", "long"], ["aroma_type", "aromatic"], ["bags_to_sell", 1.0], ["kg_to_sell", 1.0], ["farmer_id", 9], ["created_at", "2015-02-24 20:42:36.181981"], ["updated_at", "2015-02-24 20:42:36.181981"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mFarmer Load (0.3ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448199"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 1308ms (Views: 1.0ms | ActiveRecord: 1.7ms)
