@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby "1.9.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~>4.0.5'
+gem 'rails', '~>4.2.0'
 # Stuff that rails 4 gets rid of
 gem 'actionpack-action_caching', '~>1.0.0'
 gem 'actionpack-page_caching', '~>1.0.0'
@@ -12,6 +12,8 @@ gem 'activerecord-session_store', '~>0.1.0'
 gem 'activeresource', '~>4.0.0.beta1'
 #gem 'protected_attributes', '~>1.0.1'
 gem 'rails-observers', '~>0.1.1'
+
+gem 'safe_attributes'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
