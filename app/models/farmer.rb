@@ -4,16 +4,23 @@ class Farmer < ActiveRecord::Base
 
   def self.new_farmer(session)
     f = Farmer.new
-    f.first_name = session[:first_name]
-    f.last_name = session[:last_name]
     f.phone_number = session[:phone_number]
-    f.national_id_number = session[:national_id_number]
-    if session[:is_part_of_an_association] == "1"
-      f.association = "true"
-    elsif session[:is_part_of_an_association] == "2"
-      f.association = "false"
+
+
+
+    if session[:reporting_as] == "1"
+      f.reporting_as = "individual"
+      f.first_name = session[:first_name]
+      f.last_name = session[:last_name]
+      f.national_id_number = session[:group_registration_number]
+    elsif (session[:reporting_as] == "2") or (session[:national_id_number] == "2")
+      f.reporting_as = "group"
+      f.group_name = session[:group_name]
+      f.group_registration_number = session[:group_registration_number]
     end
-    f.county = session[:county]
+    
+    f.association = session[:association]
+
     f.country = "Kenya"
 
     crops = []

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224051341) do
+ActiveRecord::Schema.define(version: 20150316063513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,18 +56,21 @@ ActiveRecord::Schema.define(version: 20150224051341) do
   end
 
   create_table "farmers", force: :cascade do |t|
-    t.string   "phone_number",       limit: 255
-    t.string   "first_name",         limit: 255
-    t.string   "last_name",          limit: 255
-    t.string   "national_id_number", limit: 255
-    t.string   "association",        limit: 255
-    t.string   "country",            limit: 255
-    t.string   "county",             limit: 255
-    t.string   "ward",               limit: 255
-    t.string   "nearest_town",       limit: 255
-    t.string   "crops",                          array: true
+    t.string   "phone_number",              limit: 255
+    t.string   "first_name",                limit: 255
+    t.string   "last_name",                 limit: 255
+    t.string   "national_id_number",        limit: 255
+    t.string   "association",               limit: 255
+    t.string   "country",                   limit: 255
+    t.string   "county",                    limit: 255
+    t.string   "ward",                      limit: 255
+    t.string   "nearest_town",              limit: 255
+    t.string   "crops",                                 array: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "reporting_as"
+    t.string   "group_name"
+    t.string   "group_registration_number"
   end
 
   create_table "maize_reports", force: :cascade do |t|
@@ -80,6 +83,10 @@ ActiveRecord::Schema.define(version: 20150224051341) do
     t.integer  "farmer_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.float    "bags_harvested"
+    t.float    "grade_1_bags"
+    t.float    "grade_2_bags"
+    t.float    "ungraded_bags"
   end
 
   add_index "maize_reports", ["farmer_id"], name: "index_maize_reports_on_farmer_id", using: :btree
@@ -125,6 +132,10 @@ ActiveRecord::Schema.define(version: 20150224051341) do
     t.integer  "farmer_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.float    "bags_harvested"
+    t.float    "pishori_bags"
+    t.float    "super_bags"
+    t.float    "other_bags"
   end
 
   add_index "rice_reports", ["farmer_id"], name: "index_rice_reports_on_farmer_id", using: :btree

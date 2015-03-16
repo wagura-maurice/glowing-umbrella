@@ -6,69 +6,70 @@ module Form
       start_id: 1,
       questions: {
         1 => {
-          question_text: "What is your first name?",
-          valid_responses: :any,
-          next_question: 2,
-          save_key: :first_name,
-          error_message: "Please enter your first name"
+          question_text: "Welcome to eGranary service. T&C's Apply \nAre you posting as an individual or a group? \n1. Individual \n2. Group",
+          valid_responses: ["1", "2"],
+          next_question: {"1" => 2, "2" => 5},
+          conditional_response: true,
+          save_key: :reporting_as,
+          error_message: "You're response was not understood. Please respond with: \n1. Individual \n2. Group"
         },
         2 => {
-          question_text: "What is your last name?",
+          question_text: "Please enter SURNAME",
           valid_responses: :any,
           save_key: :last_name,
           next_question: 3,
-          error_message: "Please enter your last name"
+          error_message: "You're response was not understood. Please enter SURNAME"
         },
         3 => {
-          question_text: "What is your ID number?",
+          question_text: "Please enter OTHER NAMES",
           valid_responses: :any,
-          save_key: :national_id_number,
+          save_key: :first_name,
           next_question: 4,
-          error_message: "Please enter your ID number"
+          error_message: "You're response was not understood. Please enter OTHER NAMES"
         },
         4 => {
-          question_text: "Are you part of a farm association or group? \n1. Yes\n2. No\n",
-          valid_responses: ["1", "2"],
-          save_key: :is_part_of_an_association,
-          next_question: 5,
-          error_message: "Sorry, that answer was not valid. Are you part of a farm association or group? \n1. Yes \n2. No\n"
+          question_text: "Please enter ID NUMBER",
+          valid_responses: :any,
+          save_key: :national_id_number,
+          next_question: 7,
+          error_message: "You're response was not understood. Please enter ID NUMBER"
         },
-#        5 => {
-#          question_text: "What is the name of your association or group?"
-#          valid_responses: :any,
-#          save_key: :association,
-#          next_question: 6,
-#          error_message: "Please enter a valid association"
-#        },
         5 => {
-          question_text: "What county are you located in?",
-          valid_responses: :valid_county,
-          save_key: :county,
+          question_text: "Please enter Group Name",
+          valid_responses: :any,
+          save_key: :group_name,
           next_question: 6,
-          error_message: "Please enter a valid county"
+          error_message: "You're response was not understood. Please enter Group Name"
         },
         6 => {
-          question_text: "What is the nearest town?",
+          question_text: "Please enter REGISTRATION NUMBER",
           valid_responses: :any,
-          save_key: :nearest_town,
+          save_key: :group_registration_number,
           next_question: 7,
-          error_message: "Please enter a valid town"
+          error_message: "You're response was not understood. Please enter REGISTRATION NUMBER"
         },
         7 => {
+          question_text: "Please name any National Association you are affiliated with",
+          valid_responses: :any,
+          save_key: :association,
+          next_question: 8,
+          error_message: "You're response was not understood. Please name any National Association you are affiliated with"
+        },
+        8 => {
           question_text: "Do you grow maize? \n1. Yes\n2. No\n",
           valid_responses: ["1", "2"],
           save_key: :grows_maize,
-          next_question: 8,
+          next_question: 9,
           error_message: "Sorry, that answer was not valid. Do you grow maize? \n1. Yes\n2. No\n"
         },
-        8 => {
+        9 => {
           question_text: "Do you grow rice? \n1. Yes\n2. No\n",
           valid_responses: ["1", "2"],
           save_key: :grows_rice,
-          next_question: 9,
+          next_question: 10,
           error_message: "Sorry, that answer was not valid. Do you grow rice? \n1. Yes\n2. No\n"
         },
-        9 => {
+        10 => {
           question_text: "Thank you for registering!",
           valid_responses: nil,
           save_key: nil,
@@ -86,49 +87,42 @@ module Form
       start_id: 1,
       questions: {
         1 => {
-          question_text: "How many acres of maize did you plant?",
-          valid_responses: :any_number,
-          next_question: 2,
-          save_key: :acres_of_maize,
-          error_message: "Please enter a valid number"
-        },
-        2 => {
           question_text: "How many kilograms of maize seed did you plant?",
           valid_responses: :any_number,
           save_key: :kg_of_maize_seed,
+          next_question: 2,
+          error_message: "You're response was not valid. How many kilograms of maize seed did you plant?"
+        },
+        2 => {
+          question_text: "How many bags harvested?",
+          valid_responses: :any_number,
+          save_key: :bags_harvested,
           next_question: 3,
-          error_message: "Please enter a valid number"
+          error_message: "You're response was not valid. How many bags harvested?"
         },
         3 => {
-          question_text: "What type of maize are your storing? \n1. White Maize\n2. Yellow Maize\n3. Both \n",
-          valid_responses: ["1", "2", "3"],
-          save_key: :type_of_maize,
+          question_text: "How many bags are Grade 1?",
+          valid_responses: :any_number,
+          save_key: :grade_1_bags,
           next_question: 4,
-          error_message: "Sorry, that answer was not valid. What type of maize are your storing? \n1. White Maize\n2. Yellow Maize\n3. Both \n"
+          error_message: "You're response was not valid. How many bags are Grade 1?"
         },
         4 => {
-          question_text: "What grade is this maize?\n1. Grade 1 \n2. Grade 2\n3. Grade 3\n4. Ungraded\n",
-          valid_responses: ["1", "2", "3", "4"],
-          save_key: :maize_grade,
+          question_text: "How many bags are Grade 2?",
+          valid_responses: :any_number,
+          save_key: :grade_2_bags,
           next_question: 5,
-          error_message: "Sorry, that answer was not valid. What grade is this maize?\n1. Grade 1 \n2. Grade 2\n3. Grade 3\n4. Ungraded\n"
+          error_message: "You're response was not valid. How many bags are Grade 2?"
         },
         5 => {
-          question_text: "How many bags do you have available to sell?",
+          question_text: "How many bags are ungraded?",
           valid_responses: :any_number,
-          save_key: :bags_to_sell,
-          next_question:  6,
-          error_message: "Please enter a valid number"
+          save_key: :ungraded_bags,
+          next_question: 6,
+          error_message: "You're response was not valid. How many bags are ungraded?"
         },
         6 => {
-          question_text: "How many kilograms of well dried maize are you ready to sell?",
-          valid_responses: :any_number,
-          save_key: :well_dried_maize_to_sell,
-          next_question: 7,
-          error_message: "Please enter a valid number"
-        },
-        7 => {
-          question_text: "Thank you for reporting!",
+          question_text: "Thank you for reporting on on EAFF egranary. EAFF will try & source for market",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
@@ -145,63 +139,42 @@ module Form
       start_id: 1,
       questions: {
         1 => {
-          question_text: "How many acres of rice did you plant?",
-          valid_responses: :any_number,
-          next_question: 2,
-          save_key: :acres_of_rice,
-          error_message: "Please enter a valid number"
-        },
-        2 => {
           question_text: "How many kilograms of rice seed did you plant?",
           valid_responses: :any_number,
           save_key: :kg_of_rice_seed,
+          next_question: 2,
+          error_message: "You're response was not valid. How many kilograms of rice seed did you plant?"
+        },
+        2 => {
+          question_text: "How many bags harvested (Paddy)?",
+          valid_responses: :any_number,
+          save_key: :bags_harvested,
           next_question: 3,
-          error_message: "Please enter a valid number"
+          error_message: "You're response was not valid. How many bags harvested (Paddy)?"
         },
         3 => {
-          question_text: "How many kilograms of rice are you storing?",
+          question_text: "How many bags are Pishori?",
           valid_responses: :any_number,
-          save_key: :kg_of_rice_stored,
+          save_key: :pishori_bags,
           next_question: 4,
-          error_message: "Please enter a valid number"
+          error_message: "You're response was not valid. How many bags are Pishori?"
         },
         4 => {
-          question_text: "What type of rice are your storing? \n1. Paddy Rice\n2. Non-Paddy Rice\n3. Both \n",
-          valid_responses: ["1", "2", "3"],
-          save_key: :type_of_rice,
+          question_text: "How many bags are Super?",
+          valid_responses: :any_number,
+          save_key: :super_bags,
           next_question: 5,
-          error_message: "Sorry, that answer was not valid. What type of maize are your storing? \n1. White Maize\n2. Yellow Maize\n3. Both \n"
+          error_message: "You're response was not valid. How many bags are Super?"
         },
         5 => {
-          question_text: "What type of grain is this rice?\n1. Long grain\n2. Short Grain\n3. Broken Grain\n4. Long and Short Grain\n",
-          valid_responses: ["1", "2", "3", "4"],
-          save_key: :grain_type,
+          question_text: "How many bags are Other?",
+          valid_responses: :any_number,
+          save_key: :other_bags,
           next_question: 6,
-          error_message: "Sorry, that answer was not valid. What type of grain is this rice?\n1. Long grain\n2. Short Grain\n3. Broken Grain\n4. Long and Short Grain\n"
+          error_message: "You're response was not valid. How many bags are Other?"
         },
         6 => {
-          question_text: "What type of rice is this? \n1. Aromatic\n2. Non-Aromatic\n3. Both\n",
-          valid_responses: ["1", "2", "3"],
-          save_key: :rice_aroma,
-          next_question: 7,
-          error_message: "Sorry, that answer was not valid. What type of rice is this? \n1. Aromatic\n2. Non-Aromatic\n3. Both\n"
-        },
-        7 => {
-          question_text: "How many bags do you have available to sell?",
-          valid_responses: :any_number,
-          save_key: :bags_to_sell,
-          next_question:  8,
-          error_message: "Please enter a valid number"
-        },
-        8 => {
-          question_text: "How many kilograms of rice are you ready to sell?",
-          valid_responses: :any_number,
-          save_key: :kg_to_sell,
-          next_question: 9,
-          error_message: "Please enter a valid number"
-        },
-        9 => {
-          question_text: "Thank you for reporting!",
+          question_text: "Thank you for reporting on on EAFF egranary. EAFF will try & source for market",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
@@ -217,6 +190,17 @@ module Form
     session = get_form_session(session_id)
     form = get_form(session)
     question_id = current_question_id(session)
+
+    # if its a conditional response, then set the question id
+    if session.has_key? :conditional_response and session[:conditional_response] and question_id.is_a? Hash
+      if question_id[response].nil?
+        return get_error_message(form, 1)
+      end
+
+      question_id = question_id[response]
+      session[:conditional_response] = false
+      session[:question] = question_id
+    end
 
     # if its the first question, don't look for a response
     if question_id == start_id(session)
@@ -265,7 +249,12 @@ module Form
   end
 
   def get_next_question(form, question_id)
-    form[:questions][question_id][:next_question]
+    next_question = form[:questions][question_id][:next_question]
+    if next_question.is_a? Hash
+      return next_question
+    else
+      return next_question
+    end
   end
 
   def increment_question_id(session, form, question_id)
@@ -347,6 +336,9 @@ module Form
   end
 
   def is_last_question?(session)
+    if session.has_key? :conditional_response and session[:conditional_response]
+      return false
+    end
     question = get_question(get_form_name(session), current_question_id(session))
     return question[:next_question].nil?
   end

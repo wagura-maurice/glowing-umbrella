@@ -7278,3 +7278,1850 @@ Processing by UssdController#inbound2 as */*
   [1m[36mFarmer Load (0.3ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448199"]]
   Rendered text template (0.1ms)
 Completed 200 OK in 1308ms (Views: 1.0ms | ActiveRecord: 1.7ms)
+  [1m[36mActiveRecord::SchemaMigration Load (25.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AdditionalChangesToFarmerModel (20150313052722)
+  [1m[35m (6.0ms)[0m  BEGIN
+  [1m[36m (37.1ms)[0m  [1mALTER TABLE "farmers" ADD "reporting_as" character varying[0m
+  [1m[35m (0.7ms)[0m  ALTER TABLE "farmers" ADD "group_name" character varying
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (18.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AdditionalChangesToFarmerModel (20150313052722)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (6.5ms)[0m  [1mALTER TABLE "farmers" ADD "reporting_as" character varying[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "farmers" ADD "group_name" character varying
+  [1m[36m (14.1ms)[0m  [1mALTER TABLE "maize_reports" ADD "bags_harvested" float[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "maize_reports" ADD "grade_1_bags" float
+  [1m[36m (0.3ms)[0m  [1mALTER TABLE "maize_reports" ADD "grade_2_bags" float[0m
+  [1m[35m (0.3ms)[0m  ALTER TABLE "maize_reports" ADD "ungraded_bags" float
+  [1m[36m (14.7ms)[0m  [1mALTER TABLE "rice_reports" ADD "bags_harvested" float[0m
+  [1m[35m (48.4ms)[0m  ALTER TABLE "rice_reports" ADD "pishori_bags" float
+  [1m[36m (0.8ms)[0m  [1mALTER TABLE "rice_reports" ADD "super_bags" float[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "rice_reports" ADD "other_bags" float
+  [1m[36mSQL (12.9ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20150313052722"]]
+  [1m[35m (4.3ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (3.9ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'authentications'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (1.9ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'channels'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (3.5ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'channels_subscribers'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (4.6ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'farmer_inputs'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (3.5ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'farmers'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (2.0ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'maize_reports'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (3.3ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'messages'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (9.9ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'missed_calls'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (16.1ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'publishers'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (2.6ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'rice_reports'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (12.0ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'sessions'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (4.3ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'subscribers'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (6.0ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+
+
+Started POST "/ussd" for ::1 at 2015-03-12 23:31:57 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (12.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>""}
+  [1m[35mFarmer Exists (33.5ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 334ms (Views: 95.9ms | ActiveRecord: 49.1ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-12 23:32:11 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 3ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:426:in `is_last_question?'
+  app/controllers/ussd_controller.rb:14:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (7.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.6ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.2ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (52.6ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-12 23:33:01 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>""}
+  [1m[36mFarmer Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 1949ms (Views: 5.6ms | ActiveRecord: 1.2ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-12 23:33:09 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 4ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:427:in `is_last_question?'
+  app/controllers/ussd_controller.rb:14:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (42.8ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (11.8ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.6ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (82.8ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-12 23:35:19 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (0.5ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.3ms)
+Completed 200 OK in 1711ms (Views: 6.7ms | ActiveRecord: 1.6ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-12 23:35:24 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 3ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:428:in `is_last_question?'
+  app/controllers/ussd_controller.rb:14:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (35.4ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (12.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (3.4ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (79.2ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-12 23:36:08 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[36mFarmer Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.3ms)
+Completed 200 OK in 33318ms (Views: 10.2ms | ActiveRecord: 1.3ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-12 23:36:50 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 37134ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:428:in `is_last_question?'
+  app/controllers/ussd_controller.rb:15:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (39.6ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (9.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.0ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (70.2ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 21:43:30 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (26.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (23.1ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.3ms)
+Completed 200 OK in 24325ms (Views: 111.0ms | ActiveRecord: 39.4ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 21:44:31 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 118897ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:328:in `is_last_question?'
+  app/controllers/ussd_controller.rb:15:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (44.7ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (11.6ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.2ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (162.1ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 21:49:36 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[36mFarmer Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.4ms)
+Completed 200 OK in 39710ms (Views: 1.8ms | ActiveRecord: 0.7ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 21:50:19 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 92594ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:328:in `is_last_question?'
+  app/controllers/ussd_controller.rb:15:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (43.2ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (10.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.9ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (73.4ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 21:52:02 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (0.4ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.6ms)
+Completed 200 OK in 136819ms (Views: 3.6ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 21:54:22 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 1819ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:328:in `is_last_question?'
+  app/controllers/ussd_controller.rb:15:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (37.1ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (8.0ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.1ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (66.1ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 21:54:29 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[36mFarmer Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.6ms)
+Completed 200 OK in 286195ms (Views: 2.8ms | ActiveRecord: 11.8ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 21:59:36 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (0.8ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.3ms)
+Completed 200 OK in 1755ms (Views: 97.9ms | ActiveRecord: 2.4ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:03:06 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 17400ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:328:in `is_last_question?'
+  app/controllers/ussd_controller.rb:15:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (42.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (11.1ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (72.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (158.2ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:03:27 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 26605ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:328:in `is_last_question?'
+  app/controllers/ussd_controller.rb:15:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (37.2ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (11.3ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.3ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (66.9ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:03:57 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 6345ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:328:in `is_last_question?'
+  app/controllers/ussd_controller.rb:15:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (42.2ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (8.7ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.4ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (69.1ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:04:06 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 24242ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:328:in `is_last_question?'
+  app/controllers/ussd_controller.rb:15:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (38.0ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (13.8ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.8ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (74.5ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:04:36 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[36mFarmer Exists (1.9ms)[0m  [1mSELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.6ms)
+Completed 200 OK in 483932ms (Views: 3.1ms | ActiveRecord: 5.5ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:12:42 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 74237ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:328:in `is_last_question?'
+  app/controllers/ussd_controller.rb:15:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (37.7ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (85.8ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.6ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (143.9ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:13:59 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 11527ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:328:in `is_last_question?'
+  app/controllers/ussd_controller.rb:15:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (41.1ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (12.2ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.7ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (70.4ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:14:13 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 1764683ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:328:in `is_last_question?'
+  app/controllers/ussd_controller.rb:15:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (34.1ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (7.7ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.7ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (61.7ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:43:39 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 2110ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:329:in `is_last_question?'
+  app/controllers/ussd_controller.rb:15:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (39.8ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (9.7ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.1ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (69.6ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:43:49 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (0.4ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:56:56 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (16.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (13.5ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+Completed 500 Internal Server Error in 7136ms
+
+SystemStackError (stack level too deep):
+  actionpack (4.2.0) lib/action_dispatch/middleware/reloader.rb:79
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.9ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.7ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (32.8ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:57:08 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[36mFarmer Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1[0m  [["phone_number", "+16506448192"]]
+Completed 500 Internal Server Error in 18311ms
+
+SystemStackError (stack level too deep):
+  actionpack (4.2.0) lib/action_dispatch/middleware/reloader.rb:79
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (2.4ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.9ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.4ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (20.8ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:57:31 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (0.8ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+Completed 500 Internal Server Error in 20842ms
+
+SystemStackError (stack level too deep):
+  actionpack (4.2.0) lib/action_dispatch/middleware/reloader.rb:79
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (1.9ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.7ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (19.4ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:59:49 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (12.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (12.3ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.3ms)
+Completed 200 OK in 1607ms (Views: 69.0ms | ActiveRecord: 14.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 22:59:54 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 1030297ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:329:in `is_last_question?'
+  app/controllers/ussd_controller.rb:15:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (35.7ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (57.0ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.3ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (122.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:18:10 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (11.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (12.2ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 864ms (Views: 68.8ms | ActiveRecord: 13.3ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:18:13 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 10394ms
+
+NoMethodError (undefined method `-' for {"1"=>2, "2"=>5}:Hash):
+  app/models/form.rb:217:in `respond_to_form'
+  app/controllers/ussd_controller.rb:41:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (30.7ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (6.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.9ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (104.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:18:32 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[36mFarmer Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.3ms)
+Completed 200 OK in 4344ms (Views: 1.9ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:18:39 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 160339ms
+
+NoMethodError (undefined method `-' for {"1"=>2, "2"=>5}:Hash):
+  app/models/form.rb:217:in `respond_to_form'
+  app/controllers/ussd_controller.rb:41:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (25.9ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (7.6ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (49.5ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:21:30 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (0.6ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+Completed 500 Internal Server Error in 1690ms
+
+TypeError (can't convert nil into Integer):
+  app/models/form.rb:196:in `[]'
+  app/models/form.rb:196:in `respond_to_form'
+  app/controllers/ussd_controller.rb:62:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (35.4ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (8.0ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.4ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (66.3ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:22:06 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (0.6ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+Completed 500 Internal Server Error in 4375ms
+
+TypeError (can't convert nil into Integer):
+  app/models/form.rb:196:in `[]'
+  app/models/form.rb:196:in `respond_to_form'
+  app/controllers/ussd_controller.rb:62:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (34.9ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (7.6ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.6ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (62.2ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:22:14 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[36mFarmer Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1[0m  [["phone_number", "+16506448192"]]
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:23:06 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (0.5ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 1342ms (Views: 61.5ms | ActiveRecord: 1.6ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:23:11 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 17523ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:338:in `is_last_question?'
+  app/models/form.rb:207:in `respond_to_form'
+  app/controllers/ussd_controller.rb:41:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (34.8ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (7.9ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.1ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (110.8ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:23:31 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+Completed 500 Internal Server Error in 57153ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:338:in `is_last_question?'
+  app/models/form.rb:207:in `respond_to_form'
+  app/controllers/ussd_controller.rb:41:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (31.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (7.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.8ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (54.2ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:24:40 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (0.8ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 4383ms (Views: 61.4ms | ActiveRecord: 2.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:24:47 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 1503ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:24:55 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani"}
+  Rendered text template (0.4ms)
+Completed 200 OK in 1181ms (Views: 2.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:25:01 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani*alk"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 1072ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:25:11 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani*alk*123"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 932ms (Views: 1.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:25:18 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani*alk*123*na"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 1240ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:27:31 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani*alk*123*na*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 1791ms (Views: 4.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:27:36 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani*alk*123*na*1"}
+  [1m[36m (0.6ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (8.1ms)[0m  INSERT INTO "farmers" ("first_name", "last_name", "phone_number", "country", "crops", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["first_name", "123"], ["last_name", "lalani"], ["phone_number", "+16506448192"], ["country", "Kenya"], ["crops", "{maize,rice}"], ["created_at", "2015-03-16 06:27:50.946414"], ["updated_at", "2015-03-16 06:27:50.946414"]]
+  [1m[36m (7.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (6.8ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 14087ms (Views: 1.5ms | ActiveRecord: 44.6ms)
+  [1m[36mFarmer Load (16.7ms)[0m  [1mSELECT "farmers".* FROM "farmers"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mDELETE FROM "farmers" WHERE "farmers"."id" = $1[0m  [["id", 9]]
+  [1m[35m (3.1ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "farmers" WHERE "farmers"."id" = $1  [["id", 10]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:38:16 -0700
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+	bin/rake db:migrate RAILS_ENV=development
+
+):
+  activerecord (4.2.0) lib/active_record/migration.rb:393:in `check_pending!'
+  activerecord (4.2.0) lib/active_record/migration.rb:374:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/callbacks.rb:29:in `block in call'
+  activesupport (4.2.0) lib/active_support/callbacks.rb:88:in `call'
+  activesupport (4.2.0) lib/active_support/callbacks.rb:88:in `_run_callbacks'
+  activesupport (4.2.0) lib/active_support/callbacks.rb:734:in `_run_call_callbacks'
+  activesupport (4.2.0) lib/active_support/callbacks.rb:81:in `run_callbacks'
+  actionpack (4.2.0) lib/action_dispatch/middleware/callbacks.rb:27:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/reloader.rb:73:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/remote_ip.rb:78:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/debug_exceptions.rb:17:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/show_exceptions.rb:30:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  railties (4.2.0) lib/rails/rack/logger.rb:38:in `call_app'
+  railties (4.2.0) lib/rails/rack/logger.rb:20:in `block in call'
+  activesupport (4.2.0) lib/active_support/tagged_logging.rb:68:in `block in tagged'
+  activesupport (4.2.0) lib/active_support/tagged_logging.rb:26:in `tagged'
+  activesupport (4.2.0) lib/active_support/tagged_logging.rb:68:in `tagged'
+  railties (4.2.0) lib/rails/rack/logger.rb:20:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/request_id.rb:21:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  rack (1.6.0) lib/rack/methodoverride.rb:22:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  rack (1.6.0) lib/rack/runtime.rb:18:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  activesupport (4.2.0) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  rack (1.6.0) lib/rack/lock.rb:17:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  actionpack (4.2.0) lib/action_dispatch/middleware/static.rb:113:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  rack (1.6.0) lib/rack/sendfile.rb:113:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  railties (4.2.0) lib/rails/engine.rb:518:in `call'
+  railties (4.2.0) lib/rails/application.rb:164:in `call'
+  newrelic_rpm (3.9.1.236) lib/new_relic/agent/instrumentation/middleware_tracing.rb:57:in `call'
+  rack (1.6.0) lib/rack/content_length.rb:15:in `call'
+  puma (2.9.0) lib/puma/server.rb:490:in `handle_request'
+  puma (2.9.0) lib/puma/server.rb:361:in `process_client'
+  puma (2.9.0) lib/puma/server.rb:254:in `block in run'
+  puma (2.9.0) lib/puma/thread_pool.rb:92:in `call'
+  puma (2.9.0) lib/puma/thread_pool.rb:92:in `block in spawn_thread'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (11.4ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.8ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.3ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (40.4ms)
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddingEvenMoreFeilds (20150316063513)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (11.1ms)[0m  [1mALTER TABLE "farmers" ADD "group_registration_number" character varying[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20150316063513"]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (2.6ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'authentications'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (2.1ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'channels'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (1.7ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'channels_subscribers'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (2.1ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'farmer_inputs'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (1.8ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'farmers'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (1.7ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'maize_reports'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (1.7ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'messages'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (1.7ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'missed_calls'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (2.6ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'publishers'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (2.6ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'rice_reports'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (2.4ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'sessions'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (1.7ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'subscribers'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (2.5ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:49:23 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (9.9ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani*alk*123*na*1"}
+  [1m[35mFarmer Exists (1.6ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 1450ms (Views: 58.6ms | ActiveRecord: 2.8ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:49:29 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani*alk*123*na*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 18224ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:49:57 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 16040ms (Views: 2.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:50:17 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani*ak"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 4647ms (Views: 1.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:50:26 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani*ak*123"}
+  Rendered text template (0.6ms)
+Completed 200 OK in 4632ms (Views: 2.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:50:36 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani*ak*123*na"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 27469ms (Views: 1.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:51:10 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani*ak*123*na*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 6625ms (Views: 1.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-15 23:51:25 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lalani*ak*123*na*1*1"}
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "farmers" ("first_name", "last_name", "phone_number", "country", "crops", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["first_name", "ak"], ["last_name", "lalani"], ["phone_number", "+16506448192"], ["country", "Kenya"], ["crops", "{maize,rice}"], ["created_at", "2015-03-16 06:52:22.479966"], ["updated_at", "2015-03-16 06:52:22.479966"]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 57291ms (Views: 1.2ms | ActiveRecord: 7.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:02:35 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 79ms (Views: 58.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:02:46 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (3.4ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36mFarmer Load (0.7ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 138ms (Views: 0.9ms | ActiveRecord: 9.6ms)
+  [1m[35mFarmer Load (0.9ms)[0m  SELECT "farmers".* FROM "farmers"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "farmers" WHERE "farmers"."id" = $1  [["id", 11]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:03:06 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[35mFarmer Exists (0.4ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 10ms (Views: 1.3ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:03:06 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 6ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT "farmers".* FROM "farmers"
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:03:20 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  [1m[36mFarmer Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 9ms (Views: 0.7ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:03:30 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 5ms (Views: 0.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:03:35 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lala"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 5ms (Views: 0.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:03:47 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lala*ak"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 8ms (Views: 2.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:03:51 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lala*ak*123"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:04:47 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lala*ak*123"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 11ms (Views: 3.4ms | ActiveRecord: 0.0ms)
+  [1m[36mFarmer Load (0.5ms)[0m  [1mSELECT "farmers".* FROM "farmers"[0m
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:05:19 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*lala*ak*123"}
+  [1m[35mFarmer Exists (0.3ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 21ms (Views: 4.5ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:05:26 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 5ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:05:37 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*la"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:05:41 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*la*ak"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 3ms (Views: 0.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:05:48 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*la*ak*12"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 4ms (Views: 0.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:06:08 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*la*ak*12*na"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 12ms (Views: 3.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:06:12 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*la*ak*12*na*1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 4ms (Views: 0.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:06:16 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*la*ak*12*na*1*1"}
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "farmers" ("phone_number", "reporting_as", "first_name", "last_name", "national_id_number", "association", "country", "crops", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"  [["phone_number", "+16506448192"], ["reporting_as", "individual"], ["first_name", "ak"], ["last_name", "la"], ["national_id_number", "12"], ["association", "na"], ["country", "Kenya"], ["crops", "{maize,rice}"], ["created_at", "2015-03-16 07:06:19.156116"], ["updated_at", "2015-03-16 07:06:19.156116"]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.5ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 2996ms (Views: 1.1ms | ActiveRecord: 6.2ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:06:44 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*la*ak*12*na*1*1*1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 5ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:06:46 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*la*ak*12*na*1*1*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 7ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:06:47 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*la*ak*12*na*1*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:06:48 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*la*ak*12*na*1*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:06:49 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"1*la*ak*12*na*1*1*1"}
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (10.2ms)[0m  INSERT INTO "maize_reports" ("acres_planted", "kg_of_seed_planted", "bags_to_sell", "kg_to_sell", "farmer_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"  [["acres_planted", 0.0], ["kg_of_seed_planted", 1.0], ["bags_to_sell", 0.0], ["kg_to_sell", 0.0], ["farmer_id", 12], ["created_at", "2015-03-16 07:06:52.216113"], ["updated_at", "2015-03-16 07:06:52.216113"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 2868ms (Views: 1.4ms | ActiveRecord: 13.9ms)
+  [1m[35mFarmer Load (0.3ms)[0m  SELECT "farmers".* FROM "farmers"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  DELETE FROM "farmers" WHERE "farmers"."id" = $1  [["id", 12]]
+  [1m[36m (6.8ms)[0m  [1mCOMMIT[0m
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:13:42 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>""}
+  [1m[35mFarmer Exists (3.0ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 181ms (Views: 63.7ms | ActiveRecord: 4.5ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:13:45 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 4ms (Views: 0.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:13:49 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 4ms (Views: 0.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:15:51 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 13ms (Views: 3.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:15:58 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 5ms (Views: 0.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:16:03 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 6ms (Views: 0.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:16:06 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+Completed 500 Internal Server Error in 1947ms
+
+NameError (undefined local variable or method `national_id_number' for #<Class:0x007fc70efcf378>):
+  app/models/farmer.rb:16:in `new_farmer'
+  app/controllers/ussd_controller.rb:104:in `perform_form_last_action'
+  app/controllers/ussd_controller.rb:20:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (35.9ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (11.8ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.9ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (77.5ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:16:25 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "farmers" ("phone_number", "reporting_as", "group_name", "group_registration_number", "association", "country", "crops", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"  [["phone_number", "+16506448192"], ["reporting_as", "group"], ["group_name", "yo"], ["group_registration_number", "12"], ["association", "na"], ["country", "Kenya"], ["crops", "{maize,rice}"], ["created_at", "2015-03-16 07:16:29.445810"], ["updated_at", "2015-03-16 07:16:29.445810"]]
+  [1m[36m (14.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.5ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.3ms)
+Completed 200 OK in 3946ms (Views: 5.3ms | ActiveRecord: 19.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:16:35 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 6ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:16:38 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 6ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:16:39 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:16:39 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 8ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:16:40 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.5ms)[0m  INSERT INTO "maize_reports" ("kg_of_seed_planted", "bags_harvested", "grade_1_bags", "grade_2_bags", "ungraded_bags", "farmer_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["kg_of_seed_planted", 1.0], ["bags_harvested", 1.0], ["grade_1_bags", 1.0], ["grade_2_bags", 1.0], ["ungraded_bags", 1.0], ["farmer_id", 13], ["created_at", "2015-03-16 07:16:44.179686"], ["updated_at", "2015-03-16 07:16:44.179686"]]
+  [1m[36m (6.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.5ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 3686ms (Views: 1.3ms | ActiveRecord: 11.2ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:16:54 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 7ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:16:57 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 6ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:16:58 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 8ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:16:59 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.5ms)
+Completed 200 OK in 9ms (Views: 1.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:00 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (10.5ms)[0m  INSERT INTO "rice_reports" ("kg_of_seed_planted", "bags_harvested", "pishori_bags", "super_bags", "other_bags", "farmer_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["kg_of_seed_planted", 1.0], ["bags_harvested", 1.0], ["pishori_bags", 1.0], ["super_bags", 1.0], ["other_bags", 1.0], ["farmer_id", 13], ["created_at", "2015-03-16 07:17:01.852233"], ["updated_at", "2015-03-16 07:17:01.852233"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 1862ms (Views: 1.0ms | ActiveRecord: 14.2ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:05 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  [1m[36mFarmer Load (1.0ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "rice_reports" ("kg_of_seed_planted", "bags_harvested", "pishori_bags", "super_bags", "other_bags", "farmer_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["kg_of_seed_planted", 1.0], ["bags_harvested", 1.0], ["pishori_bags", 1.0], ["super_bags", 1.0], ["other_bags", 1.0], ["farmer_id", 13], ["created_at", "2015-03-16 07:17:07.152039"], ["updated_at", "2015-03-16 07:17:07.152039"]]
+  [1m[35m (1.0ms)[0m  COMMIT
+  [1m[36mFarmer Load (0.2ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 1983ms (Views: 0.8ms | ActiveRecord: 3.5ms)
+  [1m[35mFarmer Load (0.5ms)[0m  SELECT "farmers".* FROM "farmers"
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "farmers" WHERE "farmers"."id" = $1  [["id", 13]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:32 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  [1m[35mFarmer Exists (0.4ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.3ms)
+Completed 200 OK in 16ms (Views: 1.8ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:35 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:36 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 6ms (Views: 1.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:37 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 6ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:37 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 8ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:38 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 6ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:39 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:41 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "farmers" ("phone_number", "reporting_as", "first_name", "last_name", "national_id_number", "association", "country", "crops", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"  [["phone_number", "+16506448192"], ["reporting_as", "individual"], ["first_name", "1"], ["last_name", "1"], ["national_id_number", "1"], ["association", "1"], ["country", "Kenya"], ["crops", "{maize,rice}"], ["created_at", "2015-03-16 07:17:43.949851"], ["updated_at", "2015-03-16 07:17:43.949851"]]
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36mCACHE (0.2ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 2913ms (Views: 1.3ms | ActiveRecord: 2.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:49 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 5ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:50 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (75.3ms)
+Completed 200 OK in 82ms (Views: 76.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:50 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:51 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 8ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:52 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "maize_reports" ("kg_of_seed_planted", "bags_harvested", "grade_1_bags", "grade_2_bags", "ungraded_bags", "farmer_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["kg_of_seed_planted", 1.0], ["bags_harvested", 1.0], ["grade_1_bags", 1.0], ["grade_2_bags", 1.0], ["ungraded_bags", 1.0], ["farmer_id", 14], ["created_at", "2015-03-16 07:17:54.195170"], ["updated_at", "2015-03-16 07:17:54.195170"]]
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.2ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 2007ms (Views: 1.2ms | ActiveRecord: 2.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:56 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 8ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:56 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 8ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:56 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:57 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 8ms (Views: 1.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:17:57 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"2*yo*12*na*1*1"}
+  [1m[35mFarmer Load (0.8ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "rice_reports" ("kg_of_seed_planted", "bags_harvested", "pishori_bags", "super_bags", "other_bags", "farmer_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["kg_of_seed_planted", 1.0], ["bags_harvested", 1.0], ["pishori_bags", 1.0], ["super_bags", 1.0], ["other_bags", 1.0], ["farmer_id", 14], ["created_at", "2015-03-16 07:17:59.776293"], ["updated_at", "2015-03-16 07:17:59.776293"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.2ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 1976ms (Views: 0.9ms | ActiveRecord: 2.4ms)
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT "farmers".* FROM "farmers"
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "farmers" WHERE "farmers"."id" = $1  [["id", 14]]
+  [1m[36m (5.5ms)[0m  [1mCOMMIT[0m
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:18:09 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo"}
+  [1m[36mFarmer Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 14ms (Views: 1.4ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:18:14 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo"}
+Completed 500 Internal Server Error in 3ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:339:in `is_last_question?'
+  app/models/form.rb:208:in `respond_to_form'
+  app/controllers/ussd_controller.rb:41:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (36.1ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (9.8ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.6ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (61.4ms)
+  [1m[35mFarmer Load (0.5ms)[0m  SELECT "farmers".* FROM "farmers"
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:18:39 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo"}
+  [1m[35mFarmer Exists (2.4ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 162ms (Views: 61.2ms | ActiveRecord: 3.8ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:18:41 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo"}
+Completed 500 Internal Server Error in 3ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:339:in `is_last_question?'
+  app/models/form.rb:208:in `respond_to_form'
+  app/controllers/ussd_controller.rb:41:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.4ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.4ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (25.9ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:19:07 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo"}
+  [1m[36mFarmer Load (0.3ms)[0m  [1mSELECT "farmers".* FROM "farmers"[0m
+  [1m[36mFarmer Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 23092ms (Views: 4.2ms | ActiveRecord: 1.6ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:19:33 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo"}
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:25:04 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (10.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo"}
+Completed 500 Internal Server Error in 1963ms
+
+NoMethodError (undefined method `[]' for nil:NilClass):
+  app/models/form.rb:343:in `is_last_question?'
+  app/models/form.rb:212:in `respond_to_form'
+  app/controllers/ussd_controller.rb:42:in `inbound2'
+
+
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_source.erb (44.7ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (57.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.5ms)
+  Rendered /Users/alkarim/.rvm/gems/ruby-1.9.3-p551/gems/actionpack-4.2.0/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (146.0ms)
+  [1m[35mFarmer Load (0.5ms)[0m  SELECT "farmers".* FROM "farmers"
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:25:17 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo"}
+  [1m[35mFarmer Exists (2.8ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.3ms)
+Completed 200 OK in 6815ms (Views: 57.0ms | ActiveRecord: 4.2ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:25:26 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo"}
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:26:10 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo"}
+  [1m[35mFarmer Exists (0.6ms)[0m  SELECT  1 AS one FROM "farmers" WHERE "farmers"."phone_number" = $1 LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.3ms)
+Completed 200 OK in 2491ms (Views: 64.5ms | ActiveRecord: 1.8ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:26:15 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 1549ms (Views: 1.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:26:23 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 1513ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:26:30 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 957ms (Views: 2.1ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:26:36 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as"}
+  Rendered text template (0.4ms)
+Completed 200 OK in 1094ms (Views: 2.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:26:44 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 1028ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:26:52 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 930ms (Views: 1.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:05 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 74ms (Views: 4.9ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:06 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*1"}
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "farmers" ("phone_number", "reporting_as", "first_name", "last_name", "national_id_number", "association", "country", "crops", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"  [["phone_number", "+16506448192"], ["reporting_as", "individual"], ["first_name", "as"], ["last_name", "as"], ["national_id_number", "123"], ["association", "na"], ["country", "Kenya"], ["crops", "{maize,rice}"], ["created_at", "2015-03-16 07:27:08.684752"], ["updated_at", "2015-03-16 07:27:08.684752"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.2ms)
+Completed 200 OK in 2549ms (Views: 1.2ms | ActiveRecord: 21.3ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:19 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*1"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 12ms (Views: 4.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:21 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 6ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:21 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 6ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:22 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 7ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:23 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*1"}
+  [1m[35mFarmer Load (1.0ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.5ms)[0m  INSERT INTO "maize_reports" ("kg_of_seed_planted", "bags_harvested", "grade_1_bags", "grade_2_bags", "ungraded_bags", "farmer_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["kg_of_seed_planted", 1.0], ["bags_harvested", 1.0], ["grade_1_bags", 1.0], ["grade_2_bags", 1.0], ["ungraded_bags", 1.0], ["farmer_id", 15], ["created_at", "2015-03-16 07:27:23.378225"], ["updated_at", "2015-03-16 07:27:23.378225"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1[0m  [["phone_number", "+16506448192"]]
+  Rendered text template (0.3ms)
+Completed 200 OK in 200ms (Views: 1.7ms | ActiveRecord: 9.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:33 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*asd"}
+  Rendered text template (0.4ms)
+Completed 200 OK in 6ms (Views: 1.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:34 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*asd"}
+  Rendered text template (0.3ms)
+Completed 200 OK in 5ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:38 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*asd*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 6ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:39 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*asd*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 7ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:39 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*asd*1"}
+  Rendered text template (0.1ms)
+Completed 200 OK in 6ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:40 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*asd*1"}
+  Rendered text template (0.2ms)
+Completed 200 OK in 8ms (Views: 1.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/ussd" for ::1 at 2015-03-16 00:27:41 -0700
+Processing by UssdController#inbound2 as */*
+  Parameters: {"sessionId"=>"11213113", "phoneNumber"=>"+16506448192", "text"=>"yo*1*as*as*123*na*asd*1"}
+  [1m[35mFarmer Load (0.4ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (3.3ms)[0m  INSERT INTO "rice_reports" ("kg_of_seed_planted", "bags_harvested", "pishori_bags", "super_bags", "other_bags", "farmer_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["kg_of_seed_planted", 1.0], ["bags_harvested", 1.0], ["pishori_bags", 1.0], ["super_bags", 1.0], ["other_bags", 1.0], ["farmer_id", 15], ["created_at", "2015-03-16 07:27:41.287768"], ["updated_at", "2015-03-16 07:27:41.287768"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mFarmer Load (0.3ms)[0m  SELECT  "farmers".* FROM "farmers" WHERE "farmers"."phone_number" = $1  ORDER BY "farmers"."id" ASC LIMIT 1  [["phone_number", "+16506448192"]]
+  Rendered text template (0.1ms)
+Completed 200 OK in 68ms (Views: 1.1ms | ActiveRecord: 6.7ms)

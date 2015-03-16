@@ -61,6 +61,9 @@ class UssdController < ApplicationController
         res = Form.respond_to_form(session_id)
       end
     end
+    puts "-------------------------------"
+    puts form_session
+    puts "-------------------------------"
     render text: format_response(res, !last_question)
   end
 
@@ -115,8 +118,18 @@ class UssdController < ApplicationController
      current_form: form,
      question: get_form_start_id(form),
      phone_number: get_phone_number,
-     forms_filled: []
+     forms_filled: [],
+     conditional_response: get_conditional_response(form, get_form_start_id(form))
     }
+  end
+
+  def get_conditional_response(form, id)
+    question = Form.get_question(form, id)
+    if question.has_key? :conditional_response
+      return question[:conditional_response]
+    else
+      return false
+    end
   end
 
   def farmer_exists?
