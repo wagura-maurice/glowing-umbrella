@@ -102,21 +102,21 @@ module Form
         },
         3 => {
           question_text: "How many bags are Grade 1?",
-          valid_responses: :any_number,
+          valid_responses: :less_than_bags_harvested,
           save_key: :grade_1_bags,
           next_question: 4,
           error_message: "You're response was not valid. How many bags are Grade 1?"
         },
         4 => {
           question_text: "How many bags are Grade 2?",
-          valid_responses: :any_number,
+          valid_responses: :less_than_bags_harvested_minus_grade_1,
           save_key: :grade_2_bags,
           next_question: 5,
           error_message: "You're response was not valid. How many bags are Grade 2?"
         },
         5 => {
           question_text: "How many bags are ungraded?",
-          valid_responses: :any_number,
+          valid_responses: :less_than_bags_harvested_minus_grade_1_and_2,
           save_key: :ungraded_bags,
           next_question: 6,
           error_message: "You're response was not valid. How many bags are ungraded?"
@@ -154,21 +154,21 @@ module Form
         },
         3 => {
           question_text: "How many bags are Pishori?",
-          valid_responses: :any_number,
+          valid_responses: :less_than_bags_harvested,
           save_key: :pishori_bags,
           next_question: 4,
           error_message: "You're response was not valid. How many bags are Pishori?"
         },
         4 => {
           question_text: "How many bags are Super?",
-          valid_responses: :any_number,
+          valid_responses: :less_than_bags_harvested_and_pishori,
           save_key: :super_bags,
           next_question: 5,
           error_message: "You're response was not valid. How many bags are Super?"
         },
         5 => {
           question_text: "How many bags are Other?",
-          valid_responses: :any_number,
+          valid_responses: :less_than_bags_harvested_and_pishori_and_super,
           save_key: :other_bags,
           next_question: 6,
           error_message: "You're response was not valid. How many bags are Other?"
@@ -282,7 +282,7 @@ module Form
     elsif valid_responses.is_a? Array
       return valid_responses.include? response
     elsif valid_responses.is_a? Symbol
-      return self.send(valid_responses, response)
+      return self.send(valid_responses, response, session)
     else
       return false
     end
@@ -348,9 +348,45 @@ module Form
     form[:questions][id]
   end
 
-  def self.valid_county(response)
+  def self.valid_county(response, session)
     response = response.downcase
     return kenyan_counties.has_key? response
+  end
+
+  def self.less_than_bags_harvested(response, session)
+    response = response.to_f
+    bags_harvested = session[:bags_harvested].to_f
+    return response <= bags_harvested
+  end
+
+  def less_than_bags_harvested_minus_grade_1(response, session)
+    response = response.to_f
+    bags_harvested = session[:bags_harvested].to_f
+    grade_1_bags = session[:grade_1_bags].to_f
+    return response <= bags_harvested - grade_1_bags
+  end
+
+  def less_than_bags_harvested_minus_grade_1_and_2(response, session)
+    response = response.to_f
+    bags_harvested = session[:bags_harvested].to_f
+    grade_1_bags = session[:grade_1_bags].to_f
+    grade_2_bags = session[:grade_2_bags].to_f
+    return response == bags_harvested - grade_1_bags - grade_2_bags
+  end
+
+  def less_than_bags_harvested_and_pishori(response, session)
+    response = response.to_f
+    bags_harvested = session[:bags_harvested].to_f
+    pishori_bags = session[:pishori_bags].to_f
+    return response <= bags_harvested - pishori_bags
+  end
+
+  def less_than_bags_harvested_and_pishori_and_super(response, session)
+    response = response.to_f
+    bags_harvested = session[:bags_harvested].to_f
+    pishori_bags = session[:pishori_bags].to_f
+    super_bags = session[:super_bags].to_f
+    return response == bags_harvested - pishori_bags - super_bags
   end
 
   def kenyan_counties
