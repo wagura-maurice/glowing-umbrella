@@ -51,7 +51,10 @@ class UssdController < ApplicationController
             store_session(session)
             res = Form.respond_to_form(session_id, get_ussd_response)
         else
-          res = "There are no crops to report"
+          #res = "There are no crops to report"
+          session = new_session(:report_crops)        
+          store_session(session)
+          res = Form.respond_to_form(session_id)
         end
 
       # if the farmer doesnt exist, start a user registration session

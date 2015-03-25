@@ -15,24 +15,25 @@ module Form
         },
         2 => {
           question_text: "Please enter SURNAME",
-          valid_responses: :any,
+          valid_responses: :any_letters,
           save_key: :last_name,
           next_question: 3,
-          error_message: "You're response was not understood. Please enter SURNAME"
+          error_message: "Please use alphabetical letters only e.g Mwangi. Please enter SURNAME"
         },
         3 => {
-          question_text: "Please enter OTHER NAMES",
-          valid_responses: :any,
+          question_text: "Please enter OTHER NAMES (e.g. James Juma)",
+          valid_responses: :any_letters,
           save_key: :first_name,
           next_question: 4,
-          error_message: "You're response was not understood. Please enter OTHER NAMES"
+          error_message: "Please use alphabetical letters only e.g James Juma. Please enter OTHER NAMES"
         },
         4 => {
           question_text: "Please enter ID NUMBER",
-          valid_responses: :any,
+          valid_responses: :unique_id_number,
+          store_validator_function: true,
           save_key: :national_id_number,
           next_question: 7,
-          error_message: "You're response was not understood. Please enter ID NUMBER"
+          error_message: "The ID Number is not valid or it is already registered. Please enter a new ID NUMBER"
         },
         5 => {
           question_text: "Please enter Group Name",
@@ -46,7 +47,7 @@ module Form
           valid_responses: :any,
           save_key: :group_registration_number,
           next_question: 7,
-          error_message: "You're response was not understood. Please enter REGISTRATION NUMBER"
+          error_message: "The ID Number is not valid or it is already registered. Please enter a new ID NUMBER" #"You're response was not understood. Please enter REGISTRATION NUMBER"
         },
         7 => {
           question_text: "Please name any National Association you are affiliated with",
@@ -79,6 +80,37 @@ module Form
       },
       model: Farmer,
       form_last_action: :new_farmer
+    }
+  end
+
+def report_crops
+    {
+      start_id: 1,
+      questions: {
+        1 => {
+          question_text: "Do you grow maize? \n1. Yes\n2. No\n",
+          valid_responses: ["1", "2"],
+          save_key: :grows_maize,
+          next_question: 2,
+          error_message: "Sorry, that answer was not valid. Do you grow maize? \n1. Yes\n2. No\n"
+        },
+        2 => {
+          question_text: "Do you grow rice? \n1. Yes\n2. No\n",
+          valid_responses: ["1", "2"],
+          save_key: :grows_rice,
+          next_question: 3,
+          error_message: "Sorry, that answer was not valid. Do you grow rice? \n1. Yes\n2. No\n"
+        },
+        3 => {
+          question_text: "Thank you for updating your information!",
+          valid_responses: nil,
+          save_key: nil,
+          next_question: nil,
+          error_message: nil
+        }
+      },
+      model: Farmer,
+      form_last_action: :reports_crop_updates
     }
   end
 
@@ -258,6 +290,9 @@ module Form
   end
 
   def increment_question_id(session, form, question_id)
+    if session[:question].is_a? Integer and form[:questions][session[:question]].has_key? :store_validator_function
+      session[:validator_function] = form[:questions][session[:question]][:valid_responses]
+    end
     next_question = get_next_question(form, question_id)
     session[:question] = next_question
     store_session(session)
@@ -274,11 +309,15 @@ module Form
 
   def validate_response(form, session, response, question_id)
     return false if !response.present?
-    valid_responses = get_valid_responses(form, question_id)
+    valid_responses = get_valid_responses(form, question_id, session)
     if valid_responses == :any
       return true
     elsif valid_responses == :any_number
       return response.scan(/[a-zA-Z]/).length == 0
+    elsif valid_responses == :any_letters
+      return response[/[a-zA-Z]+/] == response
+    elsif valid_responses == :unique_id_number
+      return !(Farmer.where(national_id_number: response).exists?)
     elsif valid_responses.is_a? Array
       return valid_responses.include? response
     elsif valid_responses.is_a? Symbol
@@ -293,7 +332,13 @@ module Form
     form[:questions][question_id][:save_key]
   end
 
-  def get_valid_responses(form, question_id)
+  def get_valid_responses(form, question_id, session)
+    if session[:validator_function]
+      ret = session[:validator_function]
+      session[:validator_function] = nil
+      store_session(session)
+      return ret
+    end
     form[:questions][question_id][:valid_responses]
   end
 
@@ -371,7 +416,7 @@ module Form
     bags_harvested = session[:bags_harvested].to_f
     grade_1_bags = session[:grade_1_bags].to_f
     grade_2_bags = session[:grade_2_bags].to_f
-    return response == bags_harvested - grade_1_bags - grade_2_bags
+    return response <= bags_harvested - grade_1_bags - grade_2_bags
   end
 
   def less_than_bags_harvested_and_pishori(response, session)
@@ -386,7 +431,7 @@ module Form
     bags_harvested = session[:bags_harvested].to_f
     pishori_bags = session[:pishori_bags].to_f
     super_bags = session[:super_bags].to_f
-    return response == bags_harvested - pishori_bags - super_bags
+    return response <= bags_harvested - pishori_bags - super_bags
   end
 
   def kenyan_counties

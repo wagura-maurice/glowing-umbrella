@@ -35,4 +35,18 @@ class Farmer < ActiveRecord::Base
     f.save
   end
 
+  def self.reports_crop_updates(session)
+    f = Farmer.where(phone_number: session[:phone_number]).first
+    crops = []
+    if session[:grows_maize] == "1"
+      crops << "maize"
+    end
+    if session[:grows_rice] == "1"
+      crops << "rice"
+    end
+    f.crops = crops
+
+    f.save
+  end
+
 end
