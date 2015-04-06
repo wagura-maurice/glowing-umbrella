@@ -6,8 +6,6 @@ class Farmer < ActiveRecord::Base
     f = Farmer.new
     f.phone_number = session[:phone_number]
 
-
-
     if session[:reporting_as] == "1"
       f.reporting_as = "individual"
       f.first_name = session[:first_name]
@@ -35,7 +33,7 @@ class Farmer < ActiveRecord::Base
     f.save
   end
 
-  def self.reports_crop_updates(session)
+  def self.update_farmer_crop_report_values(session)
     f = Farmer.where(phone_number: session[:phone_number]).first
     crops = []
     if session[:grows_maize] == "1"

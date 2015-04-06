@@ -1,222 +1,9 @@
 module Form
   extend self
 
-  def user_registration
-    {
-      start_id: 1,
-      questions: {
-        1 => {
-          question_text: "Welcome to eGranary service. T&C's Apply \nAre you posting as an individual or a group? \n1. Individual \n2. Group",
-          valid_responses: ["1", "2"],
-          next_question: {"1" => 2, "2" => 5},
-          conditional_response: true,
-          save_key: :reporting_as,
-          error_message: "You're response was not understood. Please respond with: \n1. Individual \n2. Group"
-        },
-        2 => {
-          question_text: "Please enter SURNAME",
-          valid_responses: :any_letters,
-          save_key: :last_name,
-          next_question: 3,
-          error_message: "Please use alphabetical letters only e.g Mwangi. Please enter SURNAME"
-        },
-        3 => {
-          question_text: "Please enter OTHER NAMES (e.g. James Juma)",
-          valid_responses: :any_letters,
-          save_key: :first_name,
-          next_question: 4,
-          error_message: "Please use alphabetical letters only e.g James Juma. Please enter OTHER NAMES"
-        },
-        4 => {
-          question_text: "Please enter ID NUMBER",
-          valid_responses: :unique_id_number,
-          store_validator_function: true,
-          save_key: :national_id_number,
-          next_question: 7,
-          error_message: "The ID Number is not valid or it is already registered. Please enter a new ID NUMBER"
-        },
-        5 => {
-          question_text: "Please enter Group Name",
-          valid_responses: :any,
-          save_key: :group_name,
-          next_question: 6,
-          error_message: "You're response was not understood. Please enter Group Name"
-        },
-        6 => {
-          question_text: "Please enter REGISTRATION NUMBER",
-          valid_responses: :any,
-          save_key: :group_registration_number,
-          next_question: 7,
-          error_message: "The ID Number is not valid or it is already registered. Please enter a new ID NUMBER" #"You're response was not understood. Please enter REGISTRATION NUMBER"
-        },
-        7 => {
-          question_text: "Please name any National Association you are affiliated with",
-          valid_responses: :any,
-          save_key: :association,
-          next_question: 8,
-          error_message: "You're response was not understood. Please name any National Association you are affiliated with"
-        },
-        8 => {
-          question_text: "Do you grow maize? \n1. Yes\n2. No\n",
-          valid_responses: ["1", "2"],
-          save_key: :grows_maize,
-          next_question: 9,
-          error_message: "Sorry, that answer was not valid. Do you grow maize? \n1. Yes\n2. No\n"
-        },
-        9 => {
-          question_text: "Do you grow rice? \n1. Yes\n2. No\n",
-          valid_responses: ["1", "2"],
-          save_key: :grows_rice,
-          next_question: 10,
-          error_message: "Sorry, that answer was not valid. Do you grow rice? \n1. Yes\n2. No\n"
-        },
-        10 => {
-          question_text: "Thank you for registering!",
-          valid_responses: nil,
-          save_key: nil,
-          next_question: nil,
-          error_message: nil
-        }
-      },
-      model: Farmer,
-      form_last_action: :new_farmer
-    }
-  end
-
-def report_crops
-    {
-      start_id: 1,
-      questions: {
-        1 => {
-          question_text: "Do you grow maize? \n1. Yes\n2. No\n",
-          valid_responses: ["1", "2"],
-          save_key: :grows_maize,
-          next_question: 2,
-          error_message: "Sorry, that answer was not valid. Do you grow maize? \n1. Yes\n2. No\n"
-        },
-        2 => {
-          question_text: "Do you grow rice? \n1. Yes\n2. No\n",
-          valid_responses: ["1", "2"],
-          save_key: :grows_rice,
-          next_question: 3,
-          error_message: "Sorry, that answer was not valid. Do you grow rice? \n1. Yes\n2. No\n"
-        },
-        3 => {
-          question_text: "Thank you for updating your information!",
-          valid_responses: nil,
-          save_key: nil,
-          next_question: nil,
-          error_message: nil
-        }
-      },
-      model: Farmer,
-      form_last_action: :reports_crop_updates
-    }
-  end
-
-  def maize_report
-    {
-      start_id: 1,
-      questions: {
-        1 => {
-          question_text: "How many kilograms of maize seed did you plant?",
-          valid_responses: :any_number,
-          save_key: :kg_of_maize_seed,
-          next_question: 2,
-          error_message: "You're response was not valid. How many kilograms of maize seed did you plant?"
-        },
-        2 => {
-          question_text: "How many bags harvested?",
-          valid_responses: :any_number,
-          save_key: :bags_harvested,
-          next_question: 3,
-          error_message: "You're response was not valid. How many bags harvested?"
-        },
-        3 => {
-          question_text: "How many bags are Grade 1?",
-          valid_responses: :less_than_bags_harvested,
-          save_key: :grade_1_bags,
-          next_question: 4,
-          error_message: "You're response was not valid. How many bags are Grade 1?"
-        },
-        4 => {
-          question_text: "How many bags are Grade 2?",
-          valid_responses: :less_than_bags_harvested_minus_grade_1,
-          save_key: :grade_2_bags,
-          next_question: 5,
-          error_message: "You're response was not valid. How many bags are Grade 2?"
-        },
-        5 => {
-          question_text: "How many bags are ungraded?",
-          valid_responses: :less_than_bags_harvested_minus_grade_1_and_2,
-          save_key: :ungraded_bags,
-          next_question: 6,
-          error_message: "You're response was not valid. How many bags are ungraded?"
-        },
-        6 => {
-          question_text: "Thank you for reporting on on EAFF egranary. EAFF will try & source for market",
-          valid_responses: nil,
-          save_key: nil,
-          next_question: nil,
-          error_message: nil
-        }
-      },
-      model: MaizeReport,
-      form_last_action: :new_report
-    }
-  end
-
-  def rice_report
-    {
-      start_id: 1,
-      questions: {
-        1 => {
-          question_text: "How many kilograms of rice seed did you plant?",
-          valid_responses: :any_number,
-          save_key: :kg_of_rice_seed,
-          next_question: 2,
-          error_message: "You're response was not valid. How many kilograms of rice seed did you plant?"
-        },
-        2 => {
-          question_text: "How many bags harvested (Paddy)?",
-          valid_responses: :any_number,
-          save_key: :bags_harvested,
-          next_question: 3,
-          error_message: "You're response was not valid. How many bags harvested (Paddy)?"
-        },
-        3 => {
-          question_text: "How many bags are Pishori?",
-          valid_responses: :less_than_bags_harvested,
-          save_key: :pishori_bags,
-          next_question: 4,
-          error_message: "You're response was not valid. How many bags are Pishori?"
-        },
-        4 => {
-          question_text: "How many bags are Super?",
-          valid_responses: :less_than_bags_harvested_and_pishori,
-          save_key: :super_bags,
-          next_question: 5,
-          error_message: "You're response was not valid. How many bags are Super?"
-        },
-        5 => {
-          question_text: "How many bags are Other?",
-          valid_responses: :less_than_bags_harvested_and_pishori_and_super,
-          save_key: :other_bags,
-          next_question: 6,
-          error_message: "You're response was not valid. How many bags are Other?"
-        },
-        6 => {
-          question_text: "Thank you for reporting on on EAFF egranary. EAFF will try & source for market",
-          valid_responses: nil,
-          save_key: nil,
-          next_question: nil,
-          error_message: nil
-        }
-      },
-      model: RiceReport,
-      form_last_action: :new_report
-    }
-  end
+  #####################################
+  ### Response Generation Functions ###
+  #####################################
 
   def respond_to_form(session_id, response=nil)
     session = get_form_session(session_id)
@@ -393,10 +180,239 @@ def report_crops
     form[:questions][id]
   end
 
+
+  #############
+  ### Forms ###
+  #############
+
+  def user_registration
+    {
+      start_id: 1,
+      questions: {
+        1 => {
+          question_text: "Welcome to eGranary service. T&C's Apply \nAre you posting as an individual or a group? \n1. Individual \n2. Group",
+          valid_responses: ["1", "2"],
+          next_question: {"1" => 2, "2" => 5},
+          conditional_response: true,
+          save_key: :reporting_as,
+          error_message: "You're response was not understood. Please respond with: \n1. Individual \n2. Group"
+        },
+        2 => {
+          question_text: "Please enter SURNAME",
+          valid_responses: :any_letters,
+          save_key: :last_name,
+          next_question: 3,
+          error_message: "Please use alphabetical letters only e.g Mwangi. Please enter SURNAME"
+        },
+        3 => {
+          question_text: "Please enter OTHER NAMES (e.g. James Juma)",
+          valid_responses: :any_letters,
+          save_key: :first_name,
+          next_question: 4,
+          error_message: "Please use alphabetical letters only e.g James Juma. Please enter OTHER NAMES"
+        },
+        4 => {
+          question_text: "Please enter ID NUMBER",
+          valid_responses: :unique_id_number,
+          store_validator_function: true,
+          save_key: :national_id_number,
+          next_question: 7,
+          error_message: "The ID Number is not valid or it is already registered. Please enter a new ID NUMBER"
+        },
+        5 => {
+          question_text: "Please enter Group Name",
+          valid_responses: :any,
+          save_key: :group_name,
+          next_question: 6,
+          error_message: "You're response was not understood. Please enter Group Name"
+        },
+        6 => {
+          question_text: "Please enter REGISTRATION NUMBER",
+          valid_responses: :any,
+          save_key: :group_registration_number,
+          next_question: 7,
+          error_message: "The ID Number is not valid or it is already registered. Please enter a new ID NUMBER" #"You're response was not understood. Please enter REGISTRATION NUMBER"
+        },
+        7 => {
+          question_text: "Please name any National Association you are affiliated with",
+          valid_responses: :any,
+          save_key: :association,
+          next_question: 8,
+          error_message: "You're response was not understood. Please name any National Association you are affiliated with"
+        },
+        8 => {
+          question_text: "Do you grow maize? \n1. Yes\n2. No\n",
+          valid_responses: ["1", "2"],
+          save_key: :grows_maize,
+          next_question: 9,
+          error_message: "Sorry, that answer was not valid. Do you grow maize? \n1. Yes\n2. No\n"
+        },
+        9 => {
+          question_text: "Do you grow rice? \n1. Yes\n2. No\n",
+          valid_responses: ["1", "2"],
+          save_key: :grows_rice,
+          next_question: 10,
+          error_message: "Sorry, that answer was not valid. Do you grow rice? \n1. Yes\n2. No\n"
+        },
+        10 => {
+          question_text: "Thank you for registering!",
+          valid_responses: nil,
+          save_key: nil,
+          next_question: nil,
+          error_message: nil
+        }
+      },
+      model: Farmer,
+      form_last_action: :new_farmer
+    }
+  end
+
+
+  def update_farmer_crop_report_values
+    {
+      start_id: 1,
+      questions: {
+        1 => {
+          question_text: "Do you grow maize? \n1. Yes\n2. No\n",
+          valid_responses: ["1", "2"],
+          save_key: :grows_maize,
+          next_question: 2,
+          error_message: "Sorry, that answer was not valid. Do you grow maize? \n1. Yes\n2. No\n"
+        },
+        2 => {
+          question_text: "Do you grow rice? \n1. Yes\n2. No\n",
+          valid_responses: ["1", "2"],
+          save_key: :grows_rice,
+          next_question: 3,
+          error_message: "Sorry, that answer was not valid. Do you grow rice? \n1. Yes\n2. No\n"
+        },
+        3 => {
+          question_text: "Thank you for updating your information!",
+          valid_responses: nil,
+          save_key: nil,
+          next_question: nil,
+          error_message: nil
+        }
+      },
+      model: Farmer,
+      form_last_action: :update_farmer_crop_report_values
+    }
+  end
+
+
+  def maize_report
+    {
+      start_id: 1,
+      questions: {
+        1 => {
+          question_text: "How many kilograms of maize seed did you plant?",
+          valid_responses: :any_number,
+          save_key: :kg_of_maize_seed,
+          next_question: 2,
+          error_message: "You're response was not valid. How many kilograms of maize seed did you plant?"
+        },
+        2 => {
+          question_text: "How many bags harvested?",
+          valid_responses: :any_number,
+          save_key: :bags_harvested,
+          next_question: 3,
+          error_message: "You're response was not valid. How many bags harvested?"
+        },
+        3 => {
+          question_text: "How many bags are Grade 1?",
+          valid_responses: :less_than_bags_harvested,
+          save_key: :grade_1_bags,
+          next_question: 4,
+          error_message: "You're response was not valid. How many bags are Grade 1?"
+        },
+        4 => {
+          question_text: "How many bags are Grade 2?",
+          valid_responses: :less_than_bags_harvested_minus_grade_1,
+          save_key: :grade_2_bags,
+          next_question: 5,
+          error_message: "You're response was not valid. How many bags are Grade 2?"
+        },
+        5 => {
+          question_text: "How many bags are ungraded?",
+          valid_responses: :less_than_bags_harvested_minus_grade_1_and_2,
+          save_key: :ungraded_bags,
+          next_question: 6,
+          error_message: "You're response was not valid. How many bags are ungraded?"
+        },
+        6 => {
+          question_text: "Thank you for reporting on on EAFF egranary. EAFF will try & source for market",
+          valid_responses: nil,
+          save_key: nil,
+          next_question: nil,
+          error_message: nil
+        }
+      },
+      model: MaizeReport,
+      form_last_action: :new_report
+    }
+  end
+
+  def rice_report
+    {
+      start_id: 1,
+      questions: {
+        1 => {
+          question_text: "How many kilograms of rice seed did you plant?",
+          valid_responses: :any_number,
+          save_key: :kg_of_rice_seed,
+          next_question: 2,
+          error_message: "You're response was not valid. How many kilograms of rice seed did you plant?"
+        },
+        2 => {
+          question_text: "How many bags harvested (Paddy)?",
+          valid_responses: :any_number,
+          save_key: :bags_harvested,
+          next_question: 3,
+          error_message: "You're response was not valid. How many bags harvested (Paddy)?"
+        },
+        3 => {
+          question_text: "How many bags are Pishori?",
+          valid_responses: :less_than_bags_harvested,
+          save_key: :pishori_bags,
+          next_question: 4,
+          error_message: "You're response was not valid. How many bags are Pishori?"
+        },
+        4 => {
+          question_text: "How many bags are Super?",
+          valid_responses: :less_than_bags_harvested_and_pishori,
+          save_key: :super_bags,
+          next_question: 5,
+          error_message: "You're response was not valid. How many bags are Super?"
+        },
+        5 => {
+          question_text: "How many bags are Other?",
+          valid_responses: :less_than_bags_harvested_and_pishori_and_super,
+          save_key: :other_bags,
+          next_question: 6,
+          error_message: "You're response was not valid. How many bags are Other?"
+        },
+        6 => {
+          question_text: "Thank you for reporting on on EAFF egranary. EAFF will try & source for market",
+          valid_responses: nil,
+          save_key: nil,
+          next_question: nil,
+          error_message: nil
+        }
+      },
+      model: RiceReport,
+      form_last_action: :new_report
+    }
+  end
+
+  ############################
+  ### Validation Functions ###
+  ############################
+
   def self.valid_county(response, session)
     response = response.downcase
     return kenyan_counties.has_key? response
   end
+
 
   def self.less_than_bags_harvested(response, session)
     response = response.to_f
@@ -404,12 +420,14 @@ def report_crops
     return response <= bags_harvested
   end
 
+
   def less_than_bags_harvested_minus_grade_1(response, session)
     response = response.to_f
     bags_harvested = session[:bags_harvested].to_f
     grade_1_bags = session[:grade_1_bags].to_f
     return response <= bags_harvested - grade_1_bags
   end
+
 
   def less_than_bags_harvested_minus_grade_1_and_2(response, session)
     response = response.to_f
@@ -419,12 +437,14 @@ def report_crops
     return response <= bags_harvested - grade_1_bags - grade_2_bags
   end
 
+
   def less_than_bags_harvested_and_pishori(response, session)
     response = response.to_f
     bags_harvested = session[:bags_harvested].to_f
     pishori_bags = session[:pishori_bags].to_f
     return response <= bags_harvested - pishori_bags
   end
+
 
   def less_than_bags_harvested_and_pishori_and_super(response, session)
     response = response.to_f
@@ -433,6 +453,7 @@ def report_crops
     super_bags = session[:super_bags].to_f
     return response <= bags_harvested - pishori_bags - super_bags
   end
+
 
   def kenyan_counties
     counties = {"mombasa" => "Mombasa",

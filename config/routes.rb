@@ -12,8 +12,8 @@ Egranary::Application.routes.draw do
   post "call"   => "missed_calls#incoming", :as => "missed_call"
   get "call"    => "missed_calls#incoming"
 
-  get "ussd"    => "ussd#inbound2"
-  post "ussd"   => "ussd#inbound2"
+  get "ussd"    => "ussd#inbound"
+  post "ussd"   => "ussd#inbound"
 
   post "blast"  => "publishers#blast", :as => "blast"
   resources :sessions
