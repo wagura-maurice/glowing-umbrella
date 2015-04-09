@@ -6,20 +6,14 @@ module Form
   #####################################
 
   def respond_to_form(session_id, response=nil)
-    session = get_form_session(session_id)
-    form = get_form(session)
-    question_id = current_question_id(session)
 
-    # if its a conditional response, then set the question id
-    if session.has_key? :conditional_response and session[:conditional_response] and question_id.is_a? Hash
-      if question_id[response].nil?
-        return get_error_message(form, 1)
-      end
-
-      question_id = question_id[response]
-      session[:conditional_response] = false
-      session[:question] = question_id
+    # Special cases where we don't expect responses:
+    # If its the first question or last question
+    if (@question_id == start_id) || (is_last_question?)
+      @response_valid = true
     end
+
+
 
     # if its the first question, don't look for a response
     if question_id == start_id(session)
@@ -60,13 +54,6 @@ module Form
   end
 
 
-  def expensive_response_valid(session_id, response)
-    session = get_form_session(session_id)
-    form = get_form(session)
-    question_id = current_question_id(session)
-    return validate_response(form, session, response, question_id-1)
-  end
-
   def get_next_question(form, question_id)
     next_question = form[:questions][question_id][:next_question]
     if next_question.is_a? Hash
@@ -76,27 +63,16 @@ module Form
     end
   end
 
-  def increment_question_id(session, form, question_id)
-    if session[:question].is_a? Integer and form[:questions][session[:question]].has_key? :store_validator_function
-      session[:validator_function] = form[:questions][session[:question]][:valid_responses]
-    end
-    next_question = get_next_question(form, question_id)
-    session[:question] = next_question
-    store_session(session)
-  end
 
-  def store_response(session, form, question_id, response, increment=nil)
-    save_key = get_save_key(form, question_id)
-    session[save_key] = response
-    if increment 
-      session[:question] = get_next_question(form, question_id)
-    end
-    store_session(session)
-  end
 
-  def validate_response(form, session, response, question_id)
-    return false if !response.present?
-    valid_responses = get_valid_responses(form, question_id, session)
+  #####################################
+  ### Response Management Functions ###
+  #####################################
+
+  # Validates the current response
+  def validate_response
+    return false if !@current_response.present?
+    valid_responses = get_valid_responses(@current_form, @question_id)
     if valid_responses == :any
       return true
     elsif valid_responses == :any_number
@@ -115,69 +91,76 @@ module Form
     return false
   end
 
-  def get_save_key(form, question_id)
-    form[:questions][question_id][:save_key]
+
+  # Saves the response to the current session
+  def store_response()
+    save_key = get_save_key(@current_form, @question_id)
+    @session[save_key] = @response
   end
 
-  def get_valid_responses(form, question_id, session)
-    if session[:validator_function]
-      ret = session[:validator_function]
-      session[:validator_function] = nil
-      store_session(session)
-      return ret
-    end
-    form[:questions][question_id][:valid_responses]
-  end
-
-  def get_error_message(form, question_id)
-    form[:questions][question_id][:error_message]
-  end
-
-  def get_form_session(session_id)
-    Rails.cache.read(session_id)
-  end
-
-  def store_session(session)
-    session_id = session[:session_id]
-    Rails.cache.write(session_id, session)
-    return session
-  end
-
-  def get_form_name(session)
-    session[:current_form]
-  end
-
-  def get_form(session)
-    form_name = get_form_name(session)
+  ############################
+  ### Form Query Functions ###
+  ############################
+  
+  # Returns a form
+  def get_form(form_name)
     form = self.send(form_name)
     return form
   end
 
-  def current_question_id(session)
-    session[:question]
-  end
 
-  def start_id(session)
-    form = self.send(get_form_name(session))
-    form[:start_id]
-  end
-
-  def get_text(session, question_id)
-    form = get_form(session)
-    return form[:questions][question_id][:question_text]
-  end
-
-  def is_last_question?(session)
-    if session.has_key? :conditional_response and session[:conditional_response]
-      return false
-    end
-    question = get_question(get_form_name(session), current_question_id(session))
+  # Returns whether the current question is the 
+  # last question for the current form
+  def is_last_question?
+    question = get_question(@current_form, @question_id)
     return question[:next_question].nil?
   end
 
+
+  # Gets the start id of the current form
+  def start_id
+    @form[:start_id]
+  end
+
+
+  # Returns the question from a given form and question id
   def get_question(form_name, id)
-    form = self.send(form_name)
-    form[:questions][id]
+    get_form(form_name)[:questions][id]
+  end
+
+
+  # Gets the id of the first question for a given form
+  def get_form_start_id(form_name)
+    get_form(form_name)[:start_id]
+  end
+
+
+  # Gets the save key for a given form and question id
+  def get_save_key(form_name, question_id)
+    get_form(form_name)[:questions][question_id][:save_key]
+  end
+
+  
+  # Gets the question text for a given form and question id
+  def get_text(form_name, question_id)
+    get_form(form_name)[:questions][question_id][:question_text]
+  end
+
+
+  # Gets the error message for a given form and question id
+  def get_error_message(form_name, question_id)
+    get_form(form_name)[:questions][question_id][:error_message]
+  end
+
+
+  # Gets the valid responses for a given form and question id
+  def get_valid_responses(form_name, question_id)
+    get_form(form_name)[:questions][question_id][:valid_responses]
+  end
+
+  # Returns the form name for a given crop
+  def get_crop_form_name(crop)
+    form_name = (crop.to_s + "_report").to_sym
   end
 
 
@@ -352,6 +335,7 @@ module Form
     }
   end
 
+
   def rice_report
     {
       start_id: 1,
@@ -404,24 +388,20 @@ module Form
     }
   end
 
-  ############################
-  ### Validation Functions ###
-  ############################
 
-  def self.valid_county(response, session)
-    response = response.downcase
-    return kenyan_counties.has_key? response
-  end
+  ####################################
+  ### Validation Utility Functions ###
+  ####################################
 
-
-  def self.less_than_bags_harvested(response, session)
+  # The following functions validate the nunber of bags for a given crop
+  def self.less_than_bags_harvested
     response = response.to_f
     bags_harvested = session[:bags_harvested].to_f
     return response <= bags_harvested
   end
 
 
-  def less_than_bags_harvested_minus_grade_1(response, session)
+  def less_than_bags_harvested_minus_grade_1
     response = response.to_f
     bags_harvested = session[:bags_harvested].to_f
     grade_1_bags = session[:grade_1_bags].to_f
@@ -429,7 +409,7 @@ module Form
   end
 
 
-  def less_than_bags_harvested_minus_grade_1_and_2(response, session)
+  def less_than_bags_harvested_minus_grade_1_and_2
     response = response.to_f
     bags_harvested = session[:bags_harvested].to_f
     grade_1_bags = session[:grade_1_bags].to_f
@@ -438,7 +418,7 @@ module Form
   end
 
 
-  def less_than_bags_harvested_and_pishori(response, session)
+  def less_than_bags_harvested_and_pishori
     response = response.to_f
     bags_harvested = session[:bags_harvested].to_f
     pishori_bags = session[:pishori_bags].to_f
@@ -446,7 +426,7 @@ module Form
   end
 
 
-  def less_than_bags_harvested_and_pishori_and_super(response, session)
+  def less_than_bags_harvested_and_pishori_and_super
     response = response.to_f
     bags_harvested = session[:bags_harvested].to_f
     pishori_bags = session[:pishori_bags].to_f
@@ -455,6 +435,14 @@ module Form
   end
 
 
+  # Validate county
+  def self.valid_county
+    response = response.downcase
+    return kenyan_counties.has_key? response
+  end
+
+
+  # Valid county keys
   def kenyan_counties
     counties = {"mombasa" => "Mombasa",
                 "kwale" => "Kwale",
@@ -521,7 +509,6 @@ module Form
                 "nairobi" => "Nairobi"}
     return counties
   end
-
 
 
 end
