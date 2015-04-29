@@ -4,7 +4,7 @@ class UssdController < ApplicationController
 
   # Set action method filters
   skip_before_filter :verify_authenticity_token
-  skip_before_filter :require_login, :only => [:inbound2]
+  skip_before_filter :require_login, :only => [:inbound]
 
 
   # Constructor
@@ -14,6 +14,7 @@ class UssdController < ApplicationController
   
   # Accepts all incoming USSD requests and responds to them
   def inbound
+    debugger
     # Get the session if it exists
     get_session
 
@@ -27,7 +28,7 @@ class UssdController < ApplicationController
     end
 
     # Get response
-
+    res = respond_to_form
 
 
     # If the form has ended, save responses and decide on next steps
@@ -56,12 +57,14 @@ class UssdController < ApplicationController
     @phone_number = params["phoneNumber"]
     @session = Rails.cache.read(@phone_number)
     if @session
-      @current_form = @session['current_form']
-      @current_question = @session['question_id']
-      @question_id = @session['question_id']
-      @forms_filled = @session['forms_filled']
-      @next_question = @session['next_question']
+      @current_form = @session[:current_form]
+      @current_question = @session[:current_question]
+      @forms_filled = @session[:forms_filled]
+      @next_question = @session[:next_question]
       @form = self.send(@current_form)
+    end
+    if has_ussd_response?
+      @response = get_ussd_response
     end
   end
 
@@ -70,12 +73,17 @@ class UssdController < ApplicationController
     session = {
       phone_number: @phone_number,
       current_form: @current_form,
-      question_id: @question_id,
+      current_question: @current_question,
       forms_filled: @forms_filled,
       next_question: @next_question
     }
-    @session.merge session
+    @session = @session.merge session
     Rails.cache.write(@phone_number, @session)
+  end
+
+  # Returns whether a session exists for the incoming phone number
+  def session_exists?
+    return @session.present?
   end
 
 
@@ -108,8 +116,10 @@ class UssdController < ApplicationController
   def new_session(form)
     @phone_number = get_phone_number
     @current_form = form
-    @question = get_form_start_id(form)
+    @form = self.send(@current_form)
+    @current_question = get_form_start_id(form)
     @forms_filled = []
+    @session = {}
     store_session
   end
 

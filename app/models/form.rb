@@ -5,62 +5,49 @@ module Form
   ### Response Generation Functions ###
   #####################################
 
-  def respond_to_form(session_id, response=nil)
+  def respond_to_form
 
+    # Validates response, if valid stores it, else returns error message
     # Special cases where we don't expect responses:
     # If its the first question or last question
-    if (@question_id == start_id) || (is_last_question?)
-      @response_valid = true
+    if has_response?
+      @response_valid = validate_response
+      if @response_valid
+        store_response
+        move_to_next_question
+      else
+        ret = get_error_message(@current_form, @current_question)
+        return ret
+      end
     end
 
-
-
-    # if its the first question, don't look for a response
-    if question_id == start_id(session)
-      response = get_text(session, question_id)
-      increment_question_id(session, form, question_id)
-      return response
+    # If the response is valid, store it, increment question number
+    # and return the text for the next question
+    if @response_valid
+      ret = get_text(@current_form, @current_question)
+      @next_question = get_next_question
     
-    # else if its the last question, don't look for a response
-    elsif is_last_question?(session)
-      response_valid = validate_response(form, session, response, question_id-1)
-
-      # if the response is valid, move to the next question
-      if response_valid
-        store_response(session, form, question_id-1, response, false)
-
-        return get_text(session, question_id)
-      
-      # else show an error message
-      else
-        return get_error_message(form, question_id-1)
-      end
-      
-    # otherwise, look for a response, validate it
+    # If the response is not valid, return an error message
     else
-      response_valid = validate_response(form, session, response, question_id-1)
-
-      # if the response is valid, move to the next question
-      if response_valid
-        session = store_response(session, form, question_id-1, response, true)
-        increment_question_id(session, form, question_id)
-        return get_text(session, question_id)
       
-      # else show an error message
-      else
-        return get_error_message(form, question_id-1)
-      end
     end
+
+    return ret
   end
 
 
-  def get_next_question(form, question_id)
-    next_question = form[:questions][question_id][:next_question]
-    if next_question.is_a? Hash
-      return next_question
-    else
-      return next_question
-    end
+  def get_next_question
+#    debugger
+#    if is_last_question?
+#      return nil
+#    end
+    next_question = get_form(@current_form)[:questions][@current_question][:next_question]
+#    if (next_question.is_a? Hash) and (has_response?)
+#      return next_question[@response]
+#    else
+#      return next_question
+#    end
+    return next_question
   end
 
 
@@ -71,8 +58,8 @@ module Form
 
   # Validates the current response
   def validate_response
-    return false if !@current_response.present?
-    valid_responses = get_valid_responses(@current_form, @question_id)
+    return false if !@response.present?
+    valid_responses = get_valid_responses(@current_form, @current_question)
     if valid_responses == :any
       return true
     elsif valid_responses == :any_number
@@ -93,9 +80,24 @@ module Form
 
 
   # Saves the response to the current session
-  def store_response()
-    save_key = get_save_key(@current_form, @question_id)
+  def store_response
+    save_key = get_save_key(@current_form, @current_question)
     @session[save_key] = @response
+  end
+
+
+  def has_response?
+    return false if ((is_first_question?) || (is_last_question?))
+    return true
+  end
+
+  def move_to_next_question
+    if @next_question.is_a? Hash
+      @current_question = @next_question[@response]
+    else
+      @current_question = @next_question
+    end
+    @next_question = get_next_question
   end
 
   ############################
@@ -112,10 +114,15 @@ module Form
   # Returns whether the current question is the 
   # last question for the current form
   def is_last_question?
-    question = get_question(@current_form, @question_id)
+    return false if @current_question.is_a? Hash
+    question = get_question(@current_form, @current_question)
     return question[:next_question].nil?
   end
 
+
+  def is_first_question?
+    @current_question == start_id
+  end
 
   # Gets the start id of the current form
   def start_id
@@ -479,6 +486,7 @@ module Form
                 "pokot" => "West Pokot",
                 "samburu" => "Samburu",
                 "trans nzoia" => "Trans Nzoia",
+                "transnzoia" => "Trans Nzoia",
                 "nzoia" => "Trans Nzoia",
                 "trans" => "Trans Nzoia",
                 "uasin gishu" => "Uasin Gishu",
