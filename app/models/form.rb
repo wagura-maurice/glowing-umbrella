@@ -186,69 +186,76 @@ module Form
         1 => {
           question_text: "Welcome to eGranary service. T&C's Apply \nAre you posting as an individual or a group? \n1. Individual \n2. Group",
           valid_responses: ["1", "2"],
-          next_question: {"1" => 2, "2" => 5},
+          next_question: {"1" => 2, "2" => 4},
           conditional_response: true,
           save_key: :reporting_as,
           error_message: "You're response was not understood. Please respond with: \n1. Individual \n2. Group"
         },
         2 => {
-          question_text: "Please enter SURNAME",
+          question_text: "Please enter your FULL NAME",
           valid_responses: :any_letters,
           save_key: :last_name,
           next_question: 3,
-          error_message: "Please use alphabetical letters only e.g Mwangi. Please enter SURNAME"
+          error_message: "Please use alphabetical letters only e.g Tim Mwangi. Please enter FULL NAME"
         },
         3 => {
-          question_text: "Please enter OTHER NAMES (e.g. James Juma)",
-          valid_responses: :any_letters,
-          save_key: :first_name,
-          next_question: 4,
-          error_message: "Please use alphabetical letters only e.g James Juma. Please enter OTHER NAMES"
-        },
-        4 => {
           question_text: "Please enter ID NUMBER",
           valid_responses: :unique_id_number,
           store_validator_function: true,
           save_key: :national_id_number,
-          next_question: 7,
+          next_question: 6,
           error_message: "The ID Number is not valid or it is already registered. Please enter a new ID NUMBER"
         },
-        5 => {
+        4 => {
           question_text: "Please enter Group Name",
           valid_responses: :any,
           save_key: :group_name,
-          next_question: 6,
+          next_question: 5,
           error_message: "You're response was not understood. Please enter Group Name"
         },
-        6 => {
+        5 => {
           question_text: "Please enter REGISTRATION NUMBER",
           valid_responses: :any,
           save_key: :group_registration_number,
-          next_question: 7,
+          next_question: 6,
           error_message: "The ID Number is not valid or it is already registered. Please enter a new ID NUMBER" #"You're response was not understood. Please enter REGISTRATION NUMBER"
         },
-        7 => {
+        6 => {
           question_text: "Please name any National Association you are affiliated with",
           valid_responses: :any,
           save_key: :association,
-          next_question: 8,
+          next_question: 7,
           error_message: "You're response was not understood. Please name any National Association you are affiliated with"
         },
+        7 => {
+          question_text: "What is your nearest major town?",
+          valid_responses: :any_letters,
+          save_key: :nearest_town,
+          next_question: 8,
+          error_message: "Sorry, that answer was not valid. What is your nearest major town?"
+        },
         8 => {
+          question_text: "What county are you in?",
+          valid_responses: :any_letters,
+          save_key: :county,
+          next_question: 9,
+          error_message: "Sorry, that answer was not valid. What county are you in?"
+        },
+        9 => {
           question_text: "Do you grow maize? \n1. Yes\n2. No\n",
           valid_responses: ["1", "2"],
           save_key: :grows_maize,
-          next_question: 9,
+          next_question: 10,
           error_message: "Sorry, that answer was not valid. Do you grow maize? \n1. Yes\n2. No\n"
         },
-        9 => {
+        10 => {
           question_text: "Do you grow rice? \n1. Yes\n2. No\n",
           valid_responses: ["1", "2"],
           save_key: :grows_rice,
-          next_question: 10,
+          next_question: 11,
           error_message: "Sorry, that answer was not valid. Do you grow rice? \n1. Yes\n2. No\n"
         },
-        10 => {
+        11 => {
           question_text: "Thank you for registering!",
           valid_responses: nil,
           save_key: nil,
