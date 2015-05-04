@@ -65,7 +65,7 @@ module Form
     elsif valid_responses == :any_number
       return @response.scan(/[a-zA-Z]/).length == 0
     elsif valid_responses == :any_letters
-      return @response[/[a-zA-Z]+/] == @response
+      return @response[/[a-zA-Z\s]+/] == @response
     elsif valid_responses == :unique_id_number
       return !(Farmer.where(national_id_number: @response).exists?)
     elsif valid_responses.is_a? Array
@@ -221,11 +221,11 @@ module Form
           error_message: "The ID Number is not valid or it is already registered. Please enter a new ID NUMBER" #"You're response was not understood. Please enter REGISTRATION NUMBER"
         },
         6 => {
-          question_text: "Please name any National Association you are affiliated with",
+          question_text: "Please name any National Farmers Association/Federation/Cooperative you are affiliated with",
           valid_responses: :any,
           save_key: :association,
           next_question: 7,
-          error_message: "You're response was not understood. Please name any National Association you are affiliated with"
+          error_message: "You're response was not understood. Please name any National Farmers Association/Federation/Cooperative you are affiliated with"
         },
         7 => {
           question_text: "What is your nearest major town?",
