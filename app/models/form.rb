@@ -306,7 +306,7 @@ module Form
       start_id: 1,
       questions: {
         1 => {
-          question_text: "How many kilograms of maize seed did you plant?",
+          question_text: "How many kilograms of maize seed did you plant in total?",
           valid_responses: :any_number,
           save_key: :kg_of_maize_seed,
           next_question: 2,
@@ -359,7 +359,7 @@ module Form
       start_id: 1,
       questions: {
         1 => {
-          question_text: "How many kilograms of rice seed did you plant?",
+          question_text: "How many kilograms of rice seed did you plant in total?",
           valid_responses: :any_number,
           save_key: :kg_of_rice_seed,
           next_question: 2,

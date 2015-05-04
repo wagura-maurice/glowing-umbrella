@@ -39,7 +39,7 @@ class AfricasTalkingGateway
     @api_key = api_key
   end
 
-  def send_message(recipients, message, from='Jiunga')
+  def send_message(recipients, message, from)
     data = nil
     response_code = nil
 
@@ -54,8 +54,6 @@ class AfricasTalkingGateway
       }
       curl.on_complete { |resp| response_code = resp.response_code }
     end
-    puts http
-    puts response_code
 
     if response_code == 201
       reports = JSON.parse(data)["SMSMessageData"]["Recipients"].collect { |entry|
@@ -71,7 +69,7 @@ class AfricasTalkingGateway
     data          = nil
     response_code = nil
 
-    post_body = {:username => @user_name, :to => to }
+    post_body = {:username => @user_name, :from => from, :to => to }
 
     http = Curl.post(VOICE_URL, post_body) do |curl|
       curl.headers['Accept'] = ACCEPT_TYPE

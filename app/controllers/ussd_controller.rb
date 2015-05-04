@@ -49,10 +49,9 @@ class UssdController < ApplicationController
     render text: format_response(res, !(is_last_question? && !has_next_form?))
 
     if is_last_question? && !has_next_form?
+      debugger
       msg = "Thank you for reporting on on EAFF eGranary. EAFF will try and source for market for your harvest."
-      unless Rails.env.development?
-        SendMessages.send(@phone_number, '778', msg)
-      end
+      SendMessages.send(@phone_number, 'Jiunga', msg)
     end
   end
 
