@@ -2,8 +2,6 @@ class Farmer < ActiveRecord::Base
   has_many :maize_reports
   has_many :rice_reports
 
-  require 'send_messages'
-
   def self.new_farmer(session)
     f = Farmer.new
     f.phone_number = session[:phone_number]
@@ -33,10 +31,6 @@ class Farmer < ActiveRecord::Base
     f.crops = crops
 
     f.save
-
-    unless Rails.env.development?
-      SendMessages.send(f.phone_number, '778', "Thank your for registering with Egranary.")
-    end
   end
 
   def self.update_farmer_crop_report_values(session)

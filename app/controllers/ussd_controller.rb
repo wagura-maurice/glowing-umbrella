@@ -1,6 +1,7 @@
 class UssdController < ApplicationController
   # Include required modules
   include Form
+  require 'send_messages'
 
   # Set action method filters
   skip_before_filter :verify_authenticity_token
@@ -46,6 +47,13 @@ class UssdController < ApplicationController
 
     # Render response
     render text: format_response(res, !(is_last_question? && !has_next_form?))
+
+    if is_last_question? && !has_next_form?
+      msg = "Thank you for reporting on on EAFF eGranary. EAFF will try and source for market for your harvest."
+      unless Rails.env.development?
+        SendMessages.send(f.phone_number, '778', msg)
+      end
+    end
   end
 
 
