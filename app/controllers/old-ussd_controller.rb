@@ -71,32 +71,32 @@ class UssdController < ApplicationController
   end
 
 
-  protected
-
-  def has_next_form?
-    current_form = form_session[:current_form]
-    farmer = get_farmer
-    crops = farmer.crops || []
-    crop_reports = crops.map {|c| (c + "_report").to_sym}
-    forms_filled = form_session[:forms_filled] || []
-    remainder = crop_reports - forms_filled
-    return remainder.length > 0
-  end
-
-  def get_next_form
-    current_form = form_session[:current_form]
-    farmer = get_farmer
-    crops = farmer.crops || []
-    crop_reports = crops.map {|c| (c + "_report").to_sym}
-    forms_filled = form_session[:forms_filled] || []
-    remainder = crop_reports - forms_filled
-    unless remainder[0].to_s.include? "_report"
-      next_form = (remainder[0].to_s + "_report").to_sym
-    else
-      next_form = remainder[0]
-    end
-    return next_form
-  end
+#  protected
+#
+#  def has_next_form?
+#    current_form = form_session[:current_form]
+#    farmer = get_farmer
+#    crops = farmer.crops || []
+#    crop_reports = crops.map {|c| (c + "_report").to_sym}
+#    forms_filled = form_session[:forms_filled] || []
+#    remainder = crop_reports - forms_filled
+#    return remainder.length > 0
+#  end
+#
+#  def get_next_form
+#    current_form = form_session[:current_form]
+#    farmer = get_farmer
+#    crops = farmer.crops || []
+#    crop_reports = crops.map {|c| (c + "_report").to_sym}
+#    forms_filled = form_session[:forms_filled] || []
+#    remainder = crop_reports - forms_filled
+#    unless remainder[0].to_s.include? "_report"
+#      next_form = (remainder[0].to_s + "_report").to_sym
+#    else
+#      next_form = remainder[0]
+#    end
+#    return next_form
+#  end
 #
 #  def perform_form_last_action
 #    session = form_session
@@ -126,14 +126,14 @@ class UssdController < ApplicationController
 #    }
 #  end
 
-  def get_conditional_response(form, id)
-    question = Form.get_question(form, id)
-    if question.has_key? :conditional_response
-      return question[:conditional_response]
-    else
-      return false
-    end
-  end
+#  def get_conditional_response(form, id)
+#    question = Form.get_question(form, id)
+#    if question.has_key? :conditional_response
+#      return question[:conditional_response]
+#    else
+#      return false
+#    end
+#  end
 #
 #  def farmer_exists?
 #    Farmer.where(phone_number: get_phone_number).exists?
@@ -160,9 +160,9 @@ class UssdController < ApplicationController
     store_session(session)
   end
 
-  def get_form_start_id(form)
-    Form.send(form)[:start_id]
-  end
+#  def get_form_start_id(form)
+#    Form.send(form)[:start_id]
+#  end
 
 #  def form_session
 #    @session = @session || Rails.cache.read(session_id)

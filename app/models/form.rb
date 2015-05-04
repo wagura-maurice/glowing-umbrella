@@ -6,7 +6,6 @@ module Form
   #####################################
 
   def respond_to_form
-
     # Validates response, if valid stores it, else returns error message
     # Special cases where we don't expect responses:
     # If its the first question or last question
@@ -15,24 +14,25 @@ module Form
       if @response_valid
         store_response
         move_to_next_question
+        ret = get_text(@current_form, @current_question)
       else
         ret = get_error_message(@current_form, @current_question)
         return ret
       end
-    end
-
-    # If the response is valid, store it, increment question number
-    # and return the text for the next question
-    if @response_valid
-      ret = get_text(@current_form, @current_question)
-      @next_question = get_next_question
-    
-    # If the response is not valid, return an error message
     else
-      
+      ret = get_text(@current_form, @current_question)
     end
-
-    return ret
+#    # If the response is valid, store it, increment question number
+#    # and return the text for the next question
+#    if @response_valid
+#      @next_question = get_next_question
+    #
+#    # If the response is not valid, return an error message
+#    else
+      #
+#    end
+#
+#    return ret
   end
 
 
@@ -63,15 +63,15 @@ module Form
     if valid_responses == :any
       return true
     elsif valid_responses == :any_number
-      return response.scan(/[a-zA-Z]/).length == 0
+      return @response.scan(/[a-zA-Z]/).length == 0
     elsif valid_responses == :any_letters
-      return response[/[a-zA-Z]+/] == response
+      return @response[/[a-zA-Z]+/] == @response
     elsif valid_responses == :unique_id_number
-      return !(Farmer.where(national_id_number: response).exists?)
+      return !(Farmer.where(national_id_number: @response).exists?)
     elsif valid_responses.is_a? Array
-      return valid_responses.include? response
+      return valid_responses.include? @response
     elsif valid_responses.is_a? Symbol
-      return self.send(valid_responses, response, session)
+      return self.send(valid_responses)
     else
       return false
     end
@@ -87,8 +87,12 @@ module Form
 
 
   def has_response?
-    return false if ((is_first_question?) || (is_last_question?))
-    return true
+    if !@has_response.nil?
+      return @has_response
+    end
+    return false if is_last_question?
+    return true if has_ussd_response?
+    return false
   end
 
   def move_to_next_question
@@ -330,7 +334,7 @@ module Form
           error_message: "You're response was not valid. How many bags are ungraded?"
         },
         6 => {
-          question_text: "Thank you for reporting on on EAFF egranary. EAFF will try & source for market",
+          question_text: "Thank you for reporting on on EAFF egranary. EAFF will try & source for market.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
@@ -383,7 +387,7 @@ module Form
           error_message: "You're response was not valid. How many bags are Other?"
         },
         6 => {
-          question_text: "Thank you for reporting on on EAFF egranary. EAFF will try & source for market",
+          question_text: "Thank you for reporting on on EAFF egranary. EAFF will try & source for market.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
@@ -401,51 +405,51 @@ module Form
   ####################################
 
   # The following functions validate the nunber of bags for a given crop
-  def self.less_than_bags_harvested
-    response = response.to_f
-    bags_harvested = session[:bags_harvested].to_f
-    return response <= bags_harvested
+  def less_than_bags_harvested
+    @response = @response.to_f
+    bags_harvested = @session[:bags_harvested].to_f
+    return @response <= bags_harvested
   end
 
 
   def less_than_bags_harvested_minus_grade_1
-    response = response.to_f
-    bags_harvested = session[:bags_harvested].to_f
-    grade_1_bags = session[:grade_1_bags].to_f
-    return response <= bags_harvested - grade_1_bags
+    @response = @response.to_f
+    bags_harvested = @session[:bags_harvested].to_f
+    grade_1_bags = @session[:grade_1_bags].to_f
+    return @response <= bags_harvested - grade_1_bags
   end
 
 
   def less_than_bags_harvested_minus_grade_1_and_2
-    response = response.to_f
-    bags_harvested = session[:bags_harvested].to_f
-    grade_1_bags = session[:grade_1_bags].to_f
-    grade_2_bags = session[:grade_2_bags].to_f
-    return response <= bags_harvested - grade_1_bags - grade_2_bags
+    @response = @response.to_f
+    bags_harvested = @session[:bags_harvested].to_f
+    grade_1_bags = @session[:grade_1_bags].to_f
+    grade_2_bags = @session[:grade_2_bags].to_f
+    return @response <= bags_harvested - grade_1_bags - grade_2_bags
   end
 
 
   def less_than_bags_harvested_and_pishori
-    response = response.to_f
-    bags_harvested = session[:bags_harvested].to_f
-    pishori_bags = session[:pishori_bags].to_f
-    return response <= bags_harvested - pishori_bags
+    @response = @response.to_f
+    bags_harvested = @session[:bags_harvested].to_f
+    pishori_bags = @session[:pishori_bags].to_f
+    return @response <= bags_harvested - pishori_bags
   end
 
 
   def less_than_bags_harvested_and_pishori_and_super
-    response = response.to_f
-    bags_harvested = session[:bags_harvested].to_f
-    pishori_bags = session[:pishori_bags].to_f
-    super_bags = session[:super_bags].to_f
-    return response <= bags_harvested - pishori_bags - super_bags
+    @response = @response.to_f
+    bags_harvested = @session[:bags_harvested].to_f
+    pishori_bags = @session[:pishori_bags].to_f
+    super_bags = @session[:super_bags].to_f
+    return @response <= bags_harvested - pishori_bags - super_bags
   end
 
 
   # Validate county
   def self.valid_county
-    response = response.downcase
-    return kenyan_counties.has_key? response
+    @response = @response.downcase
+    return kenyan_counties.has_key? @response
   end
 
 

@@ -14,7 +14,6 @@ class UssdController < ApplicationController
   
   # Accepts all incoming USSD requests and responds to them
   def inbound
-    debugger
     # Get the session if it exists
     get_session
 
@@ -32,17 +31,21 @@ class UssdController < ApplicationController
 
 
     # If the form has ended, save responses and decide on next steps
-    if @last_question
+    if is_last_question?
       save_form_response
-      # Start new form or send confirmation
-      #send_confirmation
+
+      # Start new form if it exists
+      if has_next_form?
+        go_to_next_form
+        res = res + " " + respond_to_form
+      end
     end
 
     # Save session
     store_session
 
     # Render response
-    render text: format_response(res, !@last_question)
+    render text: format_response(res, !(is_last_question? && !has_next_form?))
   end
 
 
@@ -78,7 +81,7 @@ class UssdController < ApplicationController
       next_question: @next_question
     }
     @session = @session.merge session
-    Rails.cache.write(@phone_number, @session)
+    Rails.cache.write(@phone_number, @session, expires_in: 12.hour)
   end
 
   # Returns whether a session exists for the incoming phone number
@@ -96,7 +99,6 @@ class UssdController < ApplicationController
   # otherwise see if they want to start reporting crops
   # And if they dont exist, start by asking the farmer to register
   def start_new_session
-    # 
     if farmer_exists?
       crops = get_farmer.crops
       if crops.present?
@@ -108,7 +110,7 @@ class UssdController < ApplicationController
     else
       new_session(:user_registration)
     end
-
+    @has_response = false
   end
 
 
@@ -120,6 +122,7 @@ class UssdController < ApplicationController
     @current_question = get_form_start_id(form)
     @forms_filled = []
     @session = {}
+    @next_question = get_next_question
     store_session
   end
 
@@ -152,6 +155,47 @@ class UssdController < ApplicationController
     Farmer.where(phone_number: get_phone_number).first
   end
 
+  #################################
+  ### Form Management Functions ###
+  #################################
+
+  # Returns whether there are more forms for the farmer to fill
+  def has_next_form?
+    return remaining_forms.length > 0
+  end
+
+
+  # Returns the next form for the farmer to fill
+  def get_next_form
+    remainder = remaining_forms
+    unless remainder[0].to_s.include? "_report"
+      next_form = (remainder[0].to_s + "_report").to_sym
+    else
+      next_form = remainder[0]
+    end
+    return next_form
+  end
+
+
+  # Returns a list of forms left for the farmer to fill
+  def remaining_forms
+    crops = get_farmer.crops || []
+    crop_reports = crops.map {|c| (c + "_report").to_sym}
+    forms_filled = @forms_filled || []
+    remainder = crop_reports - forms_filled
+    return remainder
+  end
+
+  def go_to_next_form
+    new_form = get_next_form
+    if new_form
+      @current_form = new_form
+      @form = self.send(@current_form)
+      @current_question = get_form_start_id(@current_form)
+      @next_question = get_next_question
+      @has_response = false
+    end
+  end
 
   #########################
   ### General Functions ###
@@ -168,6 +212,7 @@ class UssdController < ApplicationController
     model = @form[:model]
     last_action = @form[:form_last_action]
     model.send(last_action, @session)
+    @session[:forms_filled] << @current_form
   end
 
 
@@ -182,6 +227,5 @@ class UssdController < ApplicationController
     end
     return response
   end
-
 
 end
