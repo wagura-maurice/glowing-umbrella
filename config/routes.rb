@@ -4,22 +4,21 @@ Egranary::Application.routes.draw do
   get "home/about" 
   get "home/index"
 
-  get "login"   => "sessions#new",        :as => "login"
-  get "logout"  => "sessions#destroy",    :as => "logout"
-  get "signup"  => "users#new",           :as => "signup"
-  get "app"     => "publishers#index", :as => "app"
-
-  post "call"   => "missed_calls#incoming", :as => "missed_call"
-  get "call"    => "missed_calls#incoming"
+  get "login"   => "sessions#new",        :as => :login
+  get "logout"  => "sessions#destroy",    :as => :logout
+  get "signup"  => "users#new",           :as => :signup
+  get "app"     => "dashboard#index", :as => :app
+  get "farmers_table" => "dashboard#farmers_table", :as => :farmers_table
+  get "rice_reports_table" => "dashboard#rice_reports_table", :as => :rice_reports_table
+  get "maize_reports_table" => "dashboard#maize_reports_table", :as => :maize_reports_table
 
   get "ussd"    => "ussd#inbound"
   post "ussd"   => "ussd#inbound"
 
-  post "blast"  => "publishers#blast", :as => "blast"
+  post "blast"  => "dashboard#blast", :as => "blast"
+  
   resources :sessions
   resources :users
-  resources :publishers
-  resources :api
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -194,7 +194,7 @@ module Form
         2 => {
           question_text: "Please enter your FULL NAME",
           valid_responses: :any_letters,
-          save_key: :last_name,
+          save_key: :name,
           next_question: 3,
           error_message: "Please use alphabetical letters only e.g Tim Mwangi. Please enter FULL NAME"
         },

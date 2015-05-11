@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
 	def new
 		if logged_in?
-			redirect_back_or_to(:controller => 'publishers', :action => 'index')
+			redirect_back_or_to(:controller => 'dashboard', :action => 'index')
 			return
 		end
 	end
@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
 	    	logout
 	    end
 	    if set_user
-  			redirect_back_or_to(:controller => 'publishers', :action => 'index')
+  			redirect_back_or_to(:controller => 'dashboard', :action => 'index')
 	  	else 
 	    	@user = User.find_by_phone_number_or_username(params[:phone_number_or_username])
 	    	if @user
@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
 	          		add_to_alert("Please enter a valid phone number or username", "error")
 	          		redirect_to :login
 	        	else
-	          		add_to_alert("This account doesn't exist. Please sign up for Vipi", "error")
+	          		add_to_alert("This account doesn't exist. Please contact E-Granary admin to get a valid account", "error")
 	          		redirect_to :login
 	        	end
 	      	end

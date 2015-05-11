@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316063513) do
+ActiveRecord::Schema.define(version: 20150510073325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,21 +56,20 @@ ActiveRecord::Schema.define(version: 20150316063513) do
   end
 
   create_table "farmers", force: :cascade do |t|
-    t.string   "phone_number",              limit: 255
-    t.string   "first_name",                limit: 255
-    t.string   "last_name",                 limit: 255
-    t.string   "national_id_number",        limit: 255
-    t.string   "association",               limit: 255
-    t.string   "country",                   limit: 255
-    t.string   "county",                    limit: 255
-    t.string   "ward",                      limit: 255
-    t.string   "nearest_town",              limit: 255
-    t.string   "crops",                                 array: true
+    t.string   "phone_number"
+    t.string   "national_id_number"
+    t.string   "association"
+    t.string   "country"
+    t.string   "county"
+    t.string   "ward"
+    t.string   "nearest_town"
+    t.string   "crops",                     array: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "reporting_as"
     t.string   "group_name"
     t.string   "group_registration_number"
+    t.string   "name"
   end
 
   create_table "maize_reports", force: :cascade do |t|

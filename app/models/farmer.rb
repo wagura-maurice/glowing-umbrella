@@ -1,6 +1,6 @@
 class Farmer < ActiveRecord::Base
-  has_many :maize_reports
-  has_many :rice_reports
+  has_many :maize_reports, dependent: :destroy
+  has_many :rice_reports, dependent: :destroy
 
   def self.new_farmer(session)
     f = Farmer.new
@@ -8,8 +8,7 @@ class Farmer < ActiveRecord::Base
 
     if session[:reporting_as] == "1"
       f.reporting_as = "individual"
-      f.first_name = session[:first_name]
-      f.last_name = session[:last_name]
+      f.name = session[:name]
       f.national_id_number = session[:group_registration_number]
     elsif (session[:reporting_as] == "2") or (session[:national_id_number] == "2")
       f.reporting_as = "group"
@@ -46,5 +45,6 @@ class Farmer < ActiveRecord::Base
 
     f.save
   end
+
 
 end

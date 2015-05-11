@@ -10,7 +10,21 @@
 		<a class="navbar-brand" href="/">eGranary</a>
 	</div>
 	<div class="navbar-collapse collapse">
-		<ul class="nav navbar-nav">    
+		<ul class="nav navbar-nav">
+			<% if current_user %>
+				<li>
+					<a href="/app">Dashboard</a>
+				</li>
+				<li>
+					<a href="/farmers_table">Farmers</a>
+				</li>
+				<li>
+					<a href="/maize_reports_table">Maize Reports</a>
+				</li>
+				<li>
+					<a href="/rice_reports_table">Rice Reports</a>
+				</li>
+			<% end %>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<% if !current_user %>

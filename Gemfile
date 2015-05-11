@@ -35,7 +35,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '~> 2.5.3'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -59,7 +59,7 @@ group :development, :test do
     gem 'debugger'
 end
 
-gem 'sorcery', '~>0.8.5'
+gem 'sorcery', '~>0.9.0'
 gem 'phony_rails'
 gem "json"
 gem "curb" #required by AfricasTalking
@@ -73,4 +73,8 @@ gem 'httparty'
 gem 'puma'
 gem 'connection_pool' # So that memcached can have a pool
 gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'jquery-datatables-rails'
+gem 'ajax-datatables-rails'
+gem 'groupdate'
+gem "chartkick"
 

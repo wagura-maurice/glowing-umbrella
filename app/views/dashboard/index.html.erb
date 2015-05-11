@@ -1,0 +1,66 @@
+<div>
+    <h2>Statistics</h2>
+    <table class="table table-bordered table-condensed table-hover">
+        <tbody>
+            <tr>
+                <td>Total Farmers</td>
+                <td><%= @farmers.count %></td>
+            </tr>
+            <tr>
+                <td>Maize Farmers</td>
+                <td><%= @maize_farmers_count %></td>
+            </tr>
+            <tr>
+                <td>Rice Farmers</td>
+                <td><%= @rice_farmers_count %></td>
+            </tr>
+            <tr>
+                <td>Total Maize Bags Harvested</td>
+                <td><%= @total_maize_bags_harvested %></td>
+            </tr>
+            <tr>
+                <td>Total Rice Bags Harvested</td>
+                <td><%= @total_rice_bags_harvested %></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <div>
+        <h4 class="chart-title">Maize Reports</h4>
+        <%= line_chart MaizeReport.group_by_day(:created_at).count %>
+    </div>
+    <br>
+    <div>
+        <h4 class="chart-title">Rice Reports</h4>
+        <%= line_chart RiceReport.group_by_day(:created_at).count %>
+    </div>
+    <br>
+    <div>
+        <h4 class="chart-title">Farmer Registrations</h4>
+        <%= line_chart Farmer.group_by_day(:created_at).count %>
+    </div>
+    <br>
+    <div>
+        <h4 class="chart-title">Farmer Locations</h4>
+        <%= geo_chart Farmer.group(:country).count %>
+    </div>
+    <br>
+</div>
+<%= form_tag blast_path, method: :post do %>
+    <fieldset>
+        <div class="form-group">
+            <label for="login-credentials">Message</label>
+            <%= text_area_tag :message, nil, class: "form-control", placeholder: "Enter your message", maxlength: 160 %>
+        </div>
+        <div>
+            <% @options_for_select = options_for_select([['All', 1], ["Maize Farmers", 2], ["Rice Farmers", 3]]) %>
+            <%= select_tag(:send_messages_to, @options_for_select) %>
+
+            <%= submit_tag 'Send', class: "btn btn-primary" %>
+        </div>
+    </fieldset>
+<% end %>
+<br>
+<br>
+<br>
