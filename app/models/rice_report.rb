@@ -15,6 +15,7 @@ class RiceReport < ActiveRecord::Base
 
     r.save
 
+    return :home_menu
   end
 
   def reporting_time

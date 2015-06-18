@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150510073325) do
+ActiveRecord::Schema.define(version: 20150618072833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,34 @@ ActiveRecord::Schema.define(version: 20150510073325) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "beans_reports", force: :cascade do |t|
+    t.float    "kg_of_seed_planted"
+    t.float    "bags_harvested"
+    t.float    "grade_1_bags"
+    t.float    "grade_2_bags"
+    t.float    "ungraded_bags"
+    t.string   "report_type"
+    t.integer  "farmer_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "beans_reports", ["farmer_id"], name: "index_beans_reports_on_farmer_id", using: :btree
+
+  create_table "black_eyed_beans_reports", force: :cascade do |t|
+    t.float    "kg_of_seed_planted"
+    t.float    "bags_harvested"
+    t.float    "grade_1_bags"
+    t.float    "grade_2_bags"
+    t.float    "ungraded_bags"
+    t.string   "report_type"
+    t.integer  "farmer_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "black_eyed_beans_reports", ["farmer_id"], name: "index_black_eyed_beans_reports_on_farmer_id", using: :btree
 
   create_table "channels", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "channel_type",        limit: 255, default: "phone_number"
@@ -72,6 +100,20 @@ ActiveRecord::Schema.define(version: 20150510073325) do
     t.string   "name"
   end
 
+  create_table "green_grams_reports", force: :cascade do |t|
+    t.float    "kg_of_seed_planted"
+    t.float    "bags_harvested"
+    t.float    "grade_1_bags"
+    t.float    "grade_2_bags"
+    t.float    "ungraded_bags"
+    t.string   "report_type"
+    t.integer  "farmer_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "green_grams_reports", ["farmer_id"], name: "index_green_grams_reports_on_farmer_id", using: :btree
+
   create_table "maize_reports", force: :cascade do |t|
     t.float    "acres_planted"
     t.float    "kg_of_seed_planted"
@@ -86,6 +128,7 @@ ActiveRecord::Schema.define(version: 20150510073325) do
     t.float    "grade_1_bags"
     t.float    "grade_2_bags"
     t.float    "ungraded_bags"
+    t.string   "report_type"
   end
 
   add_index "maize_reports", ["farmer_id"], name: "index_maize_reports_on_farmer_id", using: :btree
@@ -135,6 +178,7 @@ ActiveRecord::Schema.define(version: 20150510073325) do
     t.float    "pishori_bags"
     t.float    "super_bags"
     t.float    "other_bags"
+    t.string   "report_type"
   end
 
   add_index "rice_reports", ["farmer_id"], name: "index_rice_reports_on_farmer_id", using: :btree

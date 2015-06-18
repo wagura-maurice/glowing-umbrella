@@ -20,16 +20,8 @@ class Farmer < ActiveRecord::Base
 
     f.country = "Kenya"
 
-    crops = []
-    if session[:grows_maize] == "1"
-      crops << "maize"
-    end
-    if session[:grows_rice] == "1"
-      crops << "rice"
-    end
-    f.crops = crops
-
     f.save
+    return :home_menu
   end
 
   def self.update_farmer_crop_report_values(session)
@@ -44,6 +36,27 @@ class Farmer < ActiveRecord::Base
     f.crops = crops
 
     f.save
+  end
+
+  def self.report_planting_or_harvesting(session)
+    f = Farmer.where(phone_number: session[:phone_number]).first
+    if session[:plant_or_harvest] == "1"
+      case session[:crop_planted]
+      when "1"
+        MaizeReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+      when "2"
+        RiceReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+      when "3"
+        BeansReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+      when "4"
+        GreenGramsReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+      when "5"
+        BlackEyedBeansReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+      end
+      return :home_menu
+    elsif session[:plant_or_harvest] == "2"
+      return :report_harvest
+    end
   end
 
 

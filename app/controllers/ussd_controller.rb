@@ -32,7 +32,7 @@ class UssdController < ApplicationController
 
 
     # If the form has ended, save responses and decide on next steps
-    if is_last_question?
+    if is_last_question? and !is_first_question? and !wait_for_response?
       save_form_response
 
       # Start new form if it exists
@@ -45,13 +45,13 @@ class UssdController < ApplicationController
     # Save session
     store_session
 
+
     # Render response
-    render text: format_response(res, !(is_last_question? && !has_next_form?))
+    render text: format_response(res, !(is_last_question? and !is_first_question? and !has_next_form? and !wait_for_response?))
 
     if is_last_question? && !has_next_form?
-      debugger
       msg = "Thank you for reporting on on EAFF eGranary. EAFF will try and source for market for your harvest."
-      SendMessages.send(@phone_number, 'Jiunga', msg)
+      SendMessages.send(@phone_number, 'Jiunga', msg) unless Rails.env.development?
     end
   end
 
@@ -72,6 +72,7 @@ class UssdController < ApplicationController
       @forms_filled = @session[:forms_filled]
       @next_question = @session[:next_question]
       @form = self.send(@current_form)
+      @forms_to_fill = @session[:forms_to_fill]
     end
     if has_ussd_response?
       @response = get_ussd_response
@@ -85,7 +86,8 @@ class UssdController < ApplicationController
       current_form: @current_form,
       current_question: @current_question,
       forms_filled: @forms_filled,
-      next_question: @next_question
+      next_question: @next_question,
+      forms_to_fill: @forms_to_fill
     }
     @session = @session.merge session
     Rails.cache.write(@phone_number, @session, expires_in: 12.hour)
@@ -112,7 +114,7 @@ class UssdController < ApplicationController
         form_name = get_crop_form_name(crops[0])
         new_session(form_name)
       else
-        new_session(:update_farmer_crop_report_values)
+        new_session(:home_menu)
       end
     else
       new_session(:user_registration)
@@ -130,6 +132,7 @@ class UssdController < ApplicationController
     @forms_filled = []
     @session = {}
     @next_question = get_next_question
+    @forms_to_fill = []
     store_session
   end
 
@@ -175,32 +178,38 @@ class UssdController < ApplicationController
   # Returns the next form for the farmer to fill
   def get_next_form
     remainder = remaining_forms
-    unless remainder[0].to_s.include? "_report"
-      next_form = (remainder[0].to_s + "_report").to_sym
-    else
-      next_form = remainder[0]
-    end
+#    unless remainder[0].to_s.include? "_report"
+#      next_form = (remainder[0].to_s + "_report").to_sym
+#    else
+    next_form = remainder[0]
+#    end
     return next_form
   end
 
 
   # Returns a list of forms left for the farmer to fill
   def remaining_forms
-    crops = get_farmer.crops || []
-    crop_reports = crops.map {|c| (c + "_report").to_sym}
+    #crops = get_farmer.crops || []
+    #crop_reports = crops.map {|c| (c + "_report").to_sym}
+    forms_to_fill = @forms_to_fill
     forms_filled = @forms_filled || []
-    remainder = crop_reports - forms_filled
+    remainder = forms_to_fill - forms_filled
     return remainder
   end
 
-  def go_to_next_form
-    new_form = get_next_form
+  def go_to_next_form(form=nil)
+    if form.present?
+      new_form = form
+    else
+      new_form = get_next_form
+    end
+
     if new_form
       @current_form = new_form
       @form = self.send(@current_form)
       @current_question = get_form_start_id(@current_form)
       @next_question = get_next_question
-      @has_response = false
+      @has_response = false unless wait_for_response?
     end
   end
 
@@ -218,7 +227,12 @@ class UssdController < ApplicationController
   def save_form_response
     model = @form[:model]
     last_action = @form[:form_last_action]
-    model.send(last_action, @session)
+    next_form = model.send(last_action, @session)
+    if next_form.present?
+      @session[:forms_to_fill] << next_form
+      @forms_to_fill << next_form
+    end
+    @forms_filled << @current_form
     @session[:forms_filled] << @current_form
   end
 

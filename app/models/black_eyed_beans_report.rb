@@ -1,8 +1,8 @@
-class MaizeReport < ActiveRecord::Base
+class BlackEyedBeansReport < ActiveRecord::Base
   belongs_to :farmer
 
   def self.new_report(session)
-    r = MaizeReport.new
+    r = BlackEyedBeansReport.new
     r.kg_of_seed_planted = session[:kg_of_maize_seed].to_f
     r.bags_harvested = session[:bags_harvested]
     r.grade_1_bags = session[:grade_1_bags]
@@ -16,11 +16,6 @@ class MaizeReport < ActiveRecord::Base
 
     return :home_menu
   end
-
-  def reporting_time
-    self.created_at.strftime("%H:%M %p %d/%m/%y")
-  end
-
 
 
 end
