@@ -314,9 +314,9 @@ module Form
       questions: {
         1 => {
           question_text: :get_home_menu_welcome_message,
-          valid_responses: ["1", "2"],
+          valid_responses: ["1", "2", "3"],
           save_key: :plant_or_harvest,
-          next_question: {"1" => 2, "2" => 4},
+          next_question: {"1" => 2, "2" => 4, "3" => 5},
           error_message: "Sorry, that answer was not valid. What do you want to do? \n1. Report Planting\n2. Report Harvest\n"
         },
         2 => {
@@ -343,6 +343,13 @@ module Form
           wait_until_response: true,
           next_form: :get_report_harvesting_form,
           error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice\n3. Beans\n4. Green Grams (Ndengu)\n5. Black Eyed Beans (Njahi)"
+        },
+        5 => {
+          question_text: "Thank you for reporting on on EAFF eGranary.",
+          valid_responses: nil,
+          save_key: nil,
+          next_question: nil,
+          error_message: nil
         }
       },
       model: Farmer,
@@ -352,7 +359,7 @@ module Form
 
   def get_home_menu_welcome_message
     if @forms_filled.length > 0
-      "Would you like to? \n1. Report Planting\n2. Report Harvest\n"
+      "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. End Session"
     else
       "Welcome to eGranary service T&C's apply. What do you want to do? \n1. Report Planting\n2. Report Harvest\n"
     end
@@ -391,6 +398,7 @@ module Form
   end
 
   def save_planting_report
+    @forms_filled << :report_planting
     return @form[:model].send @form[:form_last_action], @session
   end
 

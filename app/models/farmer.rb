@@ -1,6 +1,9 @@
 class Farmer < ActiveRecord::Base
   has_many :maize_reports, dependent: :destroy
   has_many :rice_reports, dependent: :destroy
+  has_many :beans_reports, dependent: :destroy
+  has_many :green_grams_reports, dependent: :destroy
+  has_many :black_eyed_beans_reports, dependent: :destroy
 
   def self.new_farmer(session)
     f = Farmer.new
