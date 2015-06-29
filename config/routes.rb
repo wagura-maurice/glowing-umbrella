@@ -11,6 +11,9 @@ Egranary::Application.routes.draw do
   get "farmers_table" => "dashboard#farmers_table", :as => :farmers_table
   get "rice_reports_table" => "dashboard#rice_reports_table", :as => :rice_reports_table
   get "maize_reports_table" => "dashboard#maize_reports_table", :as => :maize_reports_table
+  get "beans_reports_table" => "dashboard#beans_reports_table", :as => :beans_reports_table
+  get "green_grams_reports_table" => "dashboard#green_grams_reports_table", :as => :green_grams_reports_table
+  get "black_eyed_beans_reports_table" => "dashboard#black_eyed_beans_reports_table", :as => :black_eyed_beans_reports_table
 
   get "ussd"    => "ussd#inbound"
   post "ussd"   => "ussd#inbound"

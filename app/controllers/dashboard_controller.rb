@@ -3,13 +3,24 @@ class DashboardController < ApplicationController
   require 'send_messages'
 
   def index
+    # Get Statistics to display in the view
+
+    # Number of farmers
     @farmers = Farmer.all.order("updated_at DESC")
-    @rice_farmers_count =  Farmer.where("'rice' = ANY (crops)").count
-    @maize_farmers_count = Farmer.where("'maize' = ANY (crops)").count
+
+    # Number of farmers by crop type
+    @maize_farmers_count = MaizeReport.pluck(:farmer_id).uniq.length
+    @rice_farmers_count =  RiceReport.pluck(:farmer_id).uniq.length
+    @bean_farmers_count = BeansReport.pluck(:farmer_id).uniq.length
+    @green_gram_farmers_count = GreenGramsReport.pluck(:farmer_id).uniq.length
+    @black_eyed_bean_farmers_count = BlackEyedBeansReport.pluck(:farmer_id).uniq.length
+
+    # Crop statistics
     @total_maize_bags_harvested = MaizeReport.sum :bags_harvested
     @total_rice_bags_harvested = RiceReport.sum :bags_harvested
-    @rice_reports = RiceReport.all.order("updated_at DESC")
-    @maize_reports = MaizeReport.all.order("updated_at DESC")
+    @total_bean_bags_harvested = BeansReport.sum :bags_harvested
+    @total_green_gram_bags_harvested = GreenGramsReport.sum :bags_harvested
+    @total_black_eyed_bean_bags_harvested = BlackEyedBeansReport.sum :bags_harvested
   end
 
   def farmers_table
@@ -36,14 +47,49 @@ class DashboardController < ApplicationController
     end
   end
 
+  def beans_reports_table
+    ret = BeansReportDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+  
+  def green_grams_reports_table
+    ret = GreenGramsReportDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+  
+  def black_eyed_beans_reports_table
+    ret = BlackEyedBeansReportDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
+
   def blast
-    debugger
     if params["send_messages_to"] == "1"
-      to = Farmer.pluck(:phone_number).uniq
+      to = Farmer.pluck(:phone_number).uniq.compact
     elsif params["send_messages_to"] == "2"
-      Farmer.where("'maize' = ANY (crops)").pluck(:phone_number).uniq
+      ids = MaizeReport.pluck(:farmer_id).uniq.compact
+      to = Farmer.find(ids).map(&:phone_number)
     elsif params["send_messages_to"] == "3"
-      Farmer.where("'rice' = ANY (crops)").pluck(:phone_number).uniq
+      ids = RiceReport.pluck(:farmer_id).uniq.compact
+      to = Farmer.find(ids).map(&:phone_number)
+    elsif params["send_messages_to"] == "4"
+      ids = BeansReport.pluck(:farmer_id).uniq.compact
+      to = Farmer.find(ids).map(&:phone_number)
+    elsif params["send_messages_to"] == "5"
+      ids = GreenGramsReport.pluck(:farmer_id).uniq.compact
+      to = Farmer.find(ids).map(&:phone_number)
+    elsif params["send_messages_to"] == "6"
+      ids = BlackEyedBeansReport.pluck(:farmer_id).uniq.compact
+      to = Farmer.find(ids).map(&:phone_number)
     end
     unless Rails.env.development?
       SendMessages.send(to, 'Jiunga', params["message"])
