@@ -2,7 +2,7 @@ class GreenGramsReportDatatable < AjaxDatatablesRails::Base
 
   def sortable_columns
     # Declare strings in this format: ModelName.column_name
-    @sortable_columns ||= ['Farmer.name', 'GreenGramsReport.created_at', 'GreenGramsReport.kg_of_seed_planted', 'GreenGramsReport.bags_harvested', 'GreenGramsReport.grade_1_bags', 'GreenGramsReport.grade_2_bags', 'GreenGramsReport.ungraded_bags']
+    @sortable_columns ||= ['Farmer.name', 'GreenGramsReport.reporting_time', 'GreenGramsReport.kg_of_seed_planted', 'GreenGramsReport.bags_harvested', 'GreenGramsReport.grade_1_bags', 'GreenGramsReport.grade_2_bags', 'GreenGramsReport.ungraded_bags']
   end
 
   def searchable_columns

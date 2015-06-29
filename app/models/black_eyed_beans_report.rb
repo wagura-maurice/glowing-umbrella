@@ -17,5 +17,8 @@ class BlackEyedBeansReport < ActiveRecord::Base
     return :home_menu
   end
 
-
+  def reporting_time
+    self.created_at.strftime("%H:%M %p %d/%m/%y")
+  end
+  
 end
