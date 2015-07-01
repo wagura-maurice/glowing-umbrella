@@ -77,4 +77,6 @@ gem 'jquery-datatables-rails'
 gem 'ajax-datatables-rails'
 gem 'groupdate'
 gem "chartkick"
+gem 'rollbar', '~> 1.2.7'
+
 
