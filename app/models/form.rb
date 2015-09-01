@@ -1,6 +1,32 @@
 module Form
   extend self
 
+  # Constants
+  @@crops = {maize: { model: MaizeReport,
+                      text: 'Maize'
+                    },
+             rice: { model: RiceReport,
+                     text: 'Rice (irrigated)'
+                   },
+             nerica_rice: { model: NericaRiceReport,
+                            text: 'NERICA Rice (rainfed)'
+                          },
+             beans: { model: BeansReport,
+                      text: 'Beans'
+                    },
+             green_grams: { model: GreenGramsReport,
+                            text: 'Green Grams (Ndengu)'
+                          },
+             black_eyed_beans: { model: BlackEyedBeansReport,
+                                 text: 'Black Eyed Beans (Njahi)'
+                               }
+            }
+
+  @@response_types = [:any, :any_number, :unique_id_number, 
+                      :less_than_bags_harvested, :less_than_bags_harvested_and_pishori,
+                      :less_than_bags_harvested_minus_grade_1, :less_than_bags_harvested_and_pishori_and_super,
+                      :less_than_bags_harvested_minus_grade_1_and_2]
+
   #####################################
   ### Response Generation Functions ###
   #####################################
@@ -99,6 +125,9 @@ module Form
     if wait_for_response?
       return go_to_next_form self.send @form[:questions][@current_question][:next_form]
     end
+    if @next_question.is_a? Symbol
+      @next_question = self.send(@next_question)
+    end
     if @next_question.is_a? Hash
       @current_question = @next_question[@response]
     else
@@ -186,7 +215,11 @@ module Form
 
   # Gets the valid responses for a given form and question id
   def get_valid_responses(form_name, question_id)
-    get_form(form_name)[:questions][question_id][:valid_responses]
+    resp = get_form(form_name)[:questions][question_id][:valid_responses]
+    if resp.is_a? Symbol and !@@response_types.include?(resp)
+      resp = self.send(resp)
+    end
+    return resp
   end
 
 
@@ -249,11 +282,11 @@ module Form
           error_message: "You're response was not understood. Please name any National Farmers Association/Federation/Cooperative you are affiliated with"
         },
         7 => {
-          question_text: "What is your nearest major town?",
+          question_text: "What is your nearest town?",
           valid_responses: :any_letters,
           save_key: :nearest_town,
           next_question: 8,
-          error_message: "Sorry, that answer was not valid. What is your nearest major town?"
+          error_message: "Sorry, that answer was not valid. What is your nearest town?"
         },
         8 => {
           question_text: "What county are you in?",
@@ -276,38 +309,6 @@ module Form
   end
 
 
-  def update_farmer_crop_report_values
-    {
-      start_id: 1,
-      questions: {
-        1 => {
-          question_text: "Do you grow maize? \n1. Yes\n2. No\n",
-          valid_responses: ["1", "2"],
-          save_key: :grows_maize,
-          next_question: 2,
-          error_message: "Sorry, that answer was not valid. Do you grow maize? \n1. Yes\n2. No\n"
-        },
-        2 => {
-          question_text: "Do you grow rice? \n1. Yes\n2. No\n",
-          valid_responses: ["1", "2"],
-          save_key: :grows_rice,
-          next_question: 3,
-          error_message: "Sorry, that answer was not valid. Do you grow rice? \n1. Yes\n2. No\n"
-        },
-        3 => {
-          question_text: "Thank you for updating your information!",
-          valid_responses: nil,
-          save_key: nil,
-          next_question: nil,
-          error_message: nil
-        }
-      },
-      model: Farmer,
-      form_last_action: :update_farmer_crop_report_values
-    }
-  end
-
-
   def home_menu
     {
       start_id: 1,
@@ -320,11 +321,11 @@ module Form
           error_message: "Sorry, that answer was not valid. What do you want to do? \n1. Report Planting\n2. Report Harvest\n"
         },
         2 => {
-          question_text: "What did you plant? \n1. Maize\n2. Rice\n3. Beans\n4. Green Grams (Ndengu)\n5. Black Eyed Beans (Njahi)",
-          valid_responses: ["1", "2", "3", "4", "5"],
+          question_text: :get_planting_menu_text,
+          valid_responses: :get_planting_menu_valid_responses,
           save_key: :crop_planted,
-          next_question: 3,
-          error_message: "Sorry, that answer was not valid. What did you plant? \n1. Maize\n2. Rice\n3. Beans\n4. Green Grams (Ndengu)\n5. Black Eyed Beans (Njahi)"
+          next_question: :get_planting_next_question,
+          error_message: :get_planting_menu_error_message
         },
         3 => {
           question_text: :get_planting_question_text,
@@ -333,16 +334,16 @@ module Form
           next_question: nil,
           wait_until_response: true,
           next_form: :save_planting_report,
-          error_message: "You're response was not valid. How many kilograms of did you plant?"
+          error_message: "You're response was not valid. How many kilograms did you plant?"
         },
         4 => {
-          question_text: "What did you harvest? \n1. Maize\n2. Rice\n3. Beans\n4. Green Grams (Ndengu)\n5. Black Eyed Beans (Njahi)",
+          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
           valid_responses: ["1", "2", "3", "4", "5"],
           save_key: :crop_harvested,
           next_question: nil,
           wait_until_response: true,
           next_form: :get_report_harvesting_form,
-          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice\n3. Beans\n4. Green Grams (Ndengu)\n5. Black Eyed Beans (Njahi)"
+          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
         },
         5 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
@@ -357,27 +358,65 @@ module Form
     }
   end
 
-  def get_home_menu_welcome_message
-    if @forms_filled.length > 0
-      "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. End Session"
+  def get_planting_menu_text
+    farmer = get_farmer
+    two_months_ago = Time.now - 60 * 60 * 24 * 60
+
+    ret = "What did you plant? "
+    can_report = {}
+
+    i = 1
+    @@crops.each do |crop_name, data|
+      crop_report = data[:model]
+      unless crop_report.where(farmer: farmer).where("created_at >= ? ", two_months_ago).where(report_type: 'planting').exists?
+        ret += "\n#{i}. #{data[:text]}"
+        can_report[i] = crop_name
+        i += 1
+      end
+    end
+    if can_report.length == 0
+      return "You have reported planting all the different crop types, please report their harvesting now. Enter any number to continue"
     else
-      "Welcome to eGranary service T&C's apply. What do you want to do? \n1. Report Planting\n2. Report Harvest\n"
+      add_to_session(:planting_reports_available, can_report)
+      return ret
     end
   end
 
-  def get_planting_question_text
-    case @session[:crop_planted]
-    when "1"
-      crop = "maize"
-    when "2"
-      crop = "rice"
-    when "3"
-      crop = "beans"
-    when "4"
-      crop = "green grams (ndengu)"
-    when "5"
-      crop = "black eyed beans (njahi)"
+  def get_planting_menu_valid_responses
+    return :any if @session[:planting_reports_available].nil?
+    ret = []
+    @session[:planting_reports_available].each do |k, v|
+      ret << k.to_s
     end
+    return ret
+  end
+
+  def get_planting_next_question
+    if @session[:planting_reports_available].nil? || @session[:planting_reports_available].length == 0
+      return 4
+    end
+    return 3
+  end
+
+  def get_planting_menu_error_message
+    ret = "Sorry, that answer was not valid. "
+    ret += get_planting_menu_text
+    return ret
+  end
+
+  def get_home_menu_welcome_message
+    if @forms_filled.length == 0
+      prefix = "Welcome to eGranary service T&C's apply."
+      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest"
+    else
+      prefix = ""
+      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. End Session"
+    end
+    ret = prefix + " " + suffix
+  end
+
+  def get_planting_question_text
+    crop = @@crops[@session[:planting_reports_available][@session[:crop_planted].to_i]][:text]
     return "How many kilograms of #{crop} did you plant?"
   end
 
@@ -389,10 +428,12 @@ module Form
     when "2"
       return :rice_report
     when "3"
-      return :beans_report
+      return :nerica_rice_report
     when "4"
-      return :green_grams_report
+      return :beans_report
     when "5"
+      return :green_grams_report
+    when "6"
       return :black_eyed_beans_report
     end
   end
@@ -411,7 +452,7 @@ module Form
           valid_responses: :any_number,
           save_key: :bags_harvested,
           next_question: 2,
-          error_message: "You're response was not valid. How many bags of rice harvested?"
+          error_message: "You're response was not valid. How many bags of maize harvested?"
         },
         2 => {
           question_text: "How many bags are Grade 1?",
@@ -489,6 +530,51 @@ module Form
         }
       },
       model: RiceReport,
+      form_last_action: :new_report
+    }
+  end
+
+  def nerica_rice_report
+    {
+      start_id: 1,
+      questions: {
+        1 => {
+          question_text: "How many bags of rice harvested (Paddy)?",
+          valid_responses: :any_number,
+          save_key: :bags_harvested,
+          next_question: 2,
+          error_message: "You're response was not valid. How many bags harvested of rice (Paddy)?"
+        },
+        2 => {
+          question_text: "How many bags are Pishori?",
+          valid_responses: :less_than_bags_harvested,
+          save_key: :pishori_bags,
+          next_question: 3,
+          error_message: "You're response was not valid. How many bags are Pishori?"
+        },
+        3 => {
+          question_text: "How many bags are Super?",
+          valid_responses: :less_than_bags_harvested_and_pishori,
+          save_key: :super_bags,
+          next_question: 4,
+          error_message: "You're response was not valid. How many bags are Super?"
+        },
+        4 => {
+          question_text: "How many bags are Other?",
+          valid_responses: :less_than_bags_harvested_and_pishori_and_super,
+          save_key: :other_bags,
+          next_question: 5,
+          error_message: "You're response was not valid. How many bags are Other?"
+        },
+        5 => {
+          question_text: "Thank you for reporting on on EAFF eGranary.",
+          valid_responses: nil,
+          save_key: nil,
+          next_question: nil,
+          error_message: nil
+        }
+      },
+      model: NericaRiceReport,
       form_last_action: :new_report
     }
   end
@@ -634,6 +720,7 @@ module Form
 
   # The following functions validate the nunber of bags for a given crop
   def less_than_bags_harvested
+    debugger
     @response = @response.to_f
     bags_harvested = @session[:bags_harvested].to_f
     return @response <= bags_harvested

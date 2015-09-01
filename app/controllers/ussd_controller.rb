@@ -99,6 +99,10 @@ class UssdController < ApplicationController
   end
 
 
+  def add_to_session(key, value)
+    @session[key] = value
+  end
+
   ###############################
   ### Session State Functions ###
   ###############################

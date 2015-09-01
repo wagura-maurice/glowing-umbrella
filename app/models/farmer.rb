@@ -4,6 +4,7 @@ class Farmer < ActiveRecord::Base
   has_many :beans_reports, dependent: :destroy
   has_many :green_grams_reports, dependent: :destroy
   has_many :black_eyed_beans_reports, dependent: :destroy
+  has_many :nerica_rice_reports, dependent: :destroy
 
   def self.new_farmer(session)
     f = Farmer.new
@@ -27,35 +28,31 @@ class Farmer < ActiveRecord::Base
     return :home_menu
   end
 
-  def self.update_farmer_crop_report_values(session)
-    f = Farmer.where(phone_number: session[:phone_number]).first
-    crops = []
-    if session[:grows_maize] == "1"
-      crops << "maize"
-    end
-    if session[:grows_rice] == "1"
-      crops << "rice"
-    end
-    f.crops = crops
-
-    f.save
-  end
 
   def self.report_planting_or_harvesting(session)
+    debugger
     f = Farmer.where(phone_number: session[:phone_number]).first
     if session[:plant_or_harvest] == "1"
-      case session[:crop_planted]
-      when "1"
+      crop_planted = session[:planting_reports_available][session[:crop_planted].to_i]
+      case crop_planted
+      when :maize
         MaizeReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
-      when "2"
+      when :rice
         RiceReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
-      when "3"
+      when :nerica_rice
+        NericaRiceReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+      when :beans
         BeansReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
-      when "4"
+      when :green_grams
         GreenGramsReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
-      when "5"
+      when :black_eyed_beans
         BlackEyedBeansReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
       end
+
+      temp = Rails.cache.read(session[:phone_number])
+      temp.delete(:planting_reports_available)
+      Rails.cache.write(session[:phone_number], temp, expires_in: 12.hour)
+
       return :home_menu
     elsif session[:plant_or_harvest] == "2"
       return :report_harvest

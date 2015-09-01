@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618072833) do
+ActiveRecord::Schema.define(version: 20150901052831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,21 @@ ActiveRecord::Schema.define(version: 20150618072833) do
     t.string   "to",            limit: 255
     t.string   "action",        limit: 255
   end
+
+  create_table "nerica_rice_reports", force: :cascade do |t|
+    t.float    "kg_of_seed_planted"
+    t.float    "acres_planted"
+    t.float    "bags_harvested"
+    t.float    "pishori_bags"
+    t.float    "super_bags"
+    t.float    "other_bags"
+    t.string   "report_type"
+    t.integer  "farmer_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "nerica_rice_reports", ["farmer_id"], name: "index_nerica_rice_reports_on_farmer_id", using: :btree
 
   create_table "publishers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.datetime "created_at"
