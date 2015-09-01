@@ -22,7 +22,7 @@ module Form
                                }
             }
 
-  @@response_types = [:any, :any_number, :unique_id_number, 
+  @@response_types = [:any, :any_number, :unique_id_number, :any_letters, 
                       :less_than_bags_harvested, :less_than_bags_harvested_and_pishori,
                       :less_than_bags_harvested_minus_grade_1, :less_than_bags_harvested_and_pishori_and_super,
                       :less_than_bags_harvested_minus_grade_1_and_2]
