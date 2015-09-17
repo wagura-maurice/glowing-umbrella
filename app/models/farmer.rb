@@ -10,16 +10,22 @@ class Farmer < ActiveRecord::Base
     f = Farmer.new
     f.phone_number = session[:phone_number]
 
-    if session[:reporting_as] == "1"
-      f.reporting_as = "individual"
-      f.name = session[:name]
-      f.national_id_number = session[:group_registration_number]
-    elsif (session[:reporting_as] == "2") or (session[:national_id_number] == "2")
-      f.reporting_as = "group"
-      f.group_name = session[:group_name]
-      f.group_registration_number = session[:group_registration_number]
-    end
-    
+#    if session[:reporting_as] == "1"
+#      f.reporting_as = "individual"
+#      f.name = session[:name]
+#      f.national_id_number = session[:group_registration_number]
+#    elsif (session[:reporting_as] == "2") or (session[:national_id_number] == "2")
+#      f.reporting_as = "group"
+#      f.group_name = session[:group_name]
+#      f.group_registration_number = session[:group_registration_number]
+#    end
+
+    f.reporting_as = "individual"
+    f.name = session[:name]
+    f.national_id_number = session[:group_registration_number]
+    f.nearest_town = session[:nearest_town]
+    f.county = session[:county]
+
     f.association = session[:association]
 
     f.country = "Kenya"
@@ -30,7 +36,6 @@ class Farmer < ActiveRecord::Base
 
 
   def self.report_planting_or_harvesting(session)
-    debugger
     f = Farmer.where(phone_number: session[:phone_number]).first
     if session[:plant_or_harvest] == "1"
       crop_planted = session[:planting_reports_available][session[:crop_planted].to_i]

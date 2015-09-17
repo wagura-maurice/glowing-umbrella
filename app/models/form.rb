@@ -238,64 +238,42 @@ module Form
       start_id: 1,
       questions: {
         1 => {
-          question_text: "Welcome to eGranary service. T&C's Apply \nAre you posting as an individual or a group? \n1. Individual \n2. Group",
-          valid_responses: ["1", "2"],
-          next_question: {"1" => 2, "2" => 4},
-          conditional_response: true,
-          save_key: :reporting_as,
-          error_message: "You're response was not understood. Please respond with: \n1. Individual \n2. Group"
-        },
-        2 => {
-          question_text: "Please enter your FULL NAME",
+          question_text: "Welcome to eGranary service. T&C's Apply \nPlease enter your FULL NAME",
           valid_responses: :any_letters,
           save_key: :name,
-          next_question: 3,
+          next_question: 2,
           error_message: "Please use alphabetical letters only e.g Tim Mwangi. Please enter FULL NAME"
         },
-        3 => {
+        2 => {
           question_text: "Please enter ID NUMBER",
           valid_responses: :unique_id_number,
           store_validator_function: true,
           save_key: :national_id_number,
-          next_question: 6,
+          next_question: 3,
           error_message: "The ID Number is not valid or it is already registered. Please enter a new ID NUMBER"
         },
-        4 => {
-          question_text: "Please enter Group Name",
-          valid_responses: :any,
-          save_key: :group_name,
-          next_question: 5,
-          error_message: "You're response was not understood. Please enter Group Name"
-        },
-        5 => {
-          question_text: "Please enter REGISTRATION NUMBER",
-          valid_responses: :any,
-          save_key: :group_registration_number,
-          next_question: 6,
-          error_message: "The ID Number is not valid or it is already registered. Please enter a new ID NUMBER" #"You're response was not understood. Please enter REGISTRATION NUMBER"
-        },
-        6 => {
-          question_text: "Please name any National Farmers Association/Federation/Cooperative you are affiliated with",
+        3 => {
+          question_text: "Which farmers organization are you a member of?",
           valid_responses: :any,
           save_key: :association,
-          next_question: 7,
-          error_message: "You're response was not understood. Please name any National Farmers Association/Federation/Cooperative you are affiliated with"
+          next_question: 4,
+          error_message: "You're response was not understood. Which Farmers organization are you a member of?"
         },
-        7 => {
+        4 => {
           question_text: "What is your nearest town?",
           valid_responses: :any_letters,
           save_key: :nearest_town,
-          next_question: 8,
+          next_question: 5,
           error_message: "Sorry, that answer was not valid. What is your nearest town?"
         },
-        8 => {
+        5 => {
           question_text: "What county are you in?",
           valid_responses: :any_letters,
           save_key: :county,
-          next_question: 9,
+          next_question: 6,
           error_message: "Sorry, that answer was not valid. What county are you in?"
         },
-        9 => {
+        6 => {
           question_text: "Thank you for registering!",
           valid_responses: nil,
           save_key: nil,
@@ -307,7 +285,6 @@ module Form
       form_last_action: :new_farmer
     }
   end
-
 
   def home_menu
     {
@@ -331,14 +308,12 @@ module Form
           question_text: :get_planting_question_text,
           valid_responses: :any_number,
           save_key: :kg_planted,
-          next_question: nil,
-          wait_until_response: true,
-          next_form: :save_planting_report,
+          next_question: :save_planting_report,
           error_message: "You're response was not valid. How many kilograms did you plant?"
         },
         4 => {
           question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
-          valid_responses: ["1", "2", "3", "4", "5"],
+          valid_responses: ["1", "2", "3", "4", "5", "6"],
           save_key: :crop_harvested,
           next_question: nil,
           wait_until_response: true,
@@ -351,6 +326,13 @@ module Form
           save_key: nil,
           next_question: nil,
           error_message: nil
+        },
+        6 => {
+          question_text: "Other crops planted? \n1. Yes \n2. No",
+          valid_responses: ["1", "2"],
+          save_key: :has_other_crops_planted,
+          next_question: {"1" => 2, "2" => 1},
+          error_message: "Sorry, that answer was not valid. Other crops planted? \n1. Yes \n2. No"
         }
       },
       model: Farmer,
@@ -440,7 +422,8 @@ module Form
 
   def save_planting_report
     @forms_filled << :report_planting
-    return @form[:model].send @form[:form_last_action], @session
+    @form[:model].send @form[:form_last_action], @session
+    return 6
   end
 
   def maize_report
@@ -476,11 +459,27 @@ module Form
           error_message: "You're response was not valid. How many bags are ungraded?"
         },
         5 => {
+          question_text: "Other crops harvested? \n1. Yes \n2. No",
+          valid_responses: ["1", "2"],
+          save_key: :other_crops_harvested,
+          next_question: {"1" => 7, "2" => 6},
+          error_message: nil
+        },
+        6 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
           error_message: nil
+        },
+        7 => {
+          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
+          valid_responses: ["1", "2", "3", "4", "5", "6"],
+          save_key: :crop_harvested,
+          next_question: nil,
+          wait_until_response: true,
+          next_form: :get_report_harvesting_form,
+          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
         }
       },
       model: MaizeReport,
@@ -522,11 +521,27 @@ module Form
           error_message: "You're response was not valid. How many bags are Other?"
         },
         5 => {
+          question_text: "Other crops harvested? \n1. Yes \n2. No",
+          valid_responses: ["1", "2"],
+          save_key: :other_crops_harvested,
+          next_question: {"1" => 7, "2" => 6},
+          error_message: nil
+        },
+        6 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
           error_message: nil
+        },
+        7 => {
+          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
+          valid_responses: ["1", "2", "3", "4", "5", "6"],
+          save_key: :crop_harvested,
+          next_question: nil,
+          wait_until_response: true,
+          next_form: :get_report_harvesting_form,
+          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
         }
       },
       model: RiceReport,
@@ -567,11 +582,27 @@ module Form
           error_message: "You're response was not valid. How many bags are Other?"
         },
         5 => {
+          question_text: "Other crops harvested? \n1. Yes \n2. No",
+          valid_responses: ["1", "2"],
+          save_key: :other_crops_harvested,
+          next_question: {"1" => 7, "2" => 6},
+          error_message: nil
+        },
+        6 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
           error_message: nil
+        },
+        7 => {
+          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
+          valid_responses: ["1", "2", "3", "4", "5", "6"],
+          save_key: :crop_harvested,
+          next_question: nil,
+          wait_until_response: true,
+          next_form: :get_report_harvesting_form,
+          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
         }
       },
       model: NericaRiceReport,
@@ -612,11 +643,27 @@ module Form
           error_message: "You're response was not valid. How many bags are ungraded?"
         },
         5 => {
+          question_text: "Other crops harvested? \n1. Yes \n2. No",
+          valid_responses: ["1", "2"],
+          save_key: :other_crops_harvested,
+          next_question: {"1" => 7, "2" => 6},
+          error_message: nil
+        },
+        6 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
           error_message: nil
+        },
+        7 => {
+          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
+          valid_responses: ["1", "2", "3", "4", "5", "6"],
+          save_key: :crop_harvested,
+          next_question: nil,
+          wait_until_response: true,
+          next_form: :get_report_harvesting_form,
+          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
         }
       },
       model: BeansReport,
@@ -657,11 +704,27 @@ module Form
           error_message: "You're response was not valid. How many bags are ungraded?"
         },
         5 => {
+          question_text: "Other crops harvested? \n1. Yes \n2. No",
+          valid_responses: ["1", "2"],
+          save_key: :other_crops_harvested,
+          next_question: {"1" => 7, "2" => 6},
+          error_message: nil
+        },
+        6 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
           error_message: nil
+        },
+        7 => {
+          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
+          valid_responses: ["1", "2", "3", "4", "5", "6"],
+          save_key: :crop_harvested,
+          next_question: nil,
+          wait_until_response: true,
+          next_form: :get_report_harvesting_form,
+          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
         }
       },
       model: GreenGramsReport,
@@ -702,11 +765,27 @@ module Form
           error_message: "You're response was not valid. How many bags are ungraded?"
         },
         5 => {
+          question_text: "Other crops harvested? \n1. Yes \n2. No",
+          valid_responses: ["1", "2"],
+          save_key: :other_crops_harvested,
+          next_question: {"1" => 7, "2" => 6},
+          error_message: nil
+        },
+        6 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
           error_message: nil
+        },
+        7 => {
+          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
+          valid_responses: ["1", "2", "3", "4", "5", "6"],
+          save_key: :crop_harvested,
+          next_question: nil,
+          wait_until_response: true,
+          next_form: :get_report_harvesting_form,
+          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
         }
       },
       model: BlackEyedBeansReport,
@@ -720,7 +799,6 @@ module Form
 
   # The following functions validate the nunber of bags for a given crop
   def less_than_bags_harvested
-    debugger
     @response = @response.to_f
     bags_harvested = @session[:bags_harvested].to_f
     return @response <= bags_harvested

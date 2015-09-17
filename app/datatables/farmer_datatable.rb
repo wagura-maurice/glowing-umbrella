@@ -7,7 +7,7 @@ class FarmerDatatable < AjaxDatatablesRails::Base
 
   def searchable_columns
     # Declare strings in this format: ModelName.column_name
-    @searchable_columns ||= ['Farmer.county', 'Farmer.crops']
+    @searchable_columns ||= ['Farmer.name', 'Farmer.phone_number', 'Farmer.national_id_number']
   end
 
   private

@@ -40,3 +40,6 @@ bower.json
 
 # Ignore MacOS .DS_STORE files
 .DS_STORE
+
+# ignore development environment keys
+/config/initializers/dev_env.rb

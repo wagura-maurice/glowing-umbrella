@@ -78,5 +78,7 @@ gem 'ajax-datatables-rails'
 gem 'groupdate'
 gem "chartkick"
 gem 'rollbar', '~> 1.2.7'
+gem 'roo', '~> 2.1.0'
+gem 'dropbox-sdk'
 
 

@@ -3,12 +3,11 @@ class RiceReport < ActiveRecord::Base
 
   def self.new_report(session)
     r = RiceReport.new
-    r.kg_of_seed_planted = session[:kg_of_rice_seed].to_f
-
     r.bags_harvested = session[:bags_harvested]
     r.pishori_bags = session[:pishori_bags]
     r.super_bags = session[:super_bags]
     r.other_bags = session[:other_bags]
+    r.report_type = 'harvest'
 
     farmer = Farmer.where(phone_number: session[:phone_number]).first
     r.farmer = farmer
