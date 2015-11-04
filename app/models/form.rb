@@ -301,6 +301,20 @@ module Form
           error_message: "Sorry, that answer was not valid. What county are you in?"
         },
         6 => {
+          question_text: "What is your date of birth (e.g. 26/07/1985)?",
+          valid_responses: :any,
+          save_key: :date_of_birth,
+          next_question: 7,
+          error_message: "Sorry, that answer was not valid. What is your date of birth (e.g. 26/07/1985)?"
+        },
+        7 => {
+          question_text: "What is your gender? \n1. Male\2. Female",
+          valid_responses: ["1", "2"],
+          save_key: :gender,
+          next_question: 8,
+          error_message: "Sorry, that answer was not valid. What is your gender? \n1. Male\2. Female"
+        },
+        8 => {
           question_text: "Thank you for registering!",
           valid_responses: nil,
           save_key: nil,

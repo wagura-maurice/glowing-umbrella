@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020225547) do
+ActiveRecord::Schema.define(version: 20151104064732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,8 @@ ActiveRecord::Schema.define(version: 20151020225547) do
     t.string   "group_name"
     t.string   "group_registration_number"
     t.string   "name"
+    t.string   "date_of_birth"
+    t.string   "gender"
   end
 
   create_table "green_grams_reports", force: :cascade do |t|
