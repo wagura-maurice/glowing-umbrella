@@ -22,7 +22,7 @@ class Farmer < ActiveRecord::Base
 
     f.reporting_as = "individual"
     f.name = session[:name]
-    f.national_id_number = session[:group_registration_number]
+    f.national_id_number = session[:national_id_number]
     f.nearest_town = session[:nearest_town]
     f.county = session[:county]
     f.date_of_birth = session[:date_of_birth]
