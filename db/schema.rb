@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901052831) do
+ActiveRecord::Schema.define(version: 20151020225547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,9 +35,11 @@ ActiveRecord::Schema.define(version: 20150901052831) do
     t.integer  "farmer_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "harvest_report_id"
   end
 
   add_index "beans_reports", ["farmer_id"], name: "index_beans_reports_on_farmer_id", using: :btree
+  add_index "beans_reports", ["harvest_report_id"], name: "index_beans_reports_on_harvest_report_id", using: :btree
 
   create_table "black_eyed_beans_reports", force: :cascade do |t|
     t.float    "kg_of_seed_planted"
@@ -49,9 +51,11 @@ ActiveRecord::Schema.define(version: 20150901052831) do
     t.integer  "farmer_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "harvest_report_id"
   end
 
   add_index "black_eyed_beans_reports", ["farmer_id"], name: "index_black_eyed_beans_reports_on_farmer_id", using: :btree
+  add_index "black_eyed_beans_reports", ["harvest_report_id"], name: "index_black_eyed_beans_reports_on_harvest_report_id", using: :btree
 
   create_table "channels", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "channel_type",        limit: 255, default: "phone_number"
@@ -110,9 +114,11 @@ ActiveRecord::Schema.define(version: 20150901052831) do
     t.integer  "farmer_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "harvest_report_id"
   end
 
   add_index "green_grams_reports", ["farmer_id"], name: "index_green_grams_reports_on_farmer_id", using: :btree
+  add_index "green_grams_reports", ["harvest_report_id"], name: "index_green_grams_reports_on_harvest_report_id", using: :btree
 
   create_table "maize_reports", force: :cascade do |t|
     t.float    "acres_planted"
@@ -129,9 +135,11 @@ ActiveRecord::Schema.define(version: 20150901052831) do
     t.float    "grade_2_bags"
     t.float    "ungraded_bags"
     t.string   "report_type"
+    t.integer  "harvest_report_id"
   end
 
   add_index "maize_reports", ["farmer_id"], name: "index_maize_reports_on_farmer_id", using: :btree
+  add_index "maize_reports", ["harvest_report_id"], name: "index_maize_reports_on_harvest_report_id", using: :btree
 
   create_table "messages", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "direction",  limit: 255
@@ -168,9 +176,11 @@ ActiveRecord::Schema.define(version: 20150901052831) do
     t.integer  "farmer_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "harvest_report_id"
   end
 
   add_index "nerica_rice_reports", ["farmer_id"], name: "index_nerica_rice_reports_on_farmer_id", using: :btree
+  add_index "nerica_rice_reports", ["harvest_report_id"], name: "index_nerica_rice_reports_on_harvest_report_id", using: :btree
 
   create_table "publishers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.datetime "created_at"
@@ -194,9 +204,11 @@ ActiveRecord::Schema.define(version: 20150901052831) do
     t.float    "super_bags"
     t.float    "other_bags"
     t.string   "report_type"
+    t.integer  "harvest_report_id"
   end
 
   add_index "rice_reports", ["farmer_id"], name: "index_rice_reports_on_farmer_id", using: :btree
+  add_index "rice_reports", ["harvest_report_id"], name: "index_rice_reports_on_harvest_report_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.uuid     "session_id", null: false

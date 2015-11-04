@@ -22,7 +22,7 @@ module Form
                                }
             }
 
-  @@response_types = [:any, :any_number, :unique_id_number, :any_letters, 
+  @@response_types = [:any, :any_number, :unique_id_number, :any_letters,
                       :less_than_bags_harvested, :less_than_bags_harvested_and_pishori,
                       :less_than_bags_harvested_minus_grade_1, :less_than_bags_harvested_and_pishori_and_super,
                       :less_than_bags_harvested_minus_grade_1_and_2]
@@ -39,10 +39,14 @@ module Form
       @response_valid = validate_response
       if @response_valid
         store_response
+        run_before_next_question_callbacks
         move_to_next_question
         ret = get_text(@current_form, @current_question)
       else
         ret = get_error_message(@current_form, @current_question)
+        if ret.is_a? Symbol
+          ret = self.send ret
+        end
         return ret
       end
     else
@@ -136,10 +140,18 @@ module Form
     @next_question = get_next_question
   end
 
+
+  def run_before_next_question_callbacks
+    callback = get_before_next_question_callbacks(@current_form, @current_question)
+    if callback.present?
+      self.send callback
+    end
+  end
+
   ############################
   ### Form Query Functions ###
   ############################
-  
+
   # Returns a form
   def get_form(form_name)
     form = self.send(form_name)
@@ -147,7 +159,7 @@ module Form
   end
 
 
-  # Returns whether the current question is the 
+  # Returns whether the current question is the
   # last question for the current form
   def is_last_question?
     return false if @current_question.is_a? Hash
@@ -195,7 +207,7 @@ module Form
     get_form(form_name)[:questions][question_id][:save_key]
   end
 
-  
+
   # Gets the question text for a given form and question id
   def get_text(form_name, question_id)
     text = get_form(form_name)[:questions][question_id][:question_text]
@@ -228,6 +240,21 @@ module Form
     form_name = (crop.to_s + "_report").to_sym
   end
 
+
+  # Gets the callback function to run before moving on to the next question
+  def get_before_next_question_callbacks(form_name, question_id)
+    get_form(form_name)[:questions][question_id][:before_next_question_callback]
+  end
+
+  # Gets the model for the form
+  def get_form_model(form_name)
+    get_form(form_name)[:model]
+  end
+
+  # Gets the form last action
+  def get_form_last_action(form_name)
+    get_form(form_name)[:form_last_action]
+  end
 
   #############
   ### Forms ###
@@ -312,13 +339,13 @@ module Form
           error_message: "You're response was not valid. How many kilograms did you plant?"
         },
         4 => {
-          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
-          valid_responses: ["1", "2", "3", "4", "5", "6"],
+          question_text: :get_harvesting_menu_text,
+          valid_responses: :get_harvesting_menu_valid_responses,
           save_key: :crop_harvested,
           next_question: nil,
           wait_until_response: true,
           next_form: :get_report_harvesting_form,
-          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
+          error_message: :get_harvesting_menu_error_message
         },
         5 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
@@ -340,17 +367,51 @@ module Form
     }
   end
 
-  def get_planting_menu_text
+
+  def get_harvesting_menu_text
     farmer = get_farmer
     two_months_ago = Time.now - 60 * 60 * 24 * 60
+
+    ret = "What did you harvest? "
+    can_report = {}
+
+    # Want to show all crops that we have a planting report for but not a harvest report in the last 2 months
+    i = 1
+    @@crops.each do |crop_name, data|
+      crop_report = data[:model]
+      last_crop_report = crop_report.where(farmer: farmer).where("created_at >= ? ", two_months_ago).where(report_type: 'planting').where(harvest_report_id: nil).order(created_at: :desc).first
+      if last_crop_report.present?
+        ret += "\n#{i}. #{data[:text]}"
+        can_report[i] = crop_name
+        i += 1
+      end
+    end
+
+    if can_report.length == 0
+      add_to_session(:harvesting_reports_available, {})
+      return "You have not reported planting any crops. Please report what you planted before reporting your harvest. Enter any number to return to the main menu"
+    else
+      add_to_session(:harvesting_reports_available, can_report)
+      return ret
+    end
+
+  end
+
+
+  def get_planting_menu_text
+    farmer = get_farmer
+     two_months_ago = Time.now - 60 * 60 * 24 * 60
 
     ret = "What did you plant? "
     can_report = {}
 
+    # Want to show all crops that we don't have a planting report for from the last two months that has a harvesting report
     i = 1
     @@crops.each do |crop_name, data|
       crop_report = data[:model]
-      unless crop_report.where(farmer: farmer).where("created_at >= ? ", two_months_ago).where(report_type: 'planting').exists?
+
+      last_crop_report = crop_report.where(farmer: farmer).where("created_at >= ? ", two_months_ago).where(report_type: 'planting').where(harvest_report_id: nil).order(created_at: :desc).first
+      unless last_crop_report.present?
         ret += "\n#{i}. #{data[:text]}"
         can_report[i] = crop_name
         i += 1
@@ -358,6 +419,7 @@ module Form
     end
     if can_report.length == 0
       return "You have reported planting all the different crop types, please report their harvesting now. Enter any number to continue"
+      add_to_session(:planting_reports_available, {})
     else
       add_to_session(:planting_reports_available, can_report)
       return ret
@@ -366,8 +428,19 @@ module Form
 
   def get_planting_menu_valid_responses
     return :any if @session[:planting_reports_available].nil?
+    return :any if @session[:planting_reports_available].length == 0
     ret = []
     @session[:planting_reports_available].each do |k, v|
+      ret << k.to_s
+    end
+    return ret
+  end
+
+  def get_harvesting_menu_valid_responses
+    return :any if @session[:harvesting_reports_available].nil?
+    return :any if @session[:harvesting_reports_available].length == 0
+    ret = []
+    @session[:harvesting_reports_available].each do |k, v|
       ret << k.to_s
     end
     return ret
@@ -385,6 +458,13 @@ module Form
     ret += get_planting_menu_text
     return ret
   end
+
+  def get_harvesting_menu_error_message
+    ret = "Sorry, that answer was not valid. "
+    ret += get_harvesting_menu_text
+    return ret
+  end
+
 
   def get_home_menu_welcome_message
     if @forms_filled.length == 0
@@ -404,26 +484,24 @@ module Form
 
 
   def get_report_harvesting_form
-    case @response
-    when "1"
-      return :maize_report
-    when "2"
-      return :rice_report
-    when "3"
-      return :nerica_rice_report
-    when "4"
-      return :beans_report
-    when "5"
-      return :green_grams_report
-    when "6"
-      return :black_eyed_beans_report
+    if !@session[:harvesting_reports_available].nil? and @session[:harvesting_reports_available].length == 0
+      return :home_menu
     end
+    crop = @session[:harvesting_reports_available][@response.to_i]
+    crop_report = (crop.to_s + "_report").to_sym
+    return crop_report
   end
 
   def save_planting_report
     @forms_filled << :report_planting
     @form[:model].send @form[:form_last_action], @session
     return 6
+  end
+
+  def save_crop_data
+    model = get_form_model(@current_form)
+    save_action = get_form_last_action(@current_form)
+    model.send save_action, @session
   end
 
   def maize_report
@@ -462,8 +540,9 @@ module Form
           question_text: "Other crops harvested? \n1. Yes \n2. No",
           valid_responses: ["1", "2"],
           save_key: :other_crops_harvested,
+          before_next_question_callback: :save_crop_data,
           next_question: {"1" => 7, "2" => 6},
-          error_message: nil
+          error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
         },
         6 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
@@ -473,13 +552,13 @@ module Form
           error_message: nil
         },
         7 => {
-          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
-          valid_responses: ["1", "2", "3", "4", "5", "6"],
+          question_text: :get_harvesting_menu_text,
+          valid_responses: :get_harvesting_menu_valid_responses,
           save_key: :crop_harvested,
           next_question: nil,
           wait_until_response: true,
           next_form: :get_report_harvesting_form,
-          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
+          error_message: :get_harvesting_menu_error_message
         }
       },
       model: MaizeReport,
@@ -524,8 +603,9 @@ module Form
           question_text: "Other crops harvested? \n1. Yes \n2. No",
           valid_responses: ["1", "2"],
           save_key: :other_crops_harvested,
+          before_next_question_callback: :save_crop_data,
           next_question: {"1" => 7, "2" => 6},
-          error_message: nil
+          error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
         },
         6 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
@@ -535,13 +615,13 @@ module Form
           error_message: nil
         },
         7 => {
-          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
-          valid_responses: ["1", "2", "3", "4", "5", "6"],
+          question_text: :get_harvesting_menu_text,
+          valid_responses: :get_harvesting_menu_valid_responses,
           save_key: :crop_harvested,
           next_question: nil,
           wait_until_response: true,
           next_form: :get_report_harvesting_form,
-          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
+          error_message: :get_harvesting_menu_error_message
         }
       },
       model: RiceReport,
@@ -585,8 +665,9 @@ module Form
           question_text: "Other crops harvested? \n1. Yes \n2. No",
           valid_responses: ["1", "2"],
           save_key: :other_crops_harvested,
+          before_next_question_callback: :save_crop_data,
           next_question: {"1" => 7, "2" => 6},
-          error_message: nil
+          error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
         },
         6 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
@@ -596,13 +677,13 @@ module Form
           error_message: nil
         },
         7 => {
-          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
-          valid_responses: ["1", "2", "3", "4", "5", "6"],
+          question_text: :get_harvesting_menu_text,
+          valid_responses: :get_harvesting_menu_valid_responses,
           save_key: :crop_harvested,
           next_question: nil,
           wait_until_response: true,
           next_form: :get_report_harvesting_form,
-          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
+          error_message: :get_harvesting_menu_error_message
         }
       },
       model: NericaRiceReport,
@@ -646,8 +727,9 @@ module Form
           question_text: "Other crops harvested? \n1. Yes \n2. No",
           valid_responses: ["1", "2"],
           save_key: :other_crops_harvested,
+          before_next_question_callback: :save_crop_data,
           next_question: {"1" => 7, "2" => 6},
-          error_message: nil
+          error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
         },
         6 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
@@ -657,13 +739,13 @@ module Form
           error_message: nil
         },
         7 => {
-          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
-          valid_responses: ["1", "2", "3", "4", "5", "6"],
+          question_text: :get_harvesting_menu_text,
+          valid_responses: :get_harvesting_menu_valid_responses,
           save_key: :crop_harvested,
           next_question: nil,
           wait_until_response: true,
           next_form: :get_report_harvesting_form,
-          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
+          error_message: :get_harvesting_menu_error_message
         }
       },
       model: BeansReport,
@@ -707,8 +789,9 @@ module Form
           question_text: "Other crops harvested? \n1. Yes \n2. No",
           valid_responses: ["1", "2"],
           save_key: :other_crops_harvested,
+          before_next_question_callback: :save_crop_data,
           next_question: {"1" => 7, "2" => 6},
-          error_message: nil
+          error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
         },
         6 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
@@ -718,13 +801,13 @@ module Form
           error_message: nil
         },
         7 => {
-          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
-          valid_responses: ["1", "2", "3", "4", "5", "6"],
+          question_text: :get_harvesting_menu_text,
+          valid_responses: :get_harvesting_menu_valid_responses,
           save_key: :crop_harvested,
           next_question: nil,
           wait_until_response: true,
           next_form: :get_report_harvesting_form,
-          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
+          error_message: :get_harvesting_menu_error_message
         }
       },
       model: GreenGramsReport,
@@ -768,8 +851,9 @@ module Form
           question_text: "Other crops harvested? \n1. Yes \n2. No",
           valid_responses: ["1", "2"],
           save_key: :other_crops_harvested,
+          before_next_question_callback: :save_crop_data,
           next_question: {"1" => 7, "2" => 6},
-          error_message: nil
+          error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
         },
         6 => {
           question_text: "Thank you for reporting on on EAFF eGranary.",
@@ -779,13 +863,13 @@ module Form
           error_message: nil
         },
         7 => {
-          question_text: "What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)",
-          valid_responses: ["1", "2", "3", "4", "5", "6"],
+          question_text: :get_harvesting_menu_text,
+          valid_responses: :get_harvesting_menu_valid_responses,
           save_key: :crop_harvested,
           next_question: nil,
           wait_until_response: true,
           next_form: :get_report_harvesting_form,
-          error_message: "Sorry, that answer was not valid. What did you harvest? \n1. Maize\n2. Rice (irrigated)\n3. NERICA Rice (rainfed)\n4. Beans\n5. Green Grams (Ndengu)\n6. Black Eyed Beans (Njahi)"
+          error_message: :get_harvesting_menu_error_message
         }
       },
       model: BlackEyedBeansReport,

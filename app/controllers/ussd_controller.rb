@@ -12,7 +12,7 @@ class UssdController < ApplicationController
   def initialize
     @gateway = :africas_talking
   end
-  
+
   # Accepts all incoming USSD requests and responds to them
   def inbound
     # Get the session if it exists
@@ -113,13 +113,7 @@ class UssdController < ApplicationController
   # And if they dont exist, start by asking the farmer to register
   def start_new_session
     if farmer_exists?
-      crops = get_farmer.crops
-      if crops.present?
-        form_name = get_crop_form_name(crops[0])
-        new_session(form_name)
-      else
-        new_session(:home_menu)
-      end
+      new_session(:home_menu)
     else
       new_session(:user_registration)
     end
@@ -220,7 +214,7 @@ class UssdController < ApplicationController
   #########################
   ### General Functions ###
   #########################
-  
+
   # Gets the phone number from the params
   def get_phone_number
     @phone_number ||= params["phoneNumber"]
