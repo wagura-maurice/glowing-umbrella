@@ -1,7 +1,7 @@
 Egranary::Application.routes.draw do
   root :to => 'home#index'
 
-  get "home/about" 
+  get "home/about"
   get "home/index"
 
   get "login"   => "sessions#new",        :as => :login
@@ -10,6 +10,7 @@ Egranary::Application.routes.draw do
   get "app"     => "dashboard#index", :as => :app
   get "farmers_table" => "dashboard#farmers_table", :as => :farmers_table
   get "rice_reports_table" => "dashboard#rice_reports_table", :as => :rice_reports_table
+  get "nerica_rice_reports_table" => "dashboard#nerica_rice_reports_table", :as => :nerica_rice_reports_table
   get "maize_reports_table" => "dashboard#maize_reports_table", :as => :maize_reports_table
   get "beans_reports_table" => "dashboard#beans_reports_table", :as => :beans_reports_table
   get "green_grams_reports_table" => "dashboard#green_grams_reports_table", :as => :green_grams_reports_table
@@ -19,7 +20,7 @@ Egranary::Application.routes.draw do
   post "ussd"   => "ussd#inbound"
 
   post "blast"  => "dashboard#blast", :as => "blast"
-  
+
   resources :sessions
   resources :users
 

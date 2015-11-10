@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
 	    end
 	    if set_user
   			redirect_back_or_to(:controller => 'dashboard', :action => 'index')
-	  	else 
+	  	else
 	    	@user = User.find_by_phone_number_or_username(params[:phone_number_or_username])
 	    	if @user
 	    		if @user.activation_state == "active"
@@ -34,8 +34,8 @@ class SessionsController < ApplicationController
 	          		redirect_to :login
 	        	end
 	      	end
-	  	end   
-	end 
+	  	end
+	end
 
 	def destroy
   		logout
@@ -44,9 +44,9 @@ class SessionsController < ApplicationController
 	end
 
 	private
-  
+
 	def set_user
-		@user = login(session_params[:phone_number_or_username], session_params[:password])
+		@user = login(session_params[:phone_number_or_username].strip.downcase, session_params[:password])
 	end
 
 	def session_params

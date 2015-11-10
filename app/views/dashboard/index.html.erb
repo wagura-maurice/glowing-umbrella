@@ -3,48 +3,80 @@
     <table class="table table-bordered table-condensed table-hover">
         <tbody>
             <tr>
-                <td>Total Farmers</td>
-                <td><%= @farmers.count %></td>
+                <td><a href="/farmers_table">Total Farmers</a></td>
+                <td><%= number_with_delimiter(@farmers, :delimiter => ',').count %></td>
             </tr>
             <tr>
-                <td>Maize Farmers</td>
-                <td><%= @maize_farmers_count %></td>
+                <td><a href="/farmers_table">Maize Farmers</a></td>
+                <td><%= number_with_delimiter(@maize_farmers_count, :delimiter => ',') %></td>
             </tr>
             <tr>
-                <td>Rice Farmers</td>
-                <td><%= @rice_farmers_count %></td>
+                <td><a href="/farmers_table">Rice Farmers</a></td>
+                <td><%= number_with_delimiter(@rice_farmers_count, :delimiter => ',') %></td>
             </tr>
             <tr>
-                <td>Bean Farmers</td>
-                <td><%= @bean_farmers_count %></td>
+                <td><a href="/farmers_table">NERICA Rice Farmers</a></td>
+                <td><%= number_with_delimiter(@nerica_rice_farmers_count, :delimiter => ',') %></td>
             </tr>
             <tr>
-                <td>Green Gram Farmers</td>
-                <td><%= @green_gram_farmers_count %></td>
+                <td><a href="/farmers_table">Bean Farmers</a></td>
+                <td><%= number_with_delimiter(@bean_farmers_count, :delimiter => ',') %></td>
             </tr>
             <tr>
-                <td>Black Eyed Bean Farmers</td>
-                <td><%= @black_eyed_bean_farmers_count %></td>
+                <td><a href="/farmers_table">Green Gram Farmers</a></td>
+                <td><%= number_with_delimiter(@green_gram_farmers_count, :delimiter => ',') %></td>
             </tr>
             <tr>
-                <td>Total Maize Bags Harvested</td>
-                <td><%= @total_maize_bags_harvested %></td>
+                <td><a href="/farmers_table">Black Eyed Bean Farmers</a></td>
+                <td><%= number_with_delimiter(@black_eyed_bean_farmers_count, :delimiter => ',') %></td>
             </tr>
             <tr>
-                <td>Total Rice Bags Harvested</td>
-                <td><%= @total_rice_bags_harvested %></td>
+                <td><a href="maize_reports_table">Total Maize Bags Harvested</a></td>
+                <td><%= number_with_delimiter(@total_maize_bags_harvested, :delimiter => ',') %></td>
             </tr>
             <tr>
-                <td>Total Bean Bags Harvested</td>
-                <td><%= @total_bean_bags_harvested %></td>
+                <td><a href="rice_reports_table">Total Rice Bags Harvested</a></td>
+                <td><%= number_with_delimiter(@total_rice_bags_harvested, :delimiter => ',') %></td>
             </tr>
             <tr>
-                <td>Total Green Gram Bags Harvested</td>
-                <td><%= @total_green_gram_bags_harvested %></td>
+                <td><a href="nerica_rice_reports_table">Total NERICA Rice Bags Harvested</a></td>
+                <td><%= number_with_delimiter(@total_nerica_rice_bags_harvested, :delimiter => ',') %></td>
             </tr>
             <tr>
-                <td>Total Black Eyed Bean Bags Harvested</td>
-                <td><%= @total_black_eyed_bean_bags_harvested %></td>
+                <td><a href="beans_reports_table">Total Bean Bags Harvested</a></td>
+                <td><%= number_with_delimiter(@total_bean_bags_harvested, :delimiter => ',') %></td>
+            </tr>
+            <tr>
+                <td><a href="green_grams_reports_table">Total Green Gram Bags Harvested</a></td>
+                <td><%= number_with_delimiter(@total_green_gram_bags_harvested, :delimiter => ',') %></td>
+            </tr>
+            <tr>
+                <td><a href="black_eyed_beans_reports_table">Total Black Eyed Bean Bags Harvested</a></td>
+                <td><%= number_with_delimiter(@total_black_eyed_bean_bags_harvested, :delimiter => ',') %></td>
+            </tr>
+            <tr>
+                <td><a href="maize_reports_table">Total Maize Planted</a></td>
+                <td><%= number_with_delimiter(@total_maize_planted, :delimiter => ',') %></td>
+            </tr>
+            <tr>
+                <td><a href="rice_reports_table">Total Rice Planted</a></td>
+                <td><%= number_with_delimiter(@total_rice_planted, :delimiter => ',') %></td>
+            </tr>
+            <tr>
+                <td><a href="nerica_rice_reports_table">Total NERICA Rice Planted</a></td>
+                <td><%= number_with_delimiter(@total_nerica_rice_planted, :delimiter => ',') %></td>
+            </tr>
+            <tr>
+                <td><a href="beans_reports_table">Total Bean Planted</a></td>
+                <td><%= number_with_delimiter(@total_bean_planted, :delimiter => ',') %></td>
+            </tr>
+            <tr>
+                <td><a href="green_grams_reports_table">Total Green Gram Planted</a></td>
+                <td><%= number_with_delimiter(@total_green_gram_planted, :delimiter => ',') %></td>
+            </tr>
+            <tr>
+                <td><a href="black_eyed_beans_reports_table">Total Black Eyed Bean Planted</a></td>
+                <td><%= number_with_delimiter(@total_black_eyed_bean_planted, :delimiter => ',') %></td>
             </tr>
         </tbody>
     </table>

@@ -14,6 +14,7 @@ class DashboardController < ApplicationController
     @bean_farmers_count = BeansReport.pluck(:farmer_id).uniq.length
     @green_gram_farmers_count = GreenGramsReport.pluck(:farmer_id).uniq.length
     @black_eyed_bean_farmers_count = BlackEyedBeansReport.pluck(:farmer_id).uniq.length
+    @nerica_rice_farmers_count = NericaRiceReport.pluck(:farmer_id).uniq.length
 
     # Crop statistics
     @total_maize_bags_harvested = MaizeReport.sum :bags_harvested
@@ -21,6 +22,15 @@ class DashboardController < ApplicationController
     @total_bean_bags_harvested = BeansReport.sum :bags_harvested
     @total_green_gram_bags_harvested = GreenGramsReport.sum :bags_harvested
     @total_black_eyed_bean_bags_harvested = BlackEyedBeansReport.sum :bags_harvested
+    @total_nerica_rice_bags_harvested = NericaRiceReport.sum :bags_harvested
+
+    @total_maize_planted = MaizeReport.sum :kg_of_seed_planted
+    @total_rice_planted = RiceReport.sum :kg_of_seed_planted
+    @total_bean_planted = BeansReport.sum :kg_of_seed_planted
+    @total_green_gram_planted = GreenGramsReport.sum :kg_of_seed_planted
+    @total_black_eyed_bean_planted = BlackEyedBeansReport.sum :kg_of_seed_planted
+    @total_nerica_rice_planted = NericaRiceReport.sum :kg_of_seed_planted
+
   end
 
   def farmers_table
@@ -47,6 +57,14 @@ class DashboardController < ApplicationController
     end
   end
 
+  def rice_reports_table
+    ret = NericaRiceReportDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
   def beans_reports_table
     ret = BeansReportDatatable.new(view_context)
     respond_to do |format|
@@ -54,7 +72,7 @@ class DashboardController < ApplicationController
       format.json { render json: ret }
     end
   end
-  
+
   def green_grams_reports_table
     ret = GreenGramsReportDatatable.new(view_context)
     respond_to do |format|
@@ -62,7 +80,7 @@ class DashboardController < ApplicationController
       format.json { render json: ret }
     end
   end
-  
+
   def black_eyed_beans_reports_table
     ret = BlackEyedBeansReportDatatable.new(view_context)
     respond_to do |format|
