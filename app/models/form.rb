@@ -22,7 +22,7 @@ module Form
                                }
             }
 
-  @@response_types = [:any, :any_number, :unique_id_number, :any_letters,
+  @@response_types = [:any, :any_number, :unique_id_number, :any_letters, :any_year,
                       :less_than_bags_harvested, :less_than_bags_harvested_and_pishori,
                       :less_than_bags_harvested_minus_grade_1, :less_than_bags_harvested_and_pishori_and_super,
                       :less_than_bags_harvested_minus_grade_1_and_2]
@@ -96,6 +96,9 @@ module Form
       return @response.scan(/[a-zA-Z]/).length == 0
     elsif valid_responses == :any_letters
       return @response[/[a-zA-Z\s]+/] == @response
+    elsif valid_responses == :any_year
+      res = @response.to_i
+      return res > 1900 && res < 2015
     elsif valid_responses == :unique_id_number
       return !(Farmer.where(national_id_number: @response).exists?)
     elsif valid_responses.is_a? Array
@@ -301,14 +304,14 @@ module Form
           error_message: "Sorry, that answer was not valid. What county are you in?"
         },
         6 => {
-          question_text: "What is your date of birth (e.g. 26/07/1985)?",
-          valid_responses: :any,
-          save_key: :date_of_birth,
+          question_text: "In what year were you born? (e.g. 1985)",
+          valid_responses: :any_year,
+          save_key: :year_of_birth,
           next_question: 7,
-          error_message: "Sorry, that answer was not valid. What is your date of birth (e.g. 26/07/1985)?"
+          error_message: "Sorry, that answer was not valid. In what year were you born? (e.g. 1985)"
         },
         7 => {
-          question_text: "What is your gender? \n1. Male\2. Female",
+          question_text: "What is your gender? \n1. Male\n2. Female",
           valid_responses: ["1", "2"],
           save_key: :gender,
           next_question: 8,

@@ -25,7 +25,7 @@ class Farmer < ActiveRecord::Base
     f.national_id_number = session[:national_id_number]
     f.nearest_town = session[:nearest_town]
     f.county = session[:county]
-    f.date_of_birth = session[:date_of_birth]
+    f.year_of_birth = session[:year_of_birth].to_i
 
     if session[:gender] == "1"
       f.gender = "male"
