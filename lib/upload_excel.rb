@@ -114,7 +114,7 @@ module UploadExcel
   ########################################
   ### Functions to create data records ###
   ########################################
-  
+
   def save_record(value)
     farmer = value[@farmer_start..@farmer_end]
     maize_planting = value[@maize_planting_start..@maize_planting_end]
@@ -193,6 +193,7 @@ module UploadExcel
 
   def save_maize_planting(maize_planting, farmer)
     kg_planted = maize_planting[0]
+    return if kg_planted.nil?
     MaizeReport.create(kg_of_seed_planted: kg_planted, farmer: farmer, report_type: 'planting')
   end
 
@@ -203,12 +204,14 @@ module UploadExcel
     grade_2_bags = maize_harvest[2]
     ungraded_bags = maize_harvest[3]
     report_type = 'harvest'
+    return if bags_harvested.nil?
     MaizeReport.create(bags_harvested: bags_harvested, grade_1_bags: grade_1_bags, grade_2_bags: grade_2_bags, ungraded_bags: ungraded_bags, report_type: report_type, farmer: farmer)
   end
 
 
   def save_rice_planting(rice_planting, farmer)
     kg_planted = rice_planting[0]
+    return if kg_planted.nil?
     RiceReport.create(kg_of_seed_planted: kg_planted, farmer: farmer, report_type: 'planting')
   end
 
@@ -219,12 +222,14 @@ module UploadExcel
     super_bags = rice_harvest[2]
     other_bags = rice_harvest[3]
     report_type = 'harvest'
+    return if bags_harvested.nil?
     RiceReport.create(bags_harvested: bags_harvested, pishori_bags: pishori_bags, super_bags: super_bags, other_bags: other_bags, report_type: report_type, farmer: farmer)
   end
 
 
   def save_nerica_planting(nerica_planting, farmer)
     kg_planted = nerica_planting[0]
+    return if kg_planted.nil?
     NericaRiceReport.create(kg_of_seed_planted: kg_planted, farmer: farmer, report_type: 'planting')
   end
 
@@ -235,12 +240,14 @@ module UploadExcel
     super_bags = nerica_harvest[2]
     other_bags = nerica_harvest[3]
     report_type = 'harvest'
+    return if bags_harvested.nil?
     NericaRiceReport.create(bags_harvested: bags_harvested, pishori_bags: pishori_bags, super_bags: super_bags, other_bags: other_bags, report_type: report_type, farmer: farmer)
   end
 
 
   def save_beans_planting(beans_planting, farmer)
     kg_planted = beans_planting[0]
+    return if kg_planted.nil?
     BeansReport.create(kg_of_seed_planted: kg_planted, farmer: farmer, report_type: 'planting')
   end
 
@@ -251,12 +258,14 @@ module UploadExcel
     grade_2_bags = beans_harvest[2]
     ungraded_bags = beans_harvest[3]
     report_type = 'harvest'
+    return if bags_harvested.nil?
     BeansReport.create(bags_harvested: bags_harvested, grade_1_bags: grade_1_bags, grade_2_bags: grade_2_bags, ungraded_bags: ungraded_bags, report_type: report_type, farmer: farmer)
   end
 
 
   def save_green_grams_planting(green_grams_planting, farmer)
     kg_planted = green_grams_planting[0]
+    return if kg_planted.nil?
     GreenGramsReport.create(kg_of_seed_planted: kg_planted, farmer: farmer, report_type: 'planting')
   end
 
@@ -267,12 +276,14 @@ module UploadExcel
     grade_2_bags = green_grams_harvest[2]
     ungraded_bags = green_grams_harvest[3]
     report_type = 'harvest'
+    return if bags_harvested.nil?
     GreenGramsReport.create(bags_harvested: bags_harvested, grade_1_bags: grade_1_bags, grade_2_bags: grade_2_bags, ungraded_bags: ungraded_bags, report_type: report_type, farmer: farmer)
   end
 
 
   def save_black_eyed_beans_planting(black_eyed_beans_planting, farmer)
     kg_planted = black_eyed_beans_planting[0]
+    return if kg_planted.nil?
     BlackEyedBeansReport.create(kg_of_seed_planted: kg_planted, farmer: farmer, report_type: 'planting')
   end
 
@@ -283,6 +294,7 @@ module UploadExcel
     grade_2_bags = black_eyed_beans_harvest[2]
     ungraded_bags = black_eyed_beans_harvest[3]
     report_type = 'harvest'
+    return if bags_harvested.nil?
     BlackEyedBeansReport.create(bags_harvested: bags_harvested, grade_1_bags: grade_1_bags, grade_2_bags: grade_2_bags, ungraded_bags: ungraded_bags, report_type: report_type, farmer: farmer)
   end
 
