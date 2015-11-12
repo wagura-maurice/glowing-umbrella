@@ -285,7 +285,7 @@ module Form
         3 => {
           question_text: "Which farmers organization are you a member of?",
           valid_responses: :any,
-          save_key: :association,
+          save_key: :association_name,
           next_question: 4,
           error_message: "You're response was not understood. Which Farmers organization are you a member of?"
         },

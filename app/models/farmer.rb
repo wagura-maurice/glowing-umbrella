@@ -33,14 +33,13 @@ class Farmer < ActiveRecord::Base
       f.gender = "female"
     end
 
-    f.association = session[:association]
+    f.association_name = session[:association_name]
 
     f.country = "Kenya"
 
     f.save
     return :home_menu
   end
-
 
   def self.report_planting_or_harvesting(session)
     f = Farmer.where(phone_number: session[:phone_number]).first

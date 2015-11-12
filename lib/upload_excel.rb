@@ -180,7 +180,7 @@ module UploadExcel
       return Farmer.create(phone_number: phone_number,
                            name: name,
                            national_id_number: id_number,
-                           association: national_association,
+                           association_name: national_association,
                            country: country,
                            county: county,
                            nearest_town: town,
