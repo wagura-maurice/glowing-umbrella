@@ -38,7 +38,7 @@
     </tr>
     <tr>
       <td><%= f.label :gender %>:</td>
-      <td><%= f.select :gender, options_for_select([['-', nil], ['Male', 'male'], ['Female', 'female']], @farmer.gender) %></td>
+      <td><%= f.select(:gender, options_for_select([['-', nil], ['Male', 'male'], ['Female', 'female']], @farmer.gender)) %></td>
     </tr>
     <tr>
       <td><%= f.submit 'Save' %></td>
