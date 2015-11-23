@@ -1,0 +1,47 @@
+<table>
+  <tr>
+    <th>Field</th>
+    <th>Value</th>
+  </tr>
+  <%= form_for @farmer do |f| %>
+    <tr>
+      <td><%= f.label :name %>:</td>
+      <td><%= f.text_field :name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :phone_number %>:</td>
+      <td><%= f.text_field :phone_number %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :national_id_number %>:</td>
+      <td><%= f.text_field :national_id_number %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :association_name %>:</td>
+      <td><%= f.text_field :association_name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :nearest_town %>:</td>
+      <td><%= f.text_field :nearest_town %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :county %>:</td>
+      <td><%= f.text_field :county %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :country %>:</td>
+      <td><%= f.text_field :country %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :year_of_birth %>:</td>
+      <td><%= f.text_field :year_of_birth %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :gender %>:</td>
+      <td><%= f.select :gender, options_for_select([['-', nil], ['Male', 'male'], ['Female', 'female']], @farmer.gender) %></td>
+    </tr>
+    <tr>
+      <td><%= f.submit 'Save' %></td>
+    </tr>
+  <% end %>
+</table>

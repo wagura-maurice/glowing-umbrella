@@ -57,8 +57,8 @@ class DashboardController < ApplicationController
     end
   end
 
-  def rice_reports_table
-    ret = NericaRiceReportDatatable.new(view_context)
+  def nerica_rice_reports_table
+    ret = NericaRiceReportsDatatable.new(view_context)
     respond_to do |format|
       format.html
       format.json { render json: ret }
