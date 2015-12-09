@@ -1,9 +1,9 @@
-<table>
-  <tr>
-    <th>Field</th>
-    <th>Value</th>
-  </tr>
-  <%= form_for @farmer do |f| %>
+<%= form_for @farmer do |f| %>
+  <table>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
     <tr>
       <td><%= f.label :name %>:</td>
       <td><%= f.text_field :name %></td>
@@ -43,5 +43,5 @@
     <tr>
       <td><%= f.submit 'Save' %></td>
     </tr>
-  <% end %>
-</table>
+  </table>
+<% end %>

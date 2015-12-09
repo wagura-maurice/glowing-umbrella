@@ -4,20 +4,20 @@ class FarmersController < ApplicationController
     @farmer = Farmer.find(params[:id])
   end
 
-  def index
-    debugger
-    puts "yo"
-  end
-
-  def show
-    debugger
-    puts "yo"
-  end
-
-  def create
-    debugger
-    puts "yo"
-  end
+#  def index
+#    debugger
+#    puts "yo"
+#  end
+#
+#  def show
+#    debugger
+#    puts "yo"
+#  end
+#
+#  def create
+#    debugger
+#    puts "yo"
+#  end
 
   def update
     @farmer = Farmer.find(params[:id])
@@ -26,8 +26,8 @@ class FarmersController < ApplicationController
   end
 
   def destroy
-    debugger
-    puts "yo"
+    @farmer = Farmer.find(params[:id])
+    redirect_to :farmers_table
   end
 
 
