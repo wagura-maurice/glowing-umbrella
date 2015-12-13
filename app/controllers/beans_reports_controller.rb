@@ -1,0 +1,2 @@
+class BeansReportsController < CropController
+end

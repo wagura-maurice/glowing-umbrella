@@ -1,0 +1,2 @@
+class GreenGramsReportsController < CropController
+end

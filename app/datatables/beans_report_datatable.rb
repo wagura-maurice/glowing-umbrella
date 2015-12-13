@@ -1,5 +1,8 @@
 class BeansReportDatatable < AjaxDatatablesRails::Base
 
+  def_delegator :@view, :link_to
+  def_delegator :@view, :edit_beans_report_path
+
   def sortable_columns
     # Declare strings in this format: ModelName.column_name
     @sortable_columns ||= ['Farmer.name', 'BeansReport.reporting_time', 'BeansReport.kg_of_seed_planted', 'BeansReport.bags_harvested', 'BeansReport.grade_1_bags', 'BeansReport.grade_2_bags', 'BeansReport.ungraded_bags']
@@ -18,7 +21,7 @@ class BeansReportDatatable < AjaxDatatablesRails::Base
         # comma separated list of the values for each cell of a table row
         # example: record.attribute,
         record.farmer.name,
-        record.created_at,
+        link_to(record.reporting_time, edit_beans_report_path(record)),
         record.kg_of_seed_planted,
         record.bags_harvested,
         record.grade_1_bags,

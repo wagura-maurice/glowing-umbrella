@@ -1,0 +1,38 @@
+<%= form_for @record do |f| %>
+  <table>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+    <% if @record.is_planting? %>
+      <tr>
+        <td><%= f.label :kg_of_seed_planted %>:</td>
+        <td><%= f.text_field :kg_of_seed_planted %></td>
+      </tr>
+    <% else %>
+      <tr>
+        <td><%= f.label :bags_harvested %>:</td>
+        <td><%= f.text_field :bags_harvested %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :pishori_bags %>:</td>
+        <td><%= f.text_field :pishori_bags %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :super_bags %>:</td>
+        <td><%= f.text_field :super_bags %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :other_bags %>:</td>
+        <td><%= f.text_field :other_bags %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <td><%= f.submit 'Save' %></td>
+    </tr>
+  </table>
+<% end %>
+
+<br />
+
+<%= button_to "Delete #{@model_name.titleize}", @record, {:method => :delete} %>

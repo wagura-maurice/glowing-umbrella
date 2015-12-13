@@ -3,6 +3,8 @@ class MaizeReport < ActiveRecord::Base
   has_one :planting_report, class_name: "MaizeReport", foreign_key: "harvest_report_id"
   belongs_to :harvest_report
 
+  include CropBase
+
   def self.new_report(session)
     r = MaizeReport.new
     r.bags_harvested = session[:bags_harvested]
@@ -23,11 +25,5 @@ class MaizeReport < ActiveRecord::Base
 
     return :home_menu
   end
-
-  def reporting_time
-    self.created_at.strftime("%H:%M %p %d/%m/%y")
-  end
-
-
 
 end

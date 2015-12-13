@@ -1,0 +1,2 @@
+module BlackEyedBeansReportsHelper
+end

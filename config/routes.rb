@@ -24,6 +24,12 @@ Egranary::Application.routes.draw do
   resources :sessions
   resources :users
   resources :farmers
+  resources :maize_reports
+  resources :rice_reports
+  resources :nerica_rice_reports
+  resources :green_grams_reports
+  resources :black_eyed_beans_reports
+  resources :beans_reports
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

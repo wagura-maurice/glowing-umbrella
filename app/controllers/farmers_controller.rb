@@ -27,6 +27,7 @@ class FarmersController < ApplicationController
 
   def destroy
     @farmer = Farmer.find(params[:id])
+    @farmer.destroy
     redirect_to :farmers_table
   end
 

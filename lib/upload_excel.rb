@@ -3,7 +3,7 @@ module UploadExcel
 
 
   ### How To Upload Files ###
-  # 1. On dropbox, upload the file to the Egranar/upload_files folder with the name upload.xlsx
+  # 1. On dropbox, upload the file to the Egranary/upload_files folder with the name upload.xlsx
   # 2. Run a rails console on a heroku performance instance
   # 3. $ require 'upload_excel'
   # 4. $ UploadExcel.upload

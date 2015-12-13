@@ -1,0 +1,2 @@
+class BlackEyedBeansReportsController < CropController
+end

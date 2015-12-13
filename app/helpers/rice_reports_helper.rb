@@ -1,0 +1,2 @@
+module RiceReportsHelper
+end
