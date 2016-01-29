@@ -25,30 +25,30 @@ module UploadExcel
 
   @farmer_start = 1
   @farmer_end = 8
-  @maize_planting_start = 14
-  @maize_planting_end = 14
-  @maize_harvest_start = 15
-  @maize_harvest_end = 18
-  @rice_planting_start = 25
-  @rice_planting_end = 25
-  @rice_harvest_start = 26
-  @rice_harvest_end = 29
-  @nerica_planting_start = 36
-  @nerica_planting_end = 36
-  @nerica_harvest_start = 37
-  @nerica_harvest_end = 40
-  @beans_planting_start = 47
-  @beans_planting_end = 47
-  @beans_harvest_start = 48
-  @beans_harvest_end = 51
-  @green_grams_planting_start = 58
-  @green_grams_planting_end = 58
-  @green_grams_harvest_start = 59
-  @green_grams_harvest_end = 62
-  @black_eyed_beans_planting_start = 69
-  @black_eyed_beans_planting_end = 69
-  @black_eyed_beans_harvest_start = 70
-  @black_eyed_beans_harvest_end = 73
+  @maize_planting_start = 15
+  @maize_planting_end = 15
+  @maize_harvest_start = 16
+  @maize_harvest_end = 19
+  @rice_planting_start = 26
+  @rice_planting_end = 26
+  @rice_harvest_start = 27
+  @rice_harvest_end = 30
+  @nerica_planting_start = 37
+  @nerica_planting_end = 37
+  @nerica_harvest_start = 38
+  @nerica_harvest_end = 41
+  @beans_planting_start = 48
+  @beans_planting_end = 48
+  @beans_harvest_start = 49
+  @beans_harvest_end = 52
+  @green_grams_planting_start = 59
+  @green_grams_planting_end = 59
+  @green_grams_harvest_start = 60
+  @green_grams_harvest_end = 63
+  @black_eyed_beans_planting_start = 70
+  @black_eyed_beans_planting_end = 70
+  @black_eyed_beans_harvest_start = 71
+  @black_eyed_beans_harvest_end = 74
 
 
   #######################
@@ -160,27 +160,23 @@ module UploadExcel
   @phone_number = 0
   @name = 1
   @id_number = 2
-  @group_name = 3
-  @group_registration = 4
-  @national_association = 5
-  @town = 6
-  @county = 7
+  @national_association = 3
+  @town = 4
+  @county = 5
+  @gender = 6
+  @year_of_birth = 7
 
   def save_farmer(farmer)
     phone_number = "+254" + farmer[@phone_number].to_i.to_s
     name = farmer[@name]
     id_number = farmer[@id_number]
-    group_name = farmer[@group_name]
-    group_registration = farmer[@group_registration]
     national_association = farmer[@national_association]
     town = farmer[@town]
     county = farmer[@county]
+    gender = farmer[@gender]
+    year_of_birth = farmer[@year_of_birth]
 
-    if group_name.nil?
-      reporting_as = "individual"
-    else
-      reporting_as = "group"
-    end
+    reporting_as = "individual"
 
     country = "Kenya"
 
@@ -195,8 +191,8 @@ module UploadExcel
                            county: county,
                            nearest_town: town,
                            reporting_as: reporting_as,
-                           group_name: group_name,
-                           group_registration_number: group_registration)
+                           gender: gender,
+                           year_of_birth: year_of_birth.to_i)
     end
   end
 

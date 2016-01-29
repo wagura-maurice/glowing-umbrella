@@ -5,7 +5,7 @@ class FarmerDatatable < AjaxDatatablesRails::Base
 
   def sortable_columns
     # Declare strings in this format: ModelName.column_name
-    @sortable_columns ||= ['Farmer.name', 'Farmer.nearest_town', 'Farmer.county', 'Farmer.national_id_number', 'Farmer.association_name', 'Farmer.year_of_birth', 'Farmer.gender']
+    @sortable_columns ||= ['Farmer.name', 'Farmer.phone_number', 'Farmer.nearest_town', 'Farmer.county', 'Farmer.national_id_number', 'Farmer.association_name', 'Farmer.year_of_birth', 'Farmer.gender']
   end
 
   def searchable_columns
@@ -21,6 +21,7 @@ class FarmerDatatable < AjaxDatatablesRails::Base
         # comma separated list of the values for each cell of a table row
         # example: record.attribute,
         link_to(record.name, edit_farmer_path(record)),
+        record.phone_number,
         record.nearest_town,
         record.county,
         record.national_id_number,

@@ -16,10 +16,12 @@ module SendMessages
 
 
     def batch_send(to, from='Jiunga', msg)
-        batches = get_batches(to)
-        batches.each do |batch|
-            recipients = batch.join(',')
-            send_via_africastalking(recipients, from, msg)
+        unless Rails.env.development?
+            batches = get_batches(to)
+            batches.each do |batch|
+                recipients = batch.join(',')
+                send_via_africastalking(recipients, from, msg)
+            end
         end
     end
 
@@ -28,7 +30,10 @@ module SendMessages
     end
 
     def send(to, from, msg)
-        gateway.send_message(to, msg, from)
+        debugger
+        unless Rails.env.development?
+            gateway.send_message(to, msg, from)
+        end
     end
 
     def send_async(to, from, msg)
@@ -37,7 +42,7 @@ module SendMessages
             batches.each do |batch|
                 to = batch.join(',')
                 http = EventMachine::HttpRequest.new(@@api_endpoint).post(
-                    :body => {:username => ENV['SMS_API_ID'], :from => from, :message => msg, :to => to}, 
+                    :body => {:username => ENV['SMS_API_ID'], :from => from, :message => msg, :to => to},
                     :head => { 'apiKey' => ENV['SMS_API_KEY'], 'Accept' => @@accept_type}
                 )
                 p http.req
