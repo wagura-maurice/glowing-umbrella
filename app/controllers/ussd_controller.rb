@@ -15,6 +15,7 @@ class UssdController < ApplicationController
 
   # Accepts all incoming USSD requests and responds to them
   def inbound
+    debugger
     # Get the session if it exists
     get_session
 
@@ -32,22 +33,28 @@ class UssdController < ApplicationController
 
 
     # If the form has ended, save responses and decide on next steps
-    if is_last_question? and !is_first_question? and !wait_for_response?
+    form_ended = (is_last_question? and !is_first_question? and !wait_for_response?)
+    if form_ended
       save_form_response
 
       # Start new form if it exists
       if has_next_form?
         go_to_next_form
         res = res + " " + respond_to_form
+        form_ended = false
       end
     end
+
+    # Do any post question action
+    debugger
+    perform_post_question_action
 
     # Save session
     store_session
 
 
     # Render response
-    render text: format_response(res, !(is_last_question? and !is_first_question? and !has_next_form? and !wait_for_response?))
+    render text: format_response(res, !form_ended)
 
     if is_last_question? && !has_next_form?
       msg = "Thank you for reporting on on EAFF eGranary. EAFF will try and source for market for your harvest."
@@ -208,6 +215,13 @@ class UssdController < ApplicationController
       @current_question = get_form_start_id(@current_form)
       @next_question = get_next_question
       @has_response = false unless wait_for_response?
+    end
+  end
+
+  def perform_post_question_action
+    action = get_form(@current_form)[:questions][@current_question][:post_action]
+    if action.present?
+      self.send(action)
     end
   end
 

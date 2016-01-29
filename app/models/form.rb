@@ -71,6 +71,7 @@ module Form
 #    if is_last_question?
 #      return nil
 #    end
+    debugger
     next_question = get_form(@current_form)[:questions][@current_question][:next_question]
 #    if (next_question.is_a? Hash) and (has_response?)
 #      return next_question[@response]
@@ -129,6 +130,7 @@ module Form
   end
 
   def move_to_next_question
+    debugger
     if wait_for_response?
       return go_to_next_form self.send @form[:questions][@current_question][:next_form]
     end
@@ -369,7 +371,8 @@ module Form
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
-          error_message: nil
+          error_message: nil,
+          post_action: :reset_home_menu_if_no_action
         },
         6 => {
           question_text: "Other crops planted? \n1. Yes \n2. No",
@@ -384,6 +387,15 @@ module Form
     }
   end
 
+  def reset_home_menu_if_no_action
+    forms_filled = @forms_filled.dup
+    forms_filled.delete(:user_registration)
+    forms_filled.delete(:home_menu)
+    if forms_filled.length == 0
+      @current_question = 1
+      @next_question = get_form(@current_form)[:questions][1][:next_question]
+    end
+  end
 
   def get_harvesting_menu_text
     farmer = get_farmer
@@ -486,7 +498,7 @@ module Form
   def get_home_menu_welcome_message
     if @forms_filled.length == 0
       prefix = "Welcome to eGranary service T&C's apply."
-      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest"
+      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. Exit session"
     else
       prefix = ""
       suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. End Session"
