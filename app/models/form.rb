@@ -67,11 +67,9 @@ module Form
 
 
   def get_next_question
-#    debugger
 #    if is_last_question?
 #      return nil
 #    end
-    debugger
     next_question = get_form(@current_form)[:questions][@current_question][:next_question]
 #    if (next_question.is_a? Hash) and (has_response?)
 #      return next_question[@response]
@@ -130,7 +128,6 @@ module Form
   end
 
   def move_to_next_question
-    debugger
     if wait_for_response?
       return go_to_next_form self.send @form[:questions][@current_question][:next_form]
     end
@@ -420,7 +417,9 @@ module Form
       add_to_session(:harvesting_reports_available, {})
       return "You have not reported planting any crops. Please report what you planted before reporting your harvest. Enter any number to return to the main menu"
     else
+      can_report[i] = :home_menu
       add_to_session(:harvesting_reports_available, can_report)
+      ret += "\n#{i}. Return to main menu"
       return ret
     end
 
@@ -429,7 +428,7 @@ module Form
 
   def get_planting_menu_text
     farmer = get_farmer
-     two_months_ago = Time.now - 60 * 60 * 24 * 60
+    two_months_ago = Time.now - 60 * 60 * 24 * 60
 
     ret = "What did you plant? "
     can_report = {}
@@ -446,11 +445,14 @@ module Form
         i += 1
       end
     end
+
     if can_report.length == 0
-      return "You have reported planting all the different crop types, please report their harvesting now. Enter any number to continue"
       add_to_session(:planting_reports_available, {})
+      return "You have reported planting all the different crop types, please report their harvesting now. Enter any number to continue"
     else
+      can_report[i] = :home_menu
       add_to_session(:planting_reports_available, can_report)
+      ret += "\n#{i}. Return to main menu"
       return ret
     end
   end
@@ -478,6 +480,8 @@ module Form
   def get_planting_next_question
     if @session[:planting_reports_available].nil? || @session[:planting_reports_available].length == 0
       return 4
+    elsif @session[:planting_reports_available][@response.to_i] == :home_menu
+      return 1
     end
     return 3
   end
@@ -507,7 +511,13 @@ module Form
   end
 
   def get_planting_question_text
-    crop = @@crops[@session[:planting_reports_available][@session[:crop_planted].to_i]][:text]
+    resp = @session[:planting_reports_available][@session[:crop_planted].to_i]
+    if resp == :home_menu
+      @session.delete :plant_or_harvest
+      @session.delete :crop_planted
+      return get_home_menu_welcome_message
+    end
+    crop = @@crops[resp][:text]
     return "How many kilograms of #{crop} did you plant?"
   end
 
@@ -517,6 +527,11 @@ module Form
       return :home_menu
     end
     crop = @session[:harvesting_reports_available][@response.to_i]
+    if crop == :home_menu
+      @session.delete :plant_or_harvest
+      @session.delete :crop_harvested
+      return :home_menu
+    end
     crop_report = (crop.to_s + "_report").to_sym
     return crop_report
   end

@@ -15,7 +15,6 @@ class UssdController < ApplicationController
 
   # Accepts all incoming USSD requests and responds to them
   def inbound
-    debugger
     # Get the session if it exists
     get_session
 
@@ -46,7 +45,6 @@ class UssdController < ApplicationController
     end
 
     # Do any post question action
-    debugger
     perform_post_question_action
 
     # Save session
