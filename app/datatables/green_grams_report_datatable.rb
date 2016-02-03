@@ -5,12 +5,12 @@ class GreenGramsReportDatatable < AjaxDatatablesRails::Base
 
   def sortable_columns
     # Declare strings in this format: ModelName.column_name
-    @sortable_columns ||= ['Farmer.name', 'GreenGramsReport.reporting_time', 'GreenGramsReport.kg_of_seed_planted', 'GreenGramsReport.bags_harvested', 'GreenGramsReport.grade_1_bags', 'GreenGramsReport.grade_2_bags', 'GreenGramsReport.ungraded_bags']
+    @sortable_columns ||= ['Farmer.name', 'GreenGramsReport.created_at', 'GreenGramsReport.kg_of_seed_planted', 'GreenGramsReport.bags_harvested', 'GreenGramsReport.grade_1_bags', 'GreenGramsReport.grade_2_bags', 'GreenGramsReport.ungraded_bags']
   end
 
   def searchable_columns
     # Declare strings in this format: ModelName.column_name
-    @searchable_columns ||= []
+    @searchable_columns ||= ['Farmer.name', 'Farmer.phone_number']
   end
 
   private
@@ -20,7 +20,8 @@ class GreenGramsReportDatatable < AjaxDatatablesRails::Base
       [
         # comma separated list of the values for each cell of a table row
         # example: record.attribute,
-        record.farmer.name,
+        link_to(record.farmer.display_name, edit_green_grams_report_path(record)),
+        record.farmer.phone_number,
         link_to(record.reporting_time, edit_green_grams_report_path(record)),
         record.kg_of_seed_planted,
         record.bags_harvested,
@@ -33,7 +34,7 @@ class GreenGramsReportDatatable < AjaxDatatablesRails::Base
 
   def get_raw_records
     # insert query here
-    GreenGramsReport.all.includes(:farmer)
+    GreenGramsReport.all.includes(:farmer).references(:farmer)
   end
 
   # ==== Insert 'presenter'-like methods below if necessary

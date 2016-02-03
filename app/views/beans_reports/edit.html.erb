@@ -1,3 +1,15 @@
+<table class="table table-condensed table-hover">
+  <tr>
+    <td>Farmer Name:</td>
+    <td><%= @record.farmer.name %></td>
+  </tr>
+  <tr>
+    <td>Farmer Phone Number:</td>
+    <td><%= @record.farmer.phone_number %></td>
+  </tr>
+</table>
+<br />
+
 <%= form_for @record do |f| %>
   <table>
     <tr>

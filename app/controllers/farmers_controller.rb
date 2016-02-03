@@ -22,12 +22,14 @@ class FarmersController < ApplicationController
   def update
     @farmer = Farmer.find(params[:id])
     @farmer.update_attributes(safe_params)
+    add_to_alert("Successfully updated Farmer", "success")
     redirect_to :action => :edit
   end
 
   def destroy
     @farmer = Farmer.find(params[:id])
     @farmer.destroy
+    add_to_alert("Successfully deleted Farmer", "info")
     redirect_to :farmers_table
   end
 

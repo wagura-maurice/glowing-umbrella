@@ -10,6 +10,7 @@ class CropController < ApplicationController
   def update
     @record = model.find(params[:id])
     @record.update_attributes(safe_params)
+    add_to_alert("Successfully updated #{@model_name.titleize}", "success")
     redirect_to :action => :edit
   end
 
@@ -17,6 +18,7 @@ class CropController < ApplicationController
   def destroy
     @record = model.find(params[:id])
     @record.destroy
+    add_to_alert("Successfully deleted #{@model_name.titleize}", "info")
     redirect_to records_table
   end
 

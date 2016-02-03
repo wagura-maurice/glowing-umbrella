@@ -71,4 +71,17 @@ class Farmer < ActiveRecord::Base
   end
 
 
+  def registration_time
+    self.created_at.strftime("%H:%M %p %d/%m/%y")
+  end
+
+
+  def display_name
+    if self.name.present?
+      return self.name
+    else
+      ""
+    end
+  end
+
 end
