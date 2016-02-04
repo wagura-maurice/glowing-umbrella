@@ -2,6 +2,15 @@ class CropController < ApplicationController
 
   # Action Methods
 
+  def index
+    @all_models = model.order(:created_at)
+    respond_to do |format|
+      format.html
+      format.csv { send_data @all_models.to_csv }
+      format.xls { send_data @all_models.to_csv(col_sep: "\t") }
+    end
+  end
+
   def edit
     @record = model.find(params[:id])
   end

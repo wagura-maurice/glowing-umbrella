@@ -6,6 +6,8 @@ class Farmer < ActiveRecord::Base
   has_many :black_eyed_beans_reports, dependent: :destroy
   has_many :nerica_rice_reports, dependent: :destroy
 
+  include Exportable
+
   def self.new_farmer(session)
     f = Farmer.new
     f.phone_number = session[:phone_number]

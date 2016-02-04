@@ -4,10 +4,14 @@ class FarmersController < ApplicationController
     @farmer = Farmer.find(params[:id])
   end
 
-#  def index
-#    debugger
-#    puts "yo"
-#  end
+  def index
+    @farmers = Farmer.order(:created_at)
+    respond_to do |format|
+      format.html
+      format.csv { send_data @farmers.to_csv }
+      format.xls { send_data @farmers.to_csv(col_sep: "\t") }
+    end
+  end
 #
 #  def show
 #    debugger

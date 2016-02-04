@@ -4,6 +4,7 @@ class NericaRiceReport < ActiveRecord::Base
   belongs_to :harvest_report
 
   include CropBase
+  include Exportable
 
   def self.new_report(session)
     r = NericaRiceReport.new
