@@ -11,7 +11,7 @@ class NericaRiceReportsDatatable < AjaxDatatablesRails::Base
 
   def searchable_columns
     # Declare strings in this format: ModelName.column_name
-    @searchable_columns ||= ['Farmer.name', 'Farmer.phone_number']
+    @searchable_columns ||= ['Farmer.name', 'Farmer.phone_number', 'Farmer.association_name']
   end
 
   private
@@ -23,6 +23,7 @@ class NericaRiceReportsDatatable < AjaxDatatablesRails::Base
         # example: record.attribute,
         link_to(record.farmer.display_name, edit_nerica_rice_report_path(record)),
         record.farmer.phone_number,
+        record.farmer.association_name,
         link_to(record.reporting_time, edit_nerica_rice_report_path(record)),
         record.kg_of_seed_planted,
         record.bags_harvested,
