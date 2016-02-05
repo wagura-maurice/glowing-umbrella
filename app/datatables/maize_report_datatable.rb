@@ -10,7 +10,7 @@ class MaizeReportDatatable < AjaxDatatablesRails::Base
 
   def searchable_columns
     # Declare strings in this format: ModelName.column_name
-    @searchable_columns ||= []
+    @searchable_columns ||= ['Farmer.name', 'Farmer.phone_number', 'Farmer.association_name']
   end
 
   private
@@ -20,7 +20,9 @@ class MaizeReportDatatable < AjaxDatatablesRails::Base
       [
         # comma separated list of the values for each cell of a table row
         # example: record.attribute,
-        record.farmer.name,
+        link_to(record.farmer.display_name, edit_maize_report_path(record)),
+        record.farmer.phone_number,
+        record.farmer.association_name,
         link_to(record.reporting_time, edit_maize_report_path(record)),
         record.kg_of_seed_planted,
         record.bags_harvested,
@@ -33,7 +35,7 @@ class MaizeReportDatatable < AjaxDatatablesRails::Base
 
   def get_raw_records
     # insert query here
-    MaizeReport.all.includes(:farmer)
+    MaizeReport.all.includes(:farmer).references(:farmer)
   end
 
   # ==== Insert 'presenter'-like methods below if necessary

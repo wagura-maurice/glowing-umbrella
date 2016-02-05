@@ -2,6 +2,8 @@
   <thead>
     <tr>
       <th>Farmer Name</th>
+      <th>Phone Number</th>
+      <th>Farmer Group</th>
       <th>Reporting Time</th>
       <th>KG of Seed Planted</th>
       <th>Bags Harvested</th>
@@ -13,3 +15,7 @@
   <tbody>
   </tbody>
 </table>
+
+<p>
+  <%= link_to "Download Excel", nerica_rice_reports_path(format: "xls"), class: "btn btn-sm btn-primary"%>
+</p>

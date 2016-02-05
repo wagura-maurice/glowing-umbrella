@@ -83,6 +83,45 @@
 
     <br>
     <div>
+        <h4 class="chart-title">Farmer Crop Distribution</h4>
+        <%= pie_chart({"Maize Farmers" => @maize_farmers_count, "Rice Farmers" => @rice_farmers_count,
+                       "NERICA Rice Farmers" => @nerica_rice_farmers_count, "Bean Farmers" => @bean_farmers_count,
+                       "Green Gram Farmers" => @green_gram_farmers_count, "Black Eyed Bean Farmers" => @black_eyed_bean_farmers_count
+        }) %>
+    </div>
+    <br>
+    <div>
+        <h4 class="chart-title">Farmer Gender Distribution</h4>
+        <%= pie_chart({"Male" => Farmer.where(gender: 'male').count, "Female" => Farmer.where(gender: "female").count}) %>
+    </div>
+    <br>
+    <div>
+        <h4 class="chart-title">Farmer Age Distribution</h4>
+        <%= pie_chart({"Youth" => Farmer.where("year_of_birth >= ?", Time.now.year - 35).count,
+                       "Adult" => Farmer.where("year_of_birth < ?", Time.now.year - 35).count }) %>
+    </div>
+    <br>
+    <div>
+        <h4 class="chart-title">Planting Reports 2015-2016</h4>
+        <%= column_chart("Total Maize Planted" => @total_maize_planted,
+                         "Total Rice Planted" => @total_rice_planted,
+                         "Total NERICA Rice Planted" => @total_nerica_rice_planted,
+                         "Total Beans Planted" => @total_bean_planted,
+                         "Total Green Grams Planted" => @total_green_gram_planted,
+                         "Total Black Eyed Beans Planted" => @total_black_eyed_bean_planted) %>
+    </div>
+    <br>
+    <div>
+        <h4 class="chart-title">Harvesting Reports 2015-2016</h4>
+        <%= column_chart("Total Maize Bags Harvested" => @total_maize_bags_harvested,
+                         "Total Rice Bags Harvested" => @total_rice_bags_harvested,
+                         "Total NERICA Rice Bags Harvested" => @total_nerica_rice_bags_harvested,
+                         "Total Beans Bags Harvested" => @total_bean_bags_harvested,
+                         "Total Green Grams Bags Harvested" => @total_green_gram_bags_harvested,
+                         "Total Black Eyed Beans Bags Harvested" => @total_black_eyed_bean_bags_harvested) %>
+    </div>
+    <br>
+    <div>
         <h4 class="chart-title">Maize Reports</h4>
         <%= line_chart MaizeReport.group_by_day(:created_at).count %>
     </div>

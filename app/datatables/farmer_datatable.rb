@@ -20,14 +20,15 @@ class FarmerDatatable < AjaxDatatablesRails::Base
       [
         # comma separated list of the values for each cell of a table row
         # example: record.attribute,
-        link_to(record.name, edit_farmer_path(record)),
-        record.phone_number,
+        link_to(record.display_name, edit_farmer_path(record)),
+        link_to(record.phone_number, edit_farmer_path(record)),
         record.nearest_town,
         record.county,
         record.national_id_number,
         record.association_name,
         record.year_of_birth,
-        record.gender
+        record.gender,
+        record.registration_time
       ]
     end
   end
