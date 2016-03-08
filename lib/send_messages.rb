@@ -16,13 +16,13 @@ module SendMessages
 
 
     def batch_send(to, from='Jiunga', msg)
-        unless Rails.env.development?
+        #unless Rails.env.development?
             batches = get_batches(to)
             batches.each do |batch|
                 recipients = batch.join(',')
-                send_via_africastalking(recipients, from, msg)
+                send(recipients, from, msg)
             end
-        end
+        #end
     end
 
     def get_batches(arr)
@@ -31,9 +31,9 @@ module SendMessages
 
     def send(to, from, msg)
         debugger
-        unless Rails.env.development?
+        #unless Rails.env.development?
             gateway.send_message(to, msg, from)
-        end
+        #end
     end
 
     def send_async(to, from, msg)

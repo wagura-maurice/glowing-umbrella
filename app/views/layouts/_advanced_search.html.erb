@@ -1,0 +1,75 @@
+<div style="float:right;">
+  <div>
+    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+    <a href="#advancedSearchArea" aria-expanded="false" aria-controls="advancedSearchArea" data-toggle="collapse">Advanced Search</a>
+  </div>
+  <div class="panel panel-default">
+    <%= form_tag(@route_name, method: "get") do %>
+    <div class="collapse panel-body" id="advancedSearchArea">
+    <ul class="list-group">
+      <% @search_fields.each do |k, v| %>
+      <li class="list-group-item">
+        <h4><%= v[:key] %>:</h4>
+        <% case v[:type] %>
+        <% when :time %>
+          <div class='input-group date' id="<%= k %>__lt_picker">
+              <span class="input-group-addon" id="<%= k %>__lt_label"><%= v[:key] %> was less than</span>
+              <input type='text' class="form-control" aria-describedby="<%= k %>__lt_label" id="<%= k %>__lt" name="<%= k %>__lt"/>
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+          </div>
+          <div class='input-group date' id="<%= k %>__gt_picker" style="margin-top:10px;">
+              <span class="input-group-addon" id="<%= k %>__gt_label"><%= v[:key] %> was greater than</span>
+              <input type='text' class="form-control" aria-describedby="<%= k %>__gt_label" id="<%= k %>__gt" name="<%= k %>__gt"/>
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+          </div>
+          <script type="text/javascript">
+              $(function () {
+                  $('#<%= k %>__lt_picker').datetimepicker();
+                  $('#<%= k %>__gt_picker').datetimepicker();
+              });
+          </script>
+        <% when :string %>
+          <div class="input-group">
+            <span class="input-group-addon" id="<%= k %>">Includes the following text</span>
+            <input type="text" id="<%= k %>__eq" name="<%= k %>__eq" class="form-control" placeholder="<%= v[:key] %>" aria-describedby="<%= k %>">
+          </div>
+        <% when :number %>
+          <div class="input-group">
+            <span class="input-group-addon" id="<%= k %>__lt_label">Is less than the following number</span>
+            <input type="text" class="form-control" placeholder="<%= v[:key] %>" aria-describedby="<%= k %>__lt_label" id="<%= k %>__lt" name="<%= k %>__lt">
+          </div>
+          <div class="input-group" style="margin-top:10px;">
+            <span class="input-group-addon" id="<%= k %>__eq_label">Is equal to the following number</span>
+            <input type="text" class="form-control" placeholder="<%= v[:key] %>" aria-describedby="<%= k %>__eq_label" id="<%= k %>__eq" name="<%= k %>__eq">
+          </div>
+          <div class="input-group" style="margin-top:10px;">
+            <span class="input-group-addon" id="<%= k %>__gt_label">Is greater than the following number</span>
+            <input type="text" class="form-control" placeholder="<%= v[:key] %>" aria-describedby="<%= k %>__gt_label" id="<%= k %>__gt" name="<%= k %>__gt">
+          </div>
+        <% when :select %>
+          <span class="input-group-addon" id="<%= k %>__eq_label">Is one of the following</span>
+          <select class="form-control" id="<%= k %>__eq" name="<%= k %>__eq">
+            <option></option>
+            <% v[:options].each do |opt| %>
+              <option><%= opt %></option>
+            <% end %>
+          </select>
+        <% end %>
+      </li>
+      <% end %>
+      <li class="list-group-item">
+        <div class="input-group">
+          <%= submit_tag("Search", class: "btn btn-primary") %>
+        </div>
+      </li>
+    </ul>
+    </div>
+    <% end %>
+
+  </div>
+</div>
+<br />

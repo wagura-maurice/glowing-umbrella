@@ -1,4 +1,5 @@
 class BlackEyedBeansReportDatatable < AjaxDatatablesRails::Base
+  include ModelSearch
 
   def_delegator :@view, :link_to
   def_delegator :@view, :edit_black_eyed_beans_report_path
@@ -33,8 +34,14 @@ class BlackEyedBeansReportDatatable < AjaxDatatablesRails::Base
     end
   end
 
+  def base_query
+    BlackEyedBeansReport.includes(:farmer).references(:farmer)
+  end
+
   def get_raw_records
     # insert query here
+    records = run_queries(BlackEyedBeansReport, params)
+    return records
     BlackEyedBeansReport.all.includes(:farmer).references(:farmer)
   end
 

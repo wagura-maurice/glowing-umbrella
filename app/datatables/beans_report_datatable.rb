@@ -1,4 +1,5 @@
 class BeansReportDatatable < AjaxDatatablesRails::Base
+  include ModelSearch
 
   def_delegator :@view, :link_to
   def_delegator :@view, :edit_beans_report_path
@@ -33,8 +34,14 @@ class BeansReportDatatable < AjaxDatatablesRails::Base
     end
   end
 
+  def base_query
+    BeansReport.includes(:farmer).references(:farmer)
+  end
+
   def get_raw_records
     # insert query here
+    records = run_queries(BeansReport, params)
+    return records
     BeansReport.all.includes(:farmer).references(:farmer)
   end
 

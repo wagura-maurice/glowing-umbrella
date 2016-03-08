@@ -1,5 +1,7 @@
 class MaizeReportDatatable < AjaxDatatablesRails::Base
 
+  include ModelSearch
+
   def_delegator :@view, :link_to
   def_delegator :@view, :edit_maize_report_path
 
@@ -33,8 +35,14 @@ class MaizeReportDatatable < AjaxDatatablesRails::Base
     end
   end
 
+  def base_query
+    MaizeReport.includes(:farmer).references(:farmer)
+  end
+
   def get_raw_records
     # insert query here
+    records = run_queries(MaizeReport, params)
+    return records
     MaizeReport.all.includes(:farmer).references(:farmer)
   end
 

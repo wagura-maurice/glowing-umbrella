@@ -80,5 +80,7 @@ gem "chartkick"
 gem 'rollbar', '~> 1.2.7'
 gem 'roo', '~> 2.1.0'
 gem 'dropbox-sdk'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 
 

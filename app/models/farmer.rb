@@ -8,6 +8,20 @@ class Farmer < ActiveRecord::Base
 
   include Exportable
 
+
+  def self.search_fields
+    return {"created_at" => {type: :time, key: "Registration Date"},
+            "name" => {type: :string, key: "Name"},
+            "nearest_town" => {type: :string, key: "Nearest Town"},
+            "county" => {type: :string, key: "County"},
+            "national_id_number" => {type: :string, key: "National ID"},
+            "phone_number" => {type: :string, key: "Phone Number"},
+            "association_name" => {type: :string, key: "Organization"},
+            "year_of_birth" => {type: :number, key: "Year of Birth"},
+            "gender" => {type: :select, key: "Gender", options: ['male', 'female']}
+            }
+  end
+
   def self.new_farmer(session)
     f = Farmer.new
     f.phone_number = session[:phone_number]

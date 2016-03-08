@@ -6,6 +6,20 @@ class NericaRiceReport < ActiveRecord::Base
   include CropBase
   include Exportable
 
+  def self.search_fields
+    return {"created_at" => {type: :time, key: "Report Date", search_column: "nerica_rice_reports.created_at"},
+            "report_type" => {type: :select, key: "Report Type", options: ['planting', 'harvest']},
+            "kg_of_seed_planted" => {type: :number, key: "KG of Seed Planted"},
+            "bags_harvested" => {type: :number, key: "Bags Harvested"},
+            "pishori_bags" => {type: :number, key: "Pishori Bags"},
+            "super_bags" => {type: :number, key: "Super Bags"},
+            "other_bags" => {type: :number, key: "Other Bags"},
+            "farmers.name" => {type: :string, key: "Farmer Name"},
+            "farmers.phone_number" => {type: :string, key: "Farmer Phone Number"},
+            "farmers.association_name" => {type: :string, key: "Farmer Group Name"}
+            }
+  end
+
   def self.new_report(session)
     r = NericaRiceReport.new
     r.bags_harvested = session[:bags_harvested]

@@ -1,4 +1,5 @@
 class RiceReportDatatable < AjaxDatatablesRails::Base
+  include ModelSearch
 
   def_delegator :@view, :link_to
   def_delegator :@view, :edit_rice_report_path
@@ -33,8 +34,14 @@ class RiceReportDatatable < AjaxDatatablesRails::Base
     end
   end
 
+  def base_query
+    RiceReport.includes(:farmer).references(:farmer)
+  end
+
   def get_raw_records
     # insert query here
+    records = run_queries(RiceReport, params)
+    return records
     RiceReport.all.includes(:farmer).references(:farmer)
   end
 

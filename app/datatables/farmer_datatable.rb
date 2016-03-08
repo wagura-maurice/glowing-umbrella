@@ -1,5 +1,7 @@
 class FarmerDatatable < AjaxDatatablesRails::Base
 
+  include ModelSearch
+
   def_delegator :@view, :link_to
   def_delegator :@view, :edit_farmer_path
 
@@ -33,9 +35,13 @@ class FarmerDatatable < AjaxDatatablesRails::Base
     end
   end
 
+  def base_query
+    Farmer
+  end
+
   def get_raw_records
-    # insert query here
-    Farmer.all
+    records = run_queries(Farmer, params)
+    return records
   end
 
   # ==== Insert 'presenter'-like methods below if necessary
