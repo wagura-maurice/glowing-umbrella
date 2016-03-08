@@ -4,12 +4,29 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
 	before_filter :require_login, :except => [:not_authenticated]
-	
+
+	def datatable_search_params(search_fields)
+		ret = {format: :json}
+		if search_fields.present?
+			search_fields.each do |k, v|
+				if v[:type] == :time || v[:type] == :number
+					ret[k + "__gt"] = params[k + "__gt"]
+					ret[k + "__lt"] = params[k + "__lt"]
+					ret[k + "__eq"] = params[k + "__eq"]
+				elsif v[:type] == :string
+					ret[k + "__eq"] = params[k + "__eq"]
+				elsif v[:type] == :select
+					ret[k + "__eq"] = params[k + "__eq"]
+				end
+			end
+		end
+		return ret
+	end
 
 	protected
 
     def not_authenticated
-      redirect_to login_path, :alert => "Login required." 
+      redirect_to login_path, :alert => "Login required."
     end
 
     def add_to_alert(message, type="error")

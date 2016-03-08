@@ -2,6 +2,8 @@ class DashboardController < ApplicationController
   require 'AfricasTalkingGateway'
   require 'send_messages'
 
+  before_action :set_route_name
+
   def index
     # Get Statistics to display in the view
 
@@ -34,6 +36,8 @@ class DashboardController < ApplicationController
   end
 
   def farmers_table
+    @search_fields = Farmer.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
     ret = FarmerDatatable.new(view_context)
     respond_to do |format|
       format.html
@@ -42,6 +46,8 @@ class DashboardController < ApplicationController
   end
 
   def maize_reports_table
+    @search_fields = MaizeReport.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
     ret = MaizeReportDatatable.new(view_context)
     respond_to do |format|
       format.html
@@ -50,6 +56,8 @@ class DashboardController < ApplicationController
   end
 
   def rice_reports_table
+    @search_fields = RiceReport.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
     ret = RiceReportDatatable.new(view_context)
     respond_to do |format|
       format.html
@@ -58,6 +66,8 @@ class DashboardController < ApplicationController
   end
 
   def nerica_rice_reports_table
+    @search_fields = NericaRiceReport.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
     ret = NericaRiceReportsDatatable.new(view_context)
     respond_to do |format|
       format.html
@@ -66,6 +76,8 @@ class DashboardController < ApplicationController
   end
 
   def beans_reports_table
+    @search_fields = BeansReport.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
     ret = BeansReportDatatable.new(view_context)
     respond_to do |format|
       format.html
@@ -74,6 +86,8 @@ class DashboardController < ApplicationController
   end
 
   def green_grams_reports_table
+    @search_fields = GreenGramsReport.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
     ret = GreenGramsReportDatatable.new(view_context)
     respond_to do |format|
       format.html
@@ -82,6 +96,8 @@ class DashboardController < ApplicationController
   end
 
   def black_eyed_beans_reports_table
+    @search_fields = BlackEyedBeansReport.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
     ret = BlackEyedBeansReportDatatable.new(view_context)
     respond_to do |format|
       format.html
@@ -113,6 +129,13 @@ class DashboardController < ApplicationController
       SendMessages.send(to, 'Jiunga', params["message"])
     end
     redirect_to :controller => :dashboard, :action => :index
+  end
+
+
+  private
+
+  def set_route_name
+    @route_name =  '/' + params[:action]
   end
 
 end

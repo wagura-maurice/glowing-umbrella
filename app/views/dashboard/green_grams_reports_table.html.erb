@@ -1,4 +1,6 @@
-<table id="green-grams-reports-table", data-source="<%= green_grams_reports_table_path(format: :json) %>">
+<%= render 'layouts/advanced_search' %>
+
+<table id="green-grams-reports-table", data-source="<%= green_grams_reports_table_path(@datatable_search_params) %>">
   <thead>
     <tr>
       <th>Farmer Name</th>
