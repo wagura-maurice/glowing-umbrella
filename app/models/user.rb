@@ -4,8 +4,6 @@ class User < ActiveRecord::Base
 	validates_presence_of :username, :phone_number
 	validates_uniqueness_of :phone_number, :username
 
-	belongs_to :publisher
-	belongs_to :subscriber
 	has_many :farmer_inputs
 
 	#def full_name
@@ -26,8 +24,8 @@ class User < ActiveRecord::Base
 		return user
 	end
 
-	
+
 
 end
 
-		
+

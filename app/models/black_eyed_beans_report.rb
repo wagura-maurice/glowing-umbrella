@@ -3,8 +3,22 @@ class BlackEyedBeansReport < ActiveRecord::Base
   has_one :planting_report, class_name: "BlackEyedBeansReport", foreign_key: "harvest_report_id"
   belongs_to :harvest_report
 
+
   include CropBase
   include Exportable
+
+
+  default_scope lambda {
+    where(season: $current_season)
+  }
+
+
+  before_create :set_season
+
+  def set_season
+    self.season = $current_season
+  end
+
 
   def self.search_fields
     return {"created_at" => {type: :time, key: "Report Date", search_column: "black_eyed_beans_reports.created_at"},

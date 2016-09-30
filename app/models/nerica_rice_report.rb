@@ -6,6 +6,19 @@ class NericaRiceReport < ActiveRecord::Base
   include CropBase
   include Exportable
 
+
+  default_scope lambda {
+    where(season: $current_season)
+  }
+
+
+  before_create :set_season
+
+  def set_season
+    self.season = $current_season
+  end
+
+
   def self.search_fields
     return {"created_at" => {type: :time, key: "Report Date", search_column: "nerica_rice_reports.created_at"},
             "report_type" => {type: :select, key: "Report Type", options: ['planting', 'harvest']},

@@ -6,7 +6,7 @@ Egranary::Application.routes.draw do
 
   get "login"   => "sessions#new",        :as => :login
   get "logout"  => "sessions#destroy",    :as => :logout
-  get "signup"  => "users#new",           :as => :signup
+  #get "signup"  => "users#new",           :as => :signup
   get "app"     => "dashboard#index", :as => :app
   get "farmers_table" => "dashboard#farmers_table", :as => :farmers_table
   get "rice_reports_table" => "dashboard#rice_reports_table", :as => :rice_reports_table

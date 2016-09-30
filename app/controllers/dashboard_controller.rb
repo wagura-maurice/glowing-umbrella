@@ -8,7 +8,7 @@ class DashboardController < ApplicationController
     # Get Statistics to display in the view
 
     # Number of farmers
-    @farmers = Farmer.all.order("updated_at DESC")
+    @total_farmers = Farmer.count
 
     # Number of farmers by crop type
     @maize_farmers_count = MaizeReport.pluck(:farmer_id).uniq.length
