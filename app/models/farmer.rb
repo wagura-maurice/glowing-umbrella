@@ -5,6 +5,8 @@ class Farmer < ActiveRecord::Base
   has_many :green_grams_reports, dependent: :destroy
   has_many :black_eyed_beans_reports, dependent: :destroy
   has_many :nerica_rice_reports, dependent: :destroy
+  has_many :soya_beans_reports, dependent: :destroy
+  has_many :pigeon_peas_reports, dependent: :destroy
 
   include Exportable
 
@@ -74,6 +76,10 @@ class Farmer < ActiveRecord::Base
         GreenGramsReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
       when :black_eyed_beans
         BlackEyedBeansReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+      when :soya_beans
+        SoyaBeansReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+      when :pigeon_peas
+        PigeonPeasReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
       end
 
       temp = Rails.cache.read(session[:phone_number])

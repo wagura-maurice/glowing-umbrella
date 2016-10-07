@@ -1,0 +1,2 @@
+module SoyaBeansReportsHelper
+end

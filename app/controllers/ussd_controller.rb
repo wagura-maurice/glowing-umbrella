@@ -55,7 +55,7 @@ class UssdController < ApplicationController
     render text: format_response(res, !form_ended)
 
     if is_last_question? && !has_next_form?
-      msg = "Thank you for reporting on on EAFF eGranary. EAFF will try and source for market for your harvest."
+      msg = "Thank you for reporting on EAFF eGranary. EAFF will try and source for market for your harvest."
       SendMessages.send(@phone_number, 'Jiunga', msg) unless Rails.env.development?
     end
   end
@@ -86,6 +86,11 @@ class UssdController < ApplicationController
 
 
   def store_session
+    dont_store_keys = [:dont_perform_new_report_in_request]
+    dont_store_keys.each do |key|
+      @session.delete key
+    end
+
     session = {
       phone_number: @phone_number,
       current_form: @current_form,
@@ -233,7 +238,7 @@ class UssdController < ApplicationController
   end
 
 
-  # Saves the form respons to the database
+  # Saves the form response to the database
   def save_form_response
     model = @form[:model]
     last_action = @form[:form_last_action]

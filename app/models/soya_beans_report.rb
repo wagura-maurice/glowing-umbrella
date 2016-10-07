@@ -1,7 +1,8 @@
-class NericaRiceReport < ActiveRecord::Base
+class SoyaBeansReport < ActiveRecord::Base
   belongs_to :farmer
-  has_one :planting_report, class_name: "NericaRiceReport", foreign_key: "harvest_report_id"
+  has_one :planting_report, class_name: "SoyaBeansReport", foreign_key: "harvest_report_id"
   belongs_to :harvest_report
+
 
   include CropBase
   include Exportable
@@ -20,31 +21,32 @@ class NericaRiceReport < ActiveRecord::Base
 
 
   def self.search_fields
-    return {"created_at" => {type: :time, key: "Report Date", search_column: "nerica_rice_reports.created_at"},
+    return {"created_at" => {type: :time, key: "Report Date", search_column: "soya_beans_reports.created_at"},
             "report_type" => {type: :select, key: "Report Type", options: ['planting', 'harvest']},
             "kg_of_seed_planted" => {type: :number, key: "KG of Seed Planted"},
             "bags_harvested" => {type: :number, key: "Bags Harvested"},
-            "pishori_bags" => {type: :number, key: "Pishori Bags"},
-            "super_bags" => {type: :number, key: "Super Bags"},
-            "other_bags" => {type: :number, key: "Other Bags"},
+            "grade_1_bags" => {type: :number, key: "Grade 1 Bags"},
+            "grade_2_bags" => {type: :number, key: "Grade 2 Bags"},
+            "ungraded_bags" => {type: :number, key: "Ungraded Bags"},
             "farmers.name" => {type: :string, key: "Farmer Name"},
             "farmers.phone_number" => {type: :string, key: "Farmer Phone Number"},
             "farmers.association_name" => {type: :string, key: "Farmer Group Name"}
             }
   end
 
-  def self.new_report(session)
-    r = NericaRiceReport.new
+
+ def self.new_report(session)
+    r = SoyaBeansReport.new
     r.bags_harvested = session[:bags_harvested]
-    r.pishori_bags = session[:pishori_bags]
-    r.super_bags = session[:super_bags]
-    r.other_bags = session[:other_bags]
+    r.grade_1_bags = session[:grade_1_bags]
+    r.grade_2_bags = session[:grade_2_bags]
+    r.ungraded_bags = session[:ungraded_bags]
     r.report_type = 'harvest'
 
     farmer = Farmer.where(phone_number: session[:phone_number]).first
     r.farmer = farmer
 
-    last_planting_report = NericaRiceReport.where(farmer: farmer, report_type: 'planting').order(created_at: :desc).first
+    last_planting_report = SoyaBeansReport.where(farmer: farmer, report_type: 'planting').order(created_at: :desc).first
     if last_planting_report.present?
       r.planting_report = last_planting_report
     end

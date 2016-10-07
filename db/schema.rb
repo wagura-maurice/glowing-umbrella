@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930043855) do
+ActiveRecord::Schema.define(version: 20161006034841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,6 +148,27 @@ ActiveRecord::Schema.define(version: 20160930043855) do
   add_index "nerica_rice_reports", ["farmer_id"], name: "index_nerica_rice_reports_on_farmer_id", using: :btree
   add_index "nerica_rice_reports", ["harvest_report_id"], name: "index_nerica_rice_reports_on_harvest_report_id", using: :btree
 
+  create_table "pigeon_peas_reports", force: :cascade do |t|
+    t.float    "kg_of_seed_planted"
+    t.float    "acres_planted"
+    t.float    "bags_harvested"
+    t.float    "grade_1_bags"
+    t.float    "grade_2_bags"
+    t.float    "ungraded_bags"
+    t.string   "report_type"
+    t.integer  "season"
+    t.integer  "farmer_id"
+    t.integer  "pigeon_peas_reports_id"
+    t.integer  "harvest_report_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "pigeon_peas_reports", ["farmer_id"], name: "index_pigeon_peas_reports_on_farmer_id", using: :btree
+  add_index "pigeon_peas_reports", ["harvest_report_id"], name: "index_pigeon_peas_reports_on_harvest_report_id", using: :btree
+  add_index "pigeon_peas_reports", ["pigeon_peas_reports_id"], name: "index_pigeon_peas_reports_on_pigeon_peas_reports_id", using: :btree
+  add_index "pigeon_peas_reports", ["season"], name: "index_pigeon_peas_reports_on_season", using: :btree
+
   create_table "rice_reports", force: :cascade do |t|
     t.float    "acres_planted"
     t.float    "kg_of_seed_planted"
@@ -181,6 +202,27 @@ ActiveRecord::Schema.define(version: 20160930043855) do
 
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
+
+  create_table "soya_beans_reports", force: :cascade do |t|
+    t.float    "kg_of_seed_planted"
+    t.float    "acres_planted"
+    t.float    "bags_harvested"
+    t.float    "grade_1_bags"
+    t.float    "grade_2_bags"
+    t.float    "ungraded_bags"
+    t.string   "report_type"
+    t.integer  "season"
+    t.integer  "farmer_id"
+    t.integer  "soya_beans_reports_id"
+    t.integer  "harvest_report_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "soya_beans_reports", ["farmer_id"], name: "index_soya_beans_reports_on_farmer_id", using: :btree
+  add_index "soya_beans_reports", ["harvest_report_id"], name: "index_soya_beans_reports_on_harvest_report_id", using: :btree
+  add_index "soya_beans_reports", ["season"], name: "index_soya_beans_reports_on_season", using: :btree
+  add_index "soya_beans_reports", ["soya_beans_reports_id"], name: "index_soya_beans_reports_on_soya_beans_reports_id", using: :btree
 
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "phone_number",                    limit: 255,             null: false

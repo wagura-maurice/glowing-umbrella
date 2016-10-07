@@ -15,6 +15,8 @@ Egranary::Application.routes.draw do
   get "beans_reports_table" => "dashboard#beans_reports_table", :as => :beans_reports_table
   get "green_grams_reports_table" => "dashboard#green_grams_reports_table", :as => :green_grams_reports_table
   get "black_eyed_beans_reports_table" => "dashboard#black_eyed_beans_reports_table", :as => :black_eyed_beans_reports_table
+  get "soya_beans_reports_table" => "dashboard#soya_beans_reports_table", :as => :soya_beans_reports_table
+  get "pigeon_peas_reports_table" => "dashboard#pigeon_peas_reports_table", :as => :pigeon_peas_reports_table
 
   get "ussd"    => "ussd#inbound"
   post "ussd"   => "ussd#inbound"
@@ -30,6 +32,8 @@ Egranary::Application.routes.draw do
   resources :green_grams_reports
   resources :black_eyed_beans_reports
   resources :beans_reports
+  resources :soya_beans_reports
+  resources :pigeon_peas_reports
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

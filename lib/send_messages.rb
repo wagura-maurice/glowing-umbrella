@@ -30,7 +30,6 @@ module SendMessages
     end
 
     def send(to, from, msg)
-        debugger
         #unless Rails.env.development?
             gateway.send_message(to, msg, from)
         #end

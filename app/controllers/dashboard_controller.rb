@@ -17,6 +17,8 @@ class DashboardController < ApplicationController
     @green_gram_farmers_count = GreenGramsReport.pluck(:farmer_id).uniq.length
     @black_eyed_bean_farmers_count = BlackEyedBeansReport.pluck(:farmer_id).uniq.length
     @nerica_rice_farmers_count = NericaRiceReport.pluck(:farmer_id).uniq.length
+    @soya_bean_farmers_count = SoyaBeansReport.pluck(:farmer_id).uniq.length
+    @pigeon_peas_farmers_count = PigeonPeasReport.pluck(:farmer_id).uniq.length
 
     # Crop statistics
     @total_maize_bags_harvested = MaizeReport.sum :bags_harvested
@@ -25,6 +27,8 @@ class DashboardController < ApplicationController
     @total_green_gram_bags_harvested = GreenGramsReport.sum :bags_harvested
     @total_black_eyed_bean_bags_harvested = BlackEyedBeansReport.sum :bags_harvested
     @total_nerica_rice_bags_harvested = NericaRiceReport.sum :bags_harvested
+    @total_soya_bean_bags_harvested = SoyaBeansReport.sum :bags_harvested
+    @total_pigeon_peas_bags_harvested = PigeonPeasReport.sum :bags_harvested
 
     @total_maize_planted = MaizeReport.sum :kg_of_seed_planted
     @total_rice_planted = RiceReport.sum :kg_of_seed_planted
@@ -32,6 +36,8 @@ class DashboardController < ApplicationController
     @total_green_gram_planted = GreenGramsReport.sum :kg_of_seed_planted
     @total_black_eyed_bean_planted = BlackEyedBeansReport.sum :kg_of_seed_planted
     @total_nerica_rice_planted = NericaRiceReport.sum :kg_of_seed_planted
+    @total_soya_bean_planted = SoyaBeansReport.sum :kg_of_seed_planted
+    @total_pigeon_peas_planted = PigeonPeasReport.sum :kg_of_seed_planted
 
   end
 
@@ -105,6 +111,26 @@ class DashboardController < ApplicationController
     end
   end
 
+  def soya_beans_reports_table
+    @search_fields = SoyaBeansReport.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    ret = SoyaBeansReportDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
+  def pigeon_peas_reports_table
+    @search_fields = PigeonPeasReport.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    ret = PigeonPeasReportDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
 
   def blast
     if params["send_messages_to"] == "1"
@@ -123,6 +149,12 @@ class DashboardController < ApplicationController
       to = Farmer.find(ids).map(&:phone_number)
     elsif params["send_messages_to"] == "6"
       ids = BlackEyedBeansReport.pluck(:farmer_id).uniq.compact
+      to = Farmer.find(ids).map(&:phone_number)
+    elsif params["send_messages_to"] == "7"
+      ids = SoyaBeansReport.pluck(:farmer_id).uniq.compact
+      to = Farmer.find(ids).map(&:phone_number)
+    elsif params["send_messages_to"] == "8"
+      ids = PigeonPeasReport.pluck(:farmer_id).uniq.compact
       to = Farmer.find(ids).map(&:phone_number)
     end
     unless Rails.env.development?

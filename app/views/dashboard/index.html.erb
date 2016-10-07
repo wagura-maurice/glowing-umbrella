@@ -55,6 +55,14 @@
                 <td><%= number_with_delimiter(@total_black_eyed_bean_bags_harvested, :delimiter => ',') %></td>
             </tr>
             <tr>
+                <td><a href="soya_beans_reports_table">Total Bean Bags Harvested</a></td>
+                <td><%= number_with_delimiter(@total_bean_bags_harvested, :delimiter => ',') %></td>
+            </tr>
+            <tr>
+                <td><a href="pigeon_peas_reports_table">Total Green Gram Bags Harvested</a></td>
+                <td><%= number_with_delimiter(@total_green_gram_bags_harvested, :delimiter => ',') %></td>
+            </tr>
+            <tr>
                 <td><a href="maize_reports_table">Total Maize Planted</a></td>
                 <td><%= number_with_delimiter(@total_maize_planted, :delimiter => ',') %></td>
             </tr>
@@ -77,6 +85,14 @@
             <tr>
                 <td><a href="black_eyed_beans_reports_table">Total Black Eyed Bean Planted</a></td>
                 <td><%= number_with_delimiter(@total_black_eyed_bean_planted, :delimiter => ',') %></td>
+            </tr>
+            <tr>
+                <td><a href="soya_beans_reports_table">Total Bean Planted</a></td>
+                <td><%= number_with_delimiter(@total_bean_planted, :delimiter => ',') %></td>
+            </tr>
+            <tr>
+                <td><a href="pigeon_peas_reports_table">Total Green Gram Planted</a></td>
+                <td><%= number_with_delimiter(@total_green_gram_planted, :delimiter => ',') %></td>
             </tr>
         </tbody>
     </table>
@@ -108,7 +124,9 @@
                          "Total NERICA Rice Planted" => @total_nerica_rice_planted,
                          "Total Beans Planted" => @total_bean_planted,
                          "Total Green Grams Planted" => @total_green_gram_planted,
-                         "Total Black Eyed Beans Planted" => @total_black_eyed_bean_planted) %>
+                         "Total Black Eyed Beans Planted" => @total_black_eyed_bean_planted,
+                         "Total Soya Beans Planted" => @total_soya_bean_planted,
+                         "Total Pigeon Peas Planted" => @total_pigeon_pea_planted) %>
     </div>
     <br>
     <div>
@@ -118,7 +136,9 @@
                          "Total NERICA Rice Bags Harvested" => @total_nerica_rice_bags_harvested,
                          "Total Beans Bags Harvested" => @total_bean_bags_harvested,
                          "Total Green Grams Bags Harvested" => @total_green_gram_bags_harvested,
-                         "Total Black Eyed Beans Bags Harvested" => @total_black_eyed_bean_bags_harvested) %>
+                         "Total Black Eyed Beans Bags Harvested" => @total_black_eyed_bean_bags_harvested,
+                         "Total Soya Beans Bags Harvested" => @total_soya_bean_bags_harvested,
+                         "Total Pigeon Peas Bags Harvested" => @total_pigeon_pea_bags_harvested,) %>
     </div>
     <br>
     <div>
@@ -142,6 +162,14 @@
         <h4 class="chart-title">Black Eyed Bean Reports</h4>
         <%= line_chart BlackEyedBeansReport.group_by_day(:created_at).count %>
     </div>
+    <div>
+        <h4 class="chart-title">Bean Reports</h4>
+        <%= line_chart SoyaBeansReport.group_by_day(:created_at).count %>
+    </div>
+    <div>
+        <h4 class="chart-title">Green Gram Reports</h4>
+        <%= line_chart PigeonPeasReport.group_by_day(:created_at).count %>
+    </div>
     <br>
     <div>
         <h4 class="chart-title">Farmer Registrations</h4>
@@ -162,7 +190,7 @@
             <%= text_area_tag :message, nil, class: "form-control", placeholder: "Enter your message", maxlength: 160 %>
         </div>
         <div>
-            <% @options_for_select = options_for_select([['All', 1], ["Maize Farmers", 2], ["Rice Farmers", 3], ["Bean Farmers", 4], ["Green Gram Farmers", 5], ["Black Eyed Bean Farmers", 6]]) %>
+            <% @options_for_select = options_for_select([['All', 1], ["Maize Farmers", 2], ["Rice Farmers", 3], ["Bean Farmers", 4], ["Green Gram Farmers", 5], ["Black Eyed Bean Farmers", 6], ["Soya Bean Farmers", 7], ["Pigeon Pea Farmers", 8]]) %>
             <%= select_tag(:send_messages_to, @options_for_select) %>
 
             <%= submit_tag 'Send', class: "btn btn-primary" %>

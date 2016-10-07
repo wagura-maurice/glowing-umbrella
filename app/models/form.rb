@@ -19,7 +19,13 @@ module Form
                           },
              black_eyed_beans: { model: BlackEyedBeansReport,
                                  text: 'Black Eyed Beans (Njahi)'
-                               }
+                               },
+            soya_beans: { model: SoyaBeansReport,
+                          text: 'Soya Beans'
+                        },
+            pigeon_peas: { model: PigeonPeasReport,
+                           text: 'Pigeon Peas'
+                         }
             }
 
   @@response_types = [:any, :any_number, :unique_id_number, :any_letters, :any_year,
@@ -364,7 +370,7 @@ module Form
           error_message: :get_harvesting_menu_error_message
         },
         5 => {
-          question_text: "Thank you for reporting on on EAFF eGranary.",
+          question_text: "Thank you for reporting on EAFF eGranary.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
@@ -546,6 +552,7 @@ module Form
     model = get_form_model(@current_form)
     save_action = get_form_last_action(@current_form)
     model.send save_action, @session
+    @session[:dont_perform_new_report_in_request] = true
   end
 
   def maize_report
@@ -589,7 +596,7 @@ module Form
           error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
         },
         6 => {
-          question_text: "Thank you for reporting on on EAFF eGranary.",
+          question_text: "Thank you for reporting on EAFF eGranary.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
@@ -652,7 +659,7 @@ module Form
           error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
         },
         6 => {
-          question_text: "Thank you for reporting on on EAFF eGranary.",
+          question_text: "Thank you for reporting on EAFF eGranary.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
@@ -714,7 +721,7 @@ module Form
           error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
         },
         6 => {
-          question_text: "Thank you for reporting on on EAFF eGranary.",
+          question_text: "Thank you for reporting on EAFF eGranary.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
@@ -776,7 +783,7 @@ module Form
           error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
         },
         6 => {
-          question_text: "Thank you for reporting on on EAFF eGranary.",
+          question_text: "Thank you for reporting on EAFF eGranary.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
@@ -838,7 +845,7 @@ module Form
           error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
         },
         6 => {
-          question_text: "Thank you for reporting on on EAFF eGranary.",
+          question_text: "Thank you for reporting on EAFF eGranary.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
@@ -900,7 +907,7 @@ module Form
           error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
         },
         6 => {
-          question_text: "Thank you for reporting on on EAFF eGranary.",
+          question_text: "Thank you for reporting on EAFF eGranary.",
           valid_responses: nil,
           save_key: nil,
           next_question: nil,
@@ -920,6 +927,131 @@ module Form
       form_last_action: :new_report
     }
   end
+
+  def soya_beans_report
+    {
+      start_id: 1,
+      questions: {
+        1 => {
+          question_text: "How many bags of soya beans harvested?",
+          valid_responses: :any_number,
+          save_key: :bags_harvested,
+          next_question: 2,
+          error_message: "You're response was not valid. How many bags of soya beans harvested?"
+        },
+        2 => {
+          question_text: "How many bags are Grade 1?",
+          valid_responses: :less_than_bags_harvested,
+          save_key: :grade_1_bags,
+          next_question: 3,
+          error_message: "You're response was not valid. How many bags are Grade 1?"
+        },
+        3 => {
+          question_text: "How many bags are Grade 2?",
+          valid_responses: :less_than_bags_harvested_minus_grade_1,
+          save_key: :grade_2_bags,
+          next_question: 4,
+          error_message: "You're response was not valid. How many bags are Grade 2?"
+        },
+        4 => {
+          question_text: "How many bags are ungraded?",
+          valid_responses: :less_than_bags_harvested_minus_grade_1_and_2,
+          save_key: :ungraded_bags,
+          next_question: 5,
+          error_message: "You're response was not valid. How many bags are ungraded?"
+        },
+        5 => {
+          question_text: "Other crops harvested? \n1. Yes \n2. No",
+          valid_responses: ["1", "2"],
+          save_key: :other_crops_harvested,
+          before_next_question_callback: :save_crop_data,
+          next_question: {"1" => 7, "2" => 6},
+          error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
+        },
+        6 => {
+          question_text: "Thank you for reporting on EAFF eGranary.",
+          valid_responses: nil,
+          save_key: nil,
+          next_question: nil,
+          error_message: nil
+        },
+        7 => {
+          question_text: :get_harvesting_menu_text,
+          valid_responses: :get_harvesting_menu_valid_responses,
+          save_key: :crop_harvested,
+          next_question: nil,
+          wait_until_response: true,
+          next_form: :get_report_harvesting_form,
+          error_message: :get_harvesting_menu_error_message
+        }
+      },
+      model: SoyaBeansReport,
+      form_last_action: :new_report
+    }
+  end
+
+  def pigeon_peas_report
+    {
+      start_id: 1,
+      questions: {
+        1 => {
+          question_text: "How many bags of pigeon peas harvested?",
+          valid_responses: :any_number,
+          save_key: :bags_harvested,
+          next_question: 2,
+          error_message: "You're response was not valid. How many bags of pigeon peas harvested?"
+        },
+        2 => {
+          question_text: "How many bags are Grade 1?",
+          valid_responses: :less_than_bags_harvested,
+          save_key: :grade_1_bags,
+          next_question: 3,
+          error_message: "You're response was not valid. How many bags are Grade 1?"
+        },
+        3 => {
+          question_text: "How many bags are Grade 2?",
+          valid_responses: :less_than_bags_harvested_minus_grade_1,
+          save_key: :grade_2_bags,
+          next_question: 4,
+          error_message: "You're response was not valid. How many bags are Grade 2?"
+        },
+        4 => {
+          question_text: "How many bags are ungraded?",
+          valid_responses: :less_than_bags_harvested_minus_grade_1_and_2,
+          save_key: :ungraded_bags,
+          next_question: 5,
+          error_message: "You're response was not valid. How many bags are ungraded?"
+        },
+        5 => {
+          question_text: "Other crops harvested? \n1. Yes \n2. No",
+          valid_responses: ["1", "2"],
+          save_key: :other_crops_harvested,
+          before_next_question_callback: :save_crop_data,
+          next_question: {"1" => 7, "2" => 6},
+          error_message: "You're response was not valid. Other crops harvested? \n1. Yes \n2. No"
+        },
+        6 => {
+          question_text: "Thank you for reporting on EAFF eGranary.",
+          valid_responses: nil,
+          save_key: nil,
+          next_question: nil,
+          error_message: nil
+        },
+        7 => {
+          question_text: :get_harvesting_menu_text,
+          valid_responses: :get_harvesting_menu_valid_responses,
+          save_key: :crop_harvested,
+          next_question: nil,
+          wait_until_response: true,
+          next_form: :get_report_harvesting_form,
+          error_message: :get_harvesting_menu_error_message
+        }
+      },
+      model: PigeonPeasReport,
+      form_last_action: :new_report
+    }
+  end
+
 
   ####################################
   ### Validation Utility Functions ###

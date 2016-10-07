@@ -1,0 +1,2 @@
+class PigeonPeasReportsController < CropController
+end

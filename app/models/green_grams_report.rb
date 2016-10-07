@@ -49,7 +49,7 @@ class GreenGramsReport < ActiveRecord::Base
       r.planting_report = last_planting_report
     end
 
-    r.save
+    r.save unless session[:dont_perform_new_report_in_request]
 
     return :home_menu
   end

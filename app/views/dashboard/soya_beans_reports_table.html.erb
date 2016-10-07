@@ -1,0 +1,23 @@
+<%= render 'layouts/advanced_search' %>
+
+<table id="soya-beans-reports-table", data-source="<%= soya_beans_reports_table_path(@datatable_search_params) %>">
+  <thead>
+    <tr>
+      <th>Farmer Name</th>
+      <th>Phone Number</th>
+      <th>Farmer Group</th>
+      <th>Reporting Time</th>
+      <th>KG of Seed Planted</th>
+      <th>Bags Harvested</th>
+      <th>Grade 1 Bags</th>
+      <th>Grade 2 Bags</th>
+      <th>Ungraded Bags</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to "Download Excel", soya_beans_reports_path(format: "xls"), class: "btn btn-sm btn-primary"%>
+</p>

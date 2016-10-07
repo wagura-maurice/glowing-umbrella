@@ -1,3 +1,2 @@
 class MaizeReportsController < CropController
-
 end

@@ -1,0 +1,2 @@
+class SoyaBeansReportsController < CropController
+end
