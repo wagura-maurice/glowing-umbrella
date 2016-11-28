@@ -91,4 +91,8 @@ module FormGetter
     get_form(form_name)[:form_last_action]
   end
 
+  def skip_last_action?(form_name, question_id)
+    get_form(form_name)[:questions][question_id][:skip_last_action] == true
+  end
+
 end

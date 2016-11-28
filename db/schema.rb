@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006034841) do
+ActiveRecord::Schema.define(version: 20161128021727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20161006034841) do
     t.string   "county"
     t.string   "ward"
     t.string   "nearest_town"
-    t.string   "crops",                     array: true
+    t.string   "crops",                                     array: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "reporting_as"
@@ -89,6 +89,8 @@ ActiveRecord::Schema.define(version: 20161006034841) do
     t.string   "name"
     t.string   "gender"
     t.integer  "year_of_birth"
+    t.boolean  "accepted_loan_tnc",         default: false
+    t.string   "pin"
   end
 
   create_table "green_grams_reports", force: :cascade do |t|
@@ -107,6 +109,23 @@ ActiveRecord::Schema.define(version: 20161006034841) do
 
   add_index "green_grams_reports", ["farmer_id"], name: "index_green_grams_reports_on_farmer_id", using: :btree
   add_index "green_grams_reports", ["harvest_report_id"], name: "index_green_grams_reports_on_harvest_report_id", using: :btree
+
+  create_table "loans", force: :cascade do |t|
+    t.string   "loan_type"
+    t.float    "amount"
+    t.integer  "season"
+    t.datetime "disbursed_date"
+    t.datetime "repaid_date"
+    t.float    "service_charge"
+    t.string   "disbursal_method"
+    t.string   "repayment_method"
+    t.string   "voucher_code"
+    t.integer  "farmer_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "loans", ["farmer_id"], name: "index_loans_on_farmer_id", using: :btree
 
   create_table "maize_reports", force: :cascade do |t|
     t.float    "acres_planted"

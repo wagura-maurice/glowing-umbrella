@@ -4,7 +4,8 @@ module FormValidation
   RESPONSE_TYPES = [:any, :any_number, :unique_id_number, :any_letters, :any_year,
                     :less_than_bags_harvested, :less_than_bags_harvested_and_pishori,
                     :less_than_bags_harvested_minus_grade_1, :less_than_bags_harvested_and_pishori_and_super,
-                    :less_than_bags_harvested_minus_grade_1_and_2]
+                    :less_than_bags_harvested_minus_grade_1_and_2, :valid_pin,
+                    :authenticate_national_id, :authenticate_pin]
 
 
   ####################################
@@ -52,6 +53,10 @@ module FormValidation
     return @response <= bags_harvested - pishori_bags - super_bags
   end
 
+
+  def valid_pin(pin)
+    return pin.length == 5
+  end
 
   # Validate county
   def self.valid_county

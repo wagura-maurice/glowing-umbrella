@@ -6,10 +6,10 @@ module HomeMenuForm
       questions: {
         1 => {
           question_text: :get_home_menu_welcome_message,
-          valid_responses: ["1", "2", "3"],
+          valid_responses: ["1", "2", "3", "4"],
           save_key: :plant_or_harvest,
-          next_question: {"1" => 2, "2" => 4, "3" => 5},
-          error_message: "Sorry, that answer was not valid. What do you want to do? \n1. Report Planting\n2. Report Harvest\n"
+          next_question: {"1" => 2, "2" => 4, "3" => 7, "4" => 5},
+          error_message: "Sorry, that answer was not valid. What do you want to do? \n1. Report Planting\n2. Report Harvest\n3. Request a Loan\n4. Exit Session"
         },
         2 => {
           question_text: :get_planting_menu_text,
@@ -48,6 +48,12 @@ module HomeMenuForm
           save_key: :has_other_crops_planted,
           next_question: {"1" => 2, "2" => 1},
           error_message: "Sorry, that answer was not valid. Other crops planted? \n1. Yes \n2. No"
+        },
+        7 => {
+          wait_until_response: true,
+          next_form: :get_next_loan_form,
+          start_next_form: true,
+          valid_responses: :any
         }
       },
       model: Farmer,
@@ -59,16 +65,17 @@ module HomeMenuForm
   def get_home_menu_welcome_message
     if @forms_filled.length == 0
       prefix = "Welcome to eGranary service T&C's apply."
-      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. Exit session"
+      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. Request a Loan\n4. Exit session"
     else
       prefix = ""
-      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. End Session"
+      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. Request a Loan\n4. End Session"
     end
     ret = prefix + " " + suffix
   end
 
 
   def reset_home_menu_if_no_action
+    debugger
     forms_filled = @forms_filled.dup
     forms_filled.delete(:user_registration)
     forms_filled.delete(:home_menu)

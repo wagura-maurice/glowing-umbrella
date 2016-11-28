@@ -31,7 +31,7 @@ class UssdController < ApplicationController
   def inbound
     # If a session doesn't exist, start a new one
     start_new_session unless session_exists?
-
+    debugger
     # Get response
     res = respond_to_form
 
@@ -42,6 +42,7 @@ class UssdController < ApplicationController
 
       # Start new form if it exists
       if has_next_form?
+        perform_post_question_action
         go_to_next_form
         res = res + " " + respond_to_form
         form_ended = false
@@ -116,7 +117,9 @@ class UssdController < ApplicationController
   def save_form_response
     model = @form[:model]
     last_action = @form[:form_last_action]
-    next_form = model.send(last_action, @session)
+    unless skip_last_action?(@current_form, @current_question)
+      next_form = model.send(last_action, @session)
+    end
     if next_form.present?
       @session[:forms_to_fill] << next_form
       @forms_to_fill << next_form

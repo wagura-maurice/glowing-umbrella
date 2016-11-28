@@ -7,6 +7,7 @@ class Farmer < ActiveRecord::Base
   has_many :nerica_rice_reports, dependent: :destroy
   has_many :soya_beans_reports, dependent: :destroy
   has_many :pigeon_peas_reports, dependent: :destroy
+  has_many :loans, dependent: :destroy
 
   include Exportable
 
@@ -93,6 +94,62 @@ class Farmer < ActiveRecord::Base
   end
 
 
+  def self.save_pin(session)
+    if session.has_key? :pin_value
+      f = Farmer.where(phone_number: session[:phone_number]).first
+      if f.national_id_number == session[:authenticated_national_id]
+        f.accepted_loan_tnc = true
+        f.pin = session[:pin_value]
+        f.save
+      end
+    end
+    return :loans_main_menu
+  end
+
+
+  def self.save_loan(session)
+    f = Farmer.where(phone_number: session[:phone_number]).first
+
+    if session.has_key?(:lima_loan_confirmation) && (session[:lima_loan_confirmation] == "1")
+      Loan.create(farmer: f,
+                  loan_type: 'lima',
+                  amount: session[:lima_loan_amount],
+                  season: $current_season,
+                  disbursed_date: Time.now,
+                  service_charge: 0.0,
+                  disbursal_method: 'mpesa')
+
+    elsif session.has_key?(:mavuno_loan_confirmation) && (session[:mavuno_loan_confirmation] == "1")
+      Loan.create(farmer: f,
+                  loan_type: 'mavuno',
+                  amount: session[:mavuno_loan_amount],
+                  season: $current_season,
+                  disbursed_date: Time.now,
+                  service_charge: 0.0,
+                  disbursal_method: 'mpesa')
+
+    elsif session.has_key?(:input_voucher_loan_confirmation) && (session[:input_voucher_loan_confirmation] == "1")
+      code = f.generate_voucher_code(9)
+      Loan.create(farmer: f,
+                  loan_type: 'input_voucher',
+                  amount: session[:input_voucher_loan_amount],
+                  season: $current_season,
+                  disbursed_date: Time.now,
+                  service_charge: 0.0,
+                  disbursal_method: 'mpesa',
+                  voucher_code: code)
+      msg = "Dear #{f.name}, your voucher number is #{code} \nPresent this voucher to the selected Agro dealers"
+      if Rails.env.development?
+        puts msg
+      else
+        SendMessages.send(f.phone_number, 'Jiunga', msg)
+      end
+
+    end
+
+    return :home_menu
+  end
+
   def registration_time
     self.created_at.strftime("%H:%M %p %d/%m/%y")
   end
@@ -104,6 +161,16 @@ class Farmer < ActiveRecord::Base
     else
       ""
     end
+  end
+
+  # Generates a random string from a set of easily readable characters
+  def generate_voucher_code(size = 9)
+    charset = %w{ 2 3 4 6 7 9 A C D E F G H J K M N P Q R T V W X Y Z}
+    code = (0...size).map{ charset.to_a[rand(charset.size)] }.join
+    while Loan.where(loan_type: 'input_voucher', voucher_code: code).exists?
+      code = (0...size).map{ charset.to_a[rand(charset.size)] }.join
+    end
+    return code
   end
 
 end

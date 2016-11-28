@@ -67,6 +67,12 @@ module Form
       return res > 1900 && res < 2015
     elsif valid_responses == :unique_id_number
       return !(Farmer.where(national_id_number: @response).exists?)
+    elsif valid_responses == :valid_pin
+       return valid_pin(@response)
+    elsif valid_responses == :authenticate_national_id
+      return get_farmer.national_id_number == @response
+    elsif valid_responses == :authenticate_pin
+      return get_farmer.pin == @response
     elsif valid_responses.is_a? Array
       return valid_responses.include? @response
     elsif valid_responses.is_a? Symbol
@@ -100,6 +106,11 @@ module Form
   ###############################
 
   def move_to_next_question
+    if move_to_another_form?
+      # Assumes next question is a hash
+      next_question = @next_question[@response]
+      return go_to_next_form self.send @form[:questions][next_question][:next_form]
+    end
     if wait_for_response?
       return go_to_next_form self.send @form[:questions][@current_question][:next_form]
     end
@@ -111,6 +122,7 @@ module Form
     else
       @current_question = @next_question
     end
+
     @next_question = get_next_question
   end
 
@@ -122,6 +134,18 @@ module Form
       return question[:wait_until_response]
     else
       return false
+    end
+  end
+
+  def move_to_another_form?
+    return false unless @next_question.is_a? Hash
+
+    # Assumes next question is a hash
+    next_question = @next_question[@response]
+    return false if next_question.nil?
+    question = @form[:questions][next_question]
+    if question.has_key?(:next_form) && question.has_key?(:start_next_form)
+      return question[:start_next_form]
     end
   end
 
