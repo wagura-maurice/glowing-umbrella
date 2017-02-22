@@ -21,6 +21,8 @@ Egranary::Application.routes.draw do
   get "ussd"    => "ussd#inbound"
   post "ussd"   => "ussd#inbound"
 
+  post "mpesa/customer_payment" => "payments#customer_payment"
+
   post "blast"  => "dashboard#blast", :as => "blast"
 
   resources :sessions
