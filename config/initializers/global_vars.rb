@@ -1,1 +1,1 @@
-$current_season = 2
+$current_season = 3
