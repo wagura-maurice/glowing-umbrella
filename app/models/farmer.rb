@@ -54,7 +54,12 @@ class Farmer < ActiveRecord::Base
 
     f.association_name = session[:association_name]
 
-    f.country = "Kenya"
+    country_code = f.phone_number[0..3]
+    if country_code == "+254"
+      f.country = "Kenya"
+    elsif country_code == "+256"
+      f.country = "Uganda"
+    end
 
     f.save
     return :home_menu
