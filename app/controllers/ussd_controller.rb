@@ -31,7 +31,6 @@ class UssdController < ApplicationController
   def inbound
     # If a session doesn't exist, start a new one
     start_new_session unless session_exists?
-    debugger
     # Get response
     res = respond_to_form
 

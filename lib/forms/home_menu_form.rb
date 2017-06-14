@@ -75,7 +75,6 @@ module HomeMenuForm
 
 
   def reset_home_menu_if_no_action
-    debugger
     forms_filled = @forms_filled.dup
     forms_filled.delete(:user_registration)
     forms_filled.delete(:home_menu)
