@@ -147,7 +147,7 @@ class Farmer < ActiveRecord::Base
       if Rails.env.development?
         puts msg
       else
-        SendMessages.send(f.phone_number, 'Jiunga', msg)
+        SendMessages.send(f.phone_number, 'eGRANARYKe', msg)
       end
 
     end

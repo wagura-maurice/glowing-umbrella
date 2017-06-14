@@ -12,17 +12,17 @@ module SendMessages
     # Instance variables
     @@api_endpoint = 'https://api.africastalking.com/version1/messaging'
     @@accept_type= 'application/json'
-    @@sender_id = "Jiunga"
+    @@sender_id = "eGRANARYKe"
 
 
     def batch_send(to, from='Jiunga', msg)
-        #unless Rails.env.development?
+        unless Rails.env.development?
             batches = get_batches(to)
             batches.each do |batch|
                 recipients = batch.join(',')
                 send(recipients, from, msg)
             end
-        #end
+        end
     end
 
     def get_batches(arr)
@@ -30,9 +30,9 @@ module SendMessages
     end
 
     def send(to, from, msg)
-        #unless Rails.env.development?
+        unless Rails.env.development?
             gateway.send_message(to, msg, from)
-        #end
+        end
     end
 
     def send_async(to, from, msg)

@@ -158,7 +158,7 @@ class DashboardController < ApplicationController
       to = Farmer.find(ids).map(&:phone_number)
     end
     unless Rails.env.development?
-      SendMessages.send(to, 'Jiunga', params["message"])
+      SendMessages.batch_send(to, 'eGRANARYKe', params["message"])
     end
     redirect_to :controller => :dashboard, :action => :index
   end

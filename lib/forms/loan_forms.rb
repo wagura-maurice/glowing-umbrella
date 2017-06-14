@@ -174,7 +174,7 @@ module LoanForms
   def send_tnc_sms
     debugger
     msg = "Please view the eGranary loans terms and conditions at http://bit.ly/2fGOZmp"
-    SendMessages.send(@phone_number, 'Jiunga', msg) unless Rails.env.development?
+    SendMessages.send(@phone_number, 'eGRANARYKe', msg) unless Rails.env.development?
     if Rails.env.development?
       puts msg
     end

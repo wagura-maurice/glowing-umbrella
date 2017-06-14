@@ -60,7 +60,7 @@ class UssdController < ApplicationController
 
     if is_last_question? && !has_next_form?
       msg = "Thank you for reporting on EAFF eGranary. EAFF will try and source for market for your harvest."
-      SendMessages.send(@phone_number, 'Jiunga', msg) unless Rails.env.development?
+      SendMessages.send(@phone_number, 'eGRANARYKe', msg) unless Rails.env.development?
     end
   end
 
