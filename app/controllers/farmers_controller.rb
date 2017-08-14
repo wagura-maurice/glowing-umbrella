@@ -9,7 +9,10 @@ class FarmersController < ApplicationController
     respond_to do |format|
       format.html
       format.csv { send_data @farmers.to_csv }
-      format.xls { send_data @farmers.to_csv(col_sep: "\t") }
+      format.xls {
+        debugger
+        send_data @farmers.to_csv(col_sep: "\t")
+      }
     end
   end
 #
