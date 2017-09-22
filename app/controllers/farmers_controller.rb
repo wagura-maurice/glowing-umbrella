@@ -48,7 +48,7 @@ class FarmersController < ApplicationController
   end
 
   def safe_params
-    return params.require(:farmer).permit(:name, :phone_number, :national_id_number, :association_name, :nearest_town, :county, :country, :year_of_birth, :gender)
+    return params.require(:farmer).permit(:name, :phone_number, :national_id_number, :association_name, :nearest_town, :county, :country, :year_of_birth, :gender, :received_loans)
   end
 
 end
