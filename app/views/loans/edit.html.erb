@@ -1,0 +1,106 @@
+<%= form_for @loan do |f| %>
+  <table>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td><%= f.label "Loan Commodity" %>:</td>
+      <td><%= f.select(:commodity, options_for_select([['Inputs', 'inputs'], ['Cash', 'cash'], ['Inputs and Cash', 'inputs and cash']], @loan.commodity)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :commodities_lent %>:</td>
+      <td><%= f.text_field :commodities_lent, :readonly => true %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :value %>:</td>
+      <td><%= f.text_field :value %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Time Period" %>:</td>
+      <td><%= f.select(:time_period, options_for_select([['Before Planting', 'before planting'], ['Production', 'production'], ['Post-Harvest', 'post-harvest']], @loan.time_period)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :interest_rate %>:</td>
+      <td><%= f.text_field :interest_rate %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Interest Period" %>:</td>
+      <td><%= f.select(:interest_period, options_for_select([['Month', 'month'], ['Year', 'year'], ['Day', 'day']], @loan.interest_period)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Interest Type" %>:</td>
+      <td><%= f.select(:interest_type, options_for_select([['Simple', 'simple'], ['Compounding', 'compounding']], @loan.interest_type)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :duration %>:</td>
+      <td><%= f.text_field :duration %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Duration Unit" %>:</td>
+      <td><%= f.select(:duration_unit, options_for_select([['Month', 'month'], ['Year', 'year'], ['Day', 'day']], @loan.duration_unit)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Currency" %>:</td>
+      <td><%= f.select(:currency, options_for_select([['KES', 'KES'], ['UGX', 'UGX']], @loan.currency)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :service_charge %>:</td>
+      <td><%= f.text_field :service_charge %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Loan Structure" %>:</td>
+      <td><%= f.select(:structure, options_for_select([['Installments', 'installments'], ['Balloon', 'balloon']], @loan.structure)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Loan Status" %>:</td>
+      <td><%= f.select(:status, options_for_select([['Application Started', 'application started'], ['Under Review', 'under review'], ['Approved', 'approved'], ['Loan Disbursed', 'loan disbursed'], ['Awaiting Payment', 'awaiting payment'], ['Fully Paid', 'fully paid'], ['Partially Paid', 'partially paid'], ['Written Off', 'written off'], ['Out For Collections', 'out for collections']], @loan.status)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :disbursed_date %>:</td>
+      <td><div style="position: relative"><%= f.text_field :disbursed_date, value: @loan.formatted_disbursal_date, data: {orig_date: @loan.disbursed_date.to_s} %></div></td>
+      <td>
+        <span class="input-group-addon" style="padding:5px;">
+          <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label "Disbursal Method" %>:</td>
+      <td><%= f.select(:disbursal_method, options_for_select([['Supplier', 'supplier'], ['M-Pesa', 'mpesa']], @loan.disbursal_method)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :repaid_date %>:</td>
+      <td><div style="position: relative"><%= f.text_field :repaid_date, value: @loan.formatted_repaid_date, data: {orig_date: @loan.repaid_date.to_s} %></div></td>
+      <td>
+        <span class="input-group-addon" style="padding:5px;">
+          <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label "Repayment Method" %>:</td>
+      <td><%= f.select(:repayment_method, options_for_select([['Supplier', 'supplier'], ['M-Pesa', 'mpesa']], @loan.repayment_method)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :voucher_code %>:</td>
+      <td><%= f.text_field :voucher_code, :readonly => true %></td>
+    </tr>
+    <tr>
+      <td><%= f.submit 'Save' %></td>
+    </tr>
+  </table>
+<% end %>
+
+<br />
+<br />
+<%= button_to "Delete Loan", @loan, {:method => :delete, data: { confirm: "Are you sure?" }} %>
+
+<script type="text/javascript">
+  $(function () {
+    d1 = $('#loan_repaid_date').attr('data-orig-date')
+    d2 = $('#loan_disbursed_date').attr('data-orig-date')
+    $('#loan_repaid_date').datetimepicker({defaultDate: d1, format: "DD-MM-YYYY"});
+    $('#loan_disbursed_date').datetimepicker({defaultDate: d2, format: 'DD-MM-YYYY'});
+  });
+</script>

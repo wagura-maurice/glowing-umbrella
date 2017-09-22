@@ -6,10 +6,10 @@ module HomeMenuForm
       questions: {
         1 => {
           question_text: :get_home_menu_welcome_message,
-          valid_responses: ["1", "2", "3"],
+          valid_responses: :get_home_menu_valid_responses,
           save_key: :plant_or_harvest,
-          next_question: {"1" => 2, "2" => 4, "3" => 5},
-          error_message: "Sorry, that answer was not valid. What do you want to do? \n1. Report Planting\n2. Report Harvest\n3. Exit Session"
+          next_question: :get_home_menu_next_question,
+          error_message: :get_home_menu_error_message
         },
         2 => {
           question_text: :get_planting_menu_text,
@@ -50,8 +50,9 @@ module HomeMenuForm
           error_message: "Sorry, that answer was not valid. Other crops planted? \n1. Yes \n2. No"
         },
         7 => {
+          next_question: {"3" => 1},
           wait_until_response: true,
-          next_form: :get_next_loan_form,
+          next_form: :view_loans_form,
           start_next_form: true,
           valid_responses: :any
         }
@@ -65,14 +66,42 @@ module HomeMenuForm
   def get_home_menu_welcome_message
     if @forms_filled.length == 0
       prefix = "Welcome to eGranary service T&C's apply."
-      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. Exit session"
     else
       prefix = ""
-      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. End Session"
     end
+
+    if get_farmer.received_loans
+      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. View Loans\n4. Exit Session"
+    else
+      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. Exit Session"
+    end
+
     ret = prefix + " " + suffix
   end
 
+  def get_home_menu_valid_responses
+    resp = ["1", "2", "3"]
+    if get_farmer.received_loans
+      resp << "4"
+    end
+    return resp
+  end
+
+  def get_home_menu_next_question
+    if get_farmer.received_loans
+      return {"1" => 2, "2" => 4, "3" => 7, "4" => 5}
+    else
+      return {"1" => 2, "2" => 4, "3" => 5}
+    end
+  end
+
+  def get_home_menu_error_message
+    if get_farmer.received_loans
+      return "Sorry, that answer was not valid. What do you want to do? \n1. Report Planting\n2. Report Harvest\n3. View Loans\n4. Exit Session"
+    else
+      return "Sorry, that answer was not valid. What do you want to do? \n1. Report Planting\n2. Report Harvest\n3. Exit Session"
+    end
+  end
 
   def reset_home_menu_if_no_action
     forms_filled = @forms_filled.dup
@@ -83,6 +112,5 @@ module HomeMenuForm
       @next_question = get_form(@current_form)[:questions][1][:next_question]
     end
   end
-
 
 end

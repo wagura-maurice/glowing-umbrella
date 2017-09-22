@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161128021727) do
+ActiveRecord::Schema.define(version: 20170918235856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,7 +90,8 @@ ActiveRecord::Schema.define(version: 20161128021727) do
     t.string   "gender"
     t.integer  "year_of_birth"
     t.boolean  "accepted_loan_tnc",         default: false
-    t.string   "pin"
+    t.boolean  "received_loans",            default: false
+    t.string   "pin_hash"
   end
 
   create_table "green_grams_reports", force: :cascade do |t|
@@ -111,12 +112,23 @@ ActiveRecord::Schema.define(version: 20161128021727) do
   add_index "green_grams_reports", ["harvest_report_id"], name: "index_green_grams_reports_on_harvest_report_id", using: :btree
 
   create_table "loans", force: :cascade do |t|
-    t.string   "loan_type"
-    t.float    "amount"
+    t.string   "commodity"
+    t.json     "commodities_lent"
+    t.float    "value"
+    t.string   "time_period"
     t.integer  "season"
+    t.integer  "year"
+    t.float    "interest_rate"
+    t.string   "interest_period"
+    t.string   "interest_type"
+    t.integer  "duration"
+    t.string   "duration_unit"
+    t.string   "currency"
+    t.float    "service_charge"
+    t.string   "structure"
+    t.string   "status"
     t.datetime "disbursed_date"
     t.datetime "repaid_date"
-    t.float    "service_charge"
     t.string   "disbursal_method"
     t.string   "repayment_method"
     t.string   "voucher_code"
@@ -166,6 +178,23 @@ ActiveRecord::Schema.define(version: 20161128021727) do
 
   add_index "nerica_rice_reports", ["farmer_id"], name: "index_nerica_rice_reports_on_farmer_id", using: :btree
   add_index "nerica_rice_reports", ["harvest_report_id"], name: "index_nerica_rice_reports_on_harvest_report_id", using: :btree
+
+  create_table "old_loans", force: :cascade do |t|
+    t.string   "loan_type"
+    t.float    "amount"
+    t.integer  "season"
+    t.datetime "disbursed_date"
+    t.datetime "repaid_date"
+    t.float    "service_charge"
+    t.string   "disbursal_method"
+    t.string   "repayment_method"
+    t.string   "voucher_code"
+    t.integer  "farmer_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "old_loans", ["farmer_id"], name: "index_old_loans_on_farmer_id", using: :btree
 
   create_table "pigeon_peas_reports", force: :cascade do |t|
     t.float    "kg_of_seed_planted"
@@ -245,13 +274,13 @@ ActiveRecord::Schema.define(version: 20161128021727) do
 
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "phone_number",                    limit: 255,             null: false
-    t.string   "email",                           limit: 255
+    t.string   "email",                           limit: 255,             null: false
     t.string   "crypted_password",                limit: 255
     t.string   "salt",                            limit: 255
     t.string   "first_name",                      limit: 255
     t.string   "last_name",                       limit: 255
     t.string   "country",                         limit: 255,             null: false
-    t.string   "username",                        limit: 255,             null: false
+    t.string   "username",                        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_me_token",               limit: 255
@@ -269,12 +298,12 @@ ActiveRecord::Schema.define(version: 20161128021727) do
     t.string   "activation_state",                limit: 255
     t.string   "activation_token",                limit: 255
     t.datetime "activation_token_expires_at"
+    t.string   "permissions"
   end
 
   add_index "users", ["activation_token"], name: "index_users_on_activation_token", using: :btree
   add_index "users", ["last_logout_at", "last_activity_at"], name: "index_users_on_last_logout_at_and_last_activity_at", using: :btree
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
-  add_index "users", ["username", "phone_number"], name: "index_users_on_username_and_phone_number", using: :btree
 
 end
