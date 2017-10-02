@@ -18,6 +18,8 @@ Egranary::Application.routes.draw do
   get "soya_beans_reports_table" => "dashboard#soya_beans_reports_table", :as => :soya_beans_reports_table
   get "pigeon_peas_reports_table" => "dashboard#pigeon_peas_reports_table", :as => :pigeon_peas_reports_table
 
+  post "farmers/:id/create_loan" => "farmers#create_loan", :as => :create_loan
+
   get "ussd"    => "ussd#inbound"
   post "ussd"   => "ussd#inbound"
 
@@ -28,6 +30,7 @@ Egranary::Application.routes.draw do
   resources :sessions
   resources :users
   resources :farmers
+  resources :loans
   resources :maize_reports
   resources :rice_reports
   resources :nerica_rice_reports

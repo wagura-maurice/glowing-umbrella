@@ -1,0 +1,33 @@
+<h4>Loans</h4>
+<% if @loan_count == 0 %>
+  <h5>No loans outstanding to this farmer</h5>
+<% else %>
+  <% @farmer.loans.each_with_index do |loan, i| %>
+    <h5>Loan #<%= i + 1 %> <%= link_to "Edit Loan", controller: "loans", action: "edit", id: loan %>
+    </h5>
+    <h6>Loan Commodity: <%= loan.commodity %></h6>
+    <h6>Loan Specifications: <%= loan.commodities_lent %></h6>
+    <h6>Loan Value: <%= loan.value %></h6>
+    <h6>Time Period: <%= loan.time_period %></h6>
+    <h6>Interest Rate: <%= loan.interest_rate %></h6>
+    <h6>Interest Period: <%= loan.interest_period %></h6>
+    <h6>Interest Type: <%= loan.interest_type %></h6>
+    <h6>Effective Loan Interest Rate: <%= loan.effective_loan_interest_rate %></h6>
+    <h6>Loan Duration: <%= loan.duration %> <%= loan.duration_unit %></h6>
+    <h6>Currency: <%= loan.currency %></h6>
+    <h6>Service Charge: <%= loan.service_charge %></h6>
+    <h6>Loan Structure: <%= loan.structure %></h6>
+    <h6>Loan Status: <%= loan.status %></h6>
+    <h6>Disbursed On: <%= loan.formatted_disbursal_date %></h6>
+    <h6>Repaid On: <%= loan.repaid_date %></h6>
+    <h6>Disbursal Method: <%= loan.disbursal_method %></h6>
+    <h6>Repayment Method: <%= loan.repayment_method %></h6>
+    <h6>Voucher Code: <%= loan.voucher_code %></h6>
+    <h6>Created At: <%= loan.formatted_created_at %></h6>
+    <br />
+  <% end %>
+<% end %>
+
+<%= button_to "Create Loan", :create_loan %>
+
+

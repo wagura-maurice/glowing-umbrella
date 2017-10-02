@@ -106,6 +106,10 @@ module Form
   ###############################
 
   def move_to_next_question
+    if @next_question.is_a? Symbol
+      @next_question = self.send(@next_question)
+    end
+
     if move_to_another_form?
       # Assumes next question is a hash
       next_question = @next_question[@response]
@@ -114,9 +118,7 @@ module Form
     if wait_for_response?
       return go_to_next_form self.send @form[:questions][@current_question][:next_form]
     end
-    if @next_question.is_a? Symbol
-      @next_question = self.send(@next_question)
-    end
+
     if @next_question.is_a? Hash
       @current_question = @next_question[@response]
     else

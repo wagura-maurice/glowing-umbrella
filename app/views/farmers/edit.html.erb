@@ -37,6 +37,10 @@
       <td><%= f.text_field :year_of_birth %></td>
     </tr>
     <tr>
+      <td><%= f.label "Has Received Loans" %>:</td>
+      <td><%= f.select(:received_loans, options_for_select([['True', true], ['False', false]], @farmer.received_loans)) %></td>
+    </tr>
+    <tr>
       <td><%= f.label :gender %>:</td>
       <td><%= f.select(:gender, options_for_select([['-', nil], ['Male', 'male'], ['Female', 'female']], @farmer.gender)) %></td>
     </tr>
@@ -47,5 +51,8 @@
 <% end %>
 
 <br />
+<%= render 'loans/view_loans' %>
 
+<br />
+<br />
 <%= button_to "Delete Farmer", @farmer, {:method => :delete} %>

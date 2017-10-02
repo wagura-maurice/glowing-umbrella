@@ -55,7 +55,9 @@ module FormValidation
 
 
   def valid_pin(pin)
-    return pin.length == 5
+    only_numbers = pin.scan(/\D/).empty?
+    length_of_4 = (pin.length == 4)
+    return only_numbers && length_of_4
   end
 
   # Validate county

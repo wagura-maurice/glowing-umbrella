@@ -2,6 +2,7 @@ class FarmersController < ApplicationController
 
   def edit
     @farmer = Farmer.find(params[:id])
+    @loan_count = @farmer.loans.count
   end
 
   def index
@@ -10,7 +11,6 @@ class FarmersController < ApplicationController
       format.html
       format.csv { send_data @farmers.to_csv }
       format.xls {
-        debugger
         send_data @farmers.to_csv(col_sep: "\t")
       }
     end
@@ -41,8 +41,14 @@ class FarmersController < ApplicationController
   end
 
 
+  def create_loan
+    @farmer = Farmer.find(params[:id])
+    @loan = Loan.create(farmer: @farmer)
+    redirect_to edit_loan_url(@loan)
+  end
+
   def safe_params
-    return params.require(:farmer).permit(:name, :phone_number, :national_id_number, :association_name, :nearest_town, :county, :country, :year_of_birth, :gender)
+    return params.require(:farmer).permit(:name, :phone_number, :national_id_number, :association_name, :nearest_town, :county, :country, :year_of_birth, :gender, :received_loans)
   end
 
 end

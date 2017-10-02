@@ -5,11 +5,15 @@ module UssdSession
   ####################################
 
   # Starts a new session
-  # If the farmer exists send them to the home menu
-  # Other ask the farmer to register
+  # If the farmer exists send them to the home menu or to setup loan account
+  # Else ask the farmer to register
   def start_new_session
     if farmer_exists?
-      new_session(:home_menu)
+      if needs_to_setup_loan_account?
+        new_session(:accept_loan_tnc_form)
+      else
+        new_session(:home_menu)
+      end
     else
       new_session(:user_registration)
     end
@@ -122,9 +126,22 @@ module UssdSession
   end
 
 
+  # Has the farmer received a loan but has not set up their loans account?
+  def needs_to_setup_loan_account?
+    f = get_farmer
+    return f.received_loans && f.pin_hash.nil?
+  end
+
+
   # Return a farmer object given the current phone_number
   def get_farmer
     @_farmer ||= Farmer.where(phone_number: get_phone_number).first
+  end
+
+
+  # Return farmer loans array given the current phone_number
+  def get_farmer_loans
+    @_farmer_loans ||= get_farmer.loans.order(:disbursed_date)
   end
 
 

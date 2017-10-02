@@ -55,8 +55,13 @@ end
 # gem 'capistrano', group: :development
 
 group :development, :test do
+<<<<<<< HEAD
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+=======
+    gem 'debugger'
+    gem 'spring'
+>>>>>>> feat/new-loans
 end
 
 gem 'sorcery', '~>0.9.0'
@@ -82,6 +87,7 @@ gem 'roo', '~> 2.1.0'
 gem 'dropbox-sdk'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
+gem 'bcrypt'
 
 # API
 gem 'rails-api'
