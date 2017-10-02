@@ -3,6 +3,6 @@
 Working version of the Egranary app for Mo-De
 
 In order to get the application running you need to do the following:
-1. Install ruby 1.9.3 and Rails 4.2.0
+1. Install ruby 2.3.1 and Rails 4.2.0
 2. Install postgres 9.3
 3. Run the rails server by typing $ rails s

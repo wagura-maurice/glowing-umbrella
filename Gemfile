@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "1.9.3"
+ruby "2.3.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~>4.2.0'
@@ -38,7 +38,7 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 2.5.3'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+#gem 'jbuilder', '~> 1.2'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -54,9 +54,9 @@ end
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
-# Use debugger
 group :development, :test do
-    gem 'debugger'
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
 end
 
 gem 'sorcery', '~>0.9.0'
@@ -68,7 +68,7 @@ gem 'newrelic_rpm'
 gem 'rails_12factor', group: :production # Required for Heroku
 gem 'dalli'
 gem 'memcachier'
-gem 'em-http-request'
+gem 'em-http-request', '~> 1.1.5'
 gem 'httparty'
 gem 'puma'
 gem 'connection_pool' # So that memcached can have a pool
@@ -82,5 +82,9 @@ gem 'roo', '~> 2.1.0'
 gem 'dropbox-sdk'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
+
+# API
+gem 'rails-api'
+gem 'active_model_serializers', '~> 0.10.0'
 
 

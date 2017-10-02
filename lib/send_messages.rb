@@ -6,7 +6,6 @@ module SendMessages
   extend self
 
   # Required libraries
-  require 'em-http-request'
   require 'AfricasTalkingGateway'
 
   # Instance variables
@@ -35,28 +34,28 @@ module SendMessages
     end
   end
 
-  def send_async(to, from, msg)
-    batches = get_batches(to)
-    EventMachine.run do
-      batches.each do |batch|
-        to = batch.join(',')
-        http = EventMachine::HttpRequest.new(@@api_endpoint).post(
-          :body => {:username => ENV['SMS_API_ID'], :from => from, :message => msg, :to => to},
-          :head => { 'apiKey' => ENV['SMS_API_KEY'], 'Accept' => @@accept_type}
-        )
-        p http.req
-        http.callback {
-          p http.response_header.status
-          p http.response_header
-          p http.response
-        }
+  # def send_async(to, from, msg)
+  #   batches = get_batches(to)
+  #   EventMachine.run do
+  #     batches.each do |batch|
+  #       to = batch.join(',')
+  #       http = EventMachine::HttpRequest.new(@@api_endpoint).post(
+  #         :body => {:username => ENV['SMS_API_ID'], :from => from, :message => msg, :to => to},
+  #         :head => { 'apiKey' => ENV['SMS_API_KEY'], 'Accept' => @@accept_type}
+  #       )
+  #       p http.req
+  #       http.callback {
+  #         p http.response_header.status
+  #         p http.response_header
+  #         p http.response
+  #       }
 
-        http.errback { p 'Uh oh'; p http.methods; p http.response; p http.state; p http.error; EventMachine.stop }
-      end
-      sleep(2.0)
-      EventMachine.stop
-    end
-  end
+  #       http.errback { p 'Uh oh'; p http.methods; p http.response; p http.state; p http.error; EventMachine.stop }
+  #     end
+  #     sleep(2.0)
+  #     EventMachine.stop
+  #   end
+  # end
 
   def gateway
     @gateway ||= AfricasTalkingGateway.new(ENV['SMS_API_ID'], ENV['SMS_API_KEY'])
