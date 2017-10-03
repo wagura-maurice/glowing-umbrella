@@ -5,7 +5,7 @@ class Api::ApiController < ActionController::API
 
   # All requests ALWAYS MUST be authenticated. Removing this before filter
   # would lead to data leaks and expose clients data to the possibly wrong caller.
-  #before_filter :authenticate_request
+  before_filter :authenticate_request
   before_filter :check_params, :only => [:create, :update]
 
 
@@ -25,7 +25,7 @@ class Api::ApiController < ActionController::API
     #
     # We need to authenticate that this request is valid by computing the HMac
     # of the input and then comparing it against the provided signature.
-    # If they match, we can set the tenant given on the unique AuroraKey.
+    # If they match, we can set the tenant given on the unique ApiKey.
 
     # Pre-process: Log each request
     Rails.logger.info "API Request: '#{request.original_url}'"
@@ -88,7 +88,6 @@ class Api::ApiController < ActionController::API
 
   def correct_signature?(key, timestamp, provided_signature, api_secret,
       custom_params, request_method, full_path)
-
     Rails.logger.info "Raw Customer Parameters before flattening: #{custom_params}"
     request_string = HMacHelper.format_request_string(request_method,
                                                       full_path,
@@ -130,7 +129,7 @@ class Api::ApiController < ActionController::API
   def timestamp_valid?(timestamp)
     begin
       time = timestamp.to_time
-      valid_time_period = Time.now - 15.minutes
+      valid_time_period = Time.now - 1.hour
       return time > valid_time_period
     rescue
       return false

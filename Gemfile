@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.3.1"
+ruby "2.3.5"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~>4.2.0'
@@ -55,13 +55,8 @@ end
 # gem 'capistrano', group: :development
 
 group :development, :test do
-<<<<<<< HEAD
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-=======
-    gem 'debugger'
-    gem 'spring'
->>>>>>> feat/new-loans
 end
 
 gem 'sorcery', '~>0.9.0'
@@ -82,7 +77,7 @@ gem 'jquery-datatables-rails'
 gem 'ajax-datatables-rails'
 gem 'groupdate'
 gem "chartkick"
-gem 'rollbar', '~> 1.2.7'
+gem 'rollbar'
 gem 'roo', '~> 2.1.0'
 gem 'dropbox-sdk'
 gem 'momentjs-rails', '>= 2.9.0'

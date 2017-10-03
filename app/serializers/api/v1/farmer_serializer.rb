@@ -3,26 +3,17 @@ class Api::V1::FarmerSerializer < ActiveModel::Serializer
     :association_name,
     :country,
     :county,
-    :egranary_member_since,
+    :registration_time,
     :name,
     :gender,
     :year_of_birth,
-    :rec
+    :received_loans
 
 
-    def egranary_member_since
-      object.created_at
-    end
+  def reports
+    instance_options[:farmer_reports]
+  end
 
-    def reports
-      beans_reports = object.beans_reports
-      black_eyed_beans_reports = object.black_eyed_beans_reports
-      green_grams_reports = object.black_eyed_beans_reports
-      maize_reports = object.maize_reports
-      nerica_rice_reports = object.nerica_rice_reports
-      pigeon_peas_reports = object.pigeon_peas_reports
-      rice_reports = object.rice_reports
-      soya_beans_reports = object.soya_beans_reports
-      reports = []
-    end
+  has_many :reports, include_data: true, serializer: Api::V1::ReportSerializer
+  has_many :loans, serializer: Api::V1::LoanSerializer
 end

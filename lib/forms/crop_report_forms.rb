@@ -1,32 +1,5 @@
 module CropReportForms
 
-  # Constants
-  @@crops = {maize: { model: MaizeReport,
-                      text: 'Maize'
-                    },
-             rice: { model: RiceReport,
-                     text: 'Rice (irrigated)'
-                   },
-             nerica_rice: { model: NericaRiceReport,
-                            text: 'NERICA Rice (rainfed)'
-                          },
-             beans: { model: BeansReport,
-                      text: 'Beans'
-                    },
-             green_grams: { model: GreenGramsReport,
-                            text: 'Green Grams (Ndengu)'
-                          },
-             black_eyed_beans: { model: BlackEyedBeansReport,
-                                 text: 'Black Eyed Beans (Njahi)'
-                               },
-            soya_beans: { model: SoyaBeansReport,
-                          text: 'Soya Beans'
-                        },
-            pigeon_peas: { model: PigeonPeasReport,
-                           text: 'Pigeon Peas'
-                         }
-            }
-
   def maize_report
     {
       start_id: 1,
@@ -533,7 +506,7 @@ module CropReportForms
 
     # Want to show all crops that we have a planting report for but not a harvest report in the last 2 months
     i = 1
-    @@crops.each do |crop_name, data|
+    CROPS.each do |crop_name, data|
       crop_report = data[:model]
       last_crop_report = crop_report.where(farmer: farmer).where("created_at >= ? ", two_months_ago).where(report_type: 'planting').where(harvest_report_id: nil).order(created_at: :desc).first
       if last_crop_report.present?
@@ -565,7 +538,7 @@ module CropReportForms
 
     # Want to show all crops that we don't have a planting report for from the last two months that has a harvesting report
     i = 1
-    @@crops.each do |crop_name, data|
+    CROPS.each do |crop_name, data|
       crop_report = data[:model]
 
       last_crop_report = crop_report.where(farmer: farmer).where("created_at >= ? ", two_months_ago).where(report_type: 'planting').where(harvest_report_id: nil).order(created_at: :desc).first
@@ -636,7 +609,7 @@ module CropReportForms
       @session.delete :crop_planted
       return get_home_menu_welcome_message
     end
-    crop = @@crops[resp][:text]
+    crop = CROPS[resp][:text]
     return "How many kilograms of #{crop} did you plant?"
   end
 

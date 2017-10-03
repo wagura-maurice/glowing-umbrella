@@ -9,4 +9,8 @@ module CropBase
     self.report_type == "planting"
   end
 
+  def is_harvest?
+    self.report_type == "harvest"
+  end
+
 end

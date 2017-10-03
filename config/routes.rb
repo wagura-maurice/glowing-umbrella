@@ -43,7 +43,7 @@ Egranary::Application.routes.draw do
   # API
   namespace :api do
     namespace :v1 do
-      post "farmers/:phone_number" => "farmer#show"
+      get "farmers/:phone_number" => "farmers#show"
     end
   end
 
