@@ -1,0 +1,31 @@
+<%= render 'layouts/advanced_search' %>
+
+<table id="loans-table", data-source="<%= loans_table_path(@datatable_search_params) %>">
+  <thead>
+    <tr>
+      <th>Farmer Name</th>
+      <th>Commodity</th>
+      <th>Value</th>
+      <th>Time Period</th>
+      <th>Interest Rate</th>
+      <th>Interest Period</th>
+      <th>Duration</th>
+      <th>Duration Unit</th>
+      <th>Status</th>
+      <th>Disbursed Date</th>
+      <th>Disbursal Method</th>
+      <th>Creation Date</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+
+<p>
+  <%= link_to "Download Excel", loans_path(format: "xls"), class: "btn btn-sm btn-primary"%>
+</p>
+
+<% content_for :head do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
+<% end %>

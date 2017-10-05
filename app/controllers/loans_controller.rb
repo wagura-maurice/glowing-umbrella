@@ -1,5 +1,16 @@
 class LoansController < ApplicationController
 
+  def index
+    @loans = Loan.order(:created_at)
+    respond_to do |format|
+      format.html
+      format.csv { send_data @loans.to_csv }
+      format.xls {
+        send_data @loans.to_csv(col_sep: "\t")
+      }
+    end
+  end
+
   def edit
     @loan = Loan.find params[:id]
   end

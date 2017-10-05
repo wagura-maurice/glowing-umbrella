@@ -21,3 +21,7 @@
 <p>
   <%= link_to "Download Excel", farmers_path(format: "xls"), class: "btn btn-sm btn-primary"%>
 </p>
+
+<% content_for :head do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
+<% end %>

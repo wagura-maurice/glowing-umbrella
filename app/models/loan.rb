@@ -3,6 +3,23 @@ class Loan < ActiveRecord::Base
 
   before_create :set_defaults
 
+  include Exportable
+
+  def self.search_fields
+    return {"created_at" => {type: :time, key: "Registration Date"},
+            "commodity" => {type: :string, key: "Commodity"},
+            "value" => {type: :number, key: "Principal"},
+            "interest_rate" => {type: :number, key: "Interest Rate"},
+            "interest_period" => {type: :string, key: "Interest Period"},
+            "structure" => {type: :string, key: "Loan Structure"},
+            "status" => {type: :string, key: "Loan Status"},
+            "disbursed_date" => {type: :time, key: "Disbursed Date"},
+            "repaid_date" => {type: :time, key: "Repaid Date"},
+            "disbursal_method" => {type: :string, key: "Disbursal Method"},
+            "farmer_id" => {type: :string, key: "Farmer ID"},
+            }
+  end
+
   def set_defaults
     self.commodity = 'inputs' unless self.commodity.present?
     self.value = 0.0 unless self.value.present?
@@ -58,7 +75,7 @@ class Loan < ActiveRecord::Base
 
 
   def formatted_created_at
-    return formatted_time(self.create_at)
+    return formatted_time(self.created_at)
   end
 
 

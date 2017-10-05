@@ -1,48 +1,61 @@
 class BeansReportDatatable < AjaxDatatablesRails::Base
+
   include ModelSearch
 
   def_delegator :@view, :link_to
   def_delegator :@view, :edit_beans_report_path
 
-  def sortable_columns
+
+  def view_columns
     # Declare strings in this format: ModelName.column_name
-    @sortable_columns ||= ['Farmer.name', 'BeansReport.created_at', 'BeansReport.kg_of_seed_planted', 'BeansReport.bags_harvested', 'BeansReport.grade_1_bags', 'BeansReport.grade_2_bags', 'BeansReport.ungraded_bags']
+    # or in aliased_join_table.column_name format
+    @view_columns ||= {
+      # id: { source: "User.id", cond: :eq },
+      # name: { source: "User.name", cond: :like }
+      farmer_name:         { source: "Farmer.name",                    cond: :like      , searchable: true,  orderable: true },
+      farmer_phone_number: { source: "Farmer.phone_number",            cond: :like      , searchable: true,  orderable: false },
+      farmer_association:  { source: "Farmer.association_name",        cond: :like      , searchable: true,  orderable: false },
+      reporting_time:      { source: "BeansReport.created_at",         cond: :date_range, searchable: false, orderable: true },
+      kg_of_seed_planted:  { source: "BeansReport.kg_of_seed_planted", cond: :gteq      , searchable: false, orderable: true },
+      bags_harvested:      { source: "BeansReport.bags_harvested",     cond: :gteq      , searchable: false, orderable: true },
+      grade_1_bags:        { source: "BeansReport.grade_1_bags",       cond: :gteq      , searchable: false, orderable: true },
+      grade_2_bags:        { source: "BeansReport.grade_2_bags",       cond: :gteq      , searchable: false, orderable: true },
+      ungraded_bags:       { source: "BeansReport.ungraded_bags",      cond: :gteq      , searchable: false, orderable: true }
+    }
   end
 
-  def searchable_columns
-    # Declare strings in this format: ModelName.column_name
-    @searchable_columns ||= ['Farmer.name', 'Farmer.phone_number', 'Farmer.association_name']
-  end
 
   private
 
+
   def data
     records.map do |record|
-      [
-        # comma separated list of the values for each cell of a table row
-        # example: record.attribute,
-        link_to(record.farmer.display_name, edit_beans_report_path(record)),
-        record.farmer.phone_number,
-        record.farmer.association_name,
-        link_to(record.reporting_time, edit_beans_report_path(record)),
-        record.kg_of_seed_planted,
-        record.bags_harvested,
-        record.grade_1_bags,
-        record.grade_2_bags,
-        record.ungraded_bags
-      ]
+      {
+        # example:
+        # id: record.id,
+        # name: record.name
+        farmer_name: link_to(record.farmer.display_name, edit_beans_report_path(record)),
+        farmer_phone_number: record.farmer.phone_number,
+        farmer_association: record.farmer.association_name,
+        reporting_time: link_to(record.reporting_time, edit_beans_report_path(record)),
+        kg_of_seed_planted: record.kg_of_seed_planted,
+        bags_harvested: record.bags_harvested,
+        grade_1_bags: record.grade_1_bags,
+        grade_2_bags: record.grade_2_bags,
+        ungraded_bags: record.ungraded_bags
+      }
     end
   end
+
 
   def base_query
     BeansReport.includes(:farmer).references(:farmer)
   end
 
+
   def get_raw_records
-    # insert query here
     records = run_queries(BeansReport, params)
     return records
-    BeansReport.all.includes(:farmer).references(:farmer)
   end
 
   # ==== Insert 'presenter'-like methods below if necessary

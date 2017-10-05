@@ -4,9 +4,18 @@ ready = ->
     serverSide: true
     ajax: $('#nerica-rice-reports-table').data('source')
     pagingType: 'full_numbers'
-    # optional, if you want full pagination controls.
-    # Check dataTables documentation to learn more about
-    # available options.
+    stateSave: true
+    columns: [
+      {data: 'farmer_name'}
+      {data: 'farmer_phone_number'}
+      {data: 'farmer_association'}
+      {data: 'reporting_time'}
+      {data: 'kg_of_seed_planted'}
+      {data: 'bags_harvested'}
+      {data: 'pishori_bags'}
+      {data: 'super_bags'}
+      {data: 'other_bags'}
+    ]
 
 $(document).ready(ready)
-$(document).on('page:load', ready)
+$(document).on('turbolinks:load', ready)

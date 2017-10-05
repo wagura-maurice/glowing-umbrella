@@ -17,6 +17,7 @@ Egranary::Application.routes.draw do
   get "black_eyed_beans_reports_table" => "dashboard#black_eyed_beans_reports_table", :as => :black_eyed_beans_reports_table
   get "soya_beans_reports_table" => "dashboard#soya_beans_reports_table", :as => :soya_beans_reports_table
   get "pigeon_peas_reports_table" => "dashboard#pigeon_peas_reports_table", :as => :pigeon_peas_reports_table
+  get "loans_table" => "dashboard#loans_table", :as => :loans_table
 
   post "farmers/:id/create_loan" => "farmers#create_loan", :as => :create_loan
 

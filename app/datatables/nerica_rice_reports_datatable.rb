@@ -5,45 +5,56 @@ class NericaRiceReportsDatatable < AjaxDatatablesRails::Base
   def_delegator :@view, :edit_nerica_rice_report_path
 
 
-  def sortable_columns
+  def view_columns
     # Declare strings in this format: ModelName.column_name
-    @sortable_columns ||= ['Farmer.name', 'NericaRiceReport.created_at', 'NericaRiceReport.kg_of_seed_planted', 'NericaRiceReport.bags_harvested', 'NericaRiceReport.pishori_bags', 'NericaRiceReport.super_bags', 'NericaRiceReport.other_bags']
+    # or in aliased_join_table.column_name format
+    @view_columns ||= {
+      # id: { source: "User.id", cond: :eq },
+      # name: { source: "User.name", cond: :like }
+      farmer_name:         { source: "Farmer.name",                    cond: :like      , searchable: true,  orderable: true },
+      farmer_phone_number: { source: "Farmer.phone_number",            cond: :like      , searchable: true,  orderable: false },
+      farmer_association:  { source: "Farmer.association_name",        cond: :like      , searchable: true,  orderable: false },
+      reporting_time:      { source: "NericaRiceReport.created_at",          cond: :date_range, searchable: false, orderable: true },
+      kg_of_seed_planted:  { source: "NericaRiceReport.kg_of_seed_planted",  cond: :gteq      , searchable: false, orderable: true },
+      bags_harvested:      { source: "NericaRiceReport.bags_harvested",      cond: :gteq      , searchable: false, orderable: true },
+      pishori_bags:        { source: "NericaRiceReport.pishori_bags",        cond: :gteq      , searchable: false, orderable: true },
+      super_bags:          { source: "NericaRiceReport.super_bags",          cond: :gteq      , searchable: false, orderable: true },
+      other_bags:          { source: "NericaRiceReport.other_bags",          cond: :gteq      , searchable: false, orderable: true }
+    }
   end
 
-  def searchable_columns
-    # Declare strings in this format: ModelName.column_name
-    @searchable_columns ||= ['Farmer.name', 'Farmer.phone_number', 'Farmer.association_name']
-  end
-
-  private
 
   def data
     records.map do |record|
-      [
-        # comma separated list of the values for each cell of a table row
-        # example: record.attribute,
-        link_to(record.farmer.display_name, edit_nerica_rice_report_path(record)),
-        record.farmer.phone_number,
-        record.farmer.association_name,
-        link_to(record.reporting_time, edit_nerica_rice_report_path(record)),
-        record.kg_of_seed_planted,
-        record.bags_harvested,
-        record.pishori_bags,
-        record.super_bags,
-        record.other_bags
-      ]
+      {
+        # example:
+        # id: record.id,
+        # name: record.name
+        farmer_name: link_to(record.farmer.display_name, edit_nerica_rice_report_path(record)),
+        farmer_phone_number: record.farmer.phone_number,
+        farmer_association: record.farmer.association_name,
+        reporting_time: link_to(record.reporting_time, edit_nerica_rice_report_path(record)),
+        kg_of_seed_planted: record.kg_of_seed_planted,
+        bags_harvested: record.bags_harvested,
+        pishori_bags: record.pishori_bags,
+        super_bags: record.super_bags,
+        other_bags: record.other_bags
+      }
     end
   end
+
+
+  private
+
 
   def base_query
     NericaRiceReport.includes(:farmer).references(:farmer)
   end
 
+
   def get_raw_records
-    # insert query here
     records = run_queries(NericaRiceReport, params)
     return records
-    NericaRiceReport.all.includes(:farmer).references(:farmer)
   end
 
   # ==== Insert 'presenter'-like methods below if necessary

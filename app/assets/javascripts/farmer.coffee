@@ -4,9 +4,18 @@ ready = ->
     serverSide: true
     ajax: $('#farmers-table').data('source')
     pagingType: 'full_numbers'
-    # optional, if you want full pagination controls.
-    # Check dataTables documentation to learn more about
-    # available options.
+    stateSave: true
+    columns: [
+      {data: 'name'}
+      {data: 'phone_number'}
+      {data: 'nearest_town'}
+      {data: 'county'}
+      {data: 'national_id_number'}
+      {data: 'association_name'}
+      {data: 'year_of_birth'}
+      {data: 'gender'}
+      {data: 'registration_time'}
+    ]
 
 $(document).ready(ready)
-$(document).on('page:load', ready)
+$(document).on('turbolinks:load', ready)
