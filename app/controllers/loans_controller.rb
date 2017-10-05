@@ -61,6 +61,7 @@ class LoansController < ApplicationController
   # Converts the datetime formatted string given by the bootstrap datetimepicker
   # into a ruby object
   def get_datetime(str)
+    return nil if str == ""
     return DateTime.strptime(str, "%d-%m-%Y")
   end
 

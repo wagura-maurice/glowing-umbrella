@@ -1,0 +1,49 @@
+<div>
+  <h2>Float Account Summary</h2>
+  <table class="table table-bordered table-condensed table-hover">
+    <tbody>
+      <tr>
+        <td>Total Float Transaction</td>
+        <td>KES <%= number_with_delimiter(@float_transaction_value, :delimiter => ',') %></td>
+      </tr>
+      <tr>
+        <td>Total Disbursed Loans</td>
+        <td>KES <%= number_with_delimiter(@loans_disbursed_value, :delimiter => ',') %></td>
+      </tr>
+      <tr>
+        <td>Total Service Charges</td>
+        <td>KES <%= number_with_delimiter(@loans_disbursed_service_charge, :delimiter => ',') %></td>
+      </tr>
+      <tr>
+        <td>Current Float</td>
+        <td>KES <%= number_with_delimiter(@total_float, :delimiter => ',') %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Float Transactions</h2>
+  <table class="table table-bordered table-condensed table-hover">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Amount (KES)</th>
+        <th>Date</th>
+        <th>Entry Method</th>
+        <th>Entered By</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @float_transactions.each do |txn| %>
+        <tr>
+          <td><%= txn.txn_type %></td>
+          <td><%= txn.value %></td>
+          <td><%= txn.txn_date %></td>
+          <td><%= txn.entry_method %></td>
+          <td><%= txn.user.full_name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

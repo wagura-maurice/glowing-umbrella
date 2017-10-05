@@ -41,6 +41,23 @@ class DashboardController < ApplicationController
 
   end
 
+  def loans_summary
+    @total_loans = Loan.count
+    @total_loan_amount = Loan.sum :value
+    @avg_loan_amount = Loan.average :value
+    @avg_interest_rate = Loan.average :interest_rate
+    @total_repayments = 0
+    @avg_loan_repayment_rate = 0
+  end
+
+  def ageing_reports
+    ret = AgeingReportDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
   def farmers_table
     @search_fields = Farmer.search_fields
     @datatable_search_params = datatable_search_params(@search_fields)

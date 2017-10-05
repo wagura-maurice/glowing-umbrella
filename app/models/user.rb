@@ -6,9 +6,9 @@ class User < ActiveRecord::Base
 
 	has_many :farmer_inputs
 
-	#def full_name
-    #	return [first_name, last_name].join(" ")
-	#end
+	def full_name
+    return [self.first_name, self.last_name].join(" ")
+	end
 
 	before_create :set_country
 

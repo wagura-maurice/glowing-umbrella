@@ -45,6 +45,25 @@ class Loan < ActiveRecord::Base
   end
 
 
+  def loan_maturity_date
+    str = self.duration.to_s
+    if ['year', 'month', 'day'].include? self.duration_unit
+      str += ".#{self.duration_unit}"
+    else
+      return nil
+    end
+    return self.disbursed_date + eval(str)
+  end
+
+  def next_payment_date
+    if ['year', 'month', 'day'].include? self.duration_unit
+      str = "1.#{self.duration_unit}"
+    else
+      return nil
+    end
+    return self.disbursed_date + eval(str)
+  end
+
   # TO DO
   def credit_life_fee
     return 1000
@@ -52,32 +71,32 @@ class Loan < ActiveRecord::Base
 
 
   def formatted_disbursal_date
-    if self.disbursed_date.present?
-      return formatted_time(self.disbursed_date)
-    else
-      return nil
-    end
+    return formatted_date(self.disbursed_date)
   end
 
 
   def formatted_repaid_date
-    if self.disbursed_date.present?
-      return formatted_time(self.repaid_date)
-    else
-      return nil
-    end
+    return formatted_date(self.repaid_date)
   end
 
 
-  def formatted_time(str)
+  def formatted_date(str)
+    return nil if str.nil?
     return str.strftime("%d-%m-%Y")
   end
 
 
   def formatted_created_at
-    return formatted_time(self.created_at)
+    return formatted_date(self.created_at)
   end
 
+  def formatted_maturity_date
+    return formatted_date(self.loan_maturity_date)
+  end
+
+  def formatted_payment_date
+    return formatted_date(self.next_payment_date)
+  end
 
   # Generates a random string from a set of easily readable characters
   def generate_voucher_code(size = 9)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918235856) do
+ActiveRecord::Schema.define(version: 20171005172218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,20 @@ ActiveRecord::Schema.define(version: 20170918235856) do
 
   add_index "black_eyed_beans_reports", ["farmer_id"], name: "index_black_eyed_beans_reports_on_farmer_id", using: :btree
   add_index "black_eyed_beans_reports", ["harvest_report_id"], name: "index_black_eyed_beans_reports_on_harvest_report_id", using: :btree
+
+  create_table "egranary_floats", force: :cascade do |t|
+    t.float    "value"
+    t.integer  "year"
+    t.integer  "season"
+    t.string   "txn_type"
+    t.string   "currency"
+    t.string   "entry_method"
+    t.uuid     "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "egranary_floats", ["user_id"], name: "index_egranary_floats_on_user_id", using: :btree
 
   create_table "farmer_inputs", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer  "warehouse_number"
