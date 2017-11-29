@@ -1,4 +1,4 @@
-$current_season = 4
+$current_season = 3
 
 CROPS = {maize: { model: MaizeReport,
                   text: 'Maize'
