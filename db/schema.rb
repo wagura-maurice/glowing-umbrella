@@ -288,13 +288,13 @@ ActiveRecord::Schema.define(version: 20171005172218) do
 
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "phone_number",                    limit: 255,             null: false
-    t.string   "email",                           limit: 255,             null: false
+    t.string   "email",                           limit: 255
     t.string   "crypted_password",                limit: 255
     t.string   "salt",                            limit: 255
     t.string   "first_name",                      limit: 255
     t.string   "last_name",                       limit: 255
     t.string   "country",                         limit: 255,             null: false
-    t.string   "username",                        limit: 255
+    t.string   "username",                        limit: 255,             null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_me_token",               limit: 255
@@ -312,12 +312,12 @@ ActiveRecord::Schema.define(version: 20171005172218) do
     t.string   "activation_state",                limit: 255
     t.string   "activation_token",                limit: 255
     t.datetime "activation_token_expires_at"
-    t.string   "permissions"
   end
 
   add_index "users", ["activation_token"], name: "index_users_on_activation_token", using: :btree
   add_index "users", ["last_logout_at", "last_activity_at"], name: "index_users_on_last_logout_at_and_last_activity_at", using: :btree
   add_index "users", ["remember_me_token"], name: "index_users_on_remember_me_token", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", using: :btree
+  add_index "users", ["username", "phone_number"], name: "index_users_on_username_and_phone_number", using: :btree
 
 end
