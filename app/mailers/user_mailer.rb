@@ -4,7 +4,7 @@ class UserMailer < ActionMailer::Base
   def activation_needed_email(user)
     @user = user
     @activation_url  = "https://www.egranary.co/activate/#{@user.activation_token}"
-    @login_url  = "app.lipalater.com/login"
+    @login_url  = "www.egranary.co/login"
     mail(:to => @user.email, :subject => "Welcome to eGranary!")
   end
 
