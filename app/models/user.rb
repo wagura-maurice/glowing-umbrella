@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
 	authenticates_with_sorcery!
 
-	validates_presence_of :username, :phone_number
-	validates_uniqueness_of :phone_number, :username
+	validates_presence_of :email
+	validates_uniqueness_of :email
 
 	has_many :farmer_inputs
 
@@ -16,15 +16,13 @@ class User < ActiveRecord::Base
 		self.country = "Kenya"
 	end
 
-	def self.find_by_phone_number_or_username(val)
-		user = User.find_by_username(val)
-		if user.nil?
-			user = User.find_by_phone_number(val)
-		end
-		return user
-	end
-
-
+  def self.find_by_phone_number_or_email(val)
+    user = User.find_by_email(val.downcase)
+    if user.nil?
+      user = User.find_by_phone_number(val)
+    end
+    return user
+  end
 
 end
 

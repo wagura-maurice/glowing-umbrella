@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 	skip_before_filter :require_login, :only => [:new, :create]
 
 	def new
-		@user = User.new	
+		@user = User.new
 	end
 
 	def create
@@ -26,11 +26,11 @@ class UsersController < ApplicationController
 
 	protected
 	def user_params
-		params.require(:user).permit(:phone_number, :username, :password)
+		params.require(:user).permit(:email, :password)
 	end
 
 	def set_user
-		@user = login(user_params[:username], user_params[:password])
+		@user = login(user_params[:email], user_params[:password])
 	end
 
 	def put_messages_in_flash

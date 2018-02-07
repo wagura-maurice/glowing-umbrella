@@ -3,7 +3,7 @@
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging, :external
 # NOTE: Taken out external, remember_me
-Rails.application.config.sorcery.submodules = [:http_basic_auth, :reset_password, :activity_logging, :brute_force_protection, :user_activation, :session_timeout]
+Rails.application.config.sorcery.submodules = [:core, :http_basic_auth, :reset_password, :activity_logging, :brute_force_protection, :user_activation, :session_timeout]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -147,7 +147,7 @@ Rails.application.config.sorcery.configure do |config|
     # specify username attributes, for example: [:username, :email].
     # Default: `[:username]`
     #
-    user.username_attribute_names = [:username, :phone_number]
+    user.username_attribute_names = [:email]
 
 
     # change *virtual* password attribute, the one which is used until an encrypted one is generated.
@@ -159,7 +159,7 @@ Rails.application.config.sorcery.configure do |config|
     # downcase the username before trying to authenticate, default is false
     # Default: `false`
     #
-    # user.downcase_username_before_authenticating =
+    user.downcase_username_before_authenticating = true
 
 
     # change default email attribute.
@@ -257,7 +257,7 @@ Rails.application.config.sorcery.configure do |config|
     # your mailer class. Required.
     # Default: `nil`
     #
-    # user.user_activation_mailer =
+    user.user_activation_mailer = UserMailer
 
 
     # when true sorcery will not automatically
@@ -265,7 +265,7 @@ Rails.application.config.sorcery.configure do |config|
     # manually handle how and when email is sent.
     # Default: `false`
     #
-    user.activation_mailer_disabled = true
+    # user.activation_mailer_disabled = true
 
 
     # activation needed email method on your mailer class.
@@ -277,7 +277,7 @@ Rails.application.config.sorcery.configure do |config|
     # activation success email method on your mailer class.
     # Default: `:activation_success_email`
     #
-    # user.activation_success_email_method_name =
+    user.activation_success_email_method_name = nil
 
 
     # do you want to prevent or allow users that did not activate by email to login?
@@ -308,7 +308,7 @@ Rails.application.config.sorcery.configure do |config|
     # mailer class. Needed.
     # Default: `nil`
     #
-    # user.reset_password_mailer =
+    user.reset_password_mailer = UserMailer
 
 
     # reset password email method on your mailer class.
@@ -380,7 +380,7 @@ Rails.application.config.sorcery.configure do |config|
     # Unlock token mailer class
     # Default: `nil`
     #
-    # user.unlock_token_mailer = UserMailer
+    user.unlock_token_mailer = UserMailer
 
     # -- activity logging --
     # Last login attribute name.

@@ -5,8 +5,8 @@
 		<fieldset>
 			<legend>Sign in to eGranary</legend>
 			<div class="form-group">
-		    	<label for="login-credentials">Username or Phone</label>
-		    	<%= text_field_tag :phone_number_or_username, nil, class: "form-control", placeholder: "Enter username or Phone" %>
+		    	<label for="login-credentials">Email</label>
+		    	<%= text_field_tag :email, nil, class: "form-control", placeholder: "Email" %>
 		    </div>
 		    <div class="form-group">
 		    	<label for="login-password">Password</label>
@@ -17,5 +17,6 @@
 		    </div>
 		</fieldset>
 	<% end %>
+	<%= link_to 'Reset Password', 'reset_password_form' %>
 </div>
 <div class="col-md-4"></div>

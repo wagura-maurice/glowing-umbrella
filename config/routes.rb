@@ -7,6 +7,13 @@ Egranary::Application.routes.draw do
   get "login"   => "sessions#new",        :as => :login
   get "logout"  => "sessions#destroy",    :as => :logout
   #get "signup"  => "users#new",           :as => :signup
+  get 'activate/:id' => 'sessions#activate'
+  get 'reset_password_form/' => 'sessions#reset_password_form'
+  post 'post_reset_password_form/' => 'sessions#post_reset_password_form'
+  get 'reset_password/:id' => 'sessions#reset_password'
+  post 'post_reset_password/' => 'sessions#post_reset_password'
+
+
   get "app"     => "dashboard#index", :as => :app
   get "farmers_table" => "dashboard#farmers_table", :as => :farmers_table
   get "rice_reports_table" => "dashboard#rice_reports_table", :as => :rice_reports_table
