@@ -3,7 +3,12 @@ class CropController < ApplicationController
   # Action Methods
 
   def index
-    @all_models = model.order(:created_at)
+    if params['unscoped'] == 'true'
+      @all_models = model.unscoped.order(:created_at)
+    else
+      @all_models = model.order(:created_at)
+    end
+
     respond_to do |format|
       format.html
       format.csv { send_data @all_models.to_csv }
