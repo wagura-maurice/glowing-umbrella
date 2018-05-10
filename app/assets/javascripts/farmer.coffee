@@ -8,6 +8,7 @@ ready = ->
     columns: [
       {data: 'name'}
       {data: 'phone_number'}
+      {data: 'status'}
       {data: 'nearest_town'}
       {data: 'county'}
       {data: 'national_id_number'}

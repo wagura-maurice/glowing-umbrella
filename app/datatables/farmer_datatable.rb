@@ -9,6 +9,7 @@ class FarmerDatatable < AjaxDatatablesRails::Base
     @view_columns ||= {
       name:               { source: "Farmer.name",               cond: :like,       searchable: true,  orderable: true },
       phone_number:       { source: "Farmer.phone_number",       cond: :like,       searchable: true,  orderable: true },
+      status:             { source: "Farmer.status",             cond: :like,       searchable: false, orderable: false },
       nearest_town:       { source: "Farmer.nearest_town",       cond: :like,       searchable: false, orderable: true },
       county:             { source: "Farmer.county",             cond: :like,       searchable: false, orderable: true },
       national_id_number: { source: "Farmer.national_id_number", cond: :like,       searchable: true,  orderable: true },
@@ -27,6 +28,7 @@ class FarmerDatatable < AjaxDatatablesRails::Base
         # name: record.name
         name: link_to(record.display_name, edit_farmer_path(record)),
         phone_number: link_to(record.phone_number, edit_farmer_path(record)),
+        status: record.status,
         nearest_town: record.nearest_town,
         county: record.county,
         national_id_number: record.national_id_number,

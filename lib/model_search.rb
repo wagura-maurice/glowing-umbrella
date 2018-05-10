@@ -16,7 +16,6 @@ module ModelSearch
     search_fields = model.search_fields
     queries = get_queries(query_params, search_fields)
 
-    puts queries
     if queries.length == 0
       return base_query
     else

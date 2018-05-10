@@ -45,6 +45,10 @@
       <td><%= f.select(:gender, options_for_select([['-', nil], ['Male', 'male'], ['Female', 'female']], @farmer.gender)) %></td>
     </tr>
     <tr>
+      <td><%= f.label :status %>:</td>
+      <td><%= f.select(:status, options_for_select([['Pending', 'pending'], ['Verified', 'verified']], @farmer.status)) %></td>
+    </tr>
+    <tr>
       <td><%= f.submit 'Save' %></td>
     </tr>
   </table>

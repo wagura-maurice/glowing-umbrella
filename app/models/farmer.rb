@@ -16,6 +16,7 @@ class Farmer < ActiveRecord::Base
   include Exportable
   include BCrypt
 
+  enum status: %i[pending verified]
 
   def self.search_fields
     return {"created_at" => {type: :time, key: "Registration Date"},

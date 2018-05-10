@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180207044210) do
+ActiveRecord::Schema.define(version: 20180430123607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 20180207044210) do
     t.boolean  "accepted_loan_tnc",         default: false
     t.boolean  "received_loans",            default: false
     t.string   "pin_hash"
+    t.integer  "status",                    default: 0
   end
 
   create_table "green_grams_reports", force: :cascade do |t|
@@ -287,14 +288,14 @@ ActiveRecord::Schema.define(version: 20180207044210) do
   add_index "soya_beans_reports", ["soya_beans_reports_id"], name: "index_soya_beans_reports_on_soya_beans_reports_id", using: :btree
 
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "phone_number",                    limit: 255,             null: false
+    t.string   "phone_number",                    limit: 255
     t.string   "email",                           limit: 255,             null: false
     t.string   "crypted_password",                limit: 255
     t.string   "salt",                            limit: 255
     t.string   "first_name",                      limit: 255
     t.string   "last_name",                       limit: 255
     t.string   "country",                         limit: 255,             null: false
-    t.string   "username",                        limit: 255,             null: false
+    t.string   "username",                        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "remember_me_token",               limit: 255
