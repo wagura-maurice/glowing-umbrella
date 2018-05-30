@@ -19,7 +19,7 @@
 </table>
 
 <p>
-  <%= link_to "Download Excel", beans_reports_path(format: "xls"), class: "btn btn-sm btn-primary"%>
+  <%= link_to "Download Excel", beans_reports_path(@datatable_search_params.merge({format: "xls", unscoped: "true"})), class: "btn btn-sm btn-primary"%>
 </p>
 
 <% content_for :head do %>

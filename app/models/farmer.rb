@@ -20,6 +20,7 @@ class Farmer < ActiveRecord::Base
 
   def self.search_fields
     return {"created_at" => {type: :time, key: "Registration Date"},
+            "updated_at" => {type: :time, key: "Record Update Date"},
             "name" => {type: :string, key: "Name"},
             "nearest_town" => {type: :string, key: "Nearest Town"},
             "county" => {type: :string, key: "County"},
@@ -27,7 +28,8 @@ class Farmer < ActiveRecord::Base
             "phone_number" => {type: :string, key: "Phone Number"},
             "association_name" => {type: :string, key: "Organization"},
             "year_of_birth" => {type: :number, key: "Year of Birth"},
-            "gender" => {type: :select, key: "Gender", options: ['male', 'female']}
+            "gender" => {type: :select, key: "Gender", options: ['male', 'female']},
+            "status" => {type: :select, key: "Registration Status", options: [['pending', 0], ['verified', 1]]},
             }
   end
 

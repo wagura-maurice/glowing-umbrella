@@ -1,5 +1,7 @@
 class FarmersController < ApplicationController
 
+  include ModelSearch
+
   def edit
     @farmer = Farmer.find(params[:id])
     @loan_count = @farmer.loans.count
@@ -10,10 +12,16 @@ class FarmersController < ApplicationController
     respond_to do |format|
       format.html
       format.csv { send_data @farmers.to_csv }
-      format.xls {
-        send_data @farmers.to_csv(col_sep: "\t")
-      }
+      format.xls do
+        byebug
+        records = run_queries(Farmer, params)
+        send_data records.to_csv(col_sep: "\t")
+      end
     end
+  end
+
+  def base_query
+    Farmer
   end
 #
 #  def show
@@ -45,6 +53,17 @@ class FarmersController < ApplicationController
     @farmer = Farmer.find(params[:id])
     @loan = Loan.create(farmer: @farmer)
     redirect_to edit_loan_url(@loan)
+  end
+
+  def upload_button
+    upload_path = 'farmer_uploads/' + SecureRandom.uuid
+    @s3_direct_post = AwsAdapter.get_s3_direct_post(upload_path)
+  end
+
+  def upload_data
+    UploadFarmerDataWorker.perform_async(params[:upload_path], current_user.email)
+    add_to_alert("Uploading data. You will receive a status update at #{current_user.email} shortly.", "info")
+    redirect_to :app
   end
 
   def safe_params

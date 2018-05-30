@@ -84,6 +84,10 @@ gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 gem 'bcrypt'
 gem 'sendgrid-ruby'
+gem 'aws-sdk', '~> 2.3'
+gem 'sidekiq', '~> 4.0.0'
+gem 'redis'
+
 
 # API
 gem 'rails-api'

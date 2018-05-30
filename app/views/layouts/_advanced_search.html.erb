@@ -55,7 +55,11 @@
           <select class="form-control" id="<%= k %>__eq" name="<%= k %>__eq">
             <option></option>
             <% v[:options].each do |opt| %>
-              <option><%= opt %></option>
+              <% if opt.is_a? Array %>
+                <option value=<%= opt[1] %> ><%= opt[0] %></option>
+              <% else %>
+                <option><%= opt %></option>
+              <% end %>
             <% end %>
           </select>
         <% end %>

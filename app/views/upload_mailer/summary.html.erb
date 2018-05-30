@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Upload Results</h1>
+    <% if @errors.length == 0 %>
+      <p>You have successfully uploaded all <%= @count %> farmer records</p>
+    <% else %>
+      <p>You attempted to upload <%= @count %> farmer records. The following records had errors, the rest were successfully uploaded</p>
+      <ul>
+        <% @errors.each do |record| %>
+        <li>
+          Farmer with ID Number: <%= record[0] %>: <%= record[1].join(". ") %>
+        </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </body>
+</html>

@@ -1,5 +1,7 @@
 class CropController < ApplicationController
 
+  include ModelSearch
+
   # Action Methods
 
   def index
@@ -12,7 +14,10 @@ class CropController < ApplicationController
     respond_to do |format|
       format.html
       format.csv { send_data @all_models.to_csv }
-      format.xls { send_data @all_models.to_csv(col_sep: "\t") }
+      format.xls do
+        records = run_queries(model, params)
+        send_data records.to_csv(col_sep: "\t")
+      end
     end
   end
 
