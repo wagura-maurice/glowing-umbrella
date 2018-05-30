@@ -15,9 +15,6 @@ on_worker_boot do
     config['pool'] = ENV['MAX_THREADS'] || 2
     ActiveRecord::Base.establish_connection(config)
 
-    # Set up Redis connection pool
-    $redis = ConnectionPool.new(size: 5, timeout: 5) do
-      Redis.new(:url => ENV['REDISCLOUD_URL'])
-    end
+    $redis = Redis.new(:url => ENV["REDISCLOUD_URL"])
   end
 end
