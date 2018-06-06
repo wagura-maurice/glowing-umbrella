@@ -30,6 +30,7 @@ Egranary::Application.routes.draw do
   get "ageing_reports" => "dashboard#ageing_reports", :as => :ageing_reports_table
   get "upload_farmer_data" => "farmers#upload_button"
   post "post_upload_farmer_data" => "farmers#upload_data"
+  get "users_table" => "dashboard#users_table", :as => :users_table
 
   post "farmers/:id/create_loan" => "farmers#create_loan", :as => :create_loan
 

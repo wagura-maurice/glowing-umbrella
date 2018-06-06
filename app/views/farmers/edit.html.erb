@@ -48,9 +48,11 @@
       <td><%= f.label :status %>:</td>
       <td><%= f.select(:status, options_for_select([['Pending', 'pending'], ['Verified', 'verified']], @farmer.status)) %></td>
     </tr>
+    <% if current_user.is_admin? || current_user.is_updater? %>
     <tr>
       <td><%= f.submit 'Save' %></td>
     </tr>
+    <% end %>
   </table>
 <% end %>
 
@@ -59,4 +61,6 @@
 
 <br />
 <br />
+<% if current_user.is_admin? || current_user.is_updater? %>
 <%= button_to "Delete Farmer", @farmer, {:method => :delete} %>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180430123607) do
+ActiveRecord::Schema.define(version: 20180601215052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -289,12 +289,12 @@ ActiveRecord::Schema.define(version: 20180430123607) do
 
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "phone_number",                    limit: 255
-    t.string   "email",                           limit: 255,             null: false
+    t.string   "email",                           limit: 255,                    null: false
     t.string   "crypted_password",                limit: 255
     t.string   "salt",                            limit: 255
     t.string   "first_name",                      limit: 255
     t.string   "last_name",                       limit: 255
-    t.string   "country",                         limit: 255,             null: false
+    t.string   "country",                         limit: 255,                    null: false
     t.string   "username",                        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -313,6 +313,7 @@ ActiveRecord::Schema.define(version: 20180430123607) do
     t.string   "activation_state",                limit: 255
     t.string   "activation_token",                limit: 255
     t.datetime "activation_token_expires_at"
+    t.string   "role",                                        default: "viewer"
   end
 
   add_index "users", ["activation_token"], name: "index_users_on_activation_token", using: :btree

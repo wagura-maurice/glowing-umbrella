@@ -3,8 +3,12 @@
   <h5>No loans outstanding to this farmer</h5>
 <% else %>
   <% @farmer.loans.each_with_index do |loan, i| %>
-    <h5>Loan #<%= i + 1 %> <%= link_to "Edit Loan", controller: "loans", action: "edit", id: loan %>
+    <h5>Loan #<%= i + 1 %>
+      <% if current_user.is_admin? || current_user.is_updater? %>
+        <%= link_to "Edit Loan", controller: "loans", action: "edit", id: loan %>
+      <% end %>
     </h5>
+
     <h6>Loan Commodity: <%= loan.commodity %></h6>
     <h6>Loan Specifications: <%= loan.commodities_lent %></h6>
     <h6>Loan Value: <%= loan.value %></h6>
@@ -28,6 +32,8 @@
   <% end %>
 <% end %>
 
+<% if current_user.is_admin? || current_user.is_updater? %>
 <%= button_to "Create Loan", :create_loan %>
+<% end %>
 
 

@@ -24,6 +24,17 @@ class UsersController < ApplicationController
 		end
 	end
 
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update_attributes(safe_params)
+    add_to_alert("Successfully updated User", "success")
+    redirect_to :action => :edit
+  end
+
 	protected
 	def user_params
 		params.require(:user).permit(:email, :password)
@@ -46,5 +57,9 @@ class UsersController < ApplicationController
 			end
 		end
 	end
+
+  def safe_params
+    return params.require(:user).permit(:first_name, :last_name, :phone_number, :role, :activation_state)
+  end
 
 end

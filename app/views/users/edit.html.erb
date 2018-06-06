@@ -1,0 +1,41 @@
+<table class="table table-condensed table-hover">
+  <tr>
+    <td>Email:</td>
+    <td><%= @user.email %></td>
+  </tr>
+</table>
+<br />
+
+<%= form_for @user do |f| %>
+  <table>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td><%= f.label :first_name %>:</td>
+      <td><%= f.text_field :first_name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :last_name %>:</td>
+      <td><%= f.text_field :last_name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :phone_number %>:</td>
+      <td><%= f.text_field :phone_number %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Role" %>:</td>
+      <td><%= f.select(:role, options_for_select([['Admin', 'admin'], ['Updater', 'updater'], ['Management Team', 'mgmt'], ['Finance Team', 'finance'], ['Viewer', 'viewer']], @user.role)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Status" %>:</td>
+      <td><%= f.select(:activation_state, options_for_select([['Active', 'active'], ['Suspended', 'suspended']], @user.activation_state)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.submit 'Save' %></td>
+    </tr>
+  </table>
+<% end %>
+
+<br />

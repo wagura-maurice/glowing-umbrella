@@ -182,6 +182,8 @@
     </div>
     <br>
 </div>
+
+<% if current_user.is_admin? || current_user.is_updater? %>
 <h1>Send Messages</h1>
 <%= form_tag blast_path, method: :post do %>
     <fieldset>
@@ -196,6 +198,7 @@
             <%= submit_tag 'Send', class: "btn btn-primary" %>
         </div>
     </fieldset>
+<% end %>
 <% end %>
 <br>
 <br>

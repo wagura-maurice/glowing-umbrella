@@ -78,6 +78,16 @@ class DashboardController < ApplicationController
     end
   end
 
+  def users_table
+    @search_fields = Loan.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    ret = UserDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
   def maize_reports_table
     @search_fields = MaizeReport.search_fields
     @datatable_search_params = datatable_search_params(@search_fields)

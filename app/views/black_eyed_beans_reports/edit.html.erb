@@ -39,12 +39,16 @@
         <td><%= f.text_field :ungraded_bags %></td>
       </tr>
     <% end %>
+    <% if current_user.is_admin? || current_user.is_updater? %>
     <tr>
       <td><%= f.submit 'Save' %></td>
     </tr>
+    <% end %>
   </table>
 <% end %>
 
 <br />
 
+<% if current_user.is_admin? || current_user.is_updater? %>
 <%= button_to "Delete #{@model_name.titleize}", @record, {:method => :delete} %>
+<% end %>
