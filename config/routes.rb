@@ -39,6 +39,9 @@ Egranary::Application.routes.draw do
 
   post "mpesa/customer_payment" => "payments#customer_payment"
 
+  get "users/invite" => "users#invite", :as => :invite_user
+  post "users/post_invite" => "users#post_invite", :as => :post_invite
+
   post "blast"  => "dashboard#blast", :as => "blast"
 
   resources :sessions

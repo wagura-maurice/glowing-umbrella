@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 	end
 
   def edit
-    @user = current_user
+    @user = User.find(params[:id])
   end
 
   def update
@@ -33,6 +33,21 @@ class UsersController < ApplicationController
     @user.update_attributes(safe_params)
     add_to_alert("Successfully updated User", "success")
     redirect_to :action => :edit
+  end
+
+  def invite
+    @user = User.new
+  end
+
+  def post_invite
+    @user = User.create(create_params)
+    if @user.valid?
+      add_to_alert("Successfully invited User", "success")
+      UserMailer.activation_needed_email(@user).deliver_now
+    else
+      add_to_alert("Invalid user info", "error")
+    end
+    redirect_to :controller => :dashboard, :action => :users_table
   end
 
 	protected
@@ -60,6 +75,10 @@ class UsersController < ApplicationController
 
   def safe_params
     return params.require(:user).permit(:first_name, :last_name, :phone_number, :role, :activation_state)
+  end
+
+  def create_params
+    return params.require(:user).permit(:email, :first_name, :last_name, :phone_number, :role, :activation_state)
   end
 
 end

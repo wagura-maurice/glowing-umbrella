@@ -1,0 +1,37 @@
+<%= form_for @user, :url => {:action => "post_invite"} do |f| %>
+  <table>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td><%= f.label :email %>:</td>
+      <td><%= f.text_field :email %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :first_name %>:</td>
+      <td><%= f.text_field :first_name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :last_name %>:</td>
+      <td><%= f.text_field :last_name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :phone_number %>:</td>
+      <td><%= f.text_field :phone_number %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Role" %>:</td>
+      <td><%= f.select(:role, options_for_select([['Admin', 'admin'], ['Updater', 'updater'], ['Management Team', 'mgmt'], ['Finance Team', 'finance'], ['Viewer', 'viewer']], @user.role)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Status" %>:</td>
+      <td><%= f.select(:activation_state, options_for_select([['Active', 'active'], ['Suspended', 'suspended']], @user.activation_state)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.submit 'Invite' %></td>
+    </tr>
+  </table>
+<% end %>
+
+<br />
