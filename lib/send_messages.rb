@@ -30,7 +30,11 @@ module SendMessages
 
   def send(to, from, msg)
     unless Rails.env.development?
-      gateway.send_message(to, msg, from)
+      resp = gateway.send_message(to, msg, from)
+      status = resp[0].status
+      return status
+    else
+      return 'success'
     end
   end
 

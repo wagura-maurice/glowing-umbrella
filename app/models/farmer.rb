@@ -74,7 +74,7 @@ class Farmer < ActiveRecord::Base
     msg = "Thank you for registering for eGranary!"
     SendSmsWorker.perform_async(f.phone_number, 'eGRANARYKe', msg)
 
-    return :home_menu
+    return nil
   end
 
   def self.report_planting_or_harvesting(session)

@@ -52,7 +52,7 @@ module UserRegistrationForm
           valid_responses: ["1", "2"],
           save_key: :gender,
           next_question: 8,
-          error_message: "Sorry, that answer was not valid. What is your gender? \n1. Male\2. Female"
+          error_message: "Sorry, that answer was not valid. What is your gender? \n1. Male\n2. Female"
         },
         8 => {
           question_text: "How many acres is your farm?",
