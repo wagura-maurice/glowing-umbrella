@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180601215052) do
+ActiveRecord::Schema.define(version: 20180619002644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 20180601215052) do
     t.boolean  "received_loans",            default: false
     t.string   "pin_hash"
     t.integer  "status",                    default: 0
+    t.float    "farm_size"
   end
 
   create_table "green_grams_reports", force: :cascade do |t|

@@ -53,6 +53,7 @@ class Farmer < ActiveRecord::Base
     f.nearest_town = session[:nearest_town]
     f.county = session[:county]
     f.year_of_birth = session[:year_of_birth].to_i
+    f.farm_size = session[:farm_size].to_f
 
     if session[:gender] == "1"
       f.gender = "male"
@@ -70,6 +71,9 @@ class Farmer < ActiveRecord::Base
     end
 
     f.save
+    msg = "Thank you for registering for eGranary!"
+    SendSmsWorker.perform_async(f.phone_number, 'eGRANARYKe', msg)
+
     return :home_menu
   end
 

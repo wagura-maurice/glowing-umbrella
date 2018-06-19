@@ -55,6 +55,13 @@ module UserRegistrationForm
           error_message: "Sorry, that answer was not valid. What is your gender? \n1. Male\2. Female"
         },
         8 => {
+          question_text: "How many acres is your farm?",
+          valid_responses: :any_number,
+          save_key: :farm_size,
+          next_question: 9,
+          error_message: "Sorry, that answer was not valid. How many acres is your farm?"
+        },
+        9 => {
           question_text: "Thank you for registering!",
           valid_responses: nil,
           save_key: nil,

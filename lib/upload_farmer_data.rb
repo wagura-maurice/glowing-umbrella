@@ -111,7 +111,7 @@ module UploadFarmerData
       return value[/[a-zA-Z\s]+/] == value
     elsif valid_responses == :any_year
       res = value.to_i
-      return res > 1900 && res < 2018
+      return res > 1950 && res < 2018
     elsif valid_responses == :male_or_female
       char = value.downcase[0]
       if (char == "m") || (char == "f")

@@ -13,7 +13,6 @@ class FarmersController < ApplicationController
       format.html
       format.csv { send_data @farmers.to_csv }
       format.xls do
-        byebug
         records = run_queries(Farmer, params)
         send_data records.to_csv(col_sep: "\t")
       end

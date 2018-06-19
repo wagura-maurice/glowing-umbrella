@@ -64,7 +64,7 @@ module Form
       return @response[/[a-zA-Z\s]+/] == @response
     elsif valid_responses == :any_year
       res = @response.to_i
-      return res > 1900 && res < 2015
+      return res > 1950 && res < 2015
     elsif valid_responses == :unique_id_number
       return !(Farmer.where(national_id_number: @response).exists?)
     elsif valid_responses == :valid_pin

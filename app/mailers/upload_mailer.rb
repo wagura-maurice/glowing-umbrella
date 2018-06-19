@@ -8,4 +8,9 @@ class UploadMailer < ApplicationMailer
     mail(to: email, subject: 'Upload Summary')
   end
 
+  def download_email(email, path)
+    @path = path
+    mail(to: email, subject: 'eGranary Data Export')
+  end
+
 end
