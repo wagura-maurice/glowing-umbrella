@@ -20,10 +20,10 @@ class EmailExcelDataWorker
 
     records = run_queries(model, params)
     data = records.to_csv(col_sep: "\t")
-    file_name = model.to_s + "-" + SecureRandom.uuid
+    file_name = model.to_s + "-" + SecureRandom.uuid + '.csv'
     File.open(file_name, "w"){ |f| f << data }
     upload_path = 'excel_downloads/' + file_name
-    AwsAdapter.upload_file(upload_path, file_name)
+    AwsAdapter.upload_file(upload_path, file_name, content_type: 'text/csv')
     public_url = AwsAdapter.get_public_url(upload_path)
 
     # Send email about download
@@ -31,9 +31,12 @@ class EmailExcelDataWorker
   end
 
   def get_model(model_name)
-    model_name = self.class.to_s.chomp('Controller').singularize
-    model = Object.const_get(model_name)
-    return model
+    @model = Object.const_get(model_name)
+    return @model
+  end
+
+  def base_query
+    return @model
   end
 
 

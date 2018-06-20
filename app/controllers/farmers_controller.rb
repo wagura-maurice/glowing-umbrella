@@ -13,8 +13,12 @@ class FarmersController < ApplicationController
       format.html
       format.csv { send_data @farmers.to_csv }
       format.xls do
-        records = run_queries(Farmer, params)
-        send_data records.to_csv(col_sep: "\t")
+        # records = run_queries(Farmer, params)
+        # send_data records.to_csv(col_sep: "\t")
+
+        EmailExcelDataWorker.perform_async(Farmer.to_s, current_user.email, params)
+        add_to_alert("Check your email #{current_user.email} in a few minutes with the exported data", "success")
+        redirect_to records_table
       end
     end
   end

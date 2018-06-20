@@ -6,7 +6,11 @@ class LoansController < ApplicationController
       format.html
       format.csv { send_data @loans.to_csv }
       format.xls {
-        send_data @loans.to_csv(col_sep: "\t")
+        # send_data @loans.to_csv(col_sep: "\t")
+
+        EmailExcelDataWorker.perform_async(Loan.to_s, current_user.email, params)
+        add_to_alert("Check your email #{current_user.email} in a few minutes with the exported data", "success")
+        redirect_to records_table
       }
     end
   end

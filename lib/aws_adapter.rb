@@ -5,9 +5,9 @@
 module AwsAdapter
   extend self
 
-  def upload_file(upload_path, local_path)
+  def upload_file(upload_path, local_path, options = {})
     obj = S3_BUCKET.object(upload_path)
-    obj.upload_file(local_path)
+    obj.upload_file(local_path, options)
   end
 
 
