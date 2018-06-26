@@ -19,7 +19,7 @@ class EmailExcelDataWorker
     end
 
     records = run_queries(model, params)
-    data = records.to_csv(col_sep: "\t")
+    data = records.to_csv(col_sep: ",")
     file_name = model.to_s + "-" + SecureRandom.uuid + '.csv'
     File.open(file_name, "w"){ |f| f << data }
     upload_path = 'excel_downloads/' + file_name
