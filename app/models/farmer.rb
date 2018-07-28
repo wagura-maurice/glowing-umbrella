@@ -29,6 +29,7 @@ class Farmer < ActiveRecord::Base
             "association_name" => {type: :string, key: "Organization"},
             "year_of_birth" => {type: :number, key: "Year of Birth"},
             "gender" => {type: :select, key: "Gender", options: ['male', 'female']},
+            "farm_size" => {type: :number, key: "Farm Size"},
             "status" => {type: :select, key: "Registration Status", options: [['pending', 0], ['verified', 1]]},
             }
   end

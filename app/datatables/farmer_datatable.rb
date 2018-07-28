@@ -16,6 +16,7 @@ class FarmerDatatable < AjaxDatatablesRails::Base
       association_name:   { source: "Farmer.association_name",   cond: :like,       searchable: true,  orderable: true },
       year_of_birth:      { source: "Farmer.year_of_birth",      cond: :eq,         searchable: false, orderable: true },
       gender:             { source: "Farmer.gender",             cond: :like,       searchable: false, orderable: true },
+      farm_size:          { source: "Farmer.farm_size",          cond: :gteq,       searchable: false, orderable: true },
       registration_time:  { source: "Farmer.created_at",         cond: :date_range, searchable: false, orderable: true }
     }
   end
@@ -35,6 +36,7 @@ class FarmerDatatable < AjaxDatatablesRails::Base
         association_name: record.association_name,
         year_of_birth: record.year_of_birth,
         gender: record.gender,
+        farm_size: record.farm_size,
         registration_time: record.registration_time
       }
     end

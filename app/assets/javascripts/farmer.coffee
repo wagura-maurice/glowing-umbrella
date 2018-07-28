@@ -15,6 +15,7 @@ ready = ->
       {data: 'association_name'}
       {data: 'year_of_birth'}
       {data: 'gender'}
+      {data: 'farm_size'}
       {data: 'registration_time'}
     ]
 
