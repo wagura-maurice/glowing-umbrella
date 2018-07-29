@@ -10,7 +10,7 @@ class UploadFarmerDataWorker
     resp = UploadFarmerData.upload(upload_path)
 
     # Send email about upload
-    UploadMailer.summary(email, resp[:tried], resp[:errors]).deliver_now
+    UploadMailer.farmer_summary(email, resp[:tried], resp[:errors]).deliver_now
   end
 
 

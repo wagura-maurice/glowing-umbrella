@@ -2,10 +2,16 @@ class UploadMailer < ApplicationMailer
 
   default from: "info@egranary.co"
 
-  def summary(email, count, errors)
+  def farmer_summary(email, count, errors)
     @count = count
     @errors = errors
-    mail(to: email, subject: 'Upload Summary')
+    mail(to: email, subject: 'Farmer Upload Summary')
+  end
+
+  def crop_summary(email, count, errors)
+    @count = count
+    @errors = errors
+    mail(to: email, subject: 'Crop Upload Summary')
   end
 
   def download_email(email, path)

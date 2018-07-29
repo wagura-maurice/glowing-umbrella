@@ -1,0 +1,11 @@
+<div>
+<h2>Upload Crop Data</h2>
+<h4>Step 1: Create a valid upload file using this <a href="https://s3-eu-west-1.amazonaws.com/egranary-uploads/eGranary_Crop_Upload_Template.xlsx">template file</a></h4>
+<h4>Step 2: Click the button below and upload the file</h4>
+<h4>Step 3: Check your email for a confirmation that the upload has completed in a few minutes</h4>
+
+<%= form_tag({action: :upload_data}, :class => 'directUploadCrop', data: { 'form-data' => (@s3_direct_post.fields), 'url' => @s3_direct_post.url, 'host' => URI.parse(@s3_direct_post.url).host }) do %>
+  <%= file_field_tag :crop_data %>
+<% end %>
+
+</div>

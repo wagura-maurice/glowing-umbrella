@@ -2,6 +2,17 @@ class CropController < ApplicationController
 
   include ModelSearch
 
+  def upload_button
+    upload_path = 'crop_uploads/' + SecureRandom.uuid
+    @s3_direct_post = AwsAdapter.get_s3_direct_post(upload_path)
+  end
+
+  def upload_data
+    UploadCropDataWorker.perform_async(params[:upload_path], current_user.email)
+    add_to_alert("Uploading data. You will receive a status update at #{current_user.email} shortly.", "info")
+    redirect_to :app
+  end
+
   # Action Methods
 
   def index

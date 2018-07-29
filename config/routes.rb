@@ -32,6 +32,9 @@ Egranary::Application.routes.draw do
   post "post_upload_farmer_data" => "farmers#upload_data"
   get "users_table" => "dashboard#users_table", :as => :users_table
 
+  get "upload_crop_data" => "crop#upload_button"
+  post "post_upload_crop_data" => "crop#upload_data"
+
   post "farmers/:id/create_loan" => "farmers#create_loan", :as => :create_loan
 
   get "ussd"    => "ussd#inbound"
