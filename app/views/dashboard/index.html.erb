@@ -7,6 +7,14 @@
                 <td><%= number_with_delimiter(@total_farmers, :delimiter => ',') %></td>
             </tr>
             <tr>
+                <td><a href="/farmers_table">Total Pending Farmers</a></td>
+                <td><%= number_with_delimiter(@total_pending_farmers, :delimiter => ',') %></td>
+            </tr>
+            <tr>
+                <td><a href="/farmers_table">Total Verified Farmers</a></td>
+                <td><%= number_with_delimiter(@total_verified_farmers, :delimiter => ',') %></td>
+            </tr>
+            <tr>
                 <td><a href="/farmers_table">Maize Farmers</a></td>
                 <td><%= number_with_delimiter(@maize_farmers_count, :delimiter => ',') %></td>
             </tr>
@@ -173,7 +181,9 @@
     <br>
     <div>
         <h4 class="chart-title">Farmer Registrations</h4>
-        <%= line_chart Farmer.group_by_day(:created_at).count %>
+        <%= line_chart ['pending', 'varified'].map { |status|
+          {name: status, data: Farmer.where(status: status).group_by_day(:created_at).count }
+        } %>
     </div>
     <br>
     <div>

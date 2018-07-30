@@ -9,6 +9,8 @@ class DashboardController < ApplicationController
 
     # Number of farmers
     @total_farmers = Farmer.count
+    @total_pending_farmers = Farmer.where(status: 0).count
+    @total_verified_farmers = Farmer.where(status: 1).count
 
     # Number of farmers by crop type
     @maize_farmers_count = MaizeReport.pluck(:farmer_id).uniq.length
