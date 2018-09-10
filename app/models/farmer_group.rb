@@ -35,6 +35,10 @@ class FarmerGroup < ActiveRecord::Base
     return farmers.flatten
   end
 
+  def farmer_ids
+    self.farmer_list.map { |val| val.id}
+  end
+
   def genders
     ret = {}
     self.farmer_list.each do |farmer|

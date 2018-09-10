@@ -21,13 +21,23 @@ module ModelSearch
     else
       ret = base_query
       queries.each do |query|
+        if query[:attribute] == 'farmer_group_id'
+          fg = FarmerGroup.find query[:value]
+          ids = fg.farmer_ids
+          ret = ret.where(id: ids)
+          next
+        end
         comp_symbol = get_comp_symbol(query[:comparator], search_fields[query[:attribute]][:type])
         if search_fields[query[:attribute]].has_key? :search_column
           search_attr = search_fields[query[:attribute]][:search_column]
         else
           search_attr = query[:attribute]
         end
-        ret = ret.where("#{search_attr} #{comp_symbol} ?", query[:value])
+        if (comp_symbol == 'ILIKE')
+          ret = ret.where("#{search_attr} #{comp_symbol} ?", "%#{query[:value]}%")
+        else
+          ret = ret.where("#{search_attr} #{comp_symbol} ?", query[:value])
+        end
       end
       return ret
     end

@@ -217,7 +217,7 @@
       </tbody>
     </table>
 
-  <h4>Farmers List</h4>
+  <h4>Farmers List <%= link_to "Send SMS", "/send_sms?farmer_group_id__eq=#{@farmer_group.id}"%> </h4>
   <h5>Total <%= @farmer_group.farmer_list.count %> farmers</h5>
   <ul>
     <% @farmer_group.farmer_list.each do |farmer| %>

@@ -31,6 +31,7 @@ class Farmer < ActiveRecord::Base
             "gender" => {type: :select, key: "Gender", options: ['male', 'female']},
             "farm_size" => {type: :number, key: "Farm Size"},
             "status" => {type: :select, key: "Registration Status", options: [['pending', 0], ['verified', 1]]},
+            "farmer_group_id" => {type: :number, key: "Farmer Group ID"}
             }
   end
 
@@ -137,7 +138,6 @@ class Farmer < ActiveRecord::Base
       ""
     end
   end
-
 
   # Encrypt the PIN
   def pin

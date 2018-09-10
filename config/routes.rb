@@ -35,6 +35,8 @@ Egranary::Application.routes.draw do
   get "upload_farmer_data" => "farmers#upload_button"
   post "post_upload_farmer_data" => "farmers#upload_data"
   get "users_table" => "dashboard#users_table", :as => :users_table
+  get "send_sms" => "dashboard#send_sms", :as => :send_sms
+  get "post_send_sms" => "dashboard#post_send_sms", :as => :post_send_sms
 
   post "post_upload_audited_financials" => "farmer_groups#post_upload_audited_financials"
   post "post_upload_management_accounts" => "farmer_groups#post_upload_management_accounts"

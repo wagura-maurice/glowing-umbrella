@@ -2,6 +2,8 @@ class DashboardController < ApplicationController
   require 'AfricasTalkingGateway'
   require 'send_messages'
 
+  include ModelSearch
+
   before_action :set_route_name
 
   def index
@@ -180,6 +182,27 @@ class DashboardController < ApplicationController
     end
   end
 
+  def send_sms
+    @search_fields = Farmer.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    records = run_queries(Farmer, params)
+    @farmer_count = records.count
+  end
+
+  def base_query
+    Farmer.all
+  end
+
+  def post_send_sms
+    byebug
+    records = run_queries(Farmer, params)
+    to = records.map(&:phone_number)
+    unless Rails.env.development?
+      SendMessages.batch_send(to, 'eGRANARYKe', params["message"])
+    end
+    add_to_alert("Successfully sent SMS", "success")
+    redirect_to :controller => :dashboard, :action => :send_sms
+  end
 
   def blast
     if params["send_messages_to"] == "1"

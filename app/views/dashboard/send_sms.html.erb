@@ -1,0 +1,24 @@
+<%= render 'layouts/advanced_search' %>
+
+<h1>Send Messages</h1>
+<h3>Farmers Targetted <%= @farmer_count %></h3>
+<%= form_tag post_send_sms_path, method: :get do %>
+  <fieldset>
+    <div class="form-group">
+      <label for="login-credentials">Message</label>
+      <%= text_area_tag :message, nil, class: "form-control", placeholder: "Enter your message", maxlength: 160 %>
+    </div>
+    <div>
+      <% @datatable_search_params.each do |k, v| %>
+        <% if param_is_query?(k, v) %>
+          <%= hidden_field_tag k, v %>
+        <% end %>
+      <% end %>
+
+      <% @options_for_select = options_for_select([['All', 1], ["Maize Farmers", 2], ["Rice Farmers", 3], ["Bean Farmers", 4], ["Green Gram Farmers", 5], ["Black Eyed Bean Farmers", 6], ["Soya Bean Farmers", 7], ["Pigeon Pea Farmers", 8]]) %>
+      <%= select_tag(:send_messages_to, @options_for_select) %>
+
+      <%= submit_tag 'Send', class: "btn btn-primary" %>
+    </div>
+  </fieldset>
+<% end %>
