@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180619002644) do
+ActiveRecord::Schema.define(version: 20180731012637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,42 @@ ActiveRecord::Schema.define(version: 20180619002644) do
 
   add_index "egranary_floats", ["user_id"], name: "index_egranary_floats_on_user_id", using: :btree
 
+  create_table "farmer_groups", force: :cascade do |t|
+    t.string   "group_name"
+    t.string   "short_names"
+    t.string   "formal_name"
+    t.integer  "registration_number"
+    t.string   "country"
+    t.string   "county"
+    t.string   "sub_county"
+    t.string   "location"
+    t.text     "store_aggregation_center"
+    t.text     "machinery"
+    t.text     "other_buildings"
+    t.text     "motor_vehicles"
+    t.string   "audited_financials_upload_path"
+    t.string   "management_accounts_upload_path"
+    t.string   "certificate_of_registration_upload_path"
+    t.string   "chairman_name"
+    t.string   "chairman_phone_number"
+    t.string   "chairman_email"
+    t.string   "vice_chairman_name"
+    t.string   "vice_chairman_phone_number"
+    t.string   "vice_chairman_email"
+    t.string   "secretary_name"
+    t.string   "secretary_phone_number"
+    t.string   "secretary_email"
+    t.string   "treasurer_name"
+    t.string   "treasurer_phone_number"
+    t.string   "treasurer_email"
+    t.float    "aggregated_harvest_data"
+    t.float    "total_harvest_collected_for_sale"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
+  add_index "farmer_groups", ["group_name"], name: "index_farmer_groups_on_group_name", using: :btree
+
   create_table "farmer_inputs", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.integer  "warehouse_number"
     t.integer  "commodity_number"
@@ -109,6 +145,8 @@ ActiveRecord::Schema.define(version: 20180619002644) do
     t.integer  "status",                    default: 0
     t.float    "farm_size"
   end
+
+  add_index "farmers", ["group_name"], name: "index_farmers_on_group_name", using: :btree
 
   create_table "green_grams_reports", force: :cascade do |t|
     t.float    "kg_of_seed_planted"

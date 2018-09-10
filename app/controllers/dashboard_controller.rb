@@ -30,7 +30,7 @@ class DashboardController < ApplicationController
     @total_black_eyed_bean_bags_harvested = BlackEyedBeansReport.sum :bags_harvested
     @total_nerica_rice_bags_harvested = NericaRiceReport.sum :bags_harvested
     @total_soya_bean_bags_harvested = SoyaBeansReport.sum :bags_harvested
-    @total_pigeon_peas_bags_harvested = PigeonPeasReport.sum :bags_harvested
+    @total_pigeon_pea_bags_harvested = PigeonPeasReport.sum :bags_harvested
 
     @total_maize_planted = MaizeReport.sum :kg_of_seed_planted
     @total_rice_planted = RiceReport.sum :kg_of_seed_planted
@@ -39,7 +39,7 @@ class DashboardController < ApplicationController
     @total_black_eyed_bean_planted = BlackEyedBeansReport.sum :kg_of_seed_planted
     @total_nerica_rice_planted = NericaRiceReport.sum :kg_of_seed_planted
     @total_soya_bean_planted = SoyaBeansReport.sum :kg_of_seed_planted
-    @total_pigeon_peas_planted = PigeonPeasReport.sum :kg_of_seed_planted
+    @total_pigeon_pea_planted = PigeonPeasReport.sum :kg_of_seed_planted
 
   end
 
@@ -64,6 +64,16 @@ class DashboardController < ApplicationController
     @search_fields = Farmer.search_fields
     @datatable_search_params = datatable_search_params(@search_fields)
     ret = FarmerDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
+  def farmer_groups_table
+    @search_fields = FarmerGroup.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    ret = FarmerGroupDatatable.new(view_context)
     respond_to do |format|
       format.html
       format.json { render json: ret }

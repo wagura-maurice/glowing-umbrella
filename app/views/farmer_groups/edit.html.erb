@@ -1,0 +1,232 @@
+<%= form_for @farmer_group do |f| %>
+  <table>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td><%= f.label :formal_name %>:</td>
+      <td><%= f.text_field :formal_name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :short_names %>:</td>
+      <td><%= f.text_field :short_names %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :registration_number %>:</td>
+      <td><%= f.number_field :registration_number %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :country %>:</td>
+      <td><%= f.text_field :country %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :county %>:</td>
+      <td><%= f.text_field :county %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :sub_county %>:</td>
+      <td><%= f.text_field :sub_county %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :location %>:</td>
+      <td><%= f.text_field :location %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :store_aggregation_center %>:</td>
+      <td><%= f.text_area :store_aggregation_center %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :machinery %>:</td>
+      <td><%= f.text_area :machinery %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :other_buildings %>:</td>
+      <td><%= f.text_area :other_buildings %></td>
+    </tr>
+        <tr>
+      <td><%= f.label :motor_vehicles %>:</td>
+      <td><%= f.text_area :motor_vehicles %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :country %>:</td>
+      <td><%= f.text_field :country %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :chairman_name %>:</td>
+      <td><%= f.text_field :chairman_name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :chairman_phone_number %>:</td>
+      <td><%= f.text_field :chairman_phone_number %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :chairman_email %>:</td>
+      <td><%= f.text_field :chairman_email %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :vice_chairman_name %>:</td>
+      <td><%= f.text_field :vice_chairman_name %></td>
+    </tr>
+      <td><%= f.label :vice_chairman_phone_number %>:</td>
+      <td><%= f.text_field :vice_chairman_phone_number %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :vice_chairman_email %>:</td>
+      <td><%= f.text_field :vice_chairman_email %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :secretary_name %>:</td>
+      <td><%= f.text_field :secretary_name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :secretary_phone_number %>:</td>
+      <td><%= f.text_field :secretary_phone_number %></td>
+    </tr>
+      <td><%= f.label :secretary_email %>:</td>
+      <td><%= f.text_field :secretary_email %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :treasurer_name %>:</td>
+      <td><%= f.text_field :treasurer_name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :treasurer_phone_number %>:</td>
+      <td><%= f.text_field :treasurer_phone_number %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :treasurer_email %>:</td>
+      <td><%= f.text_field :treasurer_email %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :aggregated_harvest_data %>:</td>
+      <td><%= f.number_field :aggregated_harvest_data %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :total_harvest_collected_for_sale %>:</td>
+      <td><%= f.number_field :total_harvest_collected_for_sale %></td>
+    </tr>
+
+    <% if current_user.is_admin? || current_user.is_updater? %>
+    <tr>
+      <td><%= f.submit 'Save' %></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<br />
+
+<div>
+  <h4>Upload Audited Financials</h4>
+  <% if @farmer_group.audited_financials_upload_path.nil? %>
+    <%= form_tag({action: :post_upload_audited_financials}, :class => 'directUploadAuditedFinancials', data: { 'form-data' => (@s3_direct_post.fields), 'url' => @s3_direct_post.url, 'host' => URI.parse(@s3_direct_post.url).host }) do %>
+    <%= file_field_tag :farmer_group_audited_financials %>
+    <% end %>
+  <% else %>
+    <%= link_to(@farmer_group.audited_financials_upload_path, @farmer_group.audited_financials_url, target: "_blank") %>
+  <% end %>
+</div>
+<div>
+  <h4>Upload Management Accounts</h4>
+  <% if @farmer_group.management_accounts_upload_path.nil? %>
+    <%= form_tag({action: :post_upload_management_accounts}, :class => 'directUploadManagementAccounts', data: { 'form-data' => (@s3_direct_post.fields), 'url' => @s3_direct_post.url, 'host' => URI.parse(@s3_direct_post.url).host }) do %>
+    <%= file_field_tag :farmer_group_management_financials %>
+    <% end %>
+  <% else %>
+    <%= link_to(@farmer_group.management_accounts_upload_path, @farmer_group.management_accounts_url, target: "_blank") %>
+  <% end %>
+</div>
+<div>
+  <h4>Upload Certificate of Registration</h4>
+  <% if @farmer_group.certificate_of_registration_upload_path.nil? %>
+    <%= form_tag({action: :post_upload_certificate_of_registration}, :class => 'directUploadCertificateOfRegistration', data: { 'form-data' => (@s3_direct_post.fields), 'url' => @s3_direct_post.url, 'host' => URI.parse(@s3_direct_post.url).host }) do %>
+    <%= file_field_tag :farmer_group_certificate_of_registration %>
+    <% end %>
+  <% else %>
+    <%= link_to(@farmer_group.certificate_of_registration_upload_path, @farmer_group.certificate_of_registration_url, target: "_blank") %>
+  <% end %>
+</div>
+
+
+<br />
+<br />
+
+<div>
+  <h4>Farmer Reports</h4>
+  <%= pie_chart @farmer_group.genders %>
+  <%= pie_chart @farmer_group.ages %>
+    <table class="table table-bordered table-condensed table-hover">
+      <tbody>
+        <tr>
+          <td>Total Maize Bags Harvested</td>
+          <td><%= number_with_delimiter(@total_maize_bags_harvested, :delimiter => ',') %></td>
+        </tr>
+        <tr>
+          <td>Total Rice Bags Harvested</td>
+          <td><%= number_with_delimiter(@total_rice_bags_harvested, :delimiter => ',') %></td>
+        </tr>
+        <tr>
+          <td>Total Bean Bags Harvested</td>
+          <td><%= number_with_delimiter(@total_bean_bags_harvested, :delimiter => ',') %></td>
+        </tr>
+        <tr>
+          <td>Total Green Gram Bags Harvested</td>
+          <td><%= number_with_delimiter(@total_green_gram_bags_harvested, :delimiter => ',') %></td>
+        </tr>
+        <tr>
+          <td>Total Black Eyed Bean Bags Harvested</td>
+          <td><%= number_with_delimiter(@total_black_eyed_bean_bags_harvested, :delimiter => ',') %></td>
+        </tr>
+        <tr>
+          <td>Total Soya Bean Bags Harvested</td>
+          <td><%= number_with_delimiter(@total_soya_bean_bags_harvested, :delimiter => ',') %></td>
+        </tr>
+        <tr>
+          <td>Total Pigeon Peas Bags Harvested</td>
+          <td><%= number_with_delimiter(@total_pigeon_pea_bags_harvested, :delimiter => ',') %></td>
+        </tr>
+        <tr>
+          <td>Total Maize Planted</td>
+          <td><%= number_with_delimiter(@total_maize_planted, :delimiter => ',') %></td>
+        </tr>
+        <tr>
+          <td>Total Rice Planted</td>
+          <td><%= number_with_delimiter(@total_rice_planted, :delimiter => ',') %></td>
+        </tr>
+        <tr>
+          <td>Total Bean Planted</td>
+          <td><%= number_with_delimiter(@total_bean_planted, :delimiter => ',') %></td>
+        </tr>
+        <tr>
+          <td>Total Green Gram Planted</td>
+          <td><%= number_with_delimiter(@total_green_gram_planted, :delimiter => ',') %></td>
+        </tr>
+        <tr>
+          <td>Total Black Eyed Bean Planted</td>
+          <td><%= number_with_delimiter(@total_black_eyed_bean_planted, :delimiter => ',') %></td>
+        </tr>
+        <tr>
+          <td>Total Soya Bean Planted</td>
+          <td><%= number_with_delimiter(@total_soya_bean_planted, :delimiter => ',') %></td>
+        </tr>
+        <tr>
+          <td>Total Pigeon Peas Planted</td>
+          <td><%= number_with_delimiter(@total_pigeon_pea_planted, :delimiter => ',') %></td>
+        </tr>
+      </tbody>
+    </table>
+
+  <h4>Farmers List</h4>
+  <h5>Total <%= @farmer_group.farmer_list.count %> farmers</h5>
+  <ul>
+    <% @farmer_group.farmer_list.each do |farmer| %>
+    <li>
+      <%= link_to farmer.display_name, edit_farmer_path(farmer) %>
+    </li>
+    <% end %>
+  </ul>
+
+</div>
+
+<p style='display:none' class="idClass"><%= @id %></p>

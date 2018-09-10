@@ -1,4 +1,7 @@
 Egranary::Application.routes.draw do
+
+  mount ReportsKit::Engine, at: '/'
+
   root :to => 'home#index'
 
   get "home/about"
@@ -16,6 +19,7 @@ Egranary::Application.routes.draw do
 
   get "app"     => "dashboard#index", :as => :app
   get "farmers_table" => "dashboard#farmers_table", :as => :farmers_table
+  get "farmer_groups_table" => "dashboard#farmer_groups_table", :as => :farmer_groups_table
   get "rice_reports_table" => "dashboard#rice_reports_table", :as => :rice_reports_table
   get "nerica_rice_reports_table" => "dashboard#nerica_rice_reports_table", :as => :nerica_rice_reports_table
   get "maize_reports_table" => "dashboard#maize_reports_table", :as => :maize_reports_table
@@ -31,6 +35,11 @@ Egranary::Application.routes.draw do
   get "upload_farmer_data" => "farmers#upload_button"
   post "post_upload_farmer_data" => "farmers#upload_data"
   get "users_table" => "dashboard#users_table", :as => :users_table
+
+  post "post_upload_audited_financials" => "farmer_groups#post_upload_audited_financials"
+  post "post_upload_management_accounts" => "farmer_groups#post_upload_management_accounts"
+  post "post_upload_certificate_of_registration" => "farmer_groups#post_upload_certificate_of_registration"
+
 
   get "upload_crop_data" => "crop#upload_button"
   post "post_upload_crop_data" => "crop#upload_data"
@@ -50,6 +59,7 @@ Egranary::Application.routes.draw do
   resources :sessions
   resources :users
   resources :farmers
+  resources :farmer_groups
   resources :loans
   resources :maize_reports
   resources :rice_reports
@@ -66,6 +76,8 @@ Egranary::Application.routes.draw do
       get "farmers/:phone_number" => "farmers#show"
     end
   end
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
