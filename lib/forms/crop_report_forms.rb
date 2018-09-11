@@ -68,25 +68,25 @@ module CropReportForms
       start_id: 1,
       questions: {
         1 => {
-          question_text: "How many bags of rice harvested (Paddy)?",
+          question_text: "How many bags of rice harvested?",
           valid_responses: :any_number,
           save_key: :bags_harvested,
           next_question: 2,
-          error_message: "You're response was not valid. How many bags harvested of rice (Paddy)?"
+          error_message: "You're response was not valid. How many bags of rice harvested?"
         },
         2 => {
-          question_text: "How many bags are Pishori?",
+          question_text: "How many bags are Grade 1?",
           valid_responses: :less_than_bags_harvested,
           save_key: :pishori_bags,
           next_question: 3,
-          error_message: "You're response was not valid. How many bags are Pishori?"
+          error_message: "You're response was not valid. How many bags are Grade 1?"
         },
         3 => {
-          question_text: "How many bags are Super?",
+          question_text: "How many bags are Grade 2?",
           valid_responses: :less_than_bags_harvested_and_pishori,
           save_key: :super_bags,
           next_question: 4,
-          error_message: "You're response was not valid. How many bags are Super?"
+          error_message: "You're response was not valid. How many bags are Grade 2?"
         },
         4 => {
           question_text: "How many bags are Other?",

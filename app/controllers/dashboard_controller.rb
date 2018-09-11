@@ -20,7 +20,7 @@ class DashboardController < ApplicationController
     @bean_farmers_count = BeansReport.pluck(:farmer_id).uniq.length
     @green_gram_farmers_count = GreenGramsReport.pluck(:farmer_id).uniq.length
     @black_eyed_bean_farmers_count = BlackEyedBeansReport.pluck(:farmer_id).uniq.length
-    @nerica_rice_farmers_count = NericaRiceReport.pluck(:farmer_id).uniq.length
+    # @nerica_rice_farmers_count = NericaRiceReport.pluck(:farmer_id).uniq.length
     @soya_bean_farmers_count = SoyaBeansReport.pluck(:farmer_id).uniq.length
     @pigeon_peas_farmers_count = PigeonPeasReport.pluck(:farmer_id).uniq.length
 
@@ -30,7 +30,7 @@ class DashboardController < ApplicationController
     @total_bean_bags_harvested = BeansReport.sum :bags_harvested
     @total_green_gram_bags_harvested = GreenGramsReport.sum :bags_harvested
     @total_black_eyed_bean_bags_harvested = BlackEyedBeansReport.sum :bags_harvested
-    @total_nerica_rice_bags_harvested = NericaRiceReport.sum :bags_harvested
+    # @total_nerica_rice_bags_harvested = NericaRiceReport.sum :bags_harvested
     @total_soya_bean_bags_harvested = SoyaBeansReport.sum :bags_harvested
     @total_pigeon_pea_bags_harvested = PigeonPeasReport.sum :bags_harvested
 
@@ -39,7 +39,7 @@ class DashboardController < ApplicationController
     @total_bean_planted = BeansReport.sum :kg_of_seed_planted
     @total_green_gram_planted = GreenGramsReport.sum :kg_of_seed_planted
     @total_black_eyed_bean_planted = BlackEyedBeansReport.sum :kg_of_seed_planted
-    @total_nerica_rice_planted = NericaRiceReport.sum :kg_of_seed_planted
+    # @total_nerica_rice_planted = NericaRiceReport.sum :kg_of_seed_planted
     @total_soya_bean_planted = SoyaBeansReport.sum :kg_of_seed_planted
     @total_pigeon_pea_planted = PigeonPeasReport.sum :kg_of_seed_planted
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180731012637) do
+ActiveRecord::Schema.define(version: 20180911014304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20180731012637) do
     t.datetime "updated_at",         null: false
     t.integer  "harvest_report_id"
     t.integer  "season"
+    t.float    "kg_of_fertilizer"
   end
 
   add_index "beans_reports", ["farmer_id"], name: "index_beans_reports_on_farmer_id", using: :btree
@@ -54,6 +55,7 @@ ActiveRecord::Schema.define(version: 20180731012637) do
     t.datetime "updated_at",         null: false
     t.integer  "harvest_report_id"
     t.integer  "season"
+    t.float    "kg_of_fertilizer"
   end
 
   add_index "black_eyed_beans_reports", ["farmer_id"], name: "index_black_eyed_beans_reports_on_farmer_id", using: :btree
@@ -160,6 +162,7 @@ ActiveRecord::Schema.define(version: 20180731012637) do
     t.datetime "updated_at",         null: false
     t.integer  "harvest_report_id"
     t.integer  "season"
+    t.float    "kg_of_fertilizer"
   end
 
   add_index "green_grams_reports", ["farmer_id"], name: "index_green_grams_reports_on_farmer_id", using: :btree
@@ -210,6 +213,7 @@ ActiveRecord::Schema.define(version: 20180731012637) do
     t.string   "report_type"
     t.integer  "harvest_report_id"
     t.integer  "season"
+    t.float    "kg_of_fertilizer"
   end
 
   add_index "maize_reports", ["farmer_id"], name: "index_maize_reports_on_farmer_id", using: :btree
@@ -264,6 +268,7 @@ ActiveRecord::Schema.define(version: 20180731012637) do
     t.integer  "harvest_report_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.float    "kg_of_fertilizer"
   end
 
   add_index "pigeon_peas_reports", ["farmer_id"], name: "index_pigeon_peas_reports_on_farmer_id", using: :btree
@@ -290,6 +295,7 @@ ActiveRecord::Schema.define(version: 20180731012637) do
     t.string   "report_type"
     t.integer  "harvest_report_id"
     t.integer  "season"
+    t.float    "kg_of_fertilizer"
   end
 
   add_index "rice_reports", ["farmer_id"], name: "index_rice_reports_on_farmer_id", using: :btree
@@ -319,6 +325,7 @@ ActiveRecord::Schema.define(version: 20180731012637) do
     t.integer  "harvest_report_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.float    "kg_of_fertilizer"
   end
 
   add_index "soya_beans_reports", ["farmer_id"], name: "index_soya_beans_reports_on_farmer_id", using: :btree

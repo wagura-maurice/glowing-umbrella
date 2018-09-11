@@ -22,8 +22,15 @@ module HomeMenuForm
           question_text: :get_planting_question_text,
           valid_responses: :any_number,
           save_key: :kg_planted,
-          next_question: :save_planting_report,
+          next_question: 8,
           error_message: "You're response was not valid. How many kilograms did you plant?"
+        },
+        8 => {
+          question_text: "How many kilograms of fertilizer did you use?",
+          valid_responses: :any_number,
+          save_key: :kg_of_fertilizer,
+          next_question: :save_planting_report,
+          error_message: "You're response was not valid. How many kilograms of fertilizer did you use?"
         },
         4 => {
           question_text: :get_harvesting_menu_text,
@@ -71,43 +78,43 @@ module HomeMenuForm
     end
 
     if get_farmer.received_loans
-      suffix = "Would you like to? \n1. View Loans\n2. Exit Session"
-      # suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. View Loans\n4. Exit Session"
+      # suffix = "Would you like to? \n1. View Loans\n2. Exit Session"
+      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. View Loans\n4. Exit Session"
     else
-      suffix = "Would you like to? \n1. Exit Session"
-      # suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. Exit Session"
+      # suffix = "Would you like to? \n1. Exit Session"
+      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. Exit Session"
     end
 
     ret = prefix + " " + suffix
   end
 
   def get_home_menu_valid_responses
-    # resp = ["1", "2", "3"]
-    resp = ["1"]
+    # resp = ["1"]
+    resp = ["1", "2", "3"]
     if get_farmer.received_loans
-      resp << "2"
-      # resp << "4"
+      # resp << "2"
+      resp << "4"
     end
     return resp
   end
 
   def get_home_menu_next_question
     if get_farmer.received_loans
-      return {"1" => 7, "2" => 5}
-      # return {"1" => 2, "2" => 4, "3" => 7, "4" => 5}
+      # return {"1" => 7, "2" => 5}
+      return {"1" => 2, "2" => 4, "3" => 7, "4" => 5}
     else
-      return {"1" => 5}
-      # return {"1" => 2, "2" => 4, "3" => 5}
+      # return {"1" => 5}
+      return {"1" => 2, "2" => 4, "3" => 5}
     end
   end
 
   def get_home_menu_error_message
     if get_farmer.received_loans
-      return "Sorry, that answer was not valid. Would you like to? \n1. View Loans\n2. Exit Session"
-      # return "Sorry, that answer was not valid. What do you want to do? \n1. Report Planting\n2. Report Harvest\n3. View Loans\n4. Exit Session"
+      # return "Sorry, that answer was not valid. Would you like to? \n1. View Loans\n2. Exit Session"
+      return "Sorry, that answer was not valid. What do you want to do? \n1. Report Planting\n2. Report Harvest\n3. View Loans\n4. Exit Session"
     else
-      return "Sorry, that answer was not valid. Would you like to? \n1. Exit Session"
-      # return "Sorry, that answer was not valid. What do you want to do? \n1. Report Planting\n2. Report Harvest\n3. Exit Session"
+      # return "Sorry, that answer was not valid. Would you like to? \n1. Exit Session"
+      return "Sorry, that answer was not valid. What do you want to do? \n1. Report Planting\n2. Report Harvest\n3. Exit Session"
     end
   end
 

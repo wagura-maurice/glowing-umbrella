@@ -85,21 +85,21 @@ class Farmer < ActiveRecord::Base
       crop_planted = session[:planting_reports_available][session[:crop_planted].to_i]
       case crop_planted
       when :maize
-        MaizeReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+        MaizeReport.create(kg_of_seed_planted: session[:kg_planted], kg_of_fertilizer: session[:kg_of_fertilizer], farmer: f, report_type: 'planting')
       when :rice
-        RiceReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+        RiceReport.create(kg_of_seed_planted: session[:kg_planted], kg_of_fertilizer: session[:kg_of_fertilizer], farmer: f, report_type: 'planting')
       when :nerica_rice
-        NericaRiceReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+        NericaRiceReport.create(kg_of_seed_planted: session[:kg_planted], kg_of_fertilizer: session[:kg_of_fertilizer], farmer: f, report_type: 'planting')
       when :beans
-        BeansReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+        BeansReport.create(kg_of_seed_planted: session[:kg_planted], kg_of_fertilizer: session[:kg_of_fertilizer], farmer: f, report_type: 'planting')
       when :green_grams
-        GreenGramsReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+        GreenGramsReport.create(kg_of_seed_planted: session[:kg_planted], kg_of_fertilizer: session[:kg_of_fertilizer], farmer: f, report_type: 'planting')
       when :black_eyed_beans
-        BlackEyedBeansReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+        BlackEyedBeansReport.create(kg_of_seed_planted: session[:kg_planted], kg_of_fertilizer: session[:kg_of_fertilizer], farmer: f, report_type: 'planting')
       when :soya_beans
-        SoyaBeansReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+        SoyaBeansReport.create(kg_of_seed_planted: session[:kg_planted], kg_of_fertilizer: session[:kg_of_fertilizer], farmer: f, report_type: 'planting')
       when :pigeon_peas
-        PigeonPeasReport.create(kg_of_seed_planted: session[:kg_planted], farmer: f, report_type: 'planting')
+        PigeonPeasReport.create(kg_of_seed_planted: session[:kg_planted], kg_of_fertilizer: session[:kg_of_fertilizer], farmer: f, report_type: 'planting')
       end
 
       temp = Rails.cache.read(session[:phone_number])

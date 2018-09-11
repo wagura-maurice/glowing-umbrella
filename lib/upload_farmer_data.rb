@@ -10,7 +10,7 @@ module UploadFarmerData
   #################
   @upload_start_row = 4
   @upload_end_row = 10000
-  @will_upload_col = 19
+  @will_upload_col = 21
 
   #######################
   ### Upload function ###
@@ -48,7 +48,8 @@ module UploadFarmerData
       county: farmer[6].to_s,
       year_of_birth: farmer[7].to_i,
       gender: format_gender(farmer[8]),
-      status: format_status(farmer[9]),
+      farm_size: farmer[9].to_i,
+      status: format_status(farmer[10]),
       country: "Kenya"
     }
     return if farmer_data[:national_id_number].nil?
@@ -64,6 +65,7 @@ module UploadFarmerData
     valid = validate :county, farmer_data[:county], record_errors, :any_letters
     valid = validate :year_of_birth, farmer_data[:year_of_birth], record_errors, :any_year
     valid = validate :gender, farmer_data[:gender], record_errors, :male_or_female
+    valid = validate :farm_size, farmer_data[:farm_size], record_errors, :valid_farm_size
     valid = validate :status, farmer_data[:status], record_errors, :verified_or_pending
 
     if valid
@@ -124,6 +126,10 @@ module UploadFarmerData
       end
     elsif valid_responses == :valid_phone_number
       if value.length == 9 && (value != '700000000')
+        return true
+      end
+    elsif valid_responses == :valid_farm_size
+      if value.nil? || value >= 0
         return true
       end
     else

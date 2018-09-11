@@ -6,9 +6,9 @@ CROPS = {maize: { model: MaizeReport,
          rice: { model: RiceReport,
                  text: 'Rice (irrigated)'
                 },
-         nerica_rice: { model: NericaRiceReport,
-                        text: 'NERICA Rice (rainfed)'
-                      },
+         # nerica_rice: { model: NericaRiceReport,
+         #                text: 'NERICA Rice (rainfed)'
+         #              },
          beans: { model: BeansReport,
                   text: 'Beans'
                 },

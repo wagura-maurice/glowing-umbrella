@@ -29,6 +29,7 @@ class UssdController < ApplicationController
 
   # Accepts all incoming USSD requests and responds to them
   def inbound
+    byebug
     # If a session doesn't exist, start a new one
     start_new_session unless session_exists?
     # Get response
