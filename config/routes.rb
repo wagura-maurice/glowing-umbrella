@@ -51,7 +51,8 @@ Egranary::Application.routes.draw do
   get "ussd"    => "ussd#inbound"
   post "ussd"   => "ussd#inbound"
 
-  post "mpesa/customer_payment" => "payments#customer_payment"
+  post "mpesa/incoming" => "payments#incoming"
+  get  "mpesa/incoming" => "payments#incoming"
 
   get "users/invite" => "users#invite", :as => :invite_user
   post "users/post_invite" => "users#post_invite", :as => :post_invite
