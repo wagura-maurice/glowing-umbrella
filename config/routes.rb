@@ -53,6 +53,7 @@ Egranary::Application.routes.draw do
 
   post "mpesa/incoming" => "payments#incoming"
   get  "mpesa/incoming" => "payments#incoming"
+  post "mpesa/b2c" => "payments#b2c"
 
   get "users/invite" => "users#invite", :as => :invite_user
   post "users/post_invite" => "users#post_invite", :as => :post_invite

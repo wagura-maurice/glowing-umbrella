@@ -88,6 +88,7 @@ gem 'aws-sdk', '~> 2.3'
 gem 'sidekiq', '~> 4.0.0'
 gem 'redis'
 gem 'reports_kit', '~> 0.7.1'
+gem "rest-client"
 
 
 # API

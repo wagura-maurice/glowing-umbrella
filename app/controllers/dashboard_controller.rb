@@ -194,7 +194,6 @@ class DashboardController < ApplicationController
   end
 
   def post_send_sms
-    byebug
     records = run_queries(Farmer, params)
     to = records.map(&:phone_number)
     unless Rails.env.development?
