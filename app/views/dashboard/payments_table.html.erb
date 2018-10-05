@@ -1,0 +1,21 @@
+<%= render 'layouts/advanced_search' %>
+
+<table id="payments-table", data-source="<%= payments_table_path(@datatable_search_params) %>">
+  <thead>
+    <tr>
+      <th>Farmer Name</th>
+      <th>Value</th>
+      <th>Account ID</th>
+      <th>Completed At</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Phone Number</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<% content_for :head do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
+<% end %>

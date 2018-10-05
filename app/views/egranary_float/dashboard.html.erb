@@ -3,20 +3,32 @@
   <table class="table table-bordered table-condensed table-hover">
     <tbody>
       <tr>
-        <td>Total Float Transaction</td>
+        <td><strong>Total Float Transaction</strong></td>
         <td>KES <%= number_with_delimiter(@float_transaction_value, :delimiter => ',') %></td>
       </tr>
       <tr>
-        <td>Total Disbursed Loans</td>
+        <td><strong>Total Disbursed Loans</strong></td>
         <td>KES <%= number_with_delimiter(@loans_disbursed_value, :delimiter => ',') %></td>
+      </tr>
+      <tr>
+        <td><strong>Total Loan Repayments</strong></td>
+        <td>KES <%= number_with_delimiter(@loan_repayments, :delimiter => ',') %></td>
+      </tr>
+      <tr>
+        <td><strong>Current Float</strong></td>
+        <td>KES <%= number_with_delimiter(@total_float, :delimiter => ',') %></td>
+      </tr>
+      <tr>
+        <td>Cash Loans Disbursed</td>
+        <td>KES <%= number_with_delimiter(@cash_loans_disbursed_value, :delimiter => ',') %></td>
+      </tr>
+      <tr>
+        <td>Input Loans Disbursed</td>
+        <td>KES <%= number_with_delimiter(@input_loans_disbursed_value, :delimiter => ',') %></td>
       </tr>
       <tr>
         <td>Total Service Charges</td>
         <td>KES <%= number_with_delimiter(@loans_disbursed_service_charge, :delimiter => ',') %></td>
-      </tr>
-      <tr>
-        <td>Current Float</td>
-        <td>KES <%= number_with_delimiter(@total_float, :delimiter => ',') %></td>
       </tr>
     </tbody>
   </table>
@@ -32,18 +44,23 @@
         <th>Date</th>
         <th>Entry Method</th>
         <th>Entered By</th>
+        <th>Notes</th>
       </tr>
     </thead>
     <tbody>
       <% @float_transactions.each do |txn| %>
         <tr>
-          <td><%= txn.txn_type %></td>
+          <td><%= txn.txn_type.capitalize %></td>
           <td><%= txn.value %></td>
           <td><%= txn.txn_date %></td>
           <td><%= txn.entry_method %></td>
           <td><%= txn.user.full_name %></td>
+          <td><%= txn.notes %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
+
+  <%= button_to "Create Float Transaction", :create_float_txn %>
+
 </div>

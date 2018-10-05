@@ -1,0 +1,23 @@
+C2B
+
+20 Sep 2018 13:44:19.526431 <158>1 2018-09-20T18:44:19.217944+00:00 heroku router - - at=info method=GET path="/mpesa/incoming?account_id=test&completed_at=20180920214416&phone=254715532259&amount=10.00&names=SAMWEL+CHEGE+KAMAU&action=payment_received" host=egranary.herokuapp.com request_id=dc0a447b-f916-4afa-a0ee-ba29aaae7c89 fwd="52.49.96.111" dyno=web.1 connect=1ms service=49ms status=200 bytes=888 protocol=https
+20 Sep 2018 13:44:19.563294 <190>1 2018-09-20T18:44:19.177005+00:00 app web.1 - - Started GET "/mpesa/incoming?account_id=test&completed_at=20180920214416&phone=254715532259&amount=10.00&names=SAMWEL+CHEGE+KAMAU&action=payment_received" for 52.49.96.111 at 2018-09-20 18:44:19 +0000
+20 Sep 2018 13:44:19.638143 <190>1 2018-09-20T18:44:19.187378+00:00 app web.1 - - Processing by PaymentsController#incoming as HTML
+20 Sep 2018 13:44:19.638239 <190>1 2018-09-20T18:44:19.188876+00:00 app web.1 - - Parameters: {"account_id"=>"test", "completed_at"=>"20180920214416", "phone"=>"254715532259", "amount"=>"10.00", "names"=>"SAMWEL CHEGE KAMAU"}
+20 Sep 2018 13:44:19.638273 <190>1 2018-09-20T18:44:19.203123+00:00 app web.1 - - {"account_id"=>"test", "completed_at"=>"20180920214416", "phone"=>"254715532259", "amount"=>"10.00", "names"=>"SAMWEL CHEGE KAMAU", "action"=>"incoming", "controller"=>"payments"}
+20 Sep 2018 13:44:19.638140 <190>1 2018-09-20T18:44:19.203719+00:00 app web.1 - - Completed 200 OK in 14ms (ActiveRecord: 0.0ms)
+
+
+
+
+
+
+B2C
+
+20 Sep 2018 14:02:34.827325 <190>1 2018-09-20T19:02:34.525693+00:00 app web.1 - - Started GET "/mpesa/incoming?status_code=21&request_id=66327882993092&status_desc=The%5C+initiator%5C+is%5C+not%5C+allowed%5C+to%5C+initiate%5C+this%5C+request%5C.&mpesa_ref=MIK7RPGCYX" for 52.49.96.111 at 2018-09-20 19:02:34 +0000
+20 Sep 2018 14:02:34.898143 <190>1 2018-09-20T19:02:34.576172+00:00 app web.1 - - Processing by PaymentsController#incoming as HTML
+20 Sep 2018 14:02:34.898279 <190>1 2018-09-20T19:02:34.594721+00:00 app web.1 - - Parameters: {"status_code"=>"21", "request_id"=>"66327882993092", "status_desc"=>"The\\ initiator\\ is\\ not\\ allowed\\ to\\ initiate\\ this\\ request\\.", "mpesa_ref"=>"MIK7RPGCYX"}
+20 Sep 2018 14:02:34.898313 <190>1 2018-09-20T19:02:34.607457+00:00 app web.1 - - {"status_code"=>"21", "request_id"=>"66327882993092", "status_desc"=>"The\\ initiator\\ is\\ not\\ allowed\\ to\\ initiate\\ this\\ request\\.", "mpesa_ref"=>"MIK7RPGCYX", "controller"=>"payments", "action"=>"incoming"}
+20 Sep 2018 14:02:34.898140 <190>1 2018-09-20T19:02:34.614352+00:00 app web.1 - - Completed 200 OK in 12ms (ActiveRecord: 0.0ms)
+20 Sep 2018 14:02:34.898241 <190>1 2018-09-20T19:02:34.624670+00:00 app web.1 - - ** [NewRelic][2018-09-20 19:02:34 +0000 web.1 (6)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+20 Sep 2018 14:02:35.038463 <158>1 2018-09-20T19:02:34.655648+00:00 heroku router - - at=info method=GET path="/mpesa/incoming?status_code=21&request_id=66327882993092&status_desc=The%5C+initiator%5C+is%5C+not%5C+allowed%5C+to%5C+initiate%5C+this%5C+request%5C.&mpesa_ref=MIK7RPGCYX" host=egranary.herokuapp.com request_id=a54239f6-45b0-4539-9525-dac5d4ec7c8d fwd="52.49.96.111" dyno=web.1 connect=0ms service=170ms status=200 bytes=888 protocol=https

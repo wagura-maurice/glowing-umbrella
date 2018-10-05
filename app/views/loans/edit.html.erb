@@ -1,3 +1,5 @@
+<h3>Farmer: <%= link_to @loan.farmer.display_name, edit_farmer_path(@loan.farmer) %></h3>
+<br />
 <%= form_for @loan do |f| %>
   <table>
     <tr>
@@ -6,7 +8,7 @@
     </tr>
     <tr>
       <td><%= f.label "Loan Commodity" %>:</td>
-      <td><%= f.select(:commodity, options_for_select([['Inputs', 'inputs'], ['Cash', 'cash'], ['Inputs and Cash', 'inputs and cash']], @loan.commodity)) %></td>
+      <td><%= f.select(:commodity, options_for_select([['Inputs', 'inputs'], ['Cash', 'cash']], @loan.commodity)) %></td>
     </tr>
     <tr>
       <td><%= f.label :commodities_lent %>:</td>
@@ -54,7 +56,7 @@
     </tr>
     <tr>
       <td><%= f.label "Loan Status" %>:</td>
-      <td><%= f.select(:status, options_for_select([['Application Started', 'application started'], ['Under Review', 'under review'], ['Approved', 'approved'], ['Loan Disbursed', 'loan disbursed'], ['Awaiting Payment', 'awaiting payment'], ['Fully Paid', 'fully paid'], ['Partially Paid', 'partially paid'], ['Written Off', 'written off'], ['Out For Collections', 'out for collections']], @loan.status)) %></td>
+      <td><%= f.select(:status, options_for_select([['Application Started', 'application started'], ['Under Review', 'under review'], ['Approved', 'approved'], ['Loan Disbursed', 'loan disbursed'], ['Awaiting Payment', 'awaiting payment'], ['Fully Paid', 'fully paid'], ['Written Off', 'written off'], ['Out For Collections', 'out for collections']], @loan.status)) %></td>
     </tr>
     <tr>
       <td><%= f.label :disbursed_date %>:</td>

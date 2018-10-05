@@ -27,7 +27,9 @@ class AgeingReportDatatable < AjaxDatatablesRails::Base
 
 
   def data
+
     records.map do |record|
+      txns = record.txns.order(created_at: :asc)
       {
         # example:
         # id: record.id,
@@ -38,12 +40,12 @@ class AgeingReportDatatable < AjaxDatatablesRails::Base
         interest_rate: record.interest_rate,
         loan_maturity: record.formatted_maturity_date,
         next_payment: record.formatted_payment_date,
-        payment_1: 0,
-        payment_2: 0,
-        payment_3: 0,
-        payment_4: 0,
-        payment_5: 0,
-        payment_6: 0
+        payment_1: txns[0] ? txns[0].value : '-',
+        payment_2: txns[1] ? txns[1].value : '-',
+        payment_3: txns[2] ? txns[2].value : '-',
+        payment_4: txns[3] ? txns[3].value : '-',
+        payment_5: txns[4] ? txns[4].value : '-',
+        payment_6: txns[5] ? txns[5].value : '-'
       }
     end
   end

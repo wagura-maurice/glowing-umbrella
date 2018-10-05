@@ -1,0 +1,39 @@
+<%= form_for @txn do |f| %>
+  <table>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td><%= f.label :value %>:</td>
+      <td><%= f.number_field :value %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :year %>:</td>
+      <td><%= @txn.year %></td>
+    </tr>
+    <tr>
+      <td><%= f.label "Transaction Type" %>:</td>
+      <td><%= f.select(:txn_type, options_for_select([['Deposit', 'deposit'], ['Withdrawal', 'withdrawal']], @txn.txn_type)) %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :notes %>:</td>
+      <td><%= f.text_area :notes %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :currency %>:</td>
+      <td><%= @txn.currency %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :entry_method %>:</td>
+      <td><%= @txn.entry_method %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :user %>:</td>
+      <td><%= @txn.user.full_name %></td>
+    </tr>
+    <tr>
+      <td><%= f.submit 'Save' %></td>
+    </tr>
+  </table>
+<% end %>

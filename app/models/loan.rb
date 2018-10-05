@@ -1,5 +1,6 @@
 class Loan < ActiveRecord::Base
   belongs_to :farmer
+  has_and_belongs_to_many :txns
 
   before_create :set_defaults
 
@@ -40,6 +41,11 @@ class Loan < ActiveRecord::Base
   end
 
 
+  def amount_due
+    total_interest = self.duration * self.interest_rate
+    return self.value * (1 + (total_interest/100)) + self.service_charge
+  end
+
   def effective_loan_interest_rate
     return self.interest_rate
   end
@@ -62,6 +68,10 @@ class Loan < ActiveRecord::Base
       return nil
     end
     return self.disbursed_date + eval(str)
+  end
+
+  def monthly_payment
+    return (self.amount_due / self.duration).round(2)
   end
 
   # TO DO

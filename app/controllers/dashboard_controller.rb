@@ -50,8 +50,9 @@ class DashboardController < ApplicationController
     @total_loan_amount = Loan.sum :value
     @avg_loan_amount = Loan.average :value
     @avg_interest_rate = Loan.average :interest_rate
-    @total_repayments = 0
-    @avg_loan_repayment_rate = 0
+    @total_repayments = Txn.where(txn_type: 'c2b').sum(:value)
+    repayments = Loan.all.map { |loan| loan.amount_paid / loan.amount_due }
+    @avg_loan_repayment_rate = ((repayments.sum / repayments.count) * 100).round(2)
   end
 
   def ageing_reports
@@ -86,6 +87,16 @@ class DashboardController < ApplicationController
     @search_fields = Loan.search_fields
     @datatable_search_params = datatable_search_params(@search_fields)
     ret = LoanDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
+  def payments_table
+    @search_fields = Txn.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    ret = TxnDatatable.new(view_context)
     respond_to do |format|
       format.html
       format.json { render json: ret }

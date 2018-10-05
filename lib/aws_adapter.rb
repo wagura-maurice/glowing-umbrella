@@ -13,7 +13,7 @@ module AwsAdapter
 
   def get_public_url(upload_path)
     obj = S3_BUCKET.object(upload_path)
-    url = obj.presigned_url(:get, expires_in: 3600)
+    url = obj.presigned_url(:get, expires_in: (60 * 60 * 24 * 7))
     return url
   end
 

@@ -119,7 +119,7 @@ module LoanForms
       index = 1
       str = "You currently have the following loans. Select one of the following to view:"
       loans.each do |loan|
-        str += "\n#{index}. #{loan.currency} #{loan.value} on #{loan.formatted_disbursal_date}"
+        str += "\n#{index}. #{loan.currency} #{loan.value} on #{loan.formatted_disbursal_date || loan.formatted_created_at}"
         index += 1
       end
       str += "\n#{index}. Return to main menu\n#{index + 1}. Exit"
@@ -179,12 +179,19 @@ module LoanForms
 
 
   def get_loan_info_text(loan)
-    str = "You have the current loan outstanding:" +
+    str = "You have the current loan:" +
+      "\nLoan Status: #{loan.status}" +
       "\nLoan Amount: #{loan.currency} #{loan.value}" +
       "\nLoan Duration: #{loan.duration} #{loan.duration_unit}" +
       "\nInterest Rate: #{loan.interest_rate}%" +
       "\nProcessing Fee: #{loan.currency} #{loan.service_charge}" +
-      "\nInsurance Fee: #{loan.currency} #{loan.credit_life_fee}"
+      "\nTotal Due: #{loan.currency} #{loan.amount_due}" +
+      "\nTotal Paid: #{loan.currency} #{loan.amount_paid}"
+    if loan.status != 'fully paid'
+      str += "\nNext Payment Data: #{loan.formatted_payment_date}"
+    end
+       #+
+      # "\nInsurance Fee: #{loan.currency} #{loan.credit_life_fee}"
     return str
   end
 

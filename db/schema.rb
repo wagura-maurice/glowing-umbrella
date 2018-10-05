@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180911014304) do
+ActiveRecord::Schema.define(version: 20180930220127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20180911014304) do
     t.uuid     "user_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.text     "notes"
   end
 
   add_index "egranary_floats", ["user_id"], name: "index_egranary_floats_on_user_id", using: :btree
@@ -190,11 +191,21 @@ ActiveRecord::Schema.define(version: 20180911014304) do
     t.string   "repayment_method"
     t.string   "voucher_code"
     t.integer  "farmer_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.float    "amount_paid",      default: 0.0
   end
 
   add_index "loans", ["farmer_id"], name: "index_loans_on_farmer_id", using: :btree
+
+  create_table "loans_txns", id: false, force: :cascade do |t|
+    t.integer "loan_id"
+    t.integer "txn_id"
+    t.float   "amount_paid", default: 0.0
+  end
+
+  add_index "loans_txns", ["loan_id"], name: "index_loans_txns_on_loan_id", using: :btree
+  add_index "loans_txns", ["txn_id"], name: "index_loans_txns_on_txn_id", using: :btree
 
   create_table "maize_reports", force: :cascade do |t|
     t.float    "acres_planted"
@@ -332,6 +343,20 @@ ActiveRecord::Schema.define(version: 20180911014304) do
   add_index "soya_beans_reports", ["harvest_report_id"], name: "index_soya_beans_reports_on_harvest_report_id", using: :btree
   add_index "soya_beans_reports", ["season"], name: "index_soya_beans_reports_on_season", using: :btree
   add_index "soya_beans_reports", ["soya_beans_reports_id"], name: "index_soya_beans_reports_on_soya_beans_reports_id", using: :btree
+
+  create_table "txns", force: :cascade do |t|
+    t.float    "value"
+    t.string   "account_id"
+    t.string   "completed_at"
+    t.string   "name"
+    t.string   "txn_type"
+    t.string   "phone_number"
+    t.integer  "farmer_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "txns", ["farmer_id"], name: "index_txns_on_farmer_id", using: :btree
 
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "phone_number",                    limit: 255

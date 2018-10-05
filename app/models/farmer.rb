@@ -150,6 +150,10 @@ class Farmer < ActiveRecord::Base
   end
 
 
+  def unpaid_loans
+    return self.loans.where(status: ['approved', 'loan disbursed', 'awaiting payment', 'partially paid']).order(created_at: :asc)
+  end
+
   # def self.save_loan(session)
   #   f = Farmer.where(phone_number: session[:phone_number]).first
 

@@ -29,6 +29,7 @@ Egranary::Application.routes.draw do
   get "soya_beans_reports_table" => "dashboard#soya_beans_reports_table", :as => :soya_beans_reports_table
   get "pigeon_peas_reports_table" => "dashboard#pigeon_peas_reports_table", :as => :pigeon_peas_reports_table
   get "loans_table" => "dashboard#loans_table", :as => :loans_table
+  get "payments_table" => "dashboard#payments_table", :as => :payments_table
   get "loans_summary" => "dashboard#loans_summary"
   get "float_account" => "egranary_float#dashboard"
   get "ageing_reports" => "dashboard#ageing_reports", :as => :ageing_reports_table
@@ -37,6 +38,7 @@ Egranary::Application.routes.draw do
   get "users_table" => "dashboard#users_table", :as => :users_table
   get "send_sms" => "dashboard#send_sms", :as => :send_sms
   get "post_send_sms" => "dashboard#post_send_sms", :as => :post_send_sms
+  post "disburse_loan" => "payments#disburse_loan"
 
   post "post_upload_audited_financials" => "farmer_groups#post_upload_audited_financials"
   post "post_upload_management_accounts" => "farmer_groups#post_upload_management_accounts"
@@ -47,6 +49,7 @@ Egranary::Application.routes.draw do
   post "post_upload_crop_data" => "crop#upload_data"
 
   post "farmers/:id/create_loan" => "farmers#create_loan", :as => :create_loan
+  post "float_account/create_float_txn" => "egranary_float#create_float_txn", :as => :create_float_txn
 
   get "ussd"    => "ussd#inbound"
   post "ussd"   => "ussd#inbound"
@@ -65,6 +68,7 @@ Egranary::Application.routes.draw do
   resources :farmers
   resources :farmer_groups
   resources :loans
+  resources :egranary_float
   resources :maize_reports
   resources :rice_reports
   resources :nerica_rice_reports

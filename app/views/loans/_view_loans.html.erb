@@ -29,6 +29,10 @@
     <h6>Voucher Code: <%= loan.voucher_code %></h6>
     <h6>Created At: <%= loan.formatted_created_at %></h6>
     <br />
+    <% if (loan.disbursal_method == 'mpesa') && (loan.disbursed_date.nil?) %>
+      <%= button_to "Disburse Loan", {controller: 'payments', action: 'disburse_loan', id: loan}, {class: 'btn btn-small btn-primary'} %>
+      <br />
+    <% end %>
   <% end %>
 <% end %>
 
