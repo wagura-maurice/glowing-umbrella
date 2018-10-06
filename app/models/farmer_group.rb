@@ -7,6 +7,19 @@ class FarmerGroup < ActiveRecord::Base
             }
   end
 
+  def truncate(s, length = 30, ellipsis = '...')
+    if s.length > length
+      s.to_s[0..length].gsub(/[^\w]\w+\s*$/, ellipsis)
+    else
+      s
+    end
+  end
+
+  def truncated_short_names
+    return truncate(self.short_names)
+  end
+
+
   def audited_financials_url
     if self.audited_financials_upload_path.present?
       return AwsAdapter.get_public_url(self.audited_financials_upload_path)
