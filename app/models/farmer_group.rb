@@ -43,7 +43,7 @@ class FarmerGroup < ActiveRecord::Base
     names = self.short_names.split('|')
     farmers = []
     names.each do |name|
-      farmers << Farmer.where("association_name ILIKE ?", name)
+      farmers << Farmer.where("association_name ILIKE ?", "%#{name}%")
     end
     return farmers.flatten
   end
