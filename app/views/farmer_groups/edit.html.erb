@@ -154,6 +154,8 @@
 
 <div>
   <h4>Farmer Reports</h4>
+  <h5>Total <%= @farmer_group.farmer_list.count %> farmers - <%= link_to "View farmer list", "/farmers_table?farmer_group_id__eq=#{@farmer_group.id}", class: "btn btn-sm btn-success" %></h5>
+  <h5><%= link_to "Send SMS to Farmers in Group", "/send_sms?farmer_group_id__eq=#{@farmer_group.id}", class: "btn btn-sm btn-primary"%> </h5>
   <%= pie_chart @farmer_group.genders %>
   <%= pie_chart @farmer_group.ages %>
     <table class="table table-bordered table-condensed table-hover">
@@ -216,17 +218,8 @@
         </tr>
       </tbody>
     </table>
-
-  <h4>Farmers List <%= link_to "Send SMS", "/send_sms?farmer_group_id__eq=#{@farmer_group.id}"%> </h4>
-  <h5>Total <%= @farmer_group.farmer_list.count %> farmers</h5>
-  <ul>
-    <% @farmer_group.farmer_list.each do |farmer| %>
-    <li>
-      <%= link_to farmer.display_name, edit_farmer_path(farmer) %>
-    </li>
-    <% end %>
-  </ul>
-
+  <br />
+  <br />
 </div>
 
 <p style='display:none' class="idClass"><%= @id %></p>

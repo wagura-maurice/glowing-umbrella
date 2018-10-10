@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     @user = User.create(create_params)
     if @user.valid?
       add_to_alert("Successfully invited User", "success")
-      UserMailer.activation_needed_email(@user).deliver_now
+      # UserMailer.activation_needed_email(@user).deliver_now
     else
       add_to_alert("Invalid user info", "error")
     end

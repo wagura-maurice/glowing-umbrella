@@ -15,7 +15,7 @@ class FarmerGroupDatatable < AjaxDatatablesRails::Base
     records.map do |record|
       {
         formal_name: link_to(record.formal_name, edit_farmer_group_path(record)),
-        short_names: link_to(record.short_names, edit_farmer_group_path(record))
+        short_names: link_to(record.truncated_short_names, edit_farmer_group_path(record))
       }
     end
   end
