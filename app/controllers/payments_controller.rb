@@ -35,8 +35,10 @@ class PaymentsController < ApplicationController
         phone_number: farmer.phone_number,
         farmer: farmer
       )
+      add_to_alert(resp['status_desc'], "info")
+    else
+      add_to_alert("Transaction was not successful", "error")
     end
-    add_to_alert(resp['status_desc'], "info")
     redirect_to edit_farmer_url(loan.farmer)
   end
 
