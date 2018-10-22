@@ -1,3 +1,4 @@
+<a style="float:right" href="/dashboard_home">New Dashboard</a>
 <div>
     <h2>Statistics</h2>
     <table class="table table-bordered table-condensed table-hover">
@@ -7,11 +8,11 @@
                 <td><%= number_with_delimiter(@total_farmers, :delimiter => ',') %></td>
             </tr>
             <tr>
-                <td><a href="/farmers_table?status__eq=0">Total Pending Farmers</a></td>
+                <td><a href="/farmers_table?status__eq=pending">Total Pending Farmers</a></td>
                 <td><%= number_with_delimiter(@total_pending_farmers, :delimiter => ',') %></td>
             </tr>
             <tr>
-                <td><a href="/farmers_table?status__eq=1">Total Verified Farmers</a></td>
+                <td><a href="/farmers_table?status__eq=verified">Total Verified Farmers</a></td>
                 <td><%= number_with_delimiter(@total_verified_farmers, :delimiter => ',') %></td>
             </tr>
             <tr>

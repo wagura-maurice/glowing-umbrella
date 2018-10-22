@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180930220127) do
+ActiveRecord::Schema.define(version: 20181013012052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,8 +145,8 @@ ActiveRecord::Schema.define(version: 20180930220127) do
     t.boolean  "accepted_loan_tnc",         default: false
     t.boolean  "received_loans",            default: false
     t.string   "pin_hash"
-    t.integer  "status",                    default: 0
     t.float    "farm_size"
+    t.string   "status"
   end
 
   add_index "farmers", ["group_name"], name: "index_farmers_on_group_name", using: :btree

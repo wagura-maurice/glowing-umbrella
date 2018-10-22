@@ -16,7 +16,12 @@ class Farmer < ActiveRecord::Base
   include Exportable
   include BCrypt
 
-  enum status: %i[pending verified]
+  include ReportsKit::Model
+  # reports_kit do
+  #   aggregation :average_time_to_publish, [:average, 'posts.published_at - posts.created_at']
+  #   contextual_filter :for_author, ->(relation, context_params) { relation.where(author_id: context_params[:author_id]) }
+  #   dimension :approximate_views_count, group: 'ROUND(posts.views_count, -1)'
+  # end
 
   def self.search_fields
     return {"created_at" => {type: :time, key: "Registration Date"},
@@ -30,7 +35,7 @@ class Farmer < ActiveRecord::Base
             "year_of_birth" => {type: :number, key: "Year of Birth"},
             "gender" => {type: :select, key: "Gender", options: ['male', 'female']},
             "farm_size" => {type: :number, key: "Farm Size"},
-            "status" => {type: :select, key: "Registration Status", options: [['pending', 0], ['verified', 1]]},
+            "status" => {type: :select, key: "Registration Status", options: [['pending', 'pending'], ['verified', 'verified']]},
             "farmer_group_id" => {type: :number, key: "Farmer Group ID"}
             }
   end

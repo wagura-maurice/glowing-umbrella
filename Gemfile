@@ -76,7 +76,7 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'jquery-datatables-rails'
 gem 'ajax-datatables-rails'
 gem 'groupdate'
-gem 'chartkick'
+gem 'chartkick', '2.2.4'
 gem 'rollbar'
 gem 'roo', '~> 2.1.0'
 gem 'dropbox-sdk'
@@ -89,7 +89,7 @@ gem 'sidekiq', '~> 4.0.0'
 gem 'redis'
 gem 'reports_kit', '~> 0.7.1'
 gem "rest-client"
-
+gem 'haml-rails'
 
 # API
 gem 'rails-api'

@@ -74,7 +74,6 @@ ready = ->
     return
 
   $('.directUploadManagementAccounts').find('input:file').each (i, elem) ->
-    debugger;
     idVal = $('.idClass').html();
     fileInput = $(elem)
     form = $(fileInput.parents('form:first'))

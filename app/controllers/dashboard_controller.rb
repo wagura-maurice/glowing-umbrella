@@ -11,8 +11,8 @@ class DashboardController < ApplicationController
 
     # Number of farmers
     @total_farmers = Farmer.count
-    @total_pending_farmers = Farmer.where(status: 0).count
-    @total_verified_farmers = Farmer.where(status: 1).count
+    @total_pending_farmers = Farmer.where(status: 'pending').count
+    @total_verified_farmers = Farmer.where(status: 'verified').count
 
     # Number of farmers by crop type
     @maize_farmers_count = MaizeReport.pluck(:farmer_id).uniq.length
@@ -44,6 +44,92 @@ class DashboardController < ApplicationController
     @total_pigeon_pea_planted = PigeonPeasReport.sum :kg_of_seed_planted
 
   end
+
+  def dashboard_home
+    @dashboard_view = true
+    @dashboard_home = true
+
+    @total_farmers = Farmer.count
+    @total_pending_farmers = Farmer.where(status: 'pending').count
+    @total_verified_farmers = Farmer.where(status: 'verified').count
+    @total_acreage = Farmer.sum(:farm_size)
+    @total_farmer_groups = FarmerGroup.count
+
+    @total_maize_planted = MaizeReport.sum :kg_of_seed_planted
+    @total_rice_planted = RiceReport.sum :kg_of_seed_planted
+    @total_bean_planted = BeansReport.sum :kg_of_seed_planted
+    @total_green_gram_planted = GreenGramsReport.sum :kg_of_seed_planted
+    @total_black_eyed_bean_planted = BlackEyedBeansReport.sum :kg_of_seed_planted
+    @total_soya_bean_planted = SoyaBeansReport.sum :kg_of_seed_planted
+    @total_pigeon_pea_planted = PigeonPeasReport.sum :kg_of_seed_planted
+    @total_kgs_planted = @total_maize_planted + @total_rice_planted + @total_bean_planted + @total_green_gram_planted + @total_black_eyed_bean_planted + @total_soya_bean_planted + @total_pigeon_pea_planted
+
+    @total_maize_harvested = MaizeReport.sum :bags_harvested
+    @total_rice_harvested = RiceReport.sum :bags_harvested
+    @total_bean_harvested = BeansReport.sum :bags_harvested
+    @total_green_gram_harvested = GreenGramsReport.sum :bags_harvested
+    @total_black_eyed_bean_harvested = BlackEyedBeansReport.sum :bags_harvested
+    @total_soya_bean_harvested = SoyaBeansReport.sum :bags_harvested
+    @total_pigeon_pea_harvested = PigeonPeasReport.sum :bags_harvested
+    @total_bags_harvested = @total_maize_harvested + @total_rice_harvested + @total_bean_harvested + @total_green_gram_harvested + @total_black_eyed_bean_harvested + @total_soya_bean_harvested + @total_pigeon_pea_harvested
+
+    @total_loans = Loan.count
+    @total_loan_amount = Loan.sum :value
+    repayments = Loan.all.map { |loan| loan.amount_paid / loan.amount_due }
+    @avg_loan_repayment_rate = ((repayments.sum / repayments.count) * 100).round(2)
+
+    @total_male = Farmer.where(gender: 'male').count
+    @total_female = Farmer.where(gender: 'female').count
+    @total_youth = Farmer.where('year_of_birth >= ?', Time.now.year - 35).count
+
+    @active_farmers = Farmer.where(received_loans: true).count
+
+    group_names = FarmerGroup.order(:county).pluck(:short_names, :formal_name, :county)
+    @farmers_by_group = {}
+    @farmers_by_county = {}
+    group_names.each do |name_arr|
+      formal_name = name_arr[1]
+      name = name_arr[0]
+      county = name_arr[2]
+      @farmers_by_group[formal_name] = Farmer.where("association_name ILIKE ?", "%#{name}%").count
+      if @farmers_by_county[county].present?
+        @farmers_by_county[county][:num_farmers] += @farmers_by_group[formal_name]
+        @farmers_by_county[county][:num_groups] += 1
+      else
+        @farmers_by_county[county] = {num_groups: 1, num_farmers: @farmers_by_group[formal_name] }
+      end
+    end
+
+    @total_repayments = Txn.where(txn_type: 'c2b').sum(:value)
+    @total_borrowers = Loan.distinct.count('farmer_id')
+    @total_loan_amount = Loan.sum :value
+  end
+
+  def dashboard_farmers
+    @dashboard_view = true
+    @dashboard_farmers = true
+  end
+
+  def dashboard_argonomy
+    @dashboard_view = true
+    @dashboard_argonomy = true
+  end
+
+  def dashboard_farmer_groups
+    @dashboard_view = true
+    @dashboard_farmer_groups = true
+  end
+
+  def dashboard_communications
+    @dashboard_view = true
+    @dashboard_communications = true
+  end
+
+  def dashboard_loans
+    @dashboard_view = true
+    @dashboard_loans = true
+  end
+
 
   def loans_summary
     @total_loans = Loan.count
@@ -207,9 +293,9 @@ class DashboardController < ApplicationController
   def post_send_sms
     records = run_queries(Farmer, params)
     to = records.map(&:phone_number)
-    unless Rails.env.development?
+    # unless Rails.env.development?
       SendMessages.batch_send(to, 'eGRANARYKe', params["message"])
-    end
+    # end
     add_to_alert("Successfully sent SMS", "success")
     redirect_to :controller => :dashboard, :action => :send_sms
   end

@@ -10,11 +10,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
+    <%= render 'layouts/navbar' %>
+    <%= render 'layouts/alerts' %>
+
+      <% if @dashboard_view %>
+        <div class="row row-offcanvas row-offcanvas-left">
+          <div class="col-md-2" role="navigation">
+            <div class="sidebar-nav">
+              <ul class="nav nav-pills nav-stacked">
+                <li class='nav-item <%= @dashboard_home ? "active" : "" %>'>
+                  <a href="/dashboard_home">
+                    <span class="glyphicon glyphicon-home" style="padding-right:5px;" aria-hidden="true"></span>Home
+                  </a>
+                </li>
+                <li class='nav-item <%= @dashboard_farmers ? "active" : "" %>'>
+                  <a href="/dashboard_farmers">
+                    <span class="glyphicon glyphicon-user" style="padding-right:5px;" aria-hidden="true"></span>Farmers
+                  </a>
+                </li>
+                <li class='nav-item <%= @dashboard_argonomy ? "active" : "" %>'>
+                  <a href="/dashboard_argonomy">
+                    <span class="glyphicon glyphicon-leaf" style="padding-right:5px;" aria-hidden="true"></span>Agronomy
+                  </a>
+                </li>
+                <li class='nav-item <%= @dashboard_farmer_groups ? "active" : "" %>'>
+                  <a href="/dashboard_farmer_groups">
+                    <span class="glyphicon glyphicon-gift" style="padding-right:5px;" aria-hidden="true"></span>Farmer Groups
+                  </a>
+                </li>
+                <li class='nav-item <%= @dashboard_communications ? "active" : "" %>'>
+                  <a href="/dashboard_communications">
+                    <span class="glyphicon glyphicon-earphone" style="padding-right:5px;" aria-hidden="true"></span>Communications
+                  </a>
+                </li>
+                <li class='nav-item <%= @dashboard_loans ? "active" : "" %>'>
+                  <a href="/dashboard_loans">
+                    <span class="glyphicon glyphicon-usd" style="padding-right:5px;" aria-hidden="true"></span>Loans
+                  </a>
+                </li>
+                <li class="nav-divider"></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-md-10">
+
+            <%= yield %>
+
+          </div>
+        </div>
+      <% else %>
+        <%= yield %>
+      <% end %>
+    </div>
+
 		<br />
-		<%= render 'layouts/navbar' %>
-		<%= render 'layouts/alerts' %>
-		<%= yield %>
 	</div>
 </body>
 </html>

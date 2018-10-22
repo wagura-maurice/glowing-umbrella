@@ -1,0 +1,15 @@
+measure: farmer_group
+dimensions:
+- farmer_count
+chart:
+  type: horizontalBar
+  options:
+    scales:
+      xAxes:
+      - scaleLabel:
+          display: true
+          labelString: Posts
+      yAxes:
+      - scaleLabel:
+          display: true
+          labelString: Author

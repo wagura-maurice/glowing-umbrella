@@ -18,6 +18,15 @@ Egranary::Application.routes.draw do
 
 
   get "app"     => "dashboard#index", :as => :app
+
+  get "dashboard_home" => "dashboard#dashboard_home", :as => :dashboard_home
+  get "dashboard_farmers" => "dashboard#dashboard_farmers", :as => :dashboard_farmers
+  get "dashboard_argonomy" => "dashboard#dashboard_argonomy", :as => :dashboard_argonomy
+  get "dashboard_farmer_groups" => "dashboard#dashboard_farmer_groups", :as => :dashboard_farmer_groups
+  get "dashboard_communications" => "dashboard#dashboard_communications", :as => :dashboard_communications
+  get "dashboard_loans" => "dashboard#dashboard_loans", :as => :dashboard_loans
+
+
   get "farmers_table" => "dashboard#farmers_table", :as => :farmers_table
   get "farmer_groups_table" => "dashboard#farmer_groups_table", :as => :farmer_groups_table
   get "rice_reports_table" => "dashboard#rice_reports_table", :as => :rice_reports_table

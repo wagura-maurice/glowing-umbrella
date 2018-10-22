@@ -2,7 +2,7 @@ class FarmerGroupsController < ApplicationController
 
   def create
     @farmer_group = FarmerGroup.create
-    redirect_to :action => :edit
+    redirect_to edit_farmer_group_path(@farmer_group)
   end
 
   def edit

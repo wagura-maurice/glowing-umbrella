@@ -1,0 +1,214 @@
+<div class="row">
+  <div class="col-md-3">
+		<div class="card border-primary mb-3">
+		  <div class="card-header">Farmers</div>
+		  <div class="card-body">
+		  	<table class="table table-striped table-condensed">
+		  		<tbody>
+		  			<tr>
+		  				<th scope="row">Registered:</th>
+		  				<td><%= @total_farmers %></td>
+		  			</tr>
+		  			<tr>
+		  				<th scope="row">Verified:</th>
+		  				<td><%= @total_verified_farmers %></td>
+		  			</tr>
+		  			<tr>
+		  				<th scope="row">Pending:</th>
+		  				<td><%= @total_pending_farmers %></td>
+		  			</tr>
+		  			<tr>
+		  				<th scope="row">Total Groups:</th>
+		  				<td><%= @total_farmer_groups %></td>
+		  			</tr>
+		  			<tr>
+		  				<th scope="row">Total Acreage:</th>
+		  				<td><%= @total_acreage %></td>
+		  			</tr>
+		  		</tbody>
+				</table>
+		  </div>
+		</div>
+  </div>
+  <div class="col-md-3">
+  	<div class="card border-primary mb-3">
+		  <div class="card-header">Crops</div>
+		  <div class="card-body">
+		    <table class="table table-striped table-condensed">
+		  		<tbody>
+		  			<tr>
+		  				<th scope="row">Total KGs Planted:</th>
+		  				<td><%= @total_kgs_planted %></td>
+		  			</tr>
+		  			<tr>
+		  				<th scope="row">Total Harvested Bags:</th>
+		  				<td><%= @total_bags_harvested.to_i %></td>
+		  			</tr>
+		  		</tbody>
+				</table>
+		  </div>
+		</div>
+  </div>
+  <div class="col-md-3">
+  	<div class="card border-primary mb-3">
+		  <div class="card-header">Loans</div>
+		  <div class="card-body">
+		    <table class="table table-striped table-condensed">
+		  		<tbody>
+		  			<tr>
+		  				<th scope="row">No. of Loans:</th>
+		  				<td><%= @total_loans %></td>
+		  			</tr>
+		  			<tr>
+		  				<th scope="row">Value of Loans:</th>
+		  				<td>KES <%= @total_loan_amount %></td>
+		  			</tr>
+		  			<tr>
+		  				<th scope="row">Repayment Rate:</th>
+		  				<td><%= @avg_loan_repayment_rate %>%</td>
+		  			</tr>
+		  		</tbody>
+				</table>
+		  </div>
+		</div>
+  </div>
+  <div class="col-md-3">
+		<div class="card border-primary mb-3">
+		  <div class="card-header">Demographics</div>
+		  <div class="card-body">
+		    <h4 class="card-title">Farmer Info</h4>
+		    <table class="table table-striped table-condensed">
+		  		<tbody>
+		  			<tr>
+		  				<th scope="row">Male:</th>
+		  				<td><%= @total_male %></td>
+		  			</tr>
+		  			<tr>
+		  				<th scope="row">Female:</th>
+		  				<td><%= @total_female %></td>
+		  			</tr>
+		  			<tr>
+		  				<th scope="row">Youth:</th>
+		  				<td><%= @total_youth %></td>
+		  			</tr>
+		  		</tbody>
+				</table>
+		  </div>
+		</div>
+  </div>
+
+</div>
+<div class='row'>
+	<div class="col-md-12">
+		<div class="card border-primary mb-3" style="max-height:800px">
+		  <div class="card-header">Farmer Registration Over Time</div>
+		  <div class="card-body">
+    		<%= render 'charts/farmer_registrations' %>
+		  </div>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class="col-md-6" style="max-height:500px">
+		<div class="card border-primary mb-3" style="max-height:500px">
+			<div class="card-header">Farmer Groups</div>
+			<div class="card-body">
+				<%= bar_chart @farmers_by_group %>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6" style="max-width:400px">
+		<div class="card border-primary mb-3" style="max-width:400px">
+		  <div class="card-header">Verified vs Pending</div>
+		  <div class="card-body">
+		  	<%= render_report 'farmer_status_pie' %>
+		  	<h4>Active Farmers</h4>
+		  	<h5>Farmers using eGranary Products: <strong><%= @active_farmers %></strong></h5>
+		  </div>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class="col-md-6" style="max-height:500px">
+		<div class="card border-primary mb-3" style="max-height:500px">
+			<div class="card-header">Counties</div>
+			<div class="card-body">
+				<table class="table table-striped table-condensed">
+		  		<tbody>
+		  			<tr>
+		  				<th>County</th>
+		  				<th>Number of Groups</th>
+		  				<th>Number of Farmers</th>
+		  			</tr>
+		  			<% @farmers_by_county.each do |county, data| %>
+		  				<tr>
+		  					<td><%= county %></td>
+		  					<td><%= data[:num_groups] %></td>
+		  					<td><%= data[:num_farmers] %></td>
+		  				</tr>
+		  			<% end %>
+		  		</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6" style="max-height:500px">
+		<div class="card border-primary mb-3" style="max-height:500px">
+			<div class="card-header">Revenue</div>
+			<div class="card-body">
+
+				<div id="gauge" class="200x160px"></div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+<div class='row'>
+	<div class="col-md-6" style="max-height:500px">
+		<div class="card border-primary mb-3" style="max-height:500px">
+			<div class="card-header">Lending</div>
+			<div class="card-body">
+				<table class="table table-striped table-condensed">
+		  		<tbody>
+		  			<tr>
+		  				<td>Total Number of Borrowers</td>
+		  				<th><%= @total_borrowers %></th>
+		  			</tr>
+		  			<tr>
+		  				<td>Total Loan Amount</td>
+		  				<th>KES <%= @total_loan_amount %></th>
+		  			</tr>
+		  		</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6" style="max-height:500px">
+		<div class="card border-primary mb-3" style="max-height:500px">
+			<div class="card-header">Communications</div>
+			<div class="card-body">
+				<table class="table table-striped table-condensed">
+		  		<tbody>
+		  			<tr>
+		  				<td>SMS Sent this Month</td>
+		  				<th><%= Rails.cache.read('sms_' + Time.now.month.to_s + '_' + Time.now.year.to_s) || 0 %></th>
+		  			</tr>
+		  		</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.2.9/justgage.min.js"></script>
+<script>
+  var g = new JustGage({
+    id: "gauge",
+    value: <%= @total_repayments %>,
+    min: 0,
+    max: 100000,
+    title: "Revenue"
+  });
+</script>

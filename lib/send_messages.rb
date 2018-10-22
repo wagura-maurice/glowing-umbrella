@@ -15,13 +15,15 @@ module SendMessages
 
 
   def batch_send(to, from=@@sender_id, msg)
-    unless Rails.env.development?
+    byebug
+    # unless Rails.env.development?
       batches = get_batches(to)
       batches.each do |batch|
+        add_to_cache(batch.length)
         recipients = batch.join(',')
         send(recipients, from, msg)
       end
-    end
+    # end
   end
 
   def get_batches(arr)
@@ -29,12 +31,26 @@ module SendMessages
   end
 
   def send(to, from, msg)
+    add_to_cache(1)
     unless Rails.env.development?
       resp = gateway.send_message(to, msg, from)
       status = resp[0].status
       return status
     else
       return 'success'
+    end
+  end
+
+  def get_sms_cache_key
+    return 'sms_' + Time.now.month.to_s + '_' + Time.now.year.to_s
+  end
+
+  def add_to_cache(value)
+    key = get_sms_cache_key
+    if Rails.cache.exist? key
+      Rails.cache.increment key, value
+    else
+      Rails.cache.write key, value
     end
   end
 

@@ -1,5 +1,10 @@
 class FarmerGroup < ActiveRecord::Base
 
+  include ReportsKit::Model
+  reports_kit do
+    # dimension :farmer_count, where: 'farmer.'
+  end
+
   def self.search_fields
     return {"created_at" => {type: :time, key: "Registration Date"},
             "updated_at" => {type: :time, key: "Record Update Date"},

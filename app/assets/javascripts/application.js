@@ -18,3 +18,15 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require reports_kit/application
+
+$(document).on('turbolinks:load', function(event) {
+	if (window.firstPageLoadDone) {
+			$('.reports_kit_report').each(function(index, el) {
+	    var el = $(el);
+	    var reportClass = el.data('report-class');
+	    new ReportsKit[reportClass]().render({ 'el': el });
+	  });
+	} else {
+		window.firstPageLoadDone = true;
+	}
+})

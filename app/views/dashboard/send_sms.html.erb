@@ -15,9 +15,6 @@
         <% end %>
       <% end %>
 
-      <% @options_for_select = options_for_select([['All', 1], ["Maize Farmers", 2], ["Rice Farmers", 3], ["Bean Farmers", 4], ["Green Gram Farmers", 5], ["Black Eyed Bean Farmers", 6], ["Soya Bean Farmers", 7], ["Pigeon Pea Farmers", 8]]) %>
-      <%= select_tag(:send_messages_to, @options_for_select) %>
-
       <%= submit_tag 'Send', class: "btn btn-primary" %>
     </div>
   </fieldset>

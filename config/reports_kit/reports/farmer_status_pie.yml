@@ -1,0 +1,9 @@
+measure: farmer
+dimensions:
+- status
+chart:
+  type: pie
+  options:
+    legend:
+      display: true
+      position: bottom
