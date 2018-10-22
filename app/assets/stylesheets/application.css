@@ -13,3 +13,8 @@
  *= require dataTables/jquery.dataTables
  *= require reports_kit/application
  */
+
+
+.dontShow {
+  display: none;
+}

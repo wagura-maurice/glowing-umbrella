@@ -1,1 +1,112 @@
-Coming soon...
+<div class="row">
+  <div class="col-md-12">
+    <div class="card border-primary mb-3" style="max-height:800px">
+      <div class="card-header">Registration Over Time</div>
+      <div class="card-body">
+        <%= render 'charts/farmer_registrations' %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card border-primary mb-3" style="max-height:800px">
+      <div class="card-header">Locations</div>
+      <div class="card-body">
+        <%= geo_chart Farmer.group(:country).count %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card border-primary mb-3" style="max-width:350px">
+      <div class="card-header">Genders</div>
+      <div class="card-body">
+        <%= render 'charts/farmer_genders_pie' %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card border-primary mb-3" style="max-height:800px">
+      <div class="card-header">Youth or Adult</div>
+      <div class="card-body">
+        <%= pie_chart @age_range %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card border-primary mb-3" style="">
+      <div class="card-header">Age Breakdown</div>
+      <div class="card-body">
+        <table class="table table-striped table-condensed">
+          <tbody>
+            <tr>
+              <th>Age Range</th>
+              <th>Female</th>
+              <th>Male</th>
+              <th>Total</th>
+            </tr>
+            <tr>
+              <td>Below 25</td>
+              <td><%= @below_25_f %></td>
+              <td><%= @below_25_m %></td>
+              <td><%= @below_25_f + @below_25_m %></td>
+            </tr>
+            <tr>
+              <td>25 - 35</td>
+              <td><%= @between_25_and_35_f %></td>
+              <td><%= @between_25_and_35_m %></td>
+              <td><%= @between_25_and_35_f + @between_25_and_35_m %></td>
+            </tr>
+            <tr>
+              <td>36 - 45</td>
+              <td><%= @between_35_and_45_f %></td>
+              <td><%= @between_35_and_45_m %></td>
+              <td><%= @between_35_and_45_f + @between_35_and_45_m %></td>
+            </tr>
+            <tr>
+              <td>46 - 55</td>
+              <td><%= @between_45_and_55_f %></td>
+              <td><%= @between_45_and_55_m %></td>
+              <td><%= @between_45_and_55_f + @between_45_and_55_m %></td>
+            </tr>
+            <tr>
+              <td>Above 55</td>
+              <td><%= @above_55_f %></td>
+              <td><%= @above_55_m %></td>
+              <td><%= @above_55_f + @above_55_m %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card border-primary mb-3" style="max-height:800px">
+      <div class="card-header">Farmer Genders per Country</div>
+      <div class="card-body">
+        <%= select_tag :country_for_farmers, options_for_select([['Select a country', '-'],['Kenya', 'kenya'], ['Uganda', 'uganda'], ['Rwanda', 'rwanda'], ['Tanzania', 'tanzania']]) %>
+        <table id="farmer_group_per_country_table" class="dontShow table table-striped table-condensed ">
+          <thead>
+            <tr>
+              <th>Group Name</th>
+              <th>Male</th>
+              <th>Female</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= '' %></td>
+              <td><%= '' %></td>
+              <td><%= 'yasd' %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

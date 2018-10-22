@@ -108,6 +108,38 @@ class DashboardController < ApplicationController
   def dashboard_farmers
     @dashboard_view = true
     @dashboard_farmers = true
+    @total_youth = Farmer.where('year_of_birth >= ?', Time.now.year - 35).count
+    @total_adult = Farmer.where('year_of_birth < ?', Time.now.year - 35).count
+    @age_range = {'Youth' => @total_youth, 'Adult' => @total_adult}
+
+    @below_25_f = Farmer.where('year_of_birth > ?', Time.now.year - 25).where(gender: 'female').count
+    @between_25_and_35_f = Farmer.where('year_of_birth < ? AND year_of_birth >= ?', Time.now.year - 25, Time.now.year - 35).where(gender: 'female').count
+    @between_35_and_45_f = Farmer.where('year_of_birth < ? AND year_of_birth >= ?', Time.now.year - 35, Time.now.year - 45).where(gender: 'female').count
+    @between_45_and_55_f = Farmer.where('year_of_birth < ? AND year_of_birth >= ?', Time.now.year - 45, Time.now.year - 55).where(gender: 'female').count
+    @above_55_f = Farmer.where('year_of_birth < ?', Time.now.year - 55).where(gender: 'female').count
+
+    @below_25_m = Farmer.where('year_of_birth > ?', Time.now.year - 25).where(gender: 'male').count
+    @between_25_and_35_m = Farmer.where('year_of_birth < ? AND year_of_birth >= ?', Time.now.year - 25, Time.now.year - 35).where(gender: 'male').count
+    @between_35_and_45_m = Farmer.where('year_of_birth < ? AND year_of_birth >= ?', Time.now.year - 35, Time.now.year - 45).where(gender: 'male').count
+    @between_45_and_55_m = Farmer.where('year_of_birth < ? AND year_of_birth >= ?', Time.now.year - 45, Time.now.year - 55).where(gender: 'male').count
+    @above_55_m = Farmer.where('year_of_birth < ?', Time.now.year - 55).where(gender: 'male').count
+  end
+
+  def farmer_data_by_country
+    country = params['country']
+    fgs = FarmerGroup.where("country ILIKE ?", "%#{country}%")
+    ret = {}
+    fgs.each do |group|
+      name = group.short_names.split('|')[0]
+      ret[group.formal_name] = {
+        male: Farmer.where("association_name ILIKE ?", "%#{name}%").where(gender: 'male').count,
+        female: Farmer.where("association_name ILIKE ?", "%#{name}%").where(gender: 'female').count
+      }
+    end
+
+    respond_to do |format|
+      format.json { render json: ret }
+    end
   end
 
   def dashboard_argonomy

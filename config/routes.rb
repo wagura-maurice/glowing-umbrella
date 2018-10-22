@@ -72,6 +72,8 @@ Egranary::Application.routes.draw do
 
   post "blast"  => "dashboard#blast", :as => "blast"
 
+  get "farmer_data_by_country" => "dashboard#farmer_data_by_country"
+
   resources :sessions
   resources :users
   resources :farmers

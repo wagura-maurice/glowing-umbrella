@@ -15,7 +15,6 @@ module SendMessages
 
 
   def batch_send(to, from=@@sender_id, msg)
-    byebug
     # unless Rails.env.development?
       batches = get_batches(to)
       batches.each do |batch|
