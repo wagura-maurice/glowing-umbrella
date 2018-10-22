@@ -41,6 +41,10 @@
       <td><%= f.select(:received_loans, options_for_select([['True', true], ['False', false]], @farmer.received_loans)) %></td>
     </tr>
     <tr>
+      <td><strong><%= "Has Set PIN" %>:</strong></td>
+      <td><%= @farmer.pin_hash.present? %></td>
+    </tr>
+    <tr>
       <td><%= f.label :gender %>:</td>
       <td><%= f.select(:gender, options_for_select([['-', nil], ['Male', 'male'], ['Female', 'female']], @farmer.gender)) %></td>
     </tr>
@@ -59,6 +63,8 @@
     <% end %>
   </table>
 <% end %>
+<br />
+<%= button_to "Reset PIN", {controller: 'farmers', action: 'reset_pin', id: @farmer.id}, {class: 'btn-small btn-primary'} %>
 
 <br />
 <%= render 'loans/view_loans' %>

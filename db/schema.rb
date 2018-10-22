@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180930220127) do
+ActiveRecord::Schema.define(version: 20181022032656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,8 +145,8 @@ ActiveRecord::Schema.define(version: 20180930220127) do
     t.boolean  "accepted_loan_tnc",         default: false
     t.boolean  "received_loans",            default: false
     t.string   "pin_hash"
-    t.integer  "status",                    default: 0
     t.float    "farm_size"
+    t.string   "status"
   end
 
   add_index "farmers", ["group_name"], name: "index_farmers_on_group_name", using: :btree
@@ -182,7 +182,6 @@ ActiveRecord::Schema.define(version: 20180930220127) do
     t.integer  "duration"
     t.string   "duration_unit"
     t.string   "currency"
-    t.float    "service_charge"
     t.string   "structure"
     t.string   "status"
     t.datetime "disbursed_date"
@@ -191,9 +190,11 @@ ActiveRecord::Schema.define(version: 20180930220127) do
     t.string   "repayment_method"
     t.string   "voucher_code"
     t.integer  "farmer_id"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.float    "amount_paid",      default: 0.0
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.float    "amount_paid",               default: 0.0
+    t.float    "service_charge",            default: 0.0
+    t.float    "service_charge_percentage", default: 0.0
   end
 
   add_index "loans", ["farmer_id"], name: "index_loans_on_farmer_id", using: :btree

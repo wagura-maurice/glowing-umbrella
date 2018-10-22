@@ -26,6 +26,7 @@ class LoansController < ApplicationController
     to_save["repaid_date"] = get_datetime(to_save["repaid_date"])
     to_save["disbursed_date"] = get_datetime(to_save["disbursed_date"])
     @loan.update_attributes(to_save)
+    @loan.set_service_charge
     add_to_alert("Successfully updated Loan", "success")
     redirect_to :action => :edit
   end
@@ -50,7 +51,7 @@ class LoansController < ApplicationController
       :duration,
       :duration_unit,
       :currency,
-      :service_charge,
+      :service_charge_percentage,
       :structure,
       :status,
       :disbursed_date,

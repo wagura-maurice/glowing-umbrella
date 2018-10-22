@@ -23,6 +23,14 @@ class FarmersController < ApplicationController
     end
   end
 
+  def reset_pin
+    @farmer = Farmer.find(params[:id])
+    @farmer.pin_hash = nil
+    @farmer.accepted_loan_tnc = false
+    @farmer.save
+    redirect_to :action => :edit
+  end
+
   def base_query
     Farmer
   end
@@ -55,6 +63,8 @@ class FarmersController < ApplicationController
   def create_loan
     @farmer = Farmer.find(params[:id])
     @loan = Loan.create(farmer: @farmer)
+    msg = "You have been issued a new loan from eGranary. Please log in to eGranary to see your loan details"
+    SendSmsWorker.perform_async(@farmer.phone_number, 'eGRANARYKe', msg)
     redirect_to edit_loan_url(@loan)
   end
 

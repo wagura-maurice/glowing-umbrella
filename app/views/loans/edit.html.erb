@@ -47,8 +47,8 @@
       <td><%= f.select(:currency, options_for_select([['KES', 'KES'], ['UGX', 'UGX']], @loan.currency)) %></td>
     </tr>
     <tr>
-      <td><%= f.label :service_charge %>:</td>
-      <td><%= f.text_field :service_charge %></td>
+      <td><%= f.label :service_charge_percentage %>:</td>
+      <td><%= f.text_field :service_charge_percentage %>%</td>
     </tr>
     <tr>
       <td><%= f.label "Loan Structure" %>:</td>

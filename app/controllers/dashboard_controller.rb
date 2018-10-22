@@ -84,6 +84,14 @@ class DashboardController < ApplicationController
   end
 
   def loans_table
+    @total_loans = Loan.count
+    @total_loan_amount = Loan.sum :value
+    @avg_loan_amount = Loan.average :value
+    @avg_interest_rate = Loan.average :interest_rate
+    @total_repayments = Txn.where(txn_type: 'c2b').sum(:value)
+    repayments = Loan.all.map { |loan| loan.amount_paid / loan.amount_due }
+    @avg_loan_repayment_rate = ((repayments.sum / repayments.count) * 100).round(2)
+
     @search_fields = Loan.search_fields
     @datatable_search_params = datatable_search_params(@search_fields)
     ret = LoanDatatable.new(view_context)
