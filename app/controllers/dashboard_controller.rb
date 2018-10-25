@@ -133,12 +133,33 @@ class DashboardController < ApplicationController
       name = group.short_names.split('|')[0]
       ret[group.formal_name] = {
         male: Farmer.where("association_name ILIKE ?", "%#{name}%").where(gender: 'male').count,
-        female: Farmer.where("association_name ILIKE ?", "%#{name}%").where(gender: 'female').count
+        female: Farmer.where("association_name ILIKE ?", "%#{name}%").where(gender: 'female').count,
+        youth: Farmer.where("association_name ILIKE ?", "%#{name}%").where('year_of_birth >= ?', Time.now.year - 35).count,
+        adult: Farmer.where("association_name ILIKE ?", "%#{name}%").where('year_of_birth < ?', Time.now.year - 35).count,
+        total: Farmer.where("association_name ILIKE ?", "%#{name}%").count
       }
     end
 
     respond_to do |format|
       format.json { render json: ret }
+    end
+  end
+
+  def farmer_data_per_crop_by_country
+    country = params['country']
+    crop = params['crop']
+    model = CROPS[crop.to_sym][:model]
+    fgs = FarmerGroup.where("country ILIKE ?", "%#{country}%")
+    ret = {}
+    farmer_ids = Farmer.where("association_name ILIKE ?", "%#{name}%").pluck(:id)
+    fgs.each do |group|
+      name = group.short_names.split('|')[0]
+      ret[group.formal_name] = {
+        kg_seed_planted: model.where(report_type: 'planting').where(farmer_id: farmer_ids).sum(:kg_of_seed_planted),
+        total_bags_harvested: model.where(report_type: 'harvest').where(farmer_id: farmer_ids).sum(:bags_harvested),
+        aggregated_produce: group.aggregated_harvest_data,
+        produce_collected: group.total_harvest_collected_for_sale
+      }
     end
   end
 

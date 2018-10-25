@@ -1,1 +1,49 @@
-Coming soon...
+<div class="row">
+  <div class="col-md-12">
+    <div class="card border-primary mb-3" style="max-height:800px">
+      <div class="card-header">Farmer Group Demographics per Country</div>
+      <div class="card-body">
+        <%= select_tag :country_for_farmers, options_for_select([['Select a country', '-'],['Kenya', 'kenya'], ['Uganda', 'uganda'], ['Rwanda', 'rwanda'], ['Tanzania', 'tanzania']]) %>
+        <table id="farmer_group_per_country_table" class="dontShow table table-striped table-condensed ">
+          <thead>
+            <tr>
+              <th>Group Name</th>
+              <th>Male</th>
+              <th>Female</th>
+              <th>Youth</th>
+              <th>Adult</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card border-primary mb-3" style="max-height:800px">
+      <div class="card-header">Farmer Group Crop Info per Country</div>
+      <div class="card-body">
+        <%= select_tag :country_for_farmers, options_for_select([['Select a crop', '-'],['Kenya', 'kenya'], ['Uganda', 'uganda'], ['Rwanda', 'rwanda'], ['Tanzania', 'tanzania']]) %>
+        <%= select_tag :crop_for_farmers, options_for_select([['Select a crop', '-'],['Maize', 'maize'], ['Rice', 'rice'], ['Beans', 'beans'], ['Green Grams', 'green_grams'], ['Black Eyed Beans', 'black_eyed_beans'], ['Soya Beans', 'soya_beans'], ['Pigeon Peas', 'pigeon_peas'] ]) %>
+        <table id="farmer_group_crop_info_per_country_table" class="dontShow table table-striped table-condensed ">
+          <thead>
+            <tr>
+              <th>Group Name</th>
+              <th>KG Seed Planted</th>
+              <th>Total Bags Harvested</th>
+              <th>Aggregated Produce</th>
+              <th>Total Produce Collected</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

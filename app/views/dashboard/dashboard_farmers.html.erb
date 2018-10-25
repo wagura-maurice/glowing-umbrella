@@ -13,7 +13,7 @@
     <div class="card border-primary mb-3" style="max-height:800px">
       <div class="card-header">Locations</div>
       <div class="card-body">
-        <%= geo_chart Farmer.group(:country).count %>
+        <%= geo_chart Farmer.group(:country).count, library: {region: 'KE', resolution: 'cities'} %>
       </div>
     </div>
   </div>
@@ -86,7 +86,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="card border-primary mb-3" style="max-height:800px">
-      <div class="card-header">Farmer Genders per Country</div>
+      <div class="card-header">Farmer Demographics per Country</div>
       <div class="card-body">
         <%= select_tag :country_for_farmers, options_for_select([['Select a country', '-'],['Kenya', 'kenya'], ['Uganda', 'uganda'], ['Rwanda', 'rwanda'], ['Tanzania', 'tanzania']]) %>
         <table id="farmer_group_per_country_table" class="dontShow table table-striped table-condensed ">
@@ -95,15 +95,12 @@
               <th>Group Name</th>
               <th>Male</th>
               <th>Female</th>
+              <th>Youth</th>
+              <th>Adult</th>
               <th>Total</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><%= '' %></td>
-              <td><%= '' %></td>
-              <td><%= 'yasd' %></td>
-            </tr>
           </tbody>
         </table>
       </div>
