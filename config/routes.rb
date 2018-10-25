@@ -74,6 +74,8 @@ Egranary::Application.routes.draw do
 
   get "farmer_data_by_country" => "dashboard#farmer_data_by_country"
   get "farmer_data_per_crop_by_country" => "dashboard#farmer_data_per_crop_by_country"
+  post "farmers/:id/reset_pin" => 'farmers#reset_pin'
+  post "assign_loans" => 'dashboard#assign_loans', :as => :assign_loans
 
   resources :sessions
   resources :users

@@ -1,31 +1,4 @@
 <div>
   <h2>Loans Summary</h2>
-  <table class="table table-bordered table-condensed table-hover">
-    <tbody>
-      <tr>
-        <td>Total Loans</td>
-        <td><%= number_with_delimiter(@total_loans, :delimiter => ',') %></td>
-      </tr>
-      <tr>
-        <td>Total Amount Lent</td>
-        <td>KES <%= number_with_delimiter(@total_loan_amount, :delimiter => ',') %></td>
-      </tr>
-      <tr>
-        <td>Average Loan Amount</td>
-        <td>KES <%= number_with_delimiter(@avg_loan_amount, :delimiter => ',') %></td>
-      </tr>
-      <tr>
-        <td>Average Interest Rate</td>
-        <td><%= number_with_delimiter(@avg_interest_rate, :delimiter => ',') %>%</td>
-      </tr>
-      <tr>
-        <td>Total Repayments</td>
-        <td>KES <%= number_with_delimiter(@total_repayments, :delimiter => ',') %></td>
-      </tr>
-      <tr>
-        <td>Average Loan Repayment Rate</td>
-        <td><%= number_with_delimiter(@avg_loan_repayment_rate, :delimiter => ',') %>%</td>
-      </tr>
-    </tbody>
-  </table>
+  <%= render 'dashboard/loans_summary_table' %>
 </div>

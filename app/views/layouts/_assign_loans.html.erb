@@ -1,7 +1,17 @@
-<h3>Farmer: <%= link_to @loan.farmer.display_name, edit_farmer_path(@loan.farmer) %></h3>
-<br />
-<%= form_for @loan do |f| %>
+<div>
+  <div>
+    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+    <a href="#assignLoansArea" aria-expanded="false" aria-controls="assignLoansArea" data-toggle="collapse">Assign Loans</a>
+  </div>
+  <div class="panel panel-default">
+  	<div class="collapse panel-body" id="assignLoansArea">
+      <%= form_for @loan, url: assign_loans_path do |f| %>
   <table>
+    <% @datatable_search_params.each do |k, v| %>
+      <% if param_is_query?(k, v) %>
+        <%= hidden_field_tag k, v %>
+      <% end %>
+    <% end %>
     <tr>
       <th>Field</th>
       <th>Value</th>
@@ -89,20 +99,11 @@
       <td><%= f.text_field :voucher_code, :readonly => true %></td>
     </tr>
     <tr>
-      <td><%= f.submit 'Save' %></td>
+      <td><%= f.submit 'Assign to all farmers' %></td>
     </tr>
   </table>
 <% end %>
-
+    </div>
+  </div>
+</div>
 <br />
-<br />
-<%= button_to "Delete Loan", @loan, {:method => :delete, data: { confirm: "Are you sure?" }} %>
-
-<script type="text/javascript">
-  $(function () {
-    d1 = $('#loan_repaid_date').attr('data-orig-date')
-    d2 = $('#loan_disbursed_date').attr('data-orig-date')
-    $('#loan_repaid_date').datetimepicker({defaultDate: d1, format: "DD-MM-YYYY"});
-    $('#loan_disbursed_date').datetimepicker({defaultDate: d2, format: 'DD-MM-YYYY'});
-  });
-</script>

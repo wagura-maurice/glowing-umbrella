@@ -40,6 +40,12 @@ class Loan < ActiveRecord::Base
     self.voucher_code = generate_voucher_code(9)
   end
 
+  def set_service_charge
+    pct = (self.service_charge_percentage || 0.0) / 100.0
+    value = self.value || 0.0
+    self.service_charge = value * pct
+    self.save
+  end
 
   def amount_due
     total_interest = self.duration * self.interest_rate
