@@ -66,11 +66,25 @@ class DashboardController < ApplicationController
   def farmers_table
     @search_fields = Farmer.search_fields
     @datatable_search_params = datatable_search_params(@search_fields)
+    @loan = Loan.new
     ret = FarmerDatatable.new(view_context)
     respond_to do |format|
       format.html
       format.json { render json: ret }
     end
+  end
+
+  def assign_loans
+    records = run_queries(Farmer, params)
+    records.each do |farmer|
+      next unless farmer.received_loans
+      loan = Loan.new(loan_params)
+      loan.farmer = farmer
+      loan.save
+      msg = "You have been issued a new loan from eGranary. Please log in to eGranary to see your loan details"
+      SendSmsWorker.perform_async(farmer.phone_number, 'eGRANARYKe', msg)
+    end
+    redirect_to :farmers_table
   end
 
   def farmer_groups_table
@@ -253,6 +267,27 @@ class DashboardController < ApplicationController
     redirect_to :controller => :dashboard, :action => :index
   end
 
+  def loan_params
+    return params.require(:loan).permit(:commodity,
+      :value,
+      :time_period,
+      :interest_rate,
+      :interest_period,
+      :interest_type,
+      :duration,
+      :duration_unit,
+      :currency,
+      :service_charge_percentage,
+      :structure,
+      :status,
+      :disbursed_date,
+      :disbursal_method,
+      :repaid_date,
+      :repayment_method)
+    #ret[:disbursed_date] = get_datetime(ret[:disbursed_date])
+    #ret[:repaid_date] = get_datetime(ret[:repaid_date])
+    #return ret
+  end
 
   private
 

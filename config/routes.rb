@@ -64,6 +64,7 @@ Egranary::Application.routes.draw do
   post "blast"  => "dashboard#blast", :as => "blast"
 
   post "farmers/:id/reset_pin" => 'farmers#reset_pin'
+  post "assign_loans" => 'dashboard#assign_loans', :as => :assign_loans
 
   resources :sessions
   resources :users

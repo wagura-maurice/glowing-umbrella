@@ -20,6 +20,9 @@
   </tbody>
 </table>
 
+<br />
+<%= render 'layouts/assign_loans' %>
+
 <p>
   <%= link_to "Download Excel", farmers_path(@datatable_search_params.merge({format: "xls", unscoped: "true"})), class: "btn btn-sm btn-primary"%>
 </p>
