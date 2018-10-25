@@ -151,15 +151,18 @@ class DashboardController < ApplicationController
     model = CROPS[crop.to_sym][:model]
     fgs = FarmerGroup.where("country ILIKE ?", "%#{country}%")
     ret = {}
-    farmer_ids = Farmer.where("association_name ILIKE ?", "%#{name}%").pluck(:id)
     fgs.each do |group|
       name = group.short_names.split('|')[0]
+      farmer_ids = Farmer.where("association_name ILIKE ?", "%#{name}%").pluck(:id)
       ret[group.formal_name] = {
         kg_seed_planted: model.where(report_type: 'planting').where(farmer_id: farmer_ids).sum(:kg_of_seed_planted),
         total_bags_harvested: model.where(report_type: 'harvest').where(farmer_id: farmer_ids).sum(:bags_harvested),
         aggregated_produce: group.aggregated_harvest_data,
         produce_collected: group.total_harvest_collected_for_sale
       }
+    end
+    respond_to do |format|
+      format.json { render json: ret }
     end
   end
 
