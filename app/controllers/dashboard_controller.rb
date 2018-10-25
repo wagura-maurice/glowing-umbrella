@@ -77,7 +77,8 @@ class DashboardController < ApplicationController
   def assign_loans
     records = run_queries(Farmer, params)
     records.each do |farmer|
-      next unless farmer.received_loans
+      farmer.received_loans = true
+      farmer.save
       loan = Loan.new(loan_params)
       loan.farmer = farmer
       loan.save
