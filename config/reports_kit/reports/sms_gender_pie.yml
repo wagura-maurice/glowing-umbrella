@@ -1,0 +1,12 @@
+measure: sent_message
+filters:
+- created_at
+- country
+dimensions:
+- gender
+chart:
+  type: pie
+  options:
+    legend:
+      display: true
+      position: right

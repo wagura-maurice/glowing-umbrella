@@ -1,1 +1,53 @@
-Coming soon...
+<div class="row">
+  <div class="col-md-3">
+		<div class="card border-primary mb-3">
+		  <div class="card-header">SMS Sent Today</div>
+		  <div class="card-body">
+		    <h4 class="card-title"><%= @total_sms_sent_this_month %></h4>
+		  </div>
+		</div>
+  </div>
+  <div class="col-md-3">
+  	<div class="card border-primary mb-3">
+		  <div class="card-header">SMS Sent This Week</div>
+		  <div class="card-body">
+		    <h4 class="card-title"><%= @total_sms_sent_this_week %></h4>
+		  </div>
+		</div>
+  </div>
+  <div class="col-md-3">
+  	<div class="card border-primary mb-3">
+		  <div class="card-header">SMS Sent This Month</div>
+		  <div class="card-body">
+		    <h4 class="card-title"><%= @total_sms_sent_today %></h4>
+		  </div>
+		</div>
+  </div>
+  <div class="col-md-3">
+		<div class="card border-primary mb-3">
+		  <div class="card-header">SMS Sent Last Month</div>
+		  <div class="card-body">
+		    <h4 class="card-title"><%= @total_sms_sent_last_month %></h4>
+		  </div>
+		</div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card border-primary mb-3" style="max-width:550px">
+      <div class="card-header">SMS Reach by Gender</div>
+      <div class="card-body">
+        <%= render 'charts/sms_gender_pie' %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card border-primary mb-3" style="max-width:550px">
+      <div class="card-header">SMS Reach by Age</div>
+      <div class="card-body">
+        <%= render 'charts/sms_age_pie' %>
+      </div>
+    </div>
+  </div>
+</div>
+

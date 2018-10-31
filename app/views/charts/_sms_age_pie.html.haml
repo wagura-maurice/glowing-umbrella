@@ -1,0 +1,4 @@
+= render_report 'sms_age_pie' do |report|
+  = report.form do |f|
+    = f.date_range :created_at
+    = f.string_filter :country, placeholder: 'Country (e.g. Kenya)', style: 'width: 175px;'

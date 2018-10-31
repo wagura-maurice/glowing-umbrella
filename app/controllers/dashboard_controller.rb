@@ -103,6 +103,8 @@ class DashboardController < ApplicationController
     @total_repayments = Txn.where(txn_type: 'c2b').sum(:value)
     @total_borrowers = Loan.distinct.count('farmer_id')
     @total_loan_amount = Loan.sum :value
+
+    @total_sms_sent_this_month = SentMessage.where('created_at > ?', Date.today.at_beginning_of_month).sum(:num_sent)
   end
 
   def dashboard_farmers
@@ -179,6 +181,11 @@ class DashboardController < ApplicationController
   def dashboard_communications
     @dashboard_view = true
     @dashboard_communications = true
+
+    @total_sms_sent_this_month = SentMessage.where('created_at > ?', Date.today.at_beginning_of_month).sum(:num_sent)
+    @total_sms_sent_this_week = SentMessage.where('created_at > ?', Date.today.at_beginning_of_week).sum(:num_sent)
+    @total_sms_sent_today = SentMessage.where('created_at > ?', Date.today).sum(:num_sent)
+    @total_sms_sent_last_month = SentMessage.where('created_at > ? AND created_at < ?', Date.today.prev_month.beginning_of_month, Date.today.at_beginning_of_month).sum(:num_sent)
   end
 
   def dashboard_loans

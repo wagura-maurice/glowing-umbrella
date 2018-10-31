@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181022032656) do
+ActiveRecord::Schema.define(version: 20181030025930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -312,6 +312,18 @@ ActiveRecord::Schema.define(version: 20181022032656) do
 
   add_index "rice_reports", ["farmer_id"], name: "index_rice_reports_on_farmer_id", using: :btree
   add_index "rice_reports", ["harvest_report_id"], name: "index_rice_reports_on_harvest_report_id", using: :btree
+
+  create_table "sent_messages", force: :cascade do |t|
+    t.string   "to",              limit: 60
+    t.string   "from",            limit: 60
+    t.text     "message"
+    t.integer  "num_sent"
+    t.string   "gender"
+    t.string   "age_demographic"
+    t.string   "country"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "sessions", force: :cascade do |t|
     t.uuid     "session_id", null: false

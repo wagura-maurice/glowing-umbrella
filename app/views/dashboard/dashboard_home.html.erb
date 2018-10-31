@@ -192,7 +192,7 @@
 		  		<tbody>
 		  			<tr>
 		  				<td>SMS Sent this Month</td>
-		  				<th><%= Rails.cache.read('sms_' + Time.now.month.to_s + '_' + Time.now.year.to_s) || 0 %></th>
+		  				<th><%= @total_sms_sent_this_month %></th>
 		  			</tr>
 		  		</tbody>
 				</table>

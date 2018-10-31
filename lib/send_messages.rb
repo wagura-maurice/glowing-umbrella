@@ -20,7 +20,7 @@ module SendMessages
       batches.each do |batch|
         add_to_cache(batch.length)
         recipients = batch.join(',')
-        send(recipients, from, msg)
+        send(recipients, from, msg, batch.length)
       end
     # end
   end
@@ -29,11 +29,35 @@ module SendMessages
     return arr.each_slice(2000).to_a
   end
 
-  def send(to, from, msg)
+  def send(to, from, msg, count = 1)
     add_to_cache(1)
     unless Rails.env.development?
       resp = gateway.send_message(to, msg, from)
       status = resp[0].status
+      if status.downcase == 'success'
+        if to.include?(',')
+          search_to = to.split(',')
+        else
+          search_to = [to]
+        end
+        search_to.each do |num|
+          f = Farmer.where(phone_number: num).first
+          if f.year_of_birth  >= Time.now.year - 35
+            age_demo = 'youth'
+          elsif f.year_of_birth  < Time.now.year - 35
+            age_demo = 'adult'
+          end
+          SentMessage.create(
+            to: num,
+            from: from,
+            message: msg,
+            num_sent: 1,
+            gender: f.gender || 'undefined',
+            age_demographic: age_demo || 'undefined',
+            country: f.country
+          )
+        end
+      end
       return status
     else
       return 'success'
