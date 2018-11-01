@@ -191,6 +191,127 @@ class DashboardController < ApplicationController
   def dashboard_loans
     @dashboard_view = true
     @dashboard_loans = true
+
+    @total_repayments = Txn.where(txn_type: 'c2b').sum(:value)
+    @total_borrowers = Loan.distinct.count('farmer_id')
+    @total_loan_amount = Loan.sum :value
+
+    @borrower_gender = {
+      'Male' => Farmer.where(received_loans: true).where(gender: 'male').count,
+      'Female' => Farmer.where(received_loans: true).where(gender: 'female').count
+    }
+    @borrower_age_range = {
+      'Youth' => Farmer.where(received_loans: true).where('year_of_birth >= ?', Time.now.year - 35).count,
+      'Adult' => Farmer.where(received_loans: true).where('year_of_birth < ?', Time.now.year - 35).count
+    }
+
+    @loan_amount_gender = {
+      'Male' => Farmer.joins(:loans).where("farmers.gender = ?", 'male').sum(:value),
+      'Female' => Farmer.joins(:loans).where("farmers.gender = ?", 'female').sum(:value)
+    }
+    @loan_amount_age_range = {
+      'Youth' => Farmer.joins(:loans).where('farmers.year_of_birth >= ?', Time.now.year - 35).sum(:value),
+      'Adult' => Farmer.joins(:loans).where('farmers.year_of_birth < ?', Time.now.year - 35).sum(:value)
+    }
+
+    @country = params[:country]
+    @loan_type = params[:loan_type]
+    @date_gt = params[:date_greater_than]
+    @date_lt = params[:date_less_than]
+
+    if (@country.present?) && (@country != '-') && (@loan_type.present?) && (@loan_type != '-')
+      @show_tables = true
+      if @country == 'kenya'
+        currency = 'KES'
+      elsif @country = 'uganda'
+        currency = 'UGX'
+      else
+        currency = ''
+      end
+      base_loans = Loan.where(currency: currency).where(time_period: @loan_type)
+      defaulted_loans = base_loans.where("disbursed_date < ?", Date.today - 6.months)
+      uniq_default_farmer_ids = defaulted_loans.pluck(:farmer_id).uniq
+      @num_defaulters = uniq_default_farmer_ids.count
+      @total_default_amount = defaulted_loans.sum(:value)
+      @defaulter_gender = {
+        'Male' => Farmer.where(id: uniq_default_farmer_ids).where(gender: 'male').count,
+        'Female' => Farmer.where(id: uniq_default_farmer_ids).where(gender: 'female').count
+      }
+      @defaulter_age_range = {
+        'Youth' => Farmer.where(id: uniq_default_farmer_ids).where('year_of_birth >= ?', Time.now.year - 35).count,
+        'Adult' => Farmer.where(id: uniq_default_farmer_ids).where('year_of_birth < ?', Time.now.year - 35).count,
+      }
+
+      input_loans = base_loans.where(commodity: 'inputs')
+      @input1 = 0
+      @input2 = 0
+      @input3 = 0
+      @input4 = 0
+      @input5 = 0
+      @input6 = 0
+      input_loans.each do |l|
+        if l.amount_remaining > 0
+          days_due = (Date.today - l.loan_maturity_date.to_date).to_i
+          if (days_due >= 0) && (days_due < 31)
+            @input1 += l.amount_remaining
+          elsif (days_due >= 31) && (days_due < 61)
+            @input2 += l.amount_remaining
+          elsif (days_due >= 61) && (days_due < 91)
+            @input3 += l.amount_remaining
+          elsif (days_due >= 91) && (days_due < 121)
+            @input4 += l.amount_remaining
+          elsif (days_due >= 121) && (days_due < 181)
+            @input5 += l.amount_remaining
+          elsif (days_due >= 181)
+            @input6 += l.amount_remaining
+          end
+        end
+      end
+
+      cash_loans = base_loans.where(commodity: 'cash')
+      @cash1 = 0
+      @cash2 = 0
+      @cash3 = 0
+      @cash4 = 0
+      @cash5 = 0
+      @cash6 = 0
+      cash_loans.each do |l|
+        if l.amount_remaining > 0
+          days_due = (Date.today - l.loan_maturity_date.to_date).to_i
+          if (days_due >= 0) && (days_due < 31)
+            @cash1 += l.amount_remaining
+          elsif (days_due >= 31) && (days_due < 61)
+            @cash2 += l.amount_remaining
+          elsif (days_due >= 61) && (days_due < 91)
+            @cash3 += l.amount_remaining
+          elsif (days_due >= 91) && (days_due < 121)
+            @cash4 += l.amount_remaining
+          elsif (days_due >= 121) && (days_due < 181)
+            @cash5 += l.amount_remaining
+          elsif (days_due >= 181)
+            @cash6 += l.amount_remaining
+          end
+        end
+      end
+
+      @total_repayments = Txn.where(txn_type: 'c2b').sum(:value)
+      @total_borrowers = base_loans.distinct.count('farmer_id')
+      @total_loan_amount = base_loans.sum :value
+      repayments = base_loans.map { |loan| loan.amount_paid / loan.amount_due }
+      @avg_loan_repayment_rate = ((repayments.sum / repayments.count) * 100).round(2)
+      uniq_borrower_farmer_ids = base_loans.pluck(:farmer_id).uniq
+      @borrower_gender = {
+        'Male' => Farmer.where(id: uniq_borrower_farmer_ids).where(gender: 'male').count,
+        'Female' => Farmer.where(id: uniq_borrower_farmer_ids).where(gender: 'female').count
+      }
+      @borrower_age_range = {
+        'Youth' => Farmer.where(id: uniq_borrower_farmer_ids).where('year_of_birth >= ?', Time.now.year - 35).count,
+        'Adult' => Farmer.where(id: uniq_borrower_farmer_ids).where('year_of_birth < ?', Time.now.year - 35).count,
+      }
+
+    end
+
+
   end
 
 

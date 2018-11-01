@@ -52,6 +52,10 @@ class Loan < ActiveRecord::Base
     return self.value * (1 + (total_interest/100)) + self.service_charge
   end
 
+  def amount_remaining
+    return self.amount_due - self.amount_paid
+  end
+
   def effective_loan_interest_rate
     return self.interest_rate
   end
