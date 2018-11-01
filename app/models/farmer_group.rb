@@ -21,7 +21,11 @@ class FarmerGroup < ActiveRecord::Base
   end
 
   def truncated_short_names
-    return truncate(self.short_names)
+    if self.short_names
+      return truncate(self.short_names)
+    else
+      return self.short_names
+    end
   end
 
 
