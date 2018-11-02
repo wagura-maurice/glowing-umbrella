@@ -142,6 +142,7 @@
             </div>
             <% if @show_crop_analysis %>
             <div>
+              <h4>Crop: <strong><%= @crop_name %></strong></h4>
               <%= bar_chart( "KG Seed Planted" => @kg_seed_planted,
                              "KG Fertilizer Used" => @kg_fertilizer,
                              "Bags Harvested" => @bags_harvested) %>

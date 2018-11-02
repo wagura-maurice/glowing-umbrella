@@ -208,6 +208,7 @@ class DashboardController < ApplicationController
       @crop = @crop.to_sym
 
       crop_data = CROPS[@crop]
+      @crop_name = crop_data[:text]
       base = crop_data[:model].unscoped
 
       if params[:date_greater_than].present?
