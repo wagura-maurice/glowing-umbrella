@@ -157,8 +157,8 @@ class DashboardController < ApplicationController
       name = group.short_names.split('|')[0]
       farmer_ids = Farmer.where("association_name ILIKE ?", "%#{name}%").pluck(:id)
       ret[group.formal_name] = {
-        kg_seed_planted: model.where(report_type: 'planting').where(farmer_id: farmer_ids).sum(:kg_of_seed_planted),
-        total_bags_harvested: model.where(report_type: 'harvest').where(farmer_id: farmer_ids).sum(:bags_harvested),
+        kg_seed_planted: model.unscoped.where(report_type: 'planting').where(farmer_id: farmer_ids).sum(:kg_of_seed_planted),
+        total_bags_harvested: model.unscoped.where(report_type: 'harvest').where(farmer_id: farmer_ids).sum(:bags_harvested),
         aggregated_produce: group.aggregated_harvest_data,
         produce_collected: group.total_harvest_collected_for_sale
       }
@@ -171,6 +171,81 @@ class DashboardController < ApplicationController
   def dashboard_argonomy
     @dashboard_view = true
     @dashboard_argonomy = true
+
+    @maize_farmers_count = MaizeReport.unscoped.distinct(:farmer_id).count
+    @rice_farmers_count =  RiceReport.unscoped.distinct(:farmer_id).count
+    @bean_farmers_count = BeansReport.unscoped.distinct(:farmer_id).count
+    @green_gram_farmers_count = GreenGramsReport.unscoped.distinct(:farmer_id).count
+    @black_eyed_bean_farmers_count = BlackEyedBeansReport.unscoped.distinct(:farmer_id).count
+    @soya_bean_farmers_count = SoyaBeansReport.unscoped.distinct(:farmer_id).count
+    @pigeon_peas_farmers_count = PigeonPeasReport.unscoped.distinct(:farmer_id).count
+
+    @total_repayments = Txn.where(txn_type: 'c2b').sum(:value)
+
+    @country = params['country']
+    if (@country.present?) && (@country != '-')
+      @show_tables = true
+      CROPS.each do |k, v|
+        crop_name = v[:text]
+        model = v[:model]
+
+        base = model.unscoped.joins(:farmer).where('farmers.country ILIKE ?', "%#{@country}%")
+        model_to_s = model.to_s.underscore.pluralize
+        males = base.where('farmers.gender = ?', 'male').count
+        females = base.where('farmers.gender = ?', 'female').count
+        youth = base.where('farmers.year_of_birth >= ?', Time.now.year - 35).count
+        adult = base.where('farmers.year_of_birth < ?', Time.now.year - 35).count
+        self.instance_variable_set("@#{k.to_s}_male", males)
+        self.instance_variable_set("@#{k.to_s}_female", females)
+        self.instance_variable_set("@#{k.to_s}_youth", youth)
+        self.instance_variable_set("@#{k.to_s}_adult", adult)
+      end
+    end
+
+    @crop = params[:crop_for_farmers]
+    if (@crop.present?) && (@crop != '-')
+      @show_crop_analysis = true
+      @crop = @crop.to_sym
+
+      crop_data = CROPS[@crop]
+      base = crop_data[:model].unscoped
+
+      if params[:date_greater_than].present?
+        base = base.where('created_at > ?', params[:date_greater_than])
+      end
+      if params[:date_less_than].present?
+        base = base.where('created_at < ?', params[:date_less_than])
+      end
+      @kg_seed_planted = base.sum(:kg_of_seed_planted)
+      @kg_fertilizer = base.sum(:kg_of_fertilizer)
+      @bags_harvested = base.sum(:bags_harvested)
+
+    end
+  end
+
+  def planting_harvesting_data_by_country
+    country = params['country']
+    ret = {}
+    CROPS.each do |k, v|
+      crop_name = v[:text]
+      model = v[:model]
+
+      base = model.unscoped.joins(:farmer).where('farmers.country ILIKE ?', "%#{country}%")
+      model_to_s = model.to_s.underscore.pluralize
+      kg_seed_planted = base.sum("#{model_to_s}.kg_of_seed_planted")
+      bags_harvested = base.sum("#{model_to_s}.bags_harvested")
+      farmer_count = model.distinct(:farmer_id).count
+
+      ret[crop_name] = {
+        kg_seed_planted: kg_seed_planted,
+        bags_harvested: bags_harvested,
+        farmer_count: farmer_count
+      }
+    end
+
+    respond_to do |format|
+      format.json { render json: ret }
+    end
   end
 
   def dashboard_farmer_groups

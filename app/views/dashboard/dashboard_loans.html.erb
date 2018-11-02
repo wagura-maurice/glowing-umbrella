@@ -4,8 +4,8 @@
 		  <div class="card-header">Borrowers</div>
 		  <div class="card-body">
 		    <h4 class="card-title">Total Number of Borrowers: <strong><%= @total_borrowers %></strong></h4>
-        <%= pie_chart @borrower_gender %>
-        <%= pie_chart @borrower_age_range %>
+        <%= pie_chart @borrower_gender, colors: ["#1f77b4", "#aec7e8"] %>
+        <%= pie_chart @borrower_age_range, colors: ["#1f77b4", "#aec7e8"] %>
 		  </div>
 		</div>
   </div>
@@ -14,8 +14,8 @@
 		  <div class="card-header">Loan Amount</div>
 		  <div class="card-body">
 		    <h4 class="card-title">Total Loan Amount: <strong>KES <%= @total_loan_amount %></strong></h4>
-        <%= pie_chart @loan_amount_gender %>
-        <%= pie_chart @loan_amount_age_range %>
+        <%= pie_chart @loan_amount_gender, colors: ["#1f77b4", "#aec7e8"] %>
+        <%= pie_chart @loan_amount_age_range, colors: ["#1f77b4", "#aec7e8"] %>
 		  </div>
 		</div>
   </div>
@@ -52,10 +52,10 @@
             <h4>Avg. Repayment Rate: <strong><%= @avg_loan_repayment_rate %>%</strong></h4>
           </div>
           <div class="col-md-4">
-            <%= pie_chart @borrower_gender %>
+            <%= pie_chart @borrower_gender, colors: ["#1f77b4", "#aec7e8"] %>
           </div>
           <div class="col-md-4">
-            <%= pie_chart @borrower_age_range %>
+            <%= pie_chart @borrower_age_range, colors: ["#1f77b4", "#aec7e8"] %>
           </div>
 
         </div>
@@ -77,10 +77,10 @@
             <h4>Total Default Amount: <strong>KES <%= @total_default_amount %></strong></h4>
           </div>
           <div class="col-md-4">
-            <%= pie_chart @defaulter_gender %>
+            <%= pie_chart @defaulter_gender, colors: ["#1f77b4", "#aec7e8"] %>
           </div>
           <div class="col-md-4">
-            <%= pie_chart @defaulter_age_range %>
+            <%= pie_chart @defaulter_age_range, colors: ["#1f77b4", "#aec7e8"] %>
           </div>
           <div class="col-md-12">
             <table class="table table-striped table-condensed">

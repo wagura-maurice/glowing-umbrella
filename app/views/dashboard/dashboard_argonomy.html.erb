@@ -1,1 +1,174 @@
-Coming soon...
+<div class="row">
+  <div class="col-md-12">
+		<div class="card border-primary mb-3">
+		  <div class="card-header">Distribution of Farmers by Crop</div>
+		  <div class="card-body">
+		  	<%= column_chart("Maize Farmers" => @maize_farmers_count,
+                         "Rice Farmers" => @rice_farmers_count,
+                         "Beans Farmers" => @bean_farmers_count,
+                         "Green Grams Farmers" => @green_gram_farmers_count,
+                         "Black Eyed Beans Farmers" => @black_eyed_bean_farmers_count,
+                         "Soya Beans Farmers" => @soya_bean_farmers_count,
+                         "Pigeon Peas Farmers" => @pigeon_peas_farmers_count) %>
+		  </div>
+		</div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card border-primary mb-3" style="max-height:800px">
+      <div class="card-header">Planting and Harvesting Report</div>
+      <div class="card-body">
+        <%= select_tag :country_for_planting_harvesting, options_for_select([['Select a country', '-'],['Kenya', 'kenya'], ['Uganda', 'uganda'], ['Rwanda', 'rwanda'], ['Tanzania', 'tanzania']]) %>
+        <table id="planting_harvesting_per_country_table" class="dontShow table table-striped table-condensed ">
+          <thead>
+            <tr>
+              <th>Crop Type</th>
+              <th>KG Planted</th>
+              <th>Bags Harvested</th>
+              <th>Total Farmers</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card border-primary mb-3" style="max-height:800px">
+      <div class="card-header">Disaggregation by Gender and Age</div>
+      <div class="card-body">
+        <div>
+        <%= form_tag('/dashboard_argonomy', method: "get") do %>
+          <%= select_tag :country, options_for_select([['Select a country', '-'],['Kenya', 'kenya'], ['Uganda', 'uganda'], ['Rwanda', 'rwanda'], ['Tanzania', 'tanzania']]) %>
+          <%= submit_tag "Generate Charts", class: "btn btn-primary" %>
+        <% end %>
+        </div>
+        <% if @show_tables %>
+
+        <div class="row">
+          <div class="col-md-3">
+          	<%= column_chart({"Male" => @maize_male,
+                         "Female" => @maize_female,
+                         "Youth" => @maize_youth,
+                         "Adult" => @maize_adult}, xtitle: "Maize") %>
+          </div>
+          <div class="col-md-3">
+          	<%= column_chart({"Male" => @rice_male,
+                         "Female" => @rice_female,
+                         "Youth" => @rice_youth,
+                         "Adult" => @rice_adult}, xtitle: "Rice") %>
+          </div>
+          <div class="col-md-3">
+          	<%= column_chart({"Male" => @beans_male,
+                         "Female" => @beans_female,
+                         "Youth" => @beans_youth,
+                         "Adult" => @beans_adult}, xtitle: "Beans") %>
+          </div>
+          <div class="col-md-3">
+          	<%= column_chart({"Male" => @green_grams_male,
+                         "Female" => @green_grams_female,
+                         "Youth" => @green_grams_youth,
+                         "Adult" => @green_grams_adult}, xtitle: "Green Grams") %>
+          </div>
+        </div>
+                <div class="row">
+          <div class="col-md-3">
+          	<%= column_chart({"Male" => @black_eyed_beans_male,
+                         "Female" => @black_eyed_beans_female,
+                         "Youth" => @black_eyed_beans_youth,
+                         "Adult" => @black_eyed_beans_adult}, xtitle: "Black Eyed Beans") %>
+          </div>
+          <div class="col-md-3">
+          	<%= column_chart({"Male" => @soya_beans_male,
+                         "Female" => @soya_beans_female,
+                         "Youth" => @soya_beans_youth,
+                         "Adult" => @soya_beans_adult}, xtitle: "Soya Beans") %>
+          </div>
+          <div class="col-md-3">
+          	<%= column_chart({"Male" => @pigeon_peas_male,
+                         "Female" => @pigeon_peas_female,
+                         "Youth" => @pigeon_peas_youth,
+                         "Adult" => @pigeon_peas_adult}, xtitle: "Pigeon Peas") %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card border-primary mb-3" style="max-height:800px">
+      <div class="card-header">Revenue</div>
+      <div class="card-body">
+      	<div class="row">
+      	  <div class="col-md-6">
+      	  	<%= bar_chart("Maize" => 100,
+                         "Rice" => 100,
+                         "Beans" => 100,
+                         "Green Grams" => 100,
+                         "Black Eyed Beans" => 100,
+                         "Soya Beans" => 100,
+                         "Pigeon Peas" => 100) %>
+      	  </div>
+      	  <div class="col-md-6">
+      	  	<div id="gauge" class="200x160px"></div>
+      	  </div>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card border-primary mb-3" style="max-height:800px">
+      <div class="card-header">Crop Analysis</div>
+      <div class="card-body">
+      	<div class="row">
+      	  <div class="col-md-12">
+            <div>
+              <%= form_tag('/dashboard_argonomy', method: "get") do %>
+                <%= select_tag :country, options_for_select([['Select a country', '-'],['Kenya', 'kenya'], ['Uganda', 'uganda'], ['Rwanda', 'rwanda'], ['Tanzania', 'tanzania']]), class: 'dontShow c2' %>
+                <%= select_tag :crop_for_farmers, options_for_select([['Select a crop', '-'],['Maize', 'maize'], ['Rice', 'rice'], ['Beans', 'beans'], ['Green Grams', 'green_grams'], ['Black Eyed Beans', 'black_eyed_beans'], ['Soya Beans', 'soya_beans'], ['Pigeon Peas', 'pigeon_peas'] ]) %>
+                <span style="margin-left:10px;">Date Range <%= text_field_tag :date_greater_than, 'Date Greater Than' %>
+                to <%= text_field_tag :date_less_than, 'Date Less Than' %>
+                </span>
+                <%= submit_tag "Generate Crop Analysis", class: "btn btn-primary" %>
+              <% end %>
+            </div>
+            <% if @show_crop_analysis %>
+            <div>
+              <%= bar_chart( "KG Seed Planted" => @kg_seed_planted,
+                             "KG Fertilizer Used" => @kg_fertilizer,
+                             "Bags Harvested" => @bags_harvested) %>
+            </div>
+            <% end %>
+      	  </div>
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.2.9/justgage.min.js"></script>
+<script>
+  var g = new JustGage({
+    id: "gauge",
+    value: <%= @total_repayments %>,
+    min: 0,
+    max: 100000,
+    title: "Revenue"
+  });
+</script>
+
+<script type="text/javascript">
+  $(function () {
+    $('#date_greater_than').datetimepicker();
+    $('#date_less_than').datetimepicker();
+  });
+</script>

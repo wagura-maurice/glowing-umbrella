@@ -1,3 +1,4 @@
 measure: farmer
 dimensions:
-- gender
+- key: accepted_loan_tnc
+- key: received_loans
