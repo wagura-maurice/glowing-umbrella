@@ -327,7 +327,7 @@ class DashboardController < ApplicationController
       @input6 = 0
       input_loans.each do |l|
         if l.amount_remaining > 0
-          if l.loan_maturity_date.present?
+          if l.disbursed_date.present?
             days_due = (Date.today - l.loan_maturity_date.to_date).to_i
             if (days_due >= 0) && (days_due < 31)
               @input1 += l.amount_remaining
