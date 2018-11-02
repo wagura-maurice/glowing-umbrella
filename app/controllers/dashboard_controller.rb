@@ -234,7 +234,7 @@ class DashboardController < ApplicationController
       model_to_s = model.to_s.underscore.pluralize
       kg_seed_planted = base.sum("#{model_to_s}.kg_of_seed_planted")
       bags_harvested = base.sum("#{model_to_s}.bags_harvested")
-      farmer_count = model.distinct(:farmer_id).count
+      farmer_count = model.unscoped.distinct(:farmer_id).count
 
       ret[crop_name] = {
         kg_seed_planted: kg_seed_planted,
