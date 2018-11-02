@@ -326,22 +326,20 @@ class DashboardController < ApplicationController
       @input5 = 0
       @input6 = 0
       input_loans.each do |l|
-        if l.amount_remaining > 0
-          if l.disbursed_date.present?
-            days_due = (Date.today - l.loan_maturity_date.to_date).to_i
-            if (days_due >= 0) && (days_due < 31)
-              @input1 += l.amount_remaining
-            elsif (days_due >= 31) && (days_due < 61)
-              @input2 += l.amount_remaining
-            elsif (days_due >= 61) && (days_due < 91)
-              @input3 += l.amount_remaining
-            elsif (days_due >= 91) && (days_due < 121)
-              @input4 += l.amount_remaining
-            elsif (days_due >= 121) && (days_due < 181)
-              @input5 += l.amount_remaining
-            elsif (days_due >= 181)
-              @input6 += l.amount_remaining
-            end
+        if l.amount_remaining > 0 && l.disbursed_date.present?
+          days_due = (Date.today - l.loan_maturity_date.to_date).to_i
+          if (days_due >= 0) && (days_due < 31)
+            @input1 += l.amount_remaining
+          elsif (days_due >= 31) && (days_due < 61)
+            @input2 += l.amount_remaining
+          elsif (days_due >= 61) && (days_due < 91)
+            @input3 += l.amount_remaining
+          elsif (days_due >= 91) && (days_due < 121)
+            @input4 += l.amount_remaining
+          elsif (days_due >= 121) && (days_due < 181)
+            @input5 += l.amount_remaining
+          elsif (days_due >= 181)
+            @input6 += l.amount_remaining
           end
         end
       end
@@ -354,7 +352,7 @@ class DashboardController < ApplicationController
       @cash5 = 0
       @cash6 = 0
       cash_loans.each do |l|
-        if l.amount_remaining > 0
+        if l.amount_remaining > 0 && l.disbursed_date.present?
           days_due = (Date.today - l.loan_maturity_date.to_date).to_i
           if (days_due >= 0) && (days_due < 31)
             @cash1 += l.amount_remaining

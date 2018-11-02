@@ -68,9 +68,6 @@ class Loan < ActiveRecord::Base
     else
       return nil
     end
-    puts "IN LOAN loan_maturity_date"
-    puts "SELF DISBUSRED DATE #{self.disbursed_date}"
-    puts "SELF DURATION UNIT #{self.duration_unit}"
     return self.disbursed_date + eval(str)
   end
 
