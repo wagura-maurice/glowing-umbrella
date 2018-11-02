@@ -23,6 +23,7 @@ class RiceReport < ActiveRecord::Base
     return {"created_at" => {type: :time, key: "Report Date", search_column: "rice_reports.created_at"},
             "report_type" => {type: :select, key: "Report Type", options: ['planting', 'harvest']},
             "kg_of_seed_planted" => {type: :number, key: "KG of Seed Planted"},
+            "kg_of_fertilizer" => {type: :number, key: "KG of Fertilizer Planted"},
             "bags_harvested" => {type: :number, key: "Bags Harvested"},
             "pishori_bags" => {type: :number, key: "Pishori Bags"},
             "super_bags" => {type: :number, key: "Super Bags"},

@@ -17,6 +17,7 @@ class GreenGramsReportDatatable < AjaxDatatablesRails::Base
       farmer_association:  { source: "Farmer.association_name",        cond: :like      , searchable: true,  orderable: false },
       reporting_time:      { source: "GreenGramsReport.created_at",         cond: :date_range, searchable: false, orderable: true },
       kg_of_seed_planted:  { source: "GreenGramsReport.kg_of_seed_planted", cond: :gteq      , searchable: false, orderable: true },
+      kg_of_fertilizer:  { source: "GreenGramsReport.kg_of_fertilizer", cond: :gteq      , searchable: false, orderable: true },
       bags_harvested:      { source: "GreenGramsReport.bags_harvested",     cond: :gteq      , searchable: false, orderable: true },
       grade_1_bags:        { source: "GreenGramsReport.grade_1_bags",       cond: :gteq      , searchable: false, orderable: true },
       grade_2_bags:        { source: "GreenGramsReport.grade_2_bags",       cond: :gteq      , searchable: false, orderable: true },
@@ -31,11 +32,12 @@ class GreenGramsReportDatatable < AjaxDatatablesRails::Base
         # example:
         # id: record.id,
         # name: record.name
-        farmer_name: link_to(record.farmer.display_name, edit_green_grams_report_path(record)),
-        farmer_phone_number: record.farmer.phone_number,
-        farmer_association: record.farmer.association_name,
+        farmer_name: link_to(record.farmer ? record.farmer.display_name : 'unknown', edit_green_grams_report_path(record)),
+        farmer_phone_number: record.farmer ? record.farmer.phone_number : 'unknown',
+        farmer_association: record.farmer ? record.farmer.association_name : 'unknown',
         reporting_time: link_to(record.reporting_time, edit_green_grams_report_path(record)),
         kg_of_seed_planted: record.kg_of_seed_planted,
+        kg_of_fertilizer: record.kg_of_fertilizer,
         bags_harvested: record.bags_harvested,
         grade_1_bags: record.grade_1_bags,
         grade_2_bags: record.grade_2_bags,

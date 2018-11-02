@@ -10,7 +10,7 @@ module UploadCropData
   #################
   @upload_start_row = 4
   @upload_end_row = 10000
-  @will_upload_col = 16
+  @will_upload_col = 20
 
   #######################
   ### Upload function ###
@@ -46,10 +46,11 @@ module UploadCropData
     crop_data = {
       report_type: crop[1].to_s,
       kg_of_seed_planted: crop[3].to_i,
-      bags_harvested: crop[4].to_i,
-      grade_1_bags: crop[5].to_i,
-      grade_2_bags: crop[6].to_i,
-      farmer_id: crop[7].to_i.to_s
+      kg_of_fertilizer: crop[4].to_i,
+      bags_harvested: crop[5].to_i,
+      grade_1_bags: crop[6].to_i,
+      grade_2_bags: crop[7].to_i,
+      farmer_id: crop[8].to_i.to_s
     }
     crop_data[:ungraded_bags] = crop_data[:bags_harvested] - crop_data[:grade_1_bags] - crop_data[:grade_2_bags]
 
@@ -57,7 +58,6 @@ module UploadCropData
     record_errors = []
 
     valid = validate :report_type, crop_data[:report_type], record_errors, :planting_or_harvesting, crop_report_number
-    puts "VALID: #{valid}"
     unless Farmer.where(national_id_number: crop_data[:farmer_id]).exists?
       valid = false
       record_errors << "Crop report #{crop_report_number} farmer_id is not valid"

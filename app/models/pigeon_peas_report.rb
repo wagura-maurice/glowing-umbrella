@@ -25,6 +25,7 @@ class PigeonPeasReport < ActiveRecord::Base
     return {"created_at" => {type: :time, key: "Report Date", search_column: "pigeon_peas_reports.created_at"},
             "report_type" => {type: :select, key: "Report Type", options: ['planting', 'harvest']},
             "kg_of_seed_planted" => {type: :number, key: "KG of Seed Planted"},
+            "kg_of_fertilizer" => {type: :number, key: "KG of Fertilizer Planted"},
             "bags_harvested" => {type: :number, key: "Bags Harvested"},
             "grade_1_bags" => {type: :number, key: "Grade 1 Bags"},
             "grade_2_bags" => {type: :number, key: "Grade 2 Bags"},

@@ -11,6 +11,7 @@ ready = ->
       {data: 'farmer_association'}
       {data: 'reporting_time'}
       {data: 'kg_of_seed_planted'}
+      {data: 'kg_of_fertilizer'}
       {data: 'bags_harvested'}
       {data: 'grade_1_bags'}
       {data: 'grade_2_bags'}

@@ -77,7 +77,7 @@ class CropController < ApplicationController
 
   def safe_params
     get_model unless @symbol
-    return params.require(@symbol).permit(:bags_harvested, :grade_1_bags, :grade_2_bags, :ungraded_bags, :kg_of_seed_planted)
+    return params.require(@symbol).permit(:bags_harvested, :grade_1_bags, :grade_2_bags, :ungraded_bags, :kg_of_seed_planted, :kg_of_fertilizer)
   end
 
 
