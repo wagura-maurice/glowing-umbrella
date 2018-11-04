@@ -81,17 +81,17 @@ class DashboardController < ApplicationController
     @total_male = Farmer.where(gender: 'male').count
     @total_female = Farmer.where(gender: 'female').count
     @total_youth = Farmer.where('year_of_birth >= ?', Time.now.year - 35).count
+    @total_adult = Farmer.where('year_of_birth < ?', Time.now.year - 35).count
 
     @active_farmers = Farmer.where(received_loans: true).count
 
-    group_names = FarmerGroup.order(:county).pluck(:short_names, :formal_name, :county)
+    farmer_groups = FarmerGroup.order(approx_farmer_count: :desc).limit(20)
     @farmers_by_group = {}
     @farmers_by_county = {}
-    group_names.each do |name_arr|
-      formal_name = name_arr[1]
-      name = name_arr[0]
-      county = name_arr[2]
-      @farmers_by_group[formal_name] = Farmer.where("association_name ILIKE ?", "%#{name}%").count
+    farmer_groups.each do |group|
+      formal_name = group.formal_name
+      county = group.county || 'Group County not specified'
+      @farmers_by_group[formal_name] = group.farmer_list.count
       if @farmers_by_county[county].present?
         @farmers_by_county[county][:num_farmers] += @farmers_by_group[formal_name]
         @farmers_by_county[county][:num_groups] += 1
@@ -99,20 +99,32 @@ class DashboardController < ApplicationController
         @farmers_by_county[county] = {num_groups: 1, num_farmers: @farmers_by_group[formal_name] }
       end
     end
+    @total_num_groups = FarmerGroup.count
+    total_farmers_in_groups = @farmers_by_group.values.sum
+    @total_farmers_not_in_groups = @total_farmers - total_farmers_in_groups
 
     @total_repayments = Txn.where(txn_type: 'c2b').sum(:value)
     @total_borrowers = Loan.distinct.count('farmer_id')
     @total_loan_amount = Loan.sum :value
 
     @total_sms_sent_this_month = SentMessage.where('created_at > ?', Date.today.at_beginning_of_month).sum(:num_sent)
+
+    @gender_breakdown = {'Male' => @total_male, 'Female' => @total_female}
+    @age_range = {'Youth' => @total_youth, 'Adult' => @total_adult}
+    @status_breakdown = {'Verified' => @total_verified_farmers, 'Pending' => @total_pending_farmers}
+    @status_breakdown2 = [['Verified', @total_verified_farmers], ['Pending', @total_pending_farmers]]
   end
 
   def dashboard_farmers
+    @total_farmers = Farmer.count
     @dashboard_view = true
     @dashboard_farmers = true
     @total_youth = Farmer.where('year_of_birth >= ?', Time.now.year - 35).count
     @total_adult = Farmer.where('year_of_birth < ?', Time.now.year - 35).count
     @age_range = {'Youth' => @total_youth, 'Adult' => @total_adult}
+    @total_male = Farmer.where(gender: 'male').count
+    @total_female = Farmer.where(gender: 'female').count
+    @gender_breakdown = {'Male' => @total_male, 'Female' => @total_female}
 
     @below_25_f = Farmer.where('year_of_birth > ?', Time.now.year - 25).where(gender: 'female').count
     @between_25_and_35_f = Farmer.where('year_of_birth < ? AND year_of_birth >= ?', Time.now.year - 25, Time.now.year - 35).where(gender: 'female').count
@@ -125,50 +137,112 @@ class DashboardController < ApplicationController
     @between_35_and_45_m = Farmer.where('year_of_birth < ? AND year_of_birth >= ?', Time.now.year - 35, Time.now.year - 45).where(gender: 'male').count
     @between_45_and_55_m = Farmer.where('year_of_birth < ? AND year_of_birth >= ?', Time.now.year - 45, Time.now.year - 55).where(gender: 'male').count
     @above_55_m = Farmer.where('year_of_birth < ?', Time.now.year - 55).where(gender: 'male').count
+    @county_list = county_list
+    @county_list.each do |county_name|
+      self.instance_variable_set("@#{county_name}", Farmer.where("county ILIKE ?", "%#{county_name.underscore.gsub('_', ' ')}%").count)
+    end
+    @options = options_for_county
   end
 
   def farmer_data_by_country
-    country = params['country']
+    county = params['country'].split(':')[1]
+    if county.present?
+      country = 'kenya'
+    else
+      country = params['country']
+    end
     fgs = FarmerGroup.where("country ILIKE ?", "%#{country}%")
+    if county
+      fgs = fgs.where("county ILIKE ?", "%#{county}%")
+    end
     ret = {}
     fgs.each do |group|
-      name = group.short_names.split('|')[0]
       ret[group.formal_name] = {
-        male: Farmer.where("association_name ILIKE ?", "%#{name}%").where(gender: 'male').count,
-        female: Farmer.where("association_name ILIKE ?", "%#{name}%").where(gender: 'female').count,
-        youth: Farmer.where("association_name ILIKE ?", "%#{name}%").where('year_of_birth >= ?', Time.now.year - 35).count,
-        adult: Farmer.where("association_name ILIKE ?", "%#{name}%").where('year_of_birth < ?', Time.now.year - 35).count,
-        total: Farmer.where("association_name ILIKE ?", "%#{name}%").count
+        male: group.farmer_list.where(gender: 'male').count,
+        female: group.farmer_list.where(gender: 'female').count,
+        youth: group.farmer_list.where('year_of_birth >= ?', Time.now.year - 35).count,
+        adult: group.farmer_list.where('year_of_birth < ?', Time.now.year - 35).count,
+        total: group.farmer_list.count
       }
     end
-
+    total_male = ret.values.inject(0) do |sum, val|
+      sum + val[:male]
+    end
+    total_female = ret.values.inject(0) do |sum, val|
+      sum + val[:female]
+    end
+    total_youth = ret.values.inject(0) do |sum, val|
+      sum + val[:youth]
+    end
+    total_adult = ret.values.inject(0) do |sum, val|
+      sum + val[:adult]
+    end
+    total_total = ret.values.inject(0) do |sum, val|
+      sum + val[:total]
+    end
+    base = Farmer
+    if county
+      base = base.where("county ILIKE ?", "%#{county}%")
+    end
+    ret['Unclassified'] = {
+      male: base.where(gender: 'male').count - total_male,
+      female: base.where(gender: 'female').count - total_female,
+      youth: base.where('year_of_birth >= ?', Time.now.year - 35).count - total_youth,
+      adult: base.where('year_of_birth < ?', Time.now.year - 35).count - total_adult,
+      total: base.count - total_total
+    }
     respond_to do |format|
       format.json { render json: ret }
     end
   end
 
   def farmer_data_per_crop_by_country
-    country = params['country']
+    county = params['country'].split(':')[1]
+    if county.present?
+      country = 'kenya'
+    else
+      country = params['country']
+    end
     crop = params['crop']
     model = CROPS[crop.to_sym][:model]
     fgs = FarmerGroup.where("country ILIKE ?", "%#{country}%")
+    if county
+      fgs = fgs.where("county ILIKE ?", "%#{county}%")
+    end
     ret = {}
     fgs.each do |group|
-      name = group.short_names.split('|')[0]
-      farmer_ids = Farmer.where("association_name ILIKE ?", "%#{name}%").pluck(:id)
+      farmer_ids = group.farmer_ids
       ret[group.formal_name] = {
         kg_seed_planted: model.unscoped.where(report_type: 'planting').where(farmer_id: farmer_ids).sum(:kg_of_seed_planted),
         total_bags_harvested: model.unscoped.where(report_type: 'harvest').where(farmer_id: farmer_ids).sum(:bags_harvested),
-        aggregated_produce: group.aggregated_harvest_data,
-        produce_collected: group.total_harvest_collected_for_sale
+        aggregated_produce: group.aggregated_harvest_data || 0,
+        produce_collected: group.total_harvest_collected_for_sale || 0
       }
     end
+    total_kg_seed_planted = ret.values.inject(0) do |sum, val|
+      sum + val[:kg_seed_planted]
+    end
+    total_total_bags_harvested = ret.values.inject(0) do |sum, val|
+      sum + val[:total_bags_harvested]
+    end
+
+    base = model.unscoped
+    if county
+      base = base.where(farmer: Farmer.where("county ILIKE ?", "%#{county}%"))
+    end
+    ret['Unclassified'] = {
+      kg_seed_planted: base.where(report_type: 'planting').sum(:kg_of_seed_planted) - total_kg_seed_planted,
+      total_bags_harvested: base.where(report_type: 'harvest').sum(:bags_harvested) - total_total_bags_harvested,
+      aggregated_produce: 0,
+      produce_collected: 0
+    }
     respond_to do |format|
       format.json { render json: ret }
     end
   end
 
   def dashboard_argonomy
+    @options = options_for_county
     @dashboard_view = true
     @dashboard_argonomy = true
 
@@ -182,14 +256,24 @@ class DashboardController < ApplicationController
 
     @total_repayments = Txn.where(txn_type: 'c2b').sum(:value)
 
-    @country = params['country']
+    if params['country'].present?
+      county = params['country'].split(':')[1]
+    end
+    if county.present?
+      @country = 'kenya'
+    else
+      @country = params['country']
+    end
+    @county = county
     if (@country.present?) && (@country != '-')
       @show_tables = true
       CROPS.each do |k, v|
         crop_name = v[:text]
         model = v[:model]
-
         base = model.unscoped.joins(:farmer).where('farmers.country ILIKE ?', "%#{@country}%")
+        if county
+          base = base.where("farmers.county ILIKE ?", "%#{county}%")
+        end
         model_to_s = model.to_s.underscore.pluralize
         males = base.where('farmers.gender = ?', 'male').count
         females = base.where('farmers.gender = ?', 'female').count
@@ -201,7 +285,6 @@ class DashboardController < ApplicationController
         self.instance_variable_set("@#{k.to_s}_adult", adult)
       end
     end
-
     @crop = params[:crop_for_farmers]
     if (@crop.present?) && (@crop != '-')
       @show_crop_analysis = true
@@ -225,13 +308,21 @@ class DashboardController < ApplicationController
   end
 
   def planting_harvesting_data_by_country
-    country = params['country']
+    county = params['country'].split(':')[1]
+    if county.present?
+      country = 'kenya'
+    else
+      country = params['country']
+    end
     ret = {}
     CROPS.each do |k, v|
       crop_name = v[:text]
       model = v[:model]
 
       base = model.unscoped.joins(:farmer).where('farmers.country ILIKE ?', "%#{country}%")
+      if  county
+        base = base.where("farmers.county ILIKE ?", "%#{county}%")
+      end
       model_to_s = model.to_s.underscore.pluralize
       kg_seed_planted = base.sum("#{model_to_s}.kg_of_seed_planted")
       bags_harvested = base.sum("#{model_to_s}.bags_harvested")
@@ -252,6 +343,7 @@ class DashboardController < ApplicationController
   def dashboard_farmer_groups
     @dashboard_view = true
     @dashboard_farmer_groups = true
+    @options = options_for_county
   end
 
   def dashboard_communications
@@ -267,6 +359,7 @@ class DashboardController < ApplicationController
   def dashboard_loans
     @dashboard_view = true
     @dashboard_loans = true
+    @options = options_for_county
 
     @total_repayments = Txn.where(txn_type: 'c2b').sum(:value)
     @total_borrowers = Loan.distinct.count('farmer_id')
@@ -299,12 +392,24 @@ class DashboardController < ApplicationController
       @show_tables = true
       if @country == 'kenya'
         currency = 'KES'
-      elsif @country = 'uganda'
+      elsif @country == 'uganda'
         currency = 'UGX'
       else
         currency = ''
       end
-      base_loans = Loan.where(currency: currency).where(time_period: @loan_type)
+
+      county = params['country'].split(':')[1]
+      if county.present?
+        @country = 'kenya'
+      else
+        @country = params['country']
+      end
+      if county
+        base_farmers = Farmer.where("country ILIKE ?", "%#{@country}%").where("county ILIKE ?", "%#{county}%")
+        base_loans = Loan.where(farmer: base_farmers).where(time_period: @loan_type)
+      else
+        base_loans = Loan.where(currency: currency).where(time_period: @loan_type)
+      end
       defaulted_loans = base_loans.where("disbursed_date < ?", Date.today - 6.months)
       uniq_default_farmer_ids = defaulted_loans.pluck(:farmer_id).uniq
       @num_defaulters = uniq_default_farmer_ids.count
@@ -640,6 +745,111 @@ class DashboardController < ApplicationController
 
   def set_route_name
     @route_name =  '/' + params[:action]
+  end
+
+  def county_list
+    return ['kiambu',
+    'kirinyaga',
+    'muranga',
+    'nyandarua',
+    'nyeri',
+    'kilifi',
+    'kwale',
+    'lamu',
+    'mombasa',
+    'taitaTaveta',
+    'tanaRiver',
+    'embu',
+    'isiolo',
+    'kitui',
+    'machakos',
+    'makueni',
+    'marsabit',
+    'meru',
+    'tharakaNithi',
+    'nairobi',
+    'garissa',
+    'mandera',
+    'wajir',
+    'homaBay',
+    'kisii',
+    'kisumu',
+    'migori',
+    'nyamira',
+    'siaya',
+    'baringo',
+    'bomet',
+    'elgeyoMarakwet',
+    'kericho',
+    'laikipia',
+    'kajiado',
+    'nakuru',
+    'nandi',
+    'narok',
+    'samburu',
+    'transNzoia',
+    'turkana',
+    'uasinGishu',
+    'westPokot',
+    'bungoma',
+    'busia',
+    'kakamega',
+    'vihiga']
+  end
+
+  def options_for_county
+    return [['Select a country or county', '-'],
+['Kenya', 'kenya'],
+['Uganda', 'uganda'],
+['Rwanda', 'rwanda'],
+['Tanzania', 'tanzania'],
+["Kenya - Baringo County", "group:baringo"],
+["Kenya - Bomet County", "group:bomet"],
+["Kenya - Bungoma County", "group:bungoma"],
+["Kenya - Busia County", "group:busia"],
+["Kenya - Elgeyo Marakwet County", "group:elgeyoMarakwet"],
+["Kenya - Embu County", "group:embu"],
+["Kenya - Garissa County", "group:garissa"],
+["Kenya - Homa Bay County", "group:homaBay"],
+["Kenya - Isiolo County", "group:isiolo"],
+["Kenya - Kajiado County", "group:kajiado"],
+["Kenya - Kakamega County", "group:kakamega"],
+["Kenya - Kericho County", "group:kericho"],
+["Kenya - Kiambu County", "group:kiambu"],
+["Kenya - Kilifi County", "group:kilifi"],
+["Kenya - Kirinyaga County", "group:kirinyaga"],
+["Kenya - Kisii County", "group:kisii"],
+["Kenya - Kisumu County", "group:kisumu"],
+["Kenya - Kitui County", "group:kitui"],
+["Kenya - Kwale County", "group:kwale"],
+["Kenya - Laikipia County", "group:laikipia"],
+["Kenya - Lamu County", "group:lamu"],
+["Kenya - Machakos County", "group:machakos"],
+["Kenya - Makueni County", "group:makueni"],
+["Kenya - Mandera County", "group:mandera"],
+["Kenya - Marsabit County", "group:marsabit"],
+["Kenya - Meru County", "group:meru"],
+["Kenya - Migori County", "group:migori"],
+["Kenya - Mombasa County", "group:mombasa"],
+["Kenya - Muranga County", "group:muranga"],
+["Kenya - Nairobi County", "group:nairobi"],
+["Kenya - Nakuru County", "group:nakuru"],
+["Kenya - Nandi County", "group:nandi"],
+["Kenya - Narok County", "group:narok"],
+["Kenya - Nyamira County", "group:nyamira"],
+["Kenya - Nyandarua County", "group:nyandarua"],
+["Kenya - Nyeri County", "group:nyeri"],
+["Kenya - Samburu County", "group:samburu"],
+["Kenya - Siaya County", "group:siaya"],
+["Kenya - Taita Taveta County", "group:taitaTaveta"],
+["Kenya - Tana River County", "group:tanaRiver"],
+["Kenya - Tharaka Nithi County", "group:tharakaNithi"],
+["Kenya - Trans Nzoia County", "group:transNzoia"],
+["Kenya - Turkana County", "group:turkana"],
+["Kenya - Uasin Gishu County", "group:uasinGishu"],
+["Kenya - Vihiga County", "group:vihiga"],
+["Kenya - Wajir County", "group:wajir"],
+["Kenya - West Pokot County", "group:westPokot"]]
   end
 
 end

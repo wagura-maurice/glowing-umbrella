@@ -22,11 +22,11 @@ agReady = ->
       a = document.createElement('td')
       a.innerHTML = key
       b = document.createElement('td')
-      b.innerHTML = value.kg_seed_planted
+      b.innerHTML = value.kg_seed_planted.toFixed(2).toLocaleString('en')
       c = document.createElement('td')
-      c.innerHTML = value.bags_harvested
+      c.innerHTML = value.bags_harvested.toFixed(2).toLocaleString('en')
       d = document.createElement('td')
-      d.innerHTML = value.farmer_count
+      d.innerHTML = value.farmer_count.toLocaleString('en')
       tr = document.createElement('tr')
       tr.appendChild(a)
       tr.appendChild(b)

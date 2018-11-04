@@ -8,6 +8,14 @@
   <%= csrf_meta_tags %>
   <%= yield :head %>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+  <script>
+    Chartkick.configure({mapsApiKey: "AIzaSyDc6H_T6BF6EKcrF-Clesdr1MVBPtP_VKg"})
+  </script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.6/svg.js"></script>
+
 </head>
 <body>
 	<div class="container-fluid">
@@ -54,7 +62,7 @@
             </div>
           </div>
 
-          <div class="col-md-10">
+          <div class="col-md-10" style="background:#E8E8E8;">
 
             <%= yield %>
 

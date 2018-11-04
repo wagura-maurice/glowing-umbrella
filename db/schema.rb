@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181030025930) do
+ActiveRecord::Schema.define(version: 20181103210742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,8 +106,9 @@ ActiveRecord::Schema.define(version: 20181030025930) do
     t.string   "treasurer_email"
     t.float    "aggregated_harvest_data"
     t.float    "total_harvest_collected_for_sale"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.integer  "approx_farmer_count",                     default: 0
   end
 
   add_index "farmer_groups", ["group_name"], name: "index_farmer_groups_on_group_name", using: :btree

@@ -18,6 +18,8 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require reports_kit/application
+//= require Chart.bundle
+//= require chartkick
 
 $(document).on('turbolinks:load', function(event) {
 	if (window.firstPageLoadDone) {

@@ -3,7 +3,7 @@
 		<div class="card border-primary mb-3">
 		  <div class="card-header">SMS Sent Today</div>
 		  <div class="card-body">
-		    <h4 class="card-title"><%= @total_sms_sent_this_month %></h4>
+		    <h4 class="card-title"><%= number_with_precision(@total_sms_sent_this_month, :precision => 0, :delimiter => ',') %></h4>
 		  </div>
 		</div>
   </div>
@@ -11,7 +11,7 @@
   	<div class="card border-primary mb-3">
 		  <div class="card-header">SMS Sent This Week</div>
 		  <div class="card-body">
-		    <h4 class="card-title"><%= @total_sms_sent_this_week %></h4>
+		    <h4 class="card-title"><%= number_with_precision(@total_sms_sent_this_week, :precision => 0, :delimiter => ',') %></h4>
 		  </div>
 		</div>
   </div>
@@ -19,7 +19,7 @@
   	<div class="card border-primary mb-3">
 		  <div class="card-header">SMS Sent This Month</div>
 		  <div class="card-body">
-		    <h4 class="card-title"><%= @total_sms_sent_today %></h4>
+		    <h4 class="card-title"><%= number_with_precision(@total_sms_sent_today, :precision => 0, :delimiter => ',') %></h4>
 		  </div>
 		</div>
   </div>
@@ -27,7 +27,7 @@
 		<div class="card border-primary mb-3">
 		  <div class="card-header">SMS Sent Last Month</div>
 		  <div class="card-body">
-		    <h4 class="card-title"><%= @total_sms_sent_last_month %></h4>
+		    <h4 class="card-title"><%= number_with_precision(@total_sms_sent_last_month, :precision => 0, :delimiter => ',') %></h4>
 		  </div>
 		</div>
   </div>

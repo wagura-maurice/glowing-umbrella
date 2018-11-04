@@ -3,7 +3,7 @@
     <div class="card border-primary mb-3" style="max-height:800px">
       <div class="card-header">Farmer Group Demographics per Country</div>
       <div class="card-body">
-        <%= select_tag :country_for_farmers, options_for_select([['Select a country', '-'],['Kenya', 'kenya'], ['Uganda', 'uganda'], ['Rwanda', 'rwanda'], ['Tanzania', 'tanzania']]) %>
+        <%= select_tag :country_for_farmers, options_for_select(@options) %>
         <table id="farmer_group_per_country_table" class="dontShow table table-striped table-condensed ">
           <thead>
             <tr>
@@ -28,7 +28,7 @@
     <div class="card border-primary mb-3" style="max-height:800px">
       <div class="card-header">Farmer Group Crop Info per Country</div>
       <div class="card-body">
-        <%= select_tag :country_for_farmer_group, options_for_select([['Select a country', '-'],['Kenya', 'kenya'], ['Uganda', 'uganda'], ['Rwanda', 'rwanda'], ['Tanzania', 'tanzania']]) %>
+        <%= select_tag :country_for_farmer_group, options_for_select(@options) %>
         <%= select_tag :crop_for_farmers, options_for_select([['Select a crop', '-'],['Maize', 'maize'], ['Rice', 'rice'], ['Beans', 'beans'], ['Green Grams', 'green_grams'], ['Black Eyed Beans', 'black_eyed_beans'], ['Soya Beans', 'soya_beans'], ['Pigeon Peas', 'pigeon_peas'] ]) %>
         <table id="farmer_group_crop_info_per_country_table" class="dontShow table table-striped table-condensed ">
           <thead>

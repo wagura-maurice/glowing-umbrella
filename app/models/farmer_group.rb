@@ -48,52 +48,38 @@ class FarmerGroup < ActiveRecord::Base
   end
 
   def farmer_list
-    return [] if self.short_names.nil?
+    return @farmer_list if @farmer_list.present?
     names = self.short_names.split('|')
-    farmers = []
+    arr = []
     names.each do |name|
-      farmers << Farmer.where("association_name ILIKE ?", "%#{name}%")
+      arr << "%#{name}%"
     end
-    return farmers.flatten
+    @farmer_list = Farmer.where("association_name ILIKE any ( array[?] )", arr)
+    self.approx_farmer_count = @farmer_list.count
+    self.save
+    return @farmer_list
   end
 
   def farmer_ids
-    self.farmer_list.map { |val| val.id}
+    @farmer_ids ||= self.farmer_list.pluck(:id)
   end
 
   def genders
-    ret = {}
-    self.farmer_list.each do |farmer|
-      gender = farmer.gender || 'not reported'
-      if ret.has_key? gender
-        ret[gender] += 1
-      else
-        ret[gender] = 1
-      end
-    end
-    return ret
+    genders = self.farmer_list.group(:gender).count
+    genders.delete(nil)
+    return genders
   end
 
   def ages
-    ret = {'Youth' => 0, 'Adult' => 0, 'Unreported' => 0}
-    year = Time.now.year
-    self.farmer_list.each do |farmer|
-      if farmer.year_of_birth.present?
-        age = year - farmer.year_of_birth
-        if age <= 35
-          ret['Youth'] += 1
-        else
-          ret['Adult'] += 1
-        end
-      else
-        ret['Unreported'] += 1
-      end
-    end
+    ret = {
+      'Youth' => self.farmer_list.where('year_of_birth >= ?', Time.now.year - 35).count,
+      'Adult' => self.farmer_list.where('year_of_birth < ?', Time.now.year - 35).count
+    }
     return ret
   end
 
   def get_total(crop_report, report_type)
-    ids = self.farmer_list.map { |val| val.id}
+    ids ||= self.farmer_ids
     reports = crop_report.where(farmer_id: ids).where(report_type: report_type)
     if report_type == 'planting'
       return reports.sum(:kg_of_seed_planted)

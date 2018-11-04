@@ -12,3 +12,5 @@ chart:
       - scaleLabel:
           display: true
           labelString: Registration Date
+      valueSeparator: ','
+    thousands: ','
