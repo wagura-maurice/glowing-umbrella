@@ -90,7 +90,11 @@ class DashboardController < ApplicationController
     @farmers_by_county = {}
     farmer_groups.each do |group|
       formal_name = group.formal_name
-      county = group.county || 'Group County not specified'
+      if group.county.present?
+        county = group.county
+      else
+        county = 'Group County not specified'
+      end
       @farmers_by_group[formal_name] = group.farmer_list.count
       if @farmers_by_county[county].present?
         @farmers_by_county[county][:num_farmers] += @farmers_by_group[formal_name]
