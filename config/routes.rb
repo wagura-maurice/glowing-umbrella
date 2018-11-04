@@ -2,7 +2,7 @@ Egranary::Application.routes.draw do
 
   mount ReportsKit::Engine, at: '/'
 
-  root :to => 'home#index'
+  root :to => 'dashboard#dashboard_home'
 
   get "home/about"
   get "home/index"
