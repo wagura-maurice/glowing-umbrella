@@ -217,8 +217,8 @@ class DashboardController < ApplicationController
     fgs.each do |group|
       farmer_ids = group.farmer_ids
       ret[group.formal_name] = {
-        kg_seed_planted: model.unscoped.where(report_type: 'planting').where(farmer_id: farmer_ids).sum(:kg_of_seed_planted),
-        total_bags_harvested: model.unscoped.where(report_type: 'harvest').where(farmer_id: farmer_ids).sum(:bags_harvested),
+        kg_seed_planted: model.where(report_type: 'planting').where(farmer_id: farmer_ids).sum(:kg_of_seed_planted),
+        total_bags_harvested: model.where(report_type: 'harvest').where(farmer_id: farmer_ids).sum(:bags_harvested),
         aggregated_produce: group.aggregated_harvest_data || 0,
         produce_collected: group.total_harvest_collected_for_sale || 0
       }
@@ -230,7 +230,7 @@ class DashboardController < ApplicationController
       sum + val[:total_bags_harvested]
     end
 
-    base = model.unscoped
+    base = model
     if county
       base = base.where(farmer: Farmer.where("county ILIKE ?", "%#{county}%"))
     end
@@ -250,13 +250,13 @@ class DashboardController < ApplicationController
     @dashboard_view = true
     @dashboard_argonomy = true
 
-    @maize_farmers_count = MaizeReport.unscoped.distinct(:farmer_id).count
-    @rice_farmers_count =  RiceReport.unscoped.distinct(:farmer_id).count
-    @bean_farmers_count = BeansReport.unscoped.distinct(:farmer_id).count
-    @green_gram_farmers_count = GreenGramsReport.unscoped.distinct(:farmer_id).count
-    @black_eyed_bean_farmers_count = BlackEyedBeansReport.unscoped.distinct(:farmer_id).count
-    @soya_bean_farmers_count = SoyaBeansReport.unscoped.distinct(:farmer_id).count
-    @pigeon_peas_farmers_count = PigeonPeasReport.unscoped.distinct(:farmer_id).count
+    @maize_farmers_count = MaizeReport.distinct(:farmer_id).count
+    @rice_farmers_count =  RiceReport.distinct(:farmer_id).count
+    @bean_farmers_count = BeansReport.distinct(:farmer_id).count
+    @green_gram_farmers_count = GreenGramsReport.distinct(:farmer_id).count
+    @black_eyed_bean_farmers_count = BlackEyedBeansReport.distinct(:farmer_id).count
+    @soya_bean_farmers_count = SoyaBeansReport.distinct(:farmer_id).count
+    @pigeon_peas_farmers_count = PigeonPeasReport.distinct(:farmer_id).count
 
     @total_repayments = Txn.where(txn_type: 'c2b').sum(:value)
 
@@ -274,7 +274,7 @@ class DashboardController < ApplicationController
       CROPS.each do |k, v|
         crop_name = v[:text]
         model = v[:model]
-        base = model.unscoped.joins(:farmer).where('farmers.country ILIKE ?', "%#{@country}%")
+        base = model.joins(:farmer).where('farmers.country ILIKE ?', "%#{@country}%")
         if county
           base = base.where("farmers.county ILIKE ?", "%#{county}%")
         end
@@ -296,7 +296,7 @@ class DashboardController < ApplicationController
 
       crop_data = CROPS[@crop]
       @crop_name = crop_data[:text]
-      base = crop_data[:model].unscoped
+      base = crop_data[:model]
 
       if params[:date_greater_than].present?
         base = base.where('created_at > ?', params[:date_greater_than])
@@ -323,14 +323,14 @@ class DashboardController < ApplicationController
       crop_name = v[:text]
       model = v[:model]
 
-      base = model.unscoped.joins(:farmer).where('farmers.country ILIKE ?', "%#{country}%")
+      base = model.joins(:farmer).where('farmers.country ILIKE ?', "%#{country}%")
       if  county
         base = base.where("farmers.county ILIKE ?", "%#{county}%")
       end
       model_to_s = model.to_s.underscore.pluralize
       kg_seed_planted = base.sum("#{model_to_s}.kg_of_seed_planted")
       bags_harvested = base.sum("#{model_to_s}.bags_harvested")
-      farmer_count = model.unscoped.distinct(:farmer_id).count
+      farmer_count = model.distinct(:farmer_id).count
 
       ret[crop_name] = {
         kg_seed_planted: kg_seed_planted,
