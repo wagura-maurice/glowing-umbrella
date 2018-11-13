@@ -76,7 +76,7 @@ class Farmer < ActiveRecord::Base
     elsif country_code == "+256"
       f.country = "Uganda"
     end
-
+    f.status = 'pending'
     f.save
     msg = "Thank you for registering for eGranary!"
     SendSmsWorker.perform_async(f.phone_number, 'eGRANARYKe', msg)
