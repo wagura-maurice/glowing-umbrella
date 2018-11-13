@@ -49,6 +49,7 @@ class FarmerGroup < ActiveRecord::Base
 
   def farmer_list
     return @farmer_list if @farmer_list.present?
+    return FarmerGroup.none if self.short_names.blank?
     names = self.short_names.split('|')
     arr = []
     names.each do |name|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181103210742) do
+ActiveRecord::Schema.define(version: 20181113222333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,9 @@ ActiveRecord::Schema.define(version: 20181103210742) do
     t.string   "status"
   end
 
+  add_index "farmers", ["association_name"], name: "index_farmers_on_association_name", using: :btree
+  add_index "farmers", ["country"], name: "index_farmers_on_country", using: :btree
+  add_index "farmers", ["county"], name: "index_farmers_on_county", using: :btree
   add_index "farmers", ["group_name"], name: "index_farmers_on_group_name", using: :btree
 
   create_table "green_grams_reports", force: :cascade do |t|
