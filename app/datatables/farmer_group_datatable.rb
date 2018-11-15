@@ -8,14 +8,16 @@ class FarmerGroupDatatable < AjaxDatatablesRails::Base
   def view_columns
     @view_columns ||= {
       formal_name:        { source: "FarmerGroup.formal_name",   cond: :like,       searchable: true,  orderable: true },
-      short_names:        { source: "FarmerGroup.short_names",   cond: :like,       searchable: true,  orderable: true }    }
+      short_names:        { source: "FarmerGroup.short_names",   cond: :like,       searchable: true,  orderable: true },
+      county:        { source: "FarmerGroup.county",   cond: :like,       searchable: true,  orderable: true }    }
   end
 
   def data
     records.map do |record|
       {
         formal_name: link_to(record.formal_name, edit_farmer_group_path(record)),
-        short_names: link_to(record.truncated_short_names, edit_farmer_group_path(record))
+        short_names: link_to(record.truncated_short_names, edit_farmer_group_path(record)),
+        county: link_to(record.county, edit_farmer_group_path(record))
       }
     end
   end

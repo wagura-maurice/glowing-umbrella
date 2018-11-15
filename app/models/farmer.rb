@@ -23,6 +23,8 @@ class Farmer < ActiveRecord::Base
   #   dimension :approximate_views_count, group: 'ROUND(posts.views_count, -1)'
   # end
 
+  validates :national_id_number, uniqueness: true
+
   def self.search_fields
     return {"created_at" => {type: :time, key: "Registration Date"},
             "updated_at" => {type: :time, key: "Record Update Date"},

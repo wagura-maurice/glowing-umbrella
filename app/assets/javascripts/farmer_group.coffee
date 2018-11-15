@@ -8,6 +8,7 @@ ready = ->
     columns: [
       {data: 'formal_name'}
       {data: 'short_names'}
+      {data: 'county'}
     ]
 
 

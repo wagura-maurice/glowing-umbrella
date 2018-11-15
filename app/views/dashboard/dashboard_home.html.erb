@@ -1,3 +1,6 @@
+<script type="text/javascript">
+	Chart.defaults.global.tooltips.enabled =  false
+</script>
 <div class="row">
   <div class="col-md-3">
 		<div class="card border-primary mb-3" style='height:280px'>
@@ -7,28 +10,23 @@
 		  		<tbody>
 		  			<tr>
 		  				<th scope="row">Registered:</th>
-		  				<td><%= "#{number_with_precision(@total_farmers, :precision => 0, :delimiter => ',')}" %></td>
-		  				<td><%= "100.00%" %></td>
+		  				<td><%= "#{number_with_precision(@total_farmers, :precision => 0, :delimiter => ',')}" %> – <%= "100.00%" %></td>
 		  			</tr>
 		  			<tr>
 		  				<th scope="row">Verified:</th>
-		  				<td><%= "#{number_with_precision(@total_verified_farmers, :precision => 0, :delimiter => ',')}" %></td>
-		  				<td><%= "#{number_with_precision(@total_verified_farmers/@total_farmers.to_f*100, :precision => 2, :delimiter => ',')}%" %></td>
+		  				<td><%= "#{number_with_precision(@total_verified_farmers, :precision => 0, :delimiter => ',')}" %> – <%= "#{number_with_precision(@total_verified_farmers/@total_farmers.to_f*100, :precision => 2, :delimiter => ',')}%" %></td>
 		  			</tr>
 		  			<tr>
 		  				<th scope="row">Pending:</th>
-		  				<td><%= "#{number_with_precision(@total_pending_farmers, :precision => 0, :delimiter => ',')}" %></td>
-		  				<td><%= "#{number_with_precision(@total_pending_farmers/@total_farmers.to_f*100, :precision => 2, :delimiter => ',')}%" %></td>
+		  				<td><%= "#{number_with_precision(@total_pending_farmers, :precision => 0, :delimiter => ',')}" %> – <%= "#{number_with_precision(@total_pending_farmers/@total_farmers.to_f*100, :precision => 2, :delimiter => ',')}%" %></td>
 		  			</tr>
 		  			<tr>
-		  				<th scope="row">Total Groups:</th>
+		  				<th scope="row">Groups:</th>
 		  				<td><%= "#{number_with_precision(@total_farmer_groups, :precision => 0, :delimiter => ',')}"%></td>
-		  				<td></td>
 		  			</tr>
 		  			<tr>
-		  				<th scope="row">Total Acreage:</th>
+		  				<th scope="row">Acreage:</th>
 		  				<td><%= "#{number_with_precision(@total_acreage, :precision => 2, :delimiter => ',')}"%></td>
-		  				<td></td>
 		  			</tr>
 		  		</tbody>
 				</table>
@@ -88,7 +86,7 @@
 		  			<tr>
 		  				<th scope="row" style="padding-top:20px;">Male:</th>
 		  				<td style="padding-top:20px;"><%= number_with_precision(@total_male, :precision => 0, :delimiter => ',') %></td>
-		  				<td><%= pie_chart @gender_breakdown, legend: false, height: '50px', width: '50px', colors: ["#1f77b4", "lightgrey"] %></td>
+		  				<td><%= pie_chart @gender_breakdown, legend: false, height: '50px', width: '50px', colors: ["#1f77b4", "lightgrey"], tooltips: {enabled: false} %></td>
 		  			</tr>
 		  			<tr>
 		  				<th scope="row" style="padding-top:20px;">Female:</th>
