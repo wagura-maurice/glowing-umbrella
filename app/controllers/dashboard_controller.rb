@@ -143,7 +143,7 @@ class DashboardController < ApplicationController
     @above_55_m = Farmer.where('year_of_birth < ?', Time.now.year - 55).where(gender: 'male').count
     @county_list = county_list
     @county_list.each do |county_name|
-      self.instance_variable_set("@#{county_name}", Farmer.where("county ILIKE ?", "%#{county_name.underscore.gsub('_', ' ')}%").count)
+      self.instance_variable_set("@#{county_name}", Farmer.where("lower(county) LIKE ?", "%#{county_name.downcase.underscore.gsub('_', ' ')}%").count)
     end
     @options = options_for_county
   end
@@ -155,9 +155,9 @@ class DashboardController < ApplicationController
     else
       country = params['country']
     end
-    fgs = FarmerGroup.where("country ILIKE ?", "%#{country}%")
+    fgs = FarmerGroup.where("lower(country) LIKE ?", "%#{country.downcase}%")
     if county
-      fgs = fgs.where("county ILIKE ?", "%#{county}%")
+      fgs = fgs.where("lower(county) LIKE ?", "%#{county.downcase}%")
     end
     ret = {}
     fgs.each do |group|
@@ -186,7 +186,7 @@ class DashboardController < ApplicationController
     end
     base = Farmer
     if county
-      base = base.where("county ILIKE ?", "%#{county}%")
+      base = base.where("lower(county) LIKE ?", "%#{county.downcase}%")
     end
     ret['Unclassified'] = {
       male: base.where(gender: 'male').count - total_male,
@@ -209,9 +209,9 @@ class DashboardController < ApplicationController
     end
     crop = params['crop']
     model = CROPS[crop.to_sym][:model]
-    fgs = FarmerGroup.where("country ILIKE ?", "%#{country}%")
+    fgs = FarmerGroup.where("lower(country) LIKE ?", "%#{country.downcase}%")
     if county
-      fgs = fgs.where("county ILIKE ?", "%#{county}%")
+      fgs = fgs.where("lower(county) LIKE ?", "%#{county.downcase}%")
     end
     ret = {}
     fgs.each do |group|
@@ -232,7 +232,7 @@ class DashboardController < ApplicationController
 
     base = model
     if county
-      base = base.where(farmer: Farmer.where("county ILIKE ?", "%#{county}%"))
+      base = base.where(farmer: Farmer.where("lower(county) LIKE ?", "%#{county.downcase}%"))
     end
     ret['Unclassified'] = {
       kg_seed_planted: base.where(report_type: 'planting').sum(:kg_of_seed_planted) - total_kg_seed_planted,
@@ -274,9 +274,9 @@ class DashboardController < ApplicationController
       CROPS.each do |k, v|
         crop_name = v[:text]
         model = v[:model]
-        base = model.joins(:farmer).where('farmers.country ILIKE ?', "%#{@country}%")
+        base = model.joins(:farmer).where('lower(farmers.country) LIKE ?', "%#{@country.downcase}%")
         if county
-          base = base.where("farmers.county ILIKE ?", "%#{county}%")
+          base = base.where("lower(farmers.county) LIKE ?", "%#{county.downcase}%")
         end
         model_to_s = model.to_s.underscore.pluralize
         males = base.where('farmers.gender = ?', 'male').count
@@ -323,9 +323,9 @@ class DashboardController < ApplicationController
       crop_name = v[:text]
       model = v[:model]
 
-      base = model.joins(:farmer).where('farmers.country ILIKE ?', "%#{country}%")
+      base = model.joins(:farmer).where('lower(farmers.country) LIKE ?', "%#{country.downcase}%")
       if  county
-        base = base.where("farmers.county ILIKE ?", "%#{county}%")
+        base = base.where("lower(farmers.county) LIKE ?", "%#{county.downcase}%")
       end
       model_to_s = model.to_s.underscore.pluralize
       kg_seed_planted = base.sum("#{model_to_s}.kg_of_seed_planted")
@@ -409,7 +409,7 @@ class DashboardController < ApplicationController
         @country = params['country']
       end
       if county
-        base_farmers = Farmer.where("country ILIKE ?", "%#{@country}%").where("county ILIKE ?", "%#{county}%")
+        base_farmers = Farmer.where("lower(country) LIKE ?", "%#{@country.downcase}%").where("lower(county) LIKE ?", "%#{county.downcase}%")
         base_loans = Loan.where(farmer: base_farmers).where(time_period: @loan_type)
       else
         base_loans = Loan.where(currency: currency).where(time_period: @loan_type)

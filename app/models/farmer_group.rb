@@ -53,9 +53,9 @@ class FarmerGroup < ActiveRecord::Base
     names = self.short_names.split('|')
     arr = []
     names.each do |name|
-      arr << "%#{name}%"
+      arr << "%#{name.downcase}%"
     end
-    @farmer_list = Farmer.where("association_name ILIKE any ( array[?] )", arr)
+    @farmer_list = Farmer.where("lower(association_name) LIKE any ( array[?] )", arr)
     self.approx_farmer_count = @farmer_list.count
     self.save
     return @farmer_list
