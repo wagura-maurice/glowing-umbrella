@@ -1,6 +1,3 @@
-<script type="text/javascript">
-	Chart.defaults.global.tooltips.enabled =  false
-</script>
 <div class="row">
   <div class="col-md-3">
 		<div class="card border-primary mb-3" style='height:280px'>
@@ -86,17 +83,17 @@
 		  			<tr>
 		  				<th scope="row" style="padding-top:20px;">Male:</th>
 		  				<td style="padding-top:20px;"><%= number_with_precision(@total_male, :precision => 0, :delimiter => ',') %></td>
-		  				<td><%= pie_chart @gender_breakdown, legend: false, height: '50px', width: '50px', colors: ["#1f77b4", "lightgrey"], tooltips: {enabled: false} %></td>
+		  				<td><%= pie_chart @gender_breakdown, legend: false, height: '50px', width: '50px', colors: ["#1f77b4", "lightgrey"], library: { tooltips: {enabled: false} } %></td>
 		  			</tr>
 		  			<tr>
 		  				<th scope="row" style="padding-top:20px;">Female:</th>
 		  				<td style="padding-top:20px;"><%= number_with_precision(@total_female, :precision => 0, :delimiter => ',') %></td>
-		  				<td><%= pie_chart @gender_breakdown, legend: false, height: '50px', width: '50px', colors: ["lightgrey", "#1f77b4"] %></td>
+		  				<td><%= pie_chart @gender_breakdown, legend: false, height: '50px', width: '50px', colors: ["lightgrey", "#1f77b4"], library: { tooltips: {enabled: false} } %></td>
 		  			</tr>
 		  			<tr>
 		  				<th scope="row" style="padding-top:20px;">Youth:</th>
 		  				<td style="padding-top:20px;"><%= number_with_precision(@total_youth, :precision => 0, :delimiter => ',') %></td>
-		  				<td><%= pie_chart @age_range, legend: false, height: '50px', width: '50px', colors: ["#1f77b4", "lightgrey"] %></td>
+		  				<td><%= pie_chart @age_range, legend: false, height: '50px', width: '50px', colors: ["#1f77b4", "lightgrey"], library: { tooltips: {enabled: false} } %></td>
 		  			</tr>
 		  		</tbody>
 				</table>
