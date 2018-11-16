@@ -165,21 +165,22 @@ class DashboardController < ApplicationController
     @above_55_m = Farmer.where('year_of_birth < ?', Time.now.year - 55).where(gender: 'male').count
     @county_list = county_list
     @county_list.each do |county_name|
-      self.instance_variable_set("@#{county_name}", Farmer.where("lower(county) LIKE ?", "%#{county_name.downcase.underscore.gsub('_', ' ')}%").count)
+      self.instance_variable_set("@#{county_name}", Farmer.where("lower(county) LIKE ?", "%#{county_name.underscore.downcase.gsub('_', ' ')}%").count)
     end
     @options = options_for_county
   end
 
   def farmer_data_by_country
+    limit = params['limit'].to_i
     county = params['country'].split(':')[1]
     if county.present?
       country = 'kenya'
     else
       country = params['country']
     end
-    fgs = FarmerGroup.where("lower(country) LIKE ?", "%#{country.downcase}%")
+    fgs = FarmerGroup.where("lower(country) LIKE ?", "%#{country.downcase}%").order(approx_farmer_count: :desc).limit(limit)
     if county
-      fgs = fgs.where("lower(county) LIKE ?", "%#{county.downcase}%")
+      fgs = FarmerGroup.where("lower(county) LIKE ?", "%#{county.underscore.downcase.gsub('_', ' ')}%").order(approx_farmer_count: :desc).limit(limit)
     end
     ret = {}
     fgs.each do |group|
@@ -217,6 +218,9 @@ class DashboardController < ApplicationController
       adult: base.where('year_of_birth < ?', Time.now.year - 35).count - total_adult,
       total: base.count - total_total
     }
+    if ret['Unclassified'][:adult] < 0
+      ret['Unclassified'][:adult] = 0
+    end
     respond_to do |format|
       format.json { render json: ret }
     end
@@ -231,7 +235,7 @@ class DashboardController < ApplicationController
     end
     crop = params['crop']
     model = CROPS[crop.to_sym][:model]
-    fgs = FarmerGroup.where("lower(country) LIKE ?", "%#{country.downcase}%")
+    fgs = FarmerGroup.where("lower(country) LIKE ?", "%#{country.downcase}%").order(approx_farmer_count: :desc)
     if county
       fgs = fgs.where("lower(county) LIKE ?", "%#{county.downcase}%")
     end

@@ -1,9 +1,10 @@
 <div class="row">
   <div class="col-md-12">
-    <div class="card border-primary mb-3" style="max-height:800px">
+    <div class="card border-primary mb-3">
       <div class="card-header">Farmer Group Demographics per Country</div>
       <div class="card-body">
         <%= select_tag :country_for_farmers, options_for_select(@options) %>
+        <%= select_tag :limit_country_for_farmers, options_for_select([['10', '10'],['25', '25'], ['50', '50'], ['100', '100']]) %>
         <table id="farmer_group_per_country_table" class="dontShow table table-striped table-condensed ">
           <thead>
             <tr>
@@ -25,7 +26,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <div class="card border-primary mb-3" style="max-height:800px">
+    <div class="card border-primary mb-3">
       <div class="card-header">Farmer Group Crop Info per Country</div>
       <div class="card-body">
         <%= select_tag :country_for_farmer_group, options_for_select(@options) %>

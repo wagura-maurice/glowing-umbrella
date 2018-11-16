@@ -93,7 +93,7 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <div class="card border-primary mb-3" style="max-height:800px">
+    <div class="card border-primary mb-3">
       <div class="card-header">Farmer Demographics per Country</div>
       <div class="card-body">
         <%= select_tag :country_for_farmers, options_for_select(@options) %>
@@ -781,7 +781,7 @@
         $('#' + countyName2 + '-value')
         var result = countyName2.replace( /([A-Z])/g, " $1" );
         var finalResult = result.charAt(0).toUpperCase() + result.slice(1);
-        $('#' + bigText)[0].textContent = finalResult+': ' + String(parseInt($('#' + countyName2 + '-value').html())) + ' farmers';
+        $('#' + bigText)[0].textContent = finalResult+': ' + $('#' + countyName2 + '-value').html().trim() + ' farmers';
       }
       hoverOut = function() {
         $(this).css('fill', '');

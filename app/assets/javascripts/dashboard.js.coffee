@@ -4,6 +4,7 @@
 
 dashReady = ->
   countryForFarmersSelct = $('#country_for_farmers')[0]
+  limitCountryForFarmersSelct = $('#limit_country_for_farmers')[0]
   return if (countryForFarmersSelct == undefined)
   farmgerGroupPerCountryTable = $('#farmer_group_per_country_table')[0]
 
@@ -138,7 +139,14 @@ dashReady = ->
 
   countryForFarmersSelct.onchange = (event) =>
     val = countryForFarmersSelct.value
-    $.getJSON('/farmer_data_by_country', {'country': val}, populateTable)
+    limit = limitCountryForFarmersSelct.value
+    $.getJSON('/farmer_data_by_country', {'country': val, 'limit': limit}, populateTable)
+
+  limitCountryForFarmersSelct.onchange = (event) =>
+    val = countryForFarmersSelct.value
+    return if val is '-'
+    limit = limitCountryForFarmersSelct.value
+    $.getJSON('/farmer_data_by_country', {'country': val, 'limit': limit}, populateTable)
 
 
 
