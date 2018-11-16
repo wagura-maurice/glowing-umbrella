@@ -48,6 +48,7 @@ class DashboardController < ApplicationController
   def dashboard_home
     @dashboard_view = true
     @dashboard_home = true
+    FarmerGroupCounterWorker.perform_async()
 
     @total_farmers = Farmer.count
     @total_pending_farmers = Farmer.where(status: 'pending').count
@@ -85,26 +86,47 @@ class DashboardController < ApplicationController
 
     @active_farmers = Farmer.where(received_loans: true).count
 
-    farmer_groups = FarmerGroup.order(approx_farmer_count: :desc)
-    @farmers_by_group = {}
-    @farmers_by_county = {}
-    farmer_groups.each do |group|
-      formal_name = group.formal_name
-      if group.county.present?
-        county = group.county
+    farmers_by_county = {}
+    raw_farmers_by_county = FarmerGroup.group(:county).count
+    raw_farmers_by_county.each do |county, num_groups|
+      if county == ''
+        cname = 'Group County not specified'
       else
-        county = 'Group County not specified'
+        cname = county
       end
-      @farmers_by_group[formal_name] = group.farmer_list.count
-      if @farmers_by_county[county].present?
-        @farmers_by_county[county][:num_farmers] += @farmers_by_group[formal_name]
-        @farmers_by_county[county][:num_groups] += 1
+      farmers_by_county[cname] = {
+        num_groups: num_groups,
+        num_farmers: FarmerGroup.where(county: county).sum(:approx_farmer_count)
+      }
+    end
+    total_farmers_in_groups = farmers_by_county.values.inject(0) do |sum, n|
+      sum += n[:num_farmers]
+    end
+    sorted_farmers_by_country = farmers_by_county.sort do |a, b|
+      num_a = a[1][:num_farmers]
+      num_b = b[1][:num_farmers]
+      case
+      when num_a > num_b
+        -1
+      when num_a < num_b
+        1
       else
-        @farmers_by_county[county] = {num_groups: 1, num_farmers: @farmers_by_group[formal_name] }
+        num_a <=> num_b
       end
     end
+
+    @farmers_by_county = {}
+    sorted_farmers_by_country[0...10].each do |arr|
+      @farmers_by_county[arr[0]] = arr[1]
+    end
+
+    raw_farmers_by_group = FarmerGroup.order(approx_farmer_count: :desc).limit(10).pluck(:formal_name, :approx_farmer_count)
+    @farmers_by_group = {}
+    raw_farmers_by_group.each do |arr|
+      @farmers_by_group[arr[0]] = arr[1]
+    end
+
     @total_num_groups = FarmerGroup.count
-    total_farmers_in_groups = @farmers_by_group.values.sum
     @total_farmers_not_in_groups = @total_farmers - total_farmers_in_groups
 
     @total_repayments = Txn.where(txn_type: 'c2b').sum(:value)
