@@ -97,6 +97,7 @@
       <div class="card-header">Farmer Demographics per Country</div>
       <div class="card-body">
         <%= select_tag :country_for_farmers, options_for_select(@options) %>
+        <%= select_tag :limit_country_for_farmers, options_for_select([['10', '10'],['25', '25'], ['50', '50'], ['100', '100']]) %>
         <table id="farmer_group_per_country_table" class="dontShow table table-striped table-condensed ">
           <thead>
             <tr>
