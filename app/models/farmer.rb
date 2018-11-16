@@ -24,6 +24,19 @@ class Farmer < ActiveRecord::Base
   # end
 
   validates :national_id_number, uniqueness: true
+  after_update :update_crop_status
+
+  def update_crop_status
+    if self.status == 'verified'
+      self.beans_reports.update_all(status: 'verified')
+      self.black_eyed_beans_reports.update_all(status: 'verified')
+      self.green_grams_reports.update_all(status: 'verified')
+      self.maize_reports.update_all(status: 'verified')
+      self.pigeon_peas_reports.update_all(status: 'verified')
+      self.rice_reports.update_all(status: 'verified')
+      self.soya_beans_reports.update_all(status: 'verified')
+    end
+  end
 
   def self.search_fields
     return {"created_at" => {type: :time, key: "Registration Date"},
@@ -41,6 +54,8 @@ class Farmer < ActiveRecord::Base
             "farmer_group_id" => {type: :number, key: "Farmer Group ID"}
             }
   end
+
+
 
   def self.new_farmer(session)
     f = Farmer.new

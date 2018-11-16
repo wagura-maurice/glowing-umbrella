@@ -17,7 +17,7 @@ gem 'safe_attributes'
 gem 'responders', '~> 2.0'
 
 # Use postgresql as the database for Active Record
-gem 'pg'
+gem 'pg', '0.21.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

@@ -325,7 +325,7 @@ DEPENDENCIES
   memcachier
   momentjs-rails (>= 2.9.0)
   newrelic_rpm
-  pg
+  pg (= 0.21.0)
   phony_rails
   puma
   rails (= 4.2.10)

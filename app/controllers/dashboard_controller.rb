@@ -55,22 +55,22 @@ class DashboardController < ApplicationController
     @total_acreage = Farmer.sum(:farm_size)
     @total_farmer_groups = FarmerGroup.count
 
-    @total_maize_planted = MaizeReport.sum :kg_of_seed_planted
-    @total_rice_planted = RiceReport.sum :kg_of_seed_planted
-    @total_bean_planted = BeansReport.sum :kg_of_seed_planted
-    @total_green_gram_planted = GreenGramsReport.sum :kg_of_seed_planted
-    @total_black_eyed_bean_planted = BlackEyedBeansReport.sum :kg_of_seed_planted
-    @total_soya_bean_planted = SoyaBeansReport.sum :kg_of_seed_planted
-    @total_pigeon_pea_planted = PigeonPeasReport.sum :kg_of_seed_planted
+    @total_maize_planted = MaizeReport.where(status: 'verified').sum :kg_of_seed_planted
+    @total_rice_planted = RiceReport.where(status: 'verified').sum :kg_of_seed_planted
+    @total_bean_planted = BeansReport.where(status: 'verified').sum :kg_of_seed_planted
+    @total_green_gram_planted = GreenGramsReport.where(status: 'verified').sum :kg_of_seed_planted
+    @total_black_eyed_bean_planted = BlackEyedBeansReport.where(status: 'verified').sum :kg_of_seed_planted
+    @total_soya_bean_planted = SoyaBeansReport.where(status: 'verified').sum :kg_of_seed_planted
+    @total_pigeon_pea_planted = PigeonPeasReport.where(status: 'verified').sum :kg_of_seed_planted
     @total_kgs_planted = @total_maize_planted + @total_rice_planted + @total_bean_planted + @total_green_gram_planted + @total_black_eyed_bean_planted + @total_soya_bean_planted + @total_pigeon_pea_planted
 
-    @total_maize_harvested = MaizeReport.sum :bags_harvested
-    @total_rice_harvested = RiceReport.sum :bags_harvested
-    @total_bean_harvested = BeansReport.sum :bags_harvested
-    @total_green_gram_harvested = GreenGramsReport.sum :bags_harvested
-    @total_black_eyed_bean_harvested = BlackEyedBeansReport.sum :bags_harvested
-    @total_soya_bean_harvested = SoyaBeansReport.sum :bags_harvested
-    @total_pigeon_pea_harvested = PigeonPeasReport.sum :bags_harvested
+    @total_maize_harvested = MaizeReport.where(status: 'verified').sum :bags_harvested
+    @total_rice_harvested = RiceReport.where(status: 'verified').sum :bags_harvested
+    @total_bean_harvested = BeansReport.where(status: 'verified').sum :bags_harvested
+    @total_green_gram_harvested = GreenGramsReport.where(status: 'verified').sum :bags_harvested
+    @total_black_eyed_bean_harvested = BlackEyedBeansReport.where(status: 'verified').sum :bags_harvested
+    @total_soya_bean_harvested = SoyaBeansReport.where(status: 'verified').sum :bags_harvested
+    @total_pigeon_pea_harvested = PigeonPeasReport.where(status: 'verified').sum :bags_harvested
     @total_bags_harvested = @total_maize_harvested + @total_rice_harvested + @total_bean_harvested + @total_green_gram_harvested + @total_black_eyed_bean_harvested + @total_soya_bean_harvested + @total_pigeon_pea_harvested
 
     @total_loans = Loan.count
@@ -85,7 +85,7 @@ class DashboardController < ApplicationController
 
     @active_farmers = Farmer.where(received_loans: true).count
 
-    farmer_groups = FarmerGroup.order(approx_farmer_count: :desc).limit(20)
+    farmer_groups = FarmerGroup.order(approx_farmer_count: :desc)
     @farmers_by_group = {}
     @farmers_by_county = {}
     farmer_groups.each do |group|
