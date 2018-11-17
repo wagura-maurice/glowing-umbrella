@@ -2,7 +2,8 @@ measure: farmer
 filters:
 - created_at
 dimensions:
-- created_at
+- key: created_at
+  granularity: day
 - key: status
 chart:
   type: line
