@@ -83,7 +83,7 @@
 		  			<tr>
 		  				<th scope="row" style="padding-top:20px;">Male:</th>
 		  				<td style="padding-top:20px;"><%= number_with_precision(@total_male, :precision => 0, :delimiter => ',') %></td>
-		  				<td><%= pie_chart @gender_breakdown, legend: false, height: '50px', width: '50px', colors: ["#1f77b4", "lightgrey"], library: { tooltips:
+		  				<td><%= pie_chart @gender_breakdown_pct, legend: false, height: '50px', width: '50px', colors: ["#1f77b4", "lightgrey"], library: { tooltips:
 		  					{
                   titleFontSize: 8
 		  					}
@@ -92,12 +92,12 @@
 		  			<tr>
 		  				<th scope="row" style="padding-top:20px;">Female:</th>
 		  				<td style="padding-top:20px;"><%= number_with_precision(@total_female, :precision => 0, :delimiter => ',') %></td>
-		  				<td><%= pie_chart @gender_breakdown, legend: false, height: '50px', width: '50px', colors: ["lightgrey", "#1f77b4"], library: { tooltips: {enabled: true} } %></td>
+		  				<td><%= pie_chart @gender_breakdown_pct, legend: false, height: '50px', width: '50px', colors: ["lightgrey", "#1f77b4"], library: { tooltips: {enabled: true} } %></td>
 		  			</tr>
 		  			<tr>
 		  				<th scope="row" style="padding-top:20px;">Youth:</th>
 		  				<td style="padding-top:20px;"><%= number_with_precision(@total_youth, :precision => 0, :delimiter => ',') %></td>
-		  				<td><%= pie_chart @age_range, legend: false, height: '50px', width: '50px', colors: ["#1f77b4", "lightgrey"], library: { tooltips: {enabled: true} } %></td>
+		  				<td><%= pie_chart @age_range_pct, legend: false, height: '50px', width: '50px', colors: ["#1f77b4", "lightgrey"], library: { tooltips: {enabled: true} } %></td>
 		  			</tr>
 		  		</tbody>
 				</table>
@@ -238,13 +238,23 @@
 </script>
 
 <script type="text/javascript">
+	var labelMaker = (eventInfo, data) => {
+		index = eventInfo.index
+		// With label
+  	// return str = data.labels[index] + ': ' + data.datasets[0].data[index] + '%'
+  	// Without label
+  	return str = data.datasets[0].data[index] + '%'
+  }
   var a = Chartkick.charts['chart-1']
-  a.chart.options.tooltips.bodyFontSize = 7
+  a.chart.options.tooltips.bodyFontSize = 10
+  a.chart.options.tooltips.callbacks.label = labelMaker;
   a.chart.update()
   var b = Chartkick.charts['chart-2']
-  b.chart.options.tooltips.bodyFontSize = 7
+  b.chart.options.tooltips.bodyFontSize = 10
+  b.chart.options.tooltips.callbacks.label = labelMaker;
   b.chart.update()
   var c = Chartkick.charts['chart-3']
-  c.chart.options.tooltips.bodyFontSize = 7
+  c.chart.options.tooltips.bodyFontSize = 10
+  c.chart.options.tooltips.callbacks.label = labelMaker;
   c.chart.update()
 </script>

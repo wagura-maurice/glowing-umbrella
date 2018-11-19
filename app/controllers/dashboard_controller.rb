@@ -137,6 +137,10 @@ class DashboardController < ApplicationController
 
     @gender_breakdown = {'Male' => @total_male, 'Female' => @total_female}
     @age_range = {'Youth' => @total_youth, 'Adult' => @total_adult}
+    tot_mf = (@total_male + @total_female).to_f
+    tot_ya = (@total_youth + @total_adult).to_f
+    @gender_breakdown_pct = {'Male' => (@total_male/tot_mf*100).round(2), 'Female' => (@total_female/tot_mf*100).round(2)}
+    @age_range_pct = {'Youth' => (@total_youth/tot_ya*100).round(2), 'Adult' => (@total_adult/tot_ya*100).round(2)}
     @status_breakdown = {'Verified' => @total_verified_farmers, 'Pending' => @total_pending_farmers}
     @status_breakdown2 = [['Verified', @total_verified_farmers], ['Pending', @total_pending_farmers]]
   end
