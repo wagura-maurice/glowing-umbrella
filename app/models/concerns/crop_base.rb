@@ -13,4 +13,8 @@ module CropBase
     self.report_type == "harvest"
   end
 
+  def is_input?
+    self.report_type == "input"
+  end
+
 end

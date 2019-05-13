@@ -15,9 +15,11 @@ class Api::V1::ReportSerializer < ActiveModel::Serializer
   def report_type
     if object.is_planting?
       return 'planting'
-    else
-      return'harvest'
-    end
+    elseif object.is_harvest?
+      return 'harvest'
+    elseif object.is_input?
+      return 'input'
+    end   
   end
 
   def is_planting?
@@ -26,6 +28,10 @@ class Api::V1::ReportSerializer < ActiveModel::Serializer
 
   def is_harvest?
     return object.is_harvest?
+  end
+
+  def is_input?
+    return object.is_input?
   end
 
 end
