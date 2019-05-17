@@ -62,6 +62,15 @@ module HomeMenuForm
           next_form: :view_loans_form,
           start_next_form: true,
           valid_responses: :any
+        },
+        9 => {
+          question_text: :get_inputs_menu_text,
+          valid_responses: :get_inputs_menu_valid_responses,
+          save_key: :planting_inputs,
+          next_question: nil,
+          wait_until_response: true,
+          next_form: :get_report_inputs_form,
+          error_message: :get_inputs_menu_error_message
         }
       },
       model: Farmer,
@@ -79,10 +88,10 @@ module HomeMenuForm
 
     if get_farmer.received_loans
       # suffix = "Would you like to? \n1. View Loans\n2. Exit Session"
-      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. View Loans\n4. Exit Session"
+      suffix = "Would you like to? \n1. Request for Inputs\n2. Report Planting\n3. Report Harvest\n4. View Loans\n5. Exit Session"
     else
       # suffix = "Would you like to? \n1. Exit Session"
-      suffix = "Would you like to? \n1. Report Planting\n2. Report Harvest\n3. Exit Session"
+      suffix = "Would you like to? \n1. Request for Inputs\n2. Report Planting\n3. Report Harvest\n4. Exit Session"
     end
 
     ret = prefix + " " + suffix
@@ -90,10 +99,10 @@ module HomeMenuForm
 
   def get_home_menu_valid_responses
     # resp = ["1"]
-    resp = ["1", "2", "3"]
+    resp = ["1", "2", "3", "4"]
     if get_farmer.received_loans
       # resp << "2"
-      resp << "4"
+      resp << "5"
     end
     return resp
   end
@@ -101,20 +110,20 @@ module HomeMenuForm
   def get_home_menu_next_question
     if get_farmer.received_loans
       # return {"1" => 7, "2" => 5}
-      return {"1" => 2, "2" => 4, "3" => 7, "4" => 5}
+      return {"1" => 9, "2" => 2, "3" => 4, "4" => 7, "5" => 5}
     else
       # return {"1" => 5}
-      return {"1" => 2, "2" => 4, "3" => 5}
+      return {"1" => 9, "2" => 2, "3" => 4, "4" => 5}
     end
   end
 
   def get_home_menu_error_message
     if get_farmer.received_loans
       # return "Sorry, that answer was not valid. Would you like to? \n1. View Loans\n2. Exit Session"
-      return "Sorry, that answer was not valid. What do you want to do? \n1. Report Planting\n2. Report Harvest\n3. View Loans\n4. Exit Session"
+      return "Sorry, that answer was not valid. What do you want to do? \n1. Request for Inputs\n2. Report Planting\n3. Report Harvest\n4. View Loans\n5. Exit Session"
     else
       # return "Sorry, that answer was not valid. Would you like to? \n1. Exit Session"
-      return "Sorry, that answer was not valid. What do you want to do? \n1. Report Planting\n2. Report Harvest\n3. Exit Session"
+      return "Sorry, that answer was not valid. What do you want to do? \n1. Request for Inputs\n2. Report Planting\n3. Report Harvest\n4. Exit Session"
     end
   end
 

@@ -8,6 +8,7 @@ module Form
   require 'forms/crop_report_forms'
   require 'forms/home_menu_form'
   require 'forms/loan_forms'
+  require 'forms/planting_inputs_forms'
 
 
   # Include modules
@@ -18,6 +19,7 @@ module Form
   include CropReportForms
   include HomeMenuForm
   include LoanForms
+  include PlantingInputsForms
 
 
   #####################################

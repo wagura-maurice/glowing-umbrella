@@ -18,8 +18,8 @@ development:
   adapter: postgresql
   database: vipi_development
   pool: 10
-  username: vipi
-  password:
+  username: montanabay
+  password: Rtcv39$$
   host: localhost
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -47,13 +47,13 @@ test:
   adapter: postgresql
   database: vipi_test
   pool: 5
-  username: vipi
-  password:
+  username: montanabay
+  password: Rtcv39$$
   host: localhost
 
 production:
   adapter: postgresql
   database: vipi_production
   pool: 20
-  username: vipi
-  password:
+  username: montanabay
+  password: Rtcv39$$
