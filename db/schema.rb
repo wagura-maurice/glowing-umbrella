@@ -160,16 +160,6 @@ ActiveRecord::Schema.define(version: 20190511101857) do
   add_index "farmers", ["status"], name: "index_farmers_on_status", using: :btree
   add_index "farmers", ["year_of_birth"], name: "index_farmers_on_year_of_birth", using: :btree
 
-  create_table "fertilizer_requests", force: :cascade do |t|
-    t.string   "fertilizer_type"
-    t.float    "units"
-    t.integer  "farmer_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "fertilizer_requests", ["farmer_id"], name: "index_fertilizer_requests_on_farmer_id", using: :btree
-
   create_table "green_grams_reports", force: :cascade do |t|
     t.float    "kg_of_seed_planted"
     t.float    "bags_harvested"
@@ -191,16 +181,11 @@ ActiveRecord::Schema.define(version: 20190511101857) do
 
   create_table "inputs", force: :cascade do |t|
     t.string   "crop_type"
-    t.integer  "kg_of_seed"
-    t.integer  "kg_of_can_fertilizer"
-    t.integer  "kg_of_dap_fertilizer"
-    t.integer  "kg_of_npk_fertilizer"
-    t.string   "agro_chem"
-    t.integer  "acres_planting"
+    t.integer  "bags_of_can_fertilizer"
     t.integer  "season"
     t.integer  "farmer_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "inputs", ["farmer_id"], name: "index_inputs_on_farmer_id", using: :btree
