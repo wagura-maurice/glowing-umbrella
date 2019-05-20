@@ -59,16 +59,7 @@ class BlackEyedBeansReport < ActiveRecord::Base
   def self.input_report(session)
     r = Input.new
     r.crop_type = 'black_eyed_beans'
-    r.kg_of_seed = session[:kg_of_seed]
-    r.kg_of_can_fertilizer = session[:bags_of_can_fertilizer]
-    if session[:bags_of_npk_fertilizer]
-      r.kg_of_dap_fertilizer = ''
-    else
-      r.kg_of_dap_fertilizer = session[:bags_of_dap_fertilizer]
-    end
-    r.kg_of_npk_fertilizer = session[:bags_of_npk_fertilizer]
-    r.agro_chem = session[:agro_chem]
-    r.acres_planting = session[:acres_planting]
+    r.bags_of_can_fertilizer = session[:bags_of_can_fertilizer]
     r.season = $current_season
     r.farmer = Farmer.where(phone_number: session[:phone_number]).first
     r.save
