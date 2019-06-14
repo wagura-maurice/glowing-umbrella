@@ -37,6 +37,14 @@ Egranary::Application.routes.draw do
   get "black_eyed_beans_reports_table" => "dashboard#black_eyed_beans_reports_table", :as => :black_eyed_beans_reports_table
   get "soya_beans_reports_table" => "dashboard#soya_beans_reports_table", :as => :soya_beans_reports_table
   get "pigeon_peas_reports_table" => "dashboard#pigeon_peas_reports_table", :as => :pigeon_peas_reports_table
+  get "rice_inputs_table" => "dashboard#rice_inputs_table", :as => :rice_inputs_table
+  get "nerica_rice_inputs_table" => "dashboard#nerica_rice_inputs_table", :as => :nerica_rice_inputs_table
+  get "maize_inputs_table" => "dashboard#maize_inputs_table", :as => :maize_inputs_table
+  get "beans_inputs_table" => "dashboard#beans_inputs_table", :as => :beans_inputs_table
+  get "green_grams_inputs_table" => "dashboard#green_grams_inputs_table", :as => :green_grams_inputs_table
+  get "black_eyed_beans_inputs_table" => "dashboard#black_eyed_beans_inputs_table", :as => :black_eyed_beans_inputs_table
+  get "soya_beans_inputs_table" => "dashboard#soya_beans_inputs_table", :as => :soya_beans_inputs_table
+  get "pigeon_peas_inputs_table" => "dashboard#pigeon_peas_inputs_table", :as => :pigeon_peas_inputs_table
   get "loans_table" => "dashboard#loans_table", :as => :loans_table
   get "payments_table" => "dashboard#payments_table", :as => :payments_table
   get "loans_summary" => "dashboard#loans_summary"
@@ -92,6 +100,14 @@ Egranary::Application.routes.draw do
   resources :beans_reports
   resources :soya_beans_reports
   resources :pigeon_peas_reports
+  resources :maize_inputs
+  resources :rice_inputs
+  resources :nerica_rice_inputs
+  resources :green_grams_inputs
+  resources :black_eyed_beans_inputs
+  resources :beans_inputs
+  resources :soya_beans_inputs
+  resources :pigeon_peas_inputs
 
   # API
   namespace :api do
