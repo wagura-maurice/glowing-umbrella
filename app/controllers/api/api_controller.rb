@@ -16,7 +16,7 @@ class Api::ApiController < ActionController::API
 
   def authenticate_request
     # The incoming request will look somewhat like this:
-    # https://www.egranary.com/api/v1/farmers
+    # https://egranary.herokuapp.comm/api/v1/farmers
     # With the following headers
     # Authorization: EGRANARY-HMAC-SHA256
     # X-Authorization-ApiKey: AKIAIOSFODNN7EXAMPLE&
