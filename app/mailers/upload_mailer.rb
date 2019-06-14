@@ -1,6 +1,6 @@
 class UploadMailer < ApplicationMailer
 
-  default from: "info@egranary.co"
+  default from: "support@e-granary.com"
 
   def farmer_summary(email, count, errors)
     @count = count
