@@ -1,0 +1,2 @@
+class BlackEyedBeansInputsController < ApplicationController
+end

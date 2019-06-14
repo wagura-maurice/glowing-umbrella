@@ -1,0 +1,2 @@
+class NericaRiceInputsController < ApplicationController
+end

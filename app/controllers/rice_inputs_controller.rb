@@ -1,0 +1,2 @@
+class RiceInputsController < ApplicationController
+end

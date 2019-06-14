@@ -1,0 +1,2 @@
+class SoyaBeansInputsController < ApplicationController
+end

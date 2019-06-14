@@ -1,0 +1,2 @@
+class GreenGramsInputsController < ApplicationController
+end

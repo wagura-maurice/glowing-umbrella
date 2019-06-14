@@ -1,0 +1,2 @@
+class PigeonPeasInputsController < ApplicationController
+end

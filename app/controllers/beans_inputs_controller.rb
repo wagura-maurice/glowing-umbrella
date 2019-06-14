@@ -1,0 +1,2 @@
+class BeansInputsController < ApplicationController
+end

@@ -1,0 +1,2 @@
+class MaizeInputsController < ApplicationController
+end
