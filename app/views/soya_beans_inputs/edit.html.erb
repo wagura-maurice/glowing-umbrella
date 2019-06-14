@@ -1,0 +1,58 @@
+<table class="table table-condensed table-hover">
+  <tr>
+    <td>Farmer Name:</td>
+    <td><%= @record.farmer.name %></td>
+  </tr>
+  <tr>
+    <td>Farmer Phone Number:</td>
+    <td><%= @record.farmer.phone_number %></td>
+  </tr>
+</table>
+<br />
+
+<%= form_for @record do |f| %>
+  <table>
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+    <% if @record.is_planting? %>
+      <tr>
+        <td><%= f.label :kg_of_seed_planted %>:</td>
+        <td><%= f.text_field :kg_of_seed_planted %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :kg_of_fertilizer %>:</td>
+        <td><%= f.text_field :kg_of_fertilizer %></td>
+      </tr>
+    <% else %>
+      <tr>
+        <td><%= f.label :bags_harvested %>:</td>
+        <td><%= f.text_field :bags_harvested %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :grade_1_bags %>:</td>
+        <td><%= f.text_field :grade_1_bags %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :grade_2_bags %>:</td>
+        <td><%= f.text_field :grade_2_bags %></td>
+      </tr>
+      <tr>
+        <td><%= f.label :ungraded_bags %>:</td>
+        <td><%= f.text_field :ungraded_bags %></td>
+      </tr>
+    <% end %>
+    <% if current_user.is_admin? || current_user.is_updater? %>
+    <tr>
+      <td><%= f.submit 'Save' %></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<br />
+
+<% if current_user.is_admin? || current_user.is_updater? %>
+<%= button_to "Delete #{@model_name.titleize}", @record, {:method => :delete} %>
+<% end %>

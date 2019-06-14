@@ -1,0 +1,29 @@
+<%= render 'layouts/advanced_search' %>
+
+<table id="black-eyed-beans-inputs-table", data-source="<%= black_eyed_beans_inputs_table_path(@datatable_search_params) %>">
+  <thead>
+    <tr>
+      <th>Farmer Name</th>
+      <th>Phone Number</th>
+      <th>Farmer Group</th>
+      <th>Reporting Time</th>
+      <th>KG of Seeds</th>
+      <th>Bags of DAP Fertilizer</th>
+      <th>Bags of NPK Fertilizer</th>
+      <th>Bags of CAN Fertilizer</th>
+      <th>Agro Chemical</th>
+      <th>Acreage</th>
+      <th>Planting Season</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to "Download Excel", black_eyed_beans_inputs_path(@datatable_search_params.merge({format: "xls", unscoped: "true"})), class: "btn btn-sm btn-primary"%>
+</p>
+
+<% content_for :head do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
+<% end %>
