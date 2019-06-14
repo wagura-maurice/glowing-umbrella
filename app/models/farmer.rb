@@ -12,6 +12,14 @@ class Farmer < ActiveRecord::Base
   has_many :pigeon_peas_reports, dependent: :destroy
   has_many :loans, dependent: :destroy
   has_many :old_loans, dependent: :destroy
+  has_many :maize_inputs, dependent: :destroy
+  has_many :rice_inputs, dependent: :destroy
+  has_many :beans_inputs, dependent: :destroy
+  has_many :green_grams_inputs, dependent: :destroy
+  has_many :black_eyed_beans_inputs, dependent: :destroy
+  has_many :nerica_rice_inputs, dependent: :destroy
+  has_many :soya_beans_inputs, dependent: :destroy
+  has_many :pigeon_peas_inputs, dependent: :destroy
 
   include Exportable
   include BCrypt
