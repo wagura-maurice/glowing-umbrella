@@ -10,12 +10,13 @@ ready = ->
       {data: 'farmer_phone_number'}
       {data: 'farmer_association'}
       {data: 'reporting_time'}
-      {data: 'kg_of_seed_planted'}
-      {data: 'kg_of_fertilizer'}
-      {data: 'bags_harvested'}
-      {data: 'grade_1_bags'}
-      {data: 'grade_2_bags'}
-      {data: 'ungraded_bags'}
+      {data: 'kg_of_seed'}
+      {data: 'bags_of_dap_fertilizer'}
+      {data: 'bags_of_npk_fertilizer'}
+      {data: 'bags_of_can_fertilizer'}
+      {data: 'agro_chem'}
+      {data: 'acres_planting'}
+      {data: 'season'}
     ]
 
 $(document).ready(ready)
