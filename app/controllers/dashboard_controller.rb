@@ -701,6 +701,86 @@ class DashboardController < ApplicationController
     end
   end
 
+  def maize_inputs_table
+    @search_fields = MaizeInput.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    ret = MaizeInputDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
+  def rice_inputs_table
+    @search_fields = RiceInput.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    ret = RiceInputDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
+  def nerica_rice_inputs_table
+    @search_fields = NericaRiceInput.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    ret = NericaRiceInputsDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
+  def beans_inputs_table
+    @search_fields = BeansInput.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    ret = BeansInputDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
+  def green_grams_inputs_table
+    @search_fields = GreenGramsInput.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    ret = GreenGramsInputDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
+  def black_eyed_beans_inputs_table
+    @search_fields = BlackEyedBeansInput.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    ret = BlackEyedBeansInputDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
+  def soya_beans_inputs_table
+    @search_fields = SoyaBeansInput.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    ret = SoyaBeansInputDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
+  def pigeon_peas_inputs_table
+    @search_fields = PigeonPeasInput.search_fields
+    @datatable_search_params = datatable_search_params(@search_fields)
+    ret = PigeonPeasInputDatatable.new(view_context)
+    respond_to do |format|
+      format.html
+      format.json { render json: ret }
+    end
+  end
+
   def send_sms
     @search_fields = Farmer.search_fields
     @datatable_search_params = datatable_search_params(@search_fields)
