@@ -34,11 +34,11 @@ module UserRegistrationForm
           error_message: "Sorry, that answer was not valid. What is your nearest town?"
         },
         5 => {
-          question_text: "What county are you in?",
+          question_text: "What county / district are you in?",
           valid_responses: :any_letters,
           save_key: :county,
           next_question: 6,
-          error_message: "Sorry, that answer was not valid. What county are you in?"
+          error_message: "Sorry, that answer was not valid. What county / district are you in?"
         },
         6 => {
           question_text: "In what year were you born? (e.g. 1985)",
