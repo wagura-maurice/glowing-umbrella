@@ -35,10 +35,12 @@ class BeansInputDatatable < AjaxDatatablesRails::Base
         # example:
         # id: record.id,
         # name: record.name
-        farmer_name: link_to(record.farmer.display_name, edit_beans_report_path(record)),
+        # farmer_name: link_to(record.farmer.display_name, edit_beans_report_path(record)),
+        farmer_name: record.farmer.display_name,
         farmer_phone_number: record.farmer.phone_number,
         farmer_association: record.farmer.association_name,
-        reporting_time: link_to(record.reporting_time, edit_beans_report_path(record)),
+        # reporting_time: link_to(record.reporting_time, edit_beans_report_path(record)),
+        reporting_time: record.reporting_time,
         kg_of_seed_planted: record.kg_of_seed_planted,
         kg_of_fertilizer: record.kg_of_fertilizer,
         bags_harvested: record.bags_harvested,

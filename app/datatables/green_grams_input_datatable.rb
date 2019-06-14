@@ -33,10 +33,12 @@ class GreenGramsInputDatatable < AjaxDatatablesRails::Base
         # example:
         # id: record.id,
         # name: record.name
-        farmer_name: link_to(record.farmer.display_name, edit_green_grams_input_path(record)),
+        # farmer_name: link_to(record.farmer.display_name, edit_green_grams_input_path(record)),
+        farmer_name: record.farmer.display_name,
         farmer_phone_number: record.farmer.phone_number,
         farmer_association: record.farmer.association_name,
-        reporting_time: link_to(record.reporting_time, edit_green_grams_input_path(record)),
+        # reporting_time: link_to(record.reporting_time, edit_green_grams_input_path(record)),
+        reporting_time: record.reporting_time,
         kg_of_seed: record.kg_of_seed,
         bags_of_dap_fertilizer: record.bags_of_dap_fertilizer,
         bags_of_npk_fertilizer: record.bags_of_npk_fertilizer,
