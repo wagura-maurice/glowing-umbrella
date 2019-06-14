@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190511101857) do
+ActiveRecord::Schema.define(version: 20190613085905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,21 @@ ActiveRecord::Schema.define(version: 20190511101857) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "beans_inputs", force: :cascade do |t|
+    t.integer  "kg_of_seed"
+    t.integer  "bags_of_dap_fertilizer"
+    t.integer  "bags_of_npk_fertilizer"
+    t.integer  "bags_of_can_fertilizer"
+    t.string   "agro_chem"
+    t.integer  "acres_planting"
+    t.integer  "season"
+    t.integer  "farmer_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "beans_inputs", ["farmer_id"], name: "index_beans_inputs_on_farmer_id", using: :btree
 
   create_table "beans_reports", force: :cascade do |t|
     t.float    "kg_of_seed_planted"
@@ -43,6 +58,21 @@ ActiveRecord::Schema.define(version: 20190511101857) do
 
   add_index "beans_reports", ["farmer_id"], name: "index_beans_reports_on_farmer_id", using: :btree
   add_index "beans_reports", ["harvest_report_id"], name: "index_beans_reports_on_harvest_report_id", using: :btree
+
+  create_table "black_eyed_beans_inputs", force: :cascade do |t|
+    t.integer  "kg_of_seed"
+    t.integer  "bags_of_dap_fertilizer"
+    t.integer  "bags_of_npk_fertilizer"
+    t.integer  "bags_of_can_fertilizer"
+    t.string   "agro_chem"
+    t.integer  "acres_planting"
+    t.integer  "season"
+    t.integer  "farmer_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "black_eyed_beans_inputs", ["farmer_id"], name: "index_black_eyed_beans_inputs_on_farmer_id", using: :btree
 
   create_table "black_eyed_beans_reports", force: :cascade do |t|
     t.float    "kg_of_seed_planted"
@@ -160,6 +190,21 @@ ActiveRecord::Schema.define(version: 20190511101857) do
   add_index "farmers", ["status"], name: "index_farmers_on_status", using: :btree
   add_index "farmers", ["year_of_birth"], name: "index_farmers_on_year_of_birth", using: :btree
 
+  create_table "green_grams_inputs", force: :cascade do |t|
+    t.integer  "kg_of_seed"
+    t.integer  "bags_of_dap_fertilizer"
+    t.integer  "bags_of_npk_fertilizer"
+    t.integer  "bags_of_can_fertilizer"
+    t.string   "agro_chem"
+    t.integer  "acres_planting"
+    t.integer  "season"
+    t.integer  "farmer_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "green_grams_inputs", ["farmer_id"], name: "index_green_grams_inputs_on_farmer_id", using: :btree
+
   create_table "green_grams_reports", force: :cascade do |t|
     t.float    "kg_of_seed_planted"
     t.float    "bags_harvested"
@@ -178,17 +223,6 @@ ActiveRecord::Schema.define(version: 20190511101857) do
 
   add_index "green_grams_reports", ["farmer_id"], name: "index_green_grams_reports_on_farmer_id", using: :btree
   add_index "green_grams_reports", ["harvest_report_id"], name: "index_green_grams_reports_on_harvest_report_id", using: :btree
-
-  create_table "inputs", force: :cascade do |t|
-    t.string   "crop_type"
-    t.integer  "bags_of_can_fertilizer"
-    t.integer  "season"
-    t.integer  "farmer_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  add_index "inputs", ["farmer_id"], name: "index_inputs_on_farmer_id", using: :btree
 
   create_table "loans", force: :cascade do |t|
     t.string   "commodity"
@@ -229,6 +263,21 @@ ActiveRecord::Schema.define(version: 20190511101857) do
   add_index "loans_txns", ["loan_id"], name: "index_loans_txns_on_loan_id", using: :btree
   add_index "loans_txns", ["txn_id"], name: "index_loans_txns_on_txn_id", using: :btree
 
+  create_table "maize_inputs", force: :cascade do |t|
+    t.integer  "kg_of_seed"
+    t.integer  "bags_of_dap_fertilizer"
+    t.integer  "bags_of_npk_fertilizer"
+    t.integer  "bags_of_can_fertilizer"
+    t.string   "agro_chem"
+    t.integer  "acres_planting"
+    t.integer  "season"
+    t.integer  "farmer_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "maize_inputs", ["farmer_id"], name: "index_maize_inputs_on_farmer_id", using: :btree
+
   create_table "maize_reports", force: :cascade do |t|
     t.float    "acres_planted"
     t.float    "kg_of_seed_planted"
@@ -257,6 +306,21 @@ ActiveRecord::Schema.define(version: 20190511101857) do
     t.string  "migration", limit: 191, null: false
     t.integer "batch",                 null: false
   end
+
+  create_table "nerica_rice_inputs", force: :cascade do |t|
+    t.integer  "kg_of_seed"
+    t.integer  "bags_of_dap_fertilizer"
+    t.integer  "bags_of_npk_fertilizer"
+    t.integer  "bags_of_can_fertilizer"
+    t.string   "agro_chem"
+    t.integer  "acres_planting"
+    t.integer  "season"
+    t.integer  "farmer_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "nerica_rice_inputs", ["farmer_id"], name: "index_nerica_rice_inputs_on_farmer_id", using: :btree
 
   create_table "nerica_rice_reports", force: :cascade do |t|
     t.float    "kg_of_seed_planted"
@@ -293,6 +357,21 @@ ActiveRecord::Schema.define(version: 20190511101857) do
 
   add_index "old_loans", ["farmer_id"], name: "index_old_loans_on_farmer_id", using: :btree
 
+  create_table "pigeon_peas_inputs", force: :cascade do |t|
+    t.integer  "kg_of_seed"
+    t.integer  "bags_of_dap_fertilizer"
+    t.integer  "bags_of_npk_fertilizer"
+    t.integer  "bags_of_can_fertilizer"
+    t.string   "agro_chem"
+    t.integer  "acres_planting"
+    t.integer  "season"
+    t.integer  "farmer_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "pigeon_peas_inputs", ["farmer_id"], name: "index_pigeon_peas_inputs_on_farmer_id", using: :btree
+
   create_table "pigeon_peas_reports", force: :cascade do |t|
     t.float    "kg_of_seed_planted"
     t.float    "acres_planted"
@@ -315,6 +394,21 @@ ActiveRecord::Schema.define(version: 20190511101857) do
   add_index "pigeon_peas_reports", ["harvest_report_id"], name: "index_pigeon_peas_reports_on_harvest_report_id", using: :btree
   add_index "pigeon_peas_reports", ["pigeon_peas_reports_id"], name: "index_pigeon_peas_reports_on_pigeon_peas_reports_id", using: :btree
   add_index "pigeon_peas_reports", ["season"], name: "index_pigeon_peas_reports_on_season", using: :btree
+
+  create_table "rice_inputs", force: :cascade do |t|
+    t.integer  "kg_of_seed"
+    t.integer  "bags_of_dap_fertilizer"
+    t.integer  "bags_of_npk_fertilizer"
+    t.integer  "bags_of_can_fertilizer"
+    t.string   "agro_chem"
+    t.integer  "acres_planting"
+    t.integer  "season"
+    t.integer  "farmer_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "rice_inputs", ["farmer_id"], name: "index_rice_inputs_on_farmer_id", using: :btree
 
   create_table "rice_reports", force: :cascade do |t|
     t.float    "acres_planted"
@@ -363,6 +457,21 @@ ActiveRecord::Schema.define(version: 20190511101857) do
 
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
+
+  create_table "soya_beans_inputs", force: :cascade do |t|
+    t.integer  "kg_of_seed"
+    t.integer  "bags_of_dap_fertilizer"
+    t.integer  "bags_of_npk_fertilizer"
+    t.integer  "bags_of_can_fertilizer"
+    t.string   "agro_chem"
+    t.integer  "acres_planting"
+    t.integer  "season"
+    t.integer  "farmer_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "soya_beans_inputs", ["farmer_id"], name: "index_soya_beans_inputs_on_farmer_id", using: :btree
 
   create_table "soya_beans_reports", force: :cascade do |t|
     t.float    "kg_of_seed_planted"
