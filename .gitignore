@@ -47,3 +47,4 @@ bower.json
 # ignore development environment keys
 /config/initializers/dev_env.rb
 config/database.yml\nconfig/secrets.yml
+config/database.yml\nconfig/secrets.yml
