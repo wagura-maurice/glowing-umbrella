@@ -95,4 +95,14 @@ gem 'haml-rails'
 gem 'rails-api'
 gem 'active_model_serializers', '~> 0.10.0'
 
+group :development do
+	gem 'capistrano', '~> 3.0'
+	gem 'capistrano-rails', '~> 1.2'
+	gem 'capistrano-passenger', '~> 0.2.0'
 
+	# Add this if you're using rbenv
+	# gem 'capistrano-rbenv', '~> 2.1'
+
+	# Add this if you're using rvm
+	gem 'capistrano-rvm', github: "capistrano/rvm"
+end
