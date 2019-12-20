@@ -202,7 +202,7 @@ GEM
       phony (> 2.15)
     public_suffix (3.0.0)
     puma (3.10.0)
-    rack (1.6.10)
+    rack (1.6.12)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
