@@ -68,7 +68,7 @@ gem 'newrelic_rpm'
 gem 'rails_12factor', group: :production # Required for Heroku
 gem 'dalli'
 gem 'memcachier'
-gem 'em-http-request', '~> 1.1.5'
+gem 'em-http-request', '~> 1.1.7'
 gem 'httparty'
 gem 'puma'
 gem 'connection_pool' # So that memcached can have a pool
