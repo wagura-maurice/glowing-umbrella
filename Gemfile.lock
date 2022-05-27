@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/capistrano/rvm.git
+  remote: https://github.com/capistrano/rvm.git
   revision: 9cfef39cf0022839dca6b5b330dfefeb5fc363e7
   specs:
     capistrano-rvm (0.1.2)
@@ -202,7 +202,7 @@ GEM
       phony (> 2.15)
     public_suffix (3.0.0)
     puma (3.10.0)
-    rack (1.6.10)
+    rack (1.6.13)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
