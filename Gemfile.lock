@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/capistrano/rvm.git
+  remote: https://github.com/capistrano/rvm.git
   revision: 9cfef39cf0022839dca6b5b330dfefeb5fc363e7
   specs:
     capistrano-rvm (0.1.2)
@@ -152,7 +152,7 @@ GEM
     httparty (0.15.6)
       multi_xml (>= 0.5.2)
     i18n (0.8.6)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     jquery-datatables-rails (3.4.0)
       actionpack (>= 3.1)
       jquery-rails
